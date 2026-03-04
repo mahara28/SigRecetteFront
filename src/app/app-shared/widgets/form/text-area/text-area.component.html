@@ -2,7 +2,7 @@
     <mat-label> {{ label|translate}}</mat-label>
 
     <textarea style="color: black;"
-              [st2iOnlyNumber]="number"
+              [MCOnlyNumber]="number"
               [formControl]="control"
               [type]="type"
               [value]="value"
@@ -11,7 +11,7 @@
               [rows]="rows"
               [disabled]="disabled"
               [matTooltipDisabled]="!hasTooltip"
-              [matTooltip]="control.value!=undefined?control.value:(label + (required(control)?' * ':'')|translate)"
+              [matTooltip]="control!.value!=undefined?control!.value:(label + (required(control!)?' * ':'')|translate)"
               (change)="onChange.emit($event)"
     ></textarea>
 

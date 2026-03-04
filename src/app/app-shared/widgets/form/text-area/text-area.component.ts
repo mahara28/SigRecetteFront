@@ -1,20 +1,21 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatFormFieldAppearance} from '@angular/material/form-field';
-import {AbstractControl, UntypedFormControl} from '@angular/forms';
+import {AbstractControl, FormControl, UntypedFormControl} from '@angular/forms';
 import { hasrequiredField } from '../../../tools/utils';
 
 
 
 @Component({
     selector: 'app-text-area',
-    standalone:false,
     templateUrl: './text-area.component.html',
+    standalone:false,
     styleUrls: ['./text-area.component.css']
 })
 export class TextAreaComponent implements OnInit {
     @Input() appearance: MatFormFieldAppearance = 'outline';
     @Input() type = 'text';
-    @Input() control!: UntypedFormControl | AbstractControl | null;
+    //@Input() control!: UntypedFormControl | AbstractControl | null;
+    @Input({ required: true }) control!: FormControl;
     @Input() label = '';
     @Input() value = '';
     @Input() disabled = false;
