@@ -1,0 +1,31 @@
+<!-- spinner.component.html -->
+<div class="spinner__container spinner-wrapper"
+     [ngStyle]="{'background-color': spinnerConfig?.mode !== 'determinate' ? 'rgba(22, 128, 179, 0.3)' : null}">
+
+  <div class="spinner-content">
+    <!-- Cas 1: Avec message personnalisé -->
+    <ng-container *ngIf="spinnerConfig?.msg; else defaultSpinner">
+      <mat-progress-spinner
+        [color]="color"
+        [mode]="spinnerConfig?.mode || 'indeterminate'"
+        [value]="spinnerConfig?.value || 0"
+        [diameter]="spinnerConfig?.diametre || 50">
+      </mat-progress-spinner>
+
+      <div class="spinner-msg" *ngIf="spinnerConfig?.msg">
+        {{ spinnerConfig.msg }}
+      </div>
+    </ng-container>
+
+    <!-- Cas 2: Spinner par défaut -->
+    <ng-template #defaultSpinner>
+      <mat-progress-spinner
+        *ngIf="spinnerConfig?.withSpinner !== false"
+        [color]="color"
+        [mode]="spinnerConfig?.mode || 'indeterminate'"
+        [value]="spinnerConfig?.value || 0"
+        [diameter]="spinnerConfig?.diametre || 50">
+      </mat-progress-spinner>
+    </ng-template>
+  </div>
+</div>

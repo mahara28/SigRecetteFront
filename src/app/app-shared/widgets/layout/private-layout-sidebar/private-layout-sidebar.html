@@ -1,0 +1,70 @@
+<nav class="nxl-navigation">
+  <div class="navbar-wrapper">
+
+    <!-- LOGO -->
+    <div class="m-header">
+      <a routerLink="/" class="b-brand">
+        <img src="assets/images/logo-full.png" class="logo logo-lg" />
+        <img src="assets/images/logo-abbr.png" class="logo logo-sm" />
+      </a>
+    </div>
+
+    <!-- MENU -->
+    <div class="navbar-content">
+      <ul class="nxl-navbar">
+
+        <li class="nxl-item nxl-caption">
+          <label>Navigation</label>
+        </li>
+
+        <ng-container *ngFor="let menu of menus">
+
+          <!-- Lien simple -->
+          <li *ngIf="!menu.children?.length" class="nxl-item">
+            <a class="nxl-link"
+               [routerLink]="menu.route"
+               routerLinkActive="active">
+              <span class="nxl-micon">
+                <i [attr.data-feather]="menu.icon"></i>
+              </span>
+              <span class="nxl-mtext">{{ menu.title }}</span>
+            </a>
+          </li>
+
+          <!-- Menu avec sous-menu -->
+          <li *ngIf="menu.children?.length"
+              class="nxl-item nxl-hasmenu"
+              [class.active]="isExpanded(menu.id)">
+
+            <a class="nxl-link"
+               (click)="toggle(menu.id)">
+              <span class="nxl-micon">
+               <i [attr.data-feather]="menu.icon"></i>
+              </span>
+              <span class="nxl-mtext">{{ menu.title }}</span>
+              <span class="nxl-arrow">
+                <i class="feather-chevron-right"></i>
+              </span>
+            </a>
+
+            <ul class="nxl-submenu"
+                *ngIf="isExpanded(menu.id)">
+              <li *ngFor="let child of menu.children"
+                  class="nxl-item">
+                <a class="nxl-link"
+                   [routerLink]="child.route"
+                   routerLinkActive="active">
+                  {{ child.title }}
+                </a>
+              </li>
+            </ul>
+
+          </li>
+
+        </ng-container>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>

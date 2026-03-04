@@ -1,0 +1,100 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "cli": {
+    "packageManager": "npm",
+    "analytics": "1667304e-37dd-4b54-8ce1-ac0fda0931ba"
+  },
+  "newProjectRoot": "projects",
+  "projects": {
+    "sigFront": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "externalDependencies": [
+  "../fonts/feather.svg",
+  "../images/flags.png"
+],
+            "browser": "src/main.ts",
+            "tsConfig": "tsconfig.app.json",
+          "assets": [
+  "src/favicon.ico",
+  "src/assets"
+],
+            "styles": [
+             "src/assets/css/bootstrap.min.css",
+             "src/assets/vendors/css/vendors.min.css",
+  "src/assets/vendors/css/daterangepicker.min.css",
+  "src/assets/css/theme.min.css",
+  "src/styles.css"
+            ],
+            "scripts": [
+               "src/assets/vendors/js/vendors.min.js",
+  "src/assets/vendors/js/daterangepicker.min.js",
+  "src/assets/vendors/js/apexcharts.min.js",
+  "src/assets/vendors/js/circle-progress.min.js",
+  "src/assets/js/common-init.min.js",
+  "src/assets/js/dashboard-init.min.js",
+  "node_modules/feather-icons/dist/feather.min.js",
+  "src/assets/js/theme-customizer-init.min.js"
+            ],
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "security": {
+              "allowedHosts": []
+            },
+            "ssr": {
+              "entry": "src/server.ts"
+            }
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "outputHashing": "media",
+              "optimization": false,
+              "extractLicenses": false,
+
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "sigFront:build:production"
+            },
+            "development": {
+              "buildTarget": "sigFront:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
+  }
+}
