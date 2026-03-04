@@ -71,6 +71,7 @@ export class AuthLogin {
 
   authentificate() {
     this.form.markAllAsTouched();
+    console.log("form: " + this.form.value)
     if (this.form.valid) {
       const payload = this.form.value;
 

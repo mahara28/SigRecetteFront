@@ -1,0 +1,22 @@
+<!--style="overflow: hidden"-->
+<div
+        *ngIf="isLoading"
+        fxLayout
+        fxLayoutAlign="center center"
+        class="wrapper"
+        [ngStyle]="{'background':wrapperBackground}">
+    <div>
+        <ng-template [ngIf]="msg" [ngIfThen]="withMsgTemp" [ngIfElse]="defaultTemp"></ng-template>
+        <ng-template #defaultTemp>
+            <mat-spinner *ngIf="!withoutSpinner" [diameter]="diametre"></mat-spinner>
+        </ng-template>
+        <ng-template #withMsgTemp>
+            <mat-spinner [color]="color" [mode]="mode" [value]="value"></mat-spinner>
+            <div style="position: relative; top: -4.375rem; left: 1.375rem; font-size: 1.6rem" class="font-weight-bold">
+                <span>{{msg}}</span></div>
+        </ng-template>
+    </div>
+</div>
+<div *ngIf="!isLoading">
+    <ng-content></ng-content>
+</div>
