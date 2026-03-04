@@ -60,6 +60,17 @@ export class ConfirmDialogService {
     return dialogRef.afterClosed();
   }
 
+  confirmLogin(title?: string, description?: string): Observable<any> {
+    const dialogRef2 = this.dialog.open(ConfirmDialogLogout, {
+      data: { title, description },
+    });
+    return dialogRef2.afterClosed();
+  }
+
+  close() {
+    this.dialog.closeAll();
+  }
+  
   /**
    * Ouvre une boîte de dialogue de déconnexion
    */

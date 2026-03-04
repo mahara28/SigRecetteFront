@@ -7,10 +7,10 @@ export const PublicRoutes: Routes = [
     pathMatch: 'full'
   },
 
- {
- /*  path: 'authentification',
-    loadChildren: () => import('@publicLayout/features/authentification/authentification.module').then((m) => m.AuthentificationModule)
- */
+  {
+    path: 'authentification',
+    loadChildren: () => import('./pages/authentification/authentification-module').then((m) => m.AuthentificationModule)
+
   }
 
 

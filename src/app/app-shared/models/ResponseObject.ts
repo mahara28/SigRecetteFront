@@ -1,7 +1,7 @@
 export class ResponsePayload {
-  total: number;
-  data: any[];
-  isLoading: boolean;
+  total!: number;
+  data!: any[];
+  isLoading!: boolean;
   constructor() {
 
   }

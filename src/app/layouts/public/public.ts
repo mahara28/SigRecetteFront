@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-public',
-  imports: [],
+  standalone: false,
   templateUrl: './public.html',
   styleUrl: './public.css',
 })

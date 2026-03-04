@@ -13,36 +13,37 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": { "sourceLocale": { "code": "fr", "subPath": "" } },
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
             "externalDependencies": [
-  "../fonts/feather.svg",
-  "../images/flags.png"
-],
+              "../fonts/feather.svg",
+              "../images/flags.png"
+            ],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-          "assets": [
-  "src/favicon.ico",
-  "src/assets"
-],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
             "styles": [
-             "src/assets/css/bootstrap.min.css",
-             "src/assets/vendors/css/vendors.min.css",
-  "src/assets/vendors/css/daterangepicker.min.css",
-  "src/assets/css/theme.min.css",
-  "src/styles.css"
+              "src/assets/css/bootstrap.min.css",
+              "src/assets/vendors/css/vendors.min.css",
+              "src/assets/vendors/css/daterangepicker.min.css",
+              "src/assets/css/theme.min.css",
+              "src/styles.css"
             ],
             "scripts": [
-               "src/assets/vendors/js/vendors.min.js",
-  "src/assets/vendors/js/daterangepicker.min.js",
-  "src/assets/vendors/js/apexcharts.min.js",
-  "src/assets/vendors/js/circle-progress.min.js",
-  "src/assets/js/common-init.min.js",
-  "src/assets/js/dashboard-init.min.js",
-  "node_modules/feather-icons/dist/feather.min.js",
-  "src/assets/js/theme-customizer-init.min.js"
+              "src/assets/vendors/js/vendors.min.js",
+              "src/assets/vendors/js/daterangepicker.min.js",
+              "src/assets/vendors/js/apexcharts.min.js",
+              "src/assets/vendors/js/circle-progress.min.js",
+              "src/assets/js/common-init.min.js",
+              "src/assets/js/dashboard-init.min.js",
+              "node_modules/feather-icons/dist/feather.min.js",
+              "src/assets/js/theme-customizer-init.min.js"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -73,7 +74,6 @@
               "outputHashing": "media",
               "optimization": false,
               "extractLicenses": false,
-
               "sourceMap": true
             }
           },

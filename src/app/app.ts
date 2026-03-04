@@ -1,24 +1,35 @@
-import { AfterViewInit, Component, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { APP_MENU } from './app-shared/tools/menu.config';
-import { PrivateLayoutSidebar } from "./app-shared/widgets/layout/private-layout-sidebar/private-layout-sidebar";
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
-import { Private } from "./layouts/private/private";
+import { LayoutsModule } from './layouts/layouts-module';
+import { DIRECTION } from './app-shared/constantes/Constantes';
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgApexchartsModule, PrivateLayoutSidebar,
-    TranslateModule, Private],
+  imports: [RouterOutlet, NgApexchartsModule, LayoutsModule,
+    TranslateModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App   {
+export class App {
   protected readonly title = signal('sigFront');
-   menus = APP_MENU;
+  protected readonly DIRECTION = DIRECTION;
 
+  constructor(
+    //public configService: ConfigService,
+    //private appTranslateService: AppTranslateService,
+    //private idleService: IdleService 
+  ) {
+  }
 
+  //protected readonly AppTranslateService = AppTranslateService;
+  menus = APP_MENU;
+
+  /* ngOnInit(): void {
+    this.configService.initialize();
+    this.appTranslateService.useLanguage();
+  } */
 }

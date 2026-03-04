@@ -1,6 +1,6 @@
+import { CriteriaSearch } from './CriteriaSearch';
 import {Pagination} from './Pagination';
 import {Sort} from './Sort';
-import {CriteriaSearch} from './CriteriaSearch';
 
 export class SearchObject {
 	pagination?: Pagination;

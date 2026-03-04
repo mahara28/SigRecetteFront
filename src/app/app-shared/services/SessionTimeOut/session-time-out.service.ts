@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { environment } from '../../../../environements/environement';
 import { ConfirmDialogService } from '../confirm-dialog.service.ts/confirm-dialog.service';
-import { AuthentificationService } from '../../../layouts/public/services/auth/authentification.service';
+import { AuthentificationService } from '../../../layouts/public/shared/services/authentification/authentification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -132,7 +132,7 @@ export class SessionTimeOutService implements OnDestroy {
     this.confirmDialogService.confirmLogin('', 'confirm_log_out')
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (confirmed) => {
+        next: (confirmed:any) => {
           if (confirmed) {
             this.logout();
           } else {
