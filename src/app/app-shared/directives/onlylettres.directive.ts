@@ -1,19 +1,19 @@
 import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 
 @Directive({
-    selector: '[MCOnlylettre]',
+    selector: '[MCOnlyNumber]',
 })
 export class NumbersOnlyInputDirective {
     private readonly regEx = new RegExp("^[0-9]*(\.[0-9]{0,1})?$");
 
     constructor(private el: ElementRef) {}
 
-    @Input() st2iOnlyNumber: boolean = true;
+    @Input() MCOnlyNumber: boolean = true;
     @Input() maxlength: number = 20;
 
 
     @HostListener("input", ["$event"]) onInputChange(event : any) {
-        if (this.st2iOnlyNumber) {
+        if (this.MCOnlyNumber) {
             const initialValue = this.el.nativeElement.value;
 
             // Replace all characters except digits and a single dot

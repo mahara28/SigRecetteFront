@@ -15,6 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTreeModule } from "@angular/material/tree";
 import { MatMenuModule } from "@angular/material/menu";
+import { EnableOnlyArabicDirective } from "./directives/enableOnlyArabic.directive";
+import { NumbersOnlyInputDirective } from './directives/onlylettres.directive';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -36,7 +38,8 @@ import { MatMenuModule } from "@angular/material/menu";
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-
-  ]
+    EnableOnlyArabicDirective,
+    NumbersOnlyInputDirective,
+]
 })
 export class AppSharedModule { }
