@@ -1,7 +1,7 @@
 import {Directive, ElementRef} from '@angular/core';
 
 @Directive({
-    selector: '[MCBlock]',
+    selector: '[mcBlock]',
 })
 export class BlockDirective {
     constructor(el: ElementRef) {

@@ -3,7 +3,7 @@ import {debounceTime} from 'rxjs/operators';
 import {Subject, Subscription} from 'rxjs';
 
 @Directive({
-    selector: '[MCDebounceClick]',
+    selector: '[mcDebounceClick]',
 })
 export class DebounceClickDirective implements OnInit, OnDestroy {
     @Input()
@@ -13,7 +13,7 @@ export class DebounceClickDirective implements OnInit, OnDestroy {
     debounceClick = new EventEmitter();
 
     private clicks = new Subject();
-    private subscription: Subscription;
+    private subscription!: Subscription;
 
     constructor() {
     }

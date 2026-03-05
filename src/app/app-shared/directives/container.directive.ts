@@ -2,7 +2,7 @@ import {Directive, ElementRef, Input} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 @Directive({
-    selector: '[MCContainer]',
+    selector: '[mcContainer]',
 })
 export class ContainerDirective {
     @Input() active!: boolean;

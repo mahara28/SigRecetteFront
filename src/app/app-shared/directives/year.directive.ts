@@ -14,7 +14,7 @@ export const FORMAT = {
 };
 
 @Directive({
-  selector: '[MCYearFormat]',
+  selector: '[mcYearFormat]',
   providers: [{ provide: MAT_DATE_FORMATS, useValue: FORMAT }],
 })
 export class YearFormatDirective {}

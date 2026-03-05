@@ -1,18 +1,18 @@
 import {Directive, ElementRef, HostListener, Input} from "@angular/core";
 
 @Directive({
-  selector: "[MCOnlyNumber]",
+  selector: "[mcOnlyNumber]",
 })
 export class OnlyNumber {
   private readonly regEx = new RegExp("^[0-9,.]*$");
 
   constructor(private el: ElementRef) {}
 
-  @Input() MCOnlyNumber: boolean = true;
+  @Input() mcOnlyNumber: boolean = true;
   @Input() maxlength: number = 20;
 
   @HostListener("input", ["$event"]) onInputChange(event:any) {
-    if (this.MCOnlyNumber) {
+    if (this.mcOnlyNumber) {
       const initalValue = this.el.nativeElement.value;
 
       this.el.nativeElement.value = initalValue
@@ -27,7 +27,7 @@ export class OnlyNumber {
 
   @HostListener("keydown", ["$event"]) onKeyDown(event:any) {
     let e = <KeyboardEvent>event;
-    if (this.MCOnlyNumber) {
+    if (this.mcOnlyNumber) {
       if (
         [46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
         (e.keyCode == 65 && e.ctrlKey === true) ||
@@ -44,7 +44,7 @@ export class OnlyNumber {
   }
 
   @HostListener("paste", ["$event"]) onPaste(e:any) {
-    if (this.MCOnlyNumber) {
+    if (this.mcOnlyNumber) {
       let pastedText = e.clipboardData.getData("text/plain");
       if (pastedText) {
         if (!this.isValid(pastedText)) {

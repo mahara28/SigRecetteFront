@@ -72,7 +72,7 @@ import { DebounceClickDirective } from './directives/click.directive';
     SwiperCpaDirective,
     YearFormatDirective,
     DebounceClickDirective
-    
+
 ]
 })
 export class AppSharedModule { }

@@ -10,14 +10,15 @@ import {
   ViewEncapsulation,
 } from "@angular/core";
 import { UntypedFormControl } from "@angular/forms";
-import { MatFormFieldAppearance } from "@angular/material/form-field";
+import { MatFormFieldAppearance, MatFormField, MatLabel } from "@angular/material/form-field";
 import { AppTranslateService } from "../../../services/translate/translate.service";
 import { hasrequiredField, isEmptyValue } from "../../../tools/utils";
+import { EnableOnlyArabicDirective } from "../../../directives";
 
 @Component({
   selector: "app-text-field",
   templateUrl: "./text-field.component.html",
-  standalone:false,
+  standalone: false,
   styleUrls: ["./text-field.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
@@ -26,6 +27,7 @@ export class TextFieldComponent implements OnInit, OnChanges {
   listFilteredOptions = [];
   required = hasrequiredField;
   isEmptyValue = isEmptyValue;
+
 
   @ViewChild("select") select: any;
 
@@ -147,7 +149,7 @@ export class TextFieldComponent implements OnInit, OnChanges {
         return value
         .toLowerCase()
         .includes(this.typedValue.toString().toLowerCase());
-        
+
       });
     }
   }
@@ -306,7 +308,7 @@ export class TextFieldComponent implements OnInit, OnChanges {
         : `القيمة طويلة جدًا (الحد الأقصى ${this.max} أحرف)`;
     }
 
-    
+
 
 
     // email

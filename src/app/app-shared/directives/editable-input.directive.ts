@@ -1,10 +1,10 @@
 import {Directive, ElementRef, Input} from '@angular/core';
 
 @Directive({
-    selector: '[MCEditableInput]',
+    selector: '[mcEditableInput]',
 })
 export class EditableInputDirective {
-    @Input('appEditableInput') isEditMode: boolean;
+    @Input('appEditableInput') isEditMode!: boolean;
 
     constructor(private el: ElementRef) {
     }

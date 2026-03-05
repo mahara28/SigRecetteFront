@@ -1,7 +1,7 @@
 import {Directive, ElementRef} from "@angular/core";
 
 @Directive({
-  selector: "[MCScreen]",
+  selector: "[mcScreen]",
 })
 export class ScreenDirective {
   constructor(el: ElementRef) {

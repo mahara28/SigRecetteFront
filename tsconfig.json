@@ -14,7 +14,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "strictPropertyInitialization": false
+    //"strictPropertyInitialization": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
