@@ -1,13 +1,17 @@
 <div class="profile-header">
-    <div
-           ></div>
-   <!--  <img [ngStyle.lt-md]="{ width: '23vw' }" [src]="avatar" class="picture"/>
-    <div [ngStyle.lt-md]="{ right: '30vw' }" class="profile-header-content">
-     -->    <div>
-            <div class="full-name pr-clr">{{ firstName }} {{ lastName }}</div>
+    <div class="cover" [ngStyle]="coverStyle()"></div>
+
+    <img [src]="avatar()" 
+         class="picture responsive-picture" 
+         [alt]="fullName()"/>
+
+    <div class="profile-header-content responsive-content">
+        <div>
+            <div class="full-name pr-clr">{{ fullName() }}</div>
+            
             <div class="action-bar">
                 <ng-content select="[action-bar]"></ng-content>
             </div>
-       <!--  </div>
-    </div> -->
+        </div>
+    </div>
 </div>
