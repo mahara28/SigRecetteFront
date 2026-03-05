@@ -8,12 +8,12 @@ export class NumbersOnlyInputDirective {
 
     constructor(private el: ElementRef) {}
 
-    @Input() st2iOnlyNumber: boolean = true;
+    @Input() MCOnlylettre: boolean = true;
     @Input() maxlength: number = 20;
 
 
     @HostListener("input", ["$event"]) onInputChange(event : any) {
-        if (this.st2iOnlyNumber) {
+        if (this.MCOnlylettre) {
             const initialValue = this.el.nativeElement.value;
 
             // Replace all characters except digits and a single dot

@@ -1,0 +1,18 @@
+::ng-deep .mat-tooltip {
+    color: #0a4d6c !important;
+    background-color: white !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    border: 2px solid #0a4d6c !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    text-align: center !important;
+    max-width: unset !important;
+    white-space: pre-wrap !important;
+    margin: 0!important;
+    margin-bottom: 3px !important;
+}
+
+
+

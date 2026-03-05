@@ -4,7 +4,7 @@ import {Directive, ElementRef, HostListener, Input} from '@angular/core';
     selector: '[MCEnableOnlyArabic]',
 })
 export class EnableOnlyArabicDirective {
-    @Input() st2iEnableOnlyArabic = true;
+    @Input() MCEnableOnlyArabic = true;
 
     constructor(private elRef: ElementRef) {
     }
@@ -14,7 +14,7 @@ export class EnableOnlyArabicDirective {
     @HostListener('keypress', ['$event'])
     onKeyress(event: any) {
 
-        if (this.st2iEnableOnlyArabic) {
+        if (this.MCEnableOnlyArabic) {
             return new RegExp(this.regex).test(event.key);
         }
     }

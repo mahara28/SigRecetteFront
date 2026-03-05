@@ -9,8 +9,7 @@ import { Loading } from '../../services/loading/loading';
 
 @Component({
   selector: 'app-spinner',
-  standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule],
+  standalone: false,
   templateUrl: './spinner.html',
   styleUrls: ['./spinner.css']
 })
