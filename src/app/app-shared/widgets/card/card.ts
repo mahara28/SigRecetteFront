@@ -1,127 +1,106 @@
-import { Component } from '@angular/core';
-
+import { Component, input, computed, OnInit, inject, output, Output, viewChild, ElementRef } from '@angular/core';
+import { CommonModule, NgStyle, UpperCasePipe } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { isEmptyValue } from '../../tools';
+import { toSignal } from "@angular/core/rxjs-interop";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { map } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatCardModule } from "@angular/material/card";
 @Component({
-  selector: 'mc-card',
-  imports: [],
+  selector: 'app-card',
+ imports: [
+    CommonModule, ReactiveFormsModule, MatCardModule,
+    MatIconModule, MatTooltipModule, TranslateModule
+  ],
   templateUrl: './card.html',
   styleUrl: './card.css',
 })
-export class Card implements OnInit, OnChanges{
+export class Card implements OnInit {
+  private fb = inject(FormBuilder);
+  private breakpointObserver = inject(BreakpointObserver);
 
-  @Input() metadata: any;
-  @Output() onSaveClicked = new EventEmitter<any>();
-  @Output() onAddClicked = new EventEmitter<any>();
-  @Output() onShowlicked = new EventEmitter<any>();
-  @Output() onBlockclicked = new EventEmitter<any>();
-  @Output() onReplacelicked = new EventEmitter<any>();
-  @Output() onDeleteAllClicked = new EventEmitter<any>();
-  @Output() onImportClicked = new EventEmitter<any>();
-  @Output() onFilterKeyUp = new EventEmitter<any>();
-  @Output() onGenerateFile = new EventEmitter<any>();
+  // Signal Inputs (Angular 21)
+  metadataInput = input.required<any>({ alias: 'metadata' });
 
-  @ViewChild("fileUpload") fileUpload!: ElementRef;
-  params: object = {};
-constructor(
-    private formBuilder: UntypedFormBuilder,
-    private breakpointObserver: BreakpointObserver
-  ) {}
+  // Outputs (Nouvelle syntaxe output)
+  onSaveClicked = output<void>();
+  onAddClicked = output<void>();
+  onShowClicked = output<void>();
+  onBlockClicked = output<void>();
+  onReplaceClicked = output<void>();
+  onDeleteAllClicked = output<void>();
+  onImportClicked = output<FileList>();
+  onFilterKeyUp = output<any>();
+  onGenerateFile = output<any>();
 
-  ngOnInit(): void {
-    this.loadMetadata(this.metadata);
-    this.initParams();
-  }
+  fileUpload = viewChild<ElementRef<HTMLInputElement>>("fileUpload");
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (isInputChanged(changes, "metadata")) {
-      this.loadMetadata(changes.metadata.currentValue);
-    }
-  }
+  // Signal pour détecter le mobile (remplace le subscribe manuel)
+  isSmallScreen = toSignal(
+    this.breakpointObserver.observe([Breakpoints.Handset]).pipe(map(res => res.matches))
+  );
 
-   get hasHeader(): boolean {
-    return (
-      !isEmptyValue(this.metadata.title) ||
-      this.metadata.hasAdd ||
-      this.metadata.hasCheckAll ||
-      this.metadata.hasFilter ||
-      this.metadata.hasExport
-    );
-  }
-
-  initParams() {
-    if (this.metadata.hasFilter) {
-      this.params["formRapidSearch"] = <UntypedFormGroup>this.formBuilder.group({
-        typedValue: this.formBuilder.control(""),
-      });
-      this.breakpointObserver.observe(["(max-width: 767px)"]).subscribe((result) => {
-        this.params["isSmallScreen"] = result.matches;
-      });
-    }
-  }
-
-  loadMetadata(metadata) {
-    this.metadata = {
-      title: metadata?.title,
+  // Metadata formatée via un Signal calculé (très performant)
+  metadata = computed(() => {
+    const m = this.metadataInput();
+    return {
+      title: m?.title,
       styleList: {
-        card: metadata?.styleList?.card ?? {},
-        cardContent: metadata?.styleList?.cardContent ?? {},
+        card: m?.styleList?.card ?? {},
+        cardContent: m?.styleList?.cardContent ?? {},
       },
       classList: {
-        card: metadata?.classList?.card ?? "mb-3",
-        cardContent: metadata?.classList?.cardContent ?? "py-3 px-4 overflow-hidden",
+        card: m?.classList?.card ?? "mb-3",
+        cardContent: m?.classList?.cardContent ?? "py-3 px-4",
       },
-      headerClass: {
-        card: metadata?.headerClass?.card ?? "",
-      },
-
       cardTooltips: {
-        add:  metadata?.cardTooltips?.add ?? "general.icons.tooltip.add",
-        delete:  metadata?.cardTooltips?.delete ?? "general.icons.tooltip.delete_item",
-        show:  metadata?.cardTooltips?.show ?? "general.icons.tooltip.show",
-        validate:  metadata?.cardTooltips?.validate ?? "general.icons.tooltip.validate",
-        block:  metadata?.cardTooltips?.block ?? "general.icons.tooltip.block",
-        replace:  metadata?.cardTooltips?.replace ?? "general.icons.tooltip.replace",
-        import:  metadata?.cardTooltips?.import ?? "general.import",
+        add: m?.cardTooltips?.add ?? "general.icons.tooltip.add",
+        delete: m?.cardTooltips?.delete ?? "general.icons.tooltip.delete_item",
+        show: m?.cardTooltips?.show ?? "general.icons.tooltip.show",
+        validate: m?.cardTooltips?.validate ?? "general.icons.tooltip.validate",
+        block: m?.cardTooltips?.block ?? "general.icons.tooltip.block",
+        replace: m?.cardTooltips?.replace ?? "general.icons.tooltip.replace",
+        import: m?.cardTooltips?.import ?? "general.import",
       },
-      isMultiple: metadata?.isMultiple ?? false,
-      uploadType: metadata?.uploadType ?? ".csv, .xlsx",
-      hasAdd: metadata?.hasAdd ?? false,
-      hasDelete: metadata?.hasDelete ?? false,
-      hasCheckAll: metadata?.hasCheckAll ?? false,
-      hasExport: metadata?.hasExport ?? false,
-      hasImport: metadata?.hasImport ?? false,
-      hasShow: metadata?.hasShow ?? false,
-      hasreplace:metadata?.hasreplace?? false,
-      hasblock: metadata?.hasblock ?? false,
-      hasFilter: metadata?.hasFilter ?? false,
-      hasSave: metadata?.hasSave??false
+      hasAdd: m?.hasAdd ?? false,
+      hasDelete: m?.hasDelete ?? false,
+      hasFilter: m?.hasFilter ?? false,
+      hasExport: m?.hasExport ?? false,
+      hasImport: m?.hasImport ?? false,
+      hasShow: m?.hasShow ?? false,
+      hasReplace: m?.hasreplace ?? false,
+      hasBlock: m?.hasblock ?? false,
+      hasSave: m?.hasSave ?? false,
+      uploadType: m?.uploadType ?? ".csv, .xlsx",
+      isMultiple: m?.isMultiple ?? false
     };
-  }
+  });
+
+  // Calcul du header via Signal
+  hasHeader = computed(() => {
+    const m = this.metadata();
+    return !isEmptyValue(m.title) || m.hasAdd || m.hasFilter || m.hasExport;
+  });
+
+  formRapidSearch: FormGroup = this.fb.group({
+    typedValue: ['']
+  });
+
+  ngOnInit(): void {}
 
   clear() {
-    (<UntypedFormControl>this.params["formRapidSearch"].get("typedValue")).setValue(null);
+    this.formRapidSearch.get('typedValue')?.setValue(null);
     this.onFilterKeyUp.emit(null);
   }
 
-  onImportClickedfn(event) {
-
-    this.onImportClicked.emit(this.fileUpload.nativeElement.files);
-    // Clear the file input after processing the file
-    (event.target as HTMLInputElement).value = "";
-
+  onImportClickedfn(event: Event) {
+    const files = this.fileUpload()?.nativeElement.files;
+    if (files) {
+      this.onImportClicked.emit(files);
+      (event.target as HTMLInputElement).value = "";
+    }
   }
-  onShowClickedfn() {
-
-     this.onShowlicked.emit();
-  }
-
-  onReplaceClickedfn(){
-      this.onReplacelicked.emit();
-  }
-  onblockClickedfn(){
-    this.onBlockclicked.emit();
-
-  }
-
-  protected readonly Object = Object;
-  protected readonly isEmptyValue = isEmptyValue;
 }
