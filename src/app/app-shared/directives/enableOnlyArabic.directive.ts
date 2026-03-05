@@ -1,23 +1,30 @@
 import {Directive, ElementRef, HostListener, Input} from '@angular/core';
 
 @Directive({
-    selector: '[MCEnableOnlyArabic]',
+    selector: '[mcEnableOnlyArabic]',
 })
 export class EnableOnlyArabicDirective {
-    @Input() MCEnableOnlyArabic = true;
+     @Input() mcEnableOnlyArabic: boolean = true;
 
-    constructor(private elRef: ElementRef) {
-    }
+    // Regex pour les caractères arabes, chiffres et espaces
+    private readonly arabicRegex = /^[\u0621-\u064A0-9 ]+$/;
 
-    regex = '^[\u0621-\u064A0-9 ]+$';
+    constructor(private elRef: ElementRef) {}
 
     @HostListener('keypress', ['$event'])
-    onKeyress(event: any) {
+     onKeypress(event: KeyboardEvent): boolean {
 
-        if (this.MCEnableOnlyArabic) {
-            return new RegExp(this.regex).test(event.key);
+          if (!this.mcEnableOnlyArabic) {
+            return true; // Autoriser tous les caractères
         }
-    }
 
+        const isArabic = this.arabicRegex.test(event.key);
+
+        if (!isArabic) {
+            event.preventDefault(); // Empêcher la saisie
+        }
+
+        return isArabic;
+    }
 
 }

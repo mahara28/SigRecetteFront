@@ -14,7 +14,8 @@ import { Loading } from '../../services/loading/loading';
   styleUrls: ['./spinner.css']
 })
 export class Spinner implements OnInit {
-  spinnerConfig!: SpinnerConfig;
+
+  spinnerConfig: SpinnerConfig | null | undefined;
   color: ThemePalette = 'primary';
 
   constructor(

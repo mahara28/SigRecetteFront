@@ -3,7 +3,7 @@ import {fromEvent, of, Subject} from 'rxjs';
 import {map, switchMap, takeUntil} from 'rxjs/operators';
 
 @Directive({
-    selector: '[MCDrag]',
+    selector: '[mcDrag]',
 })
 export class JpDraggableDialogDirective implements OnInit, OnDestroy {
     // Element to be dragged
@@ -13,7 +13,7 @@ export class JpDraggableDialogDirective implements OnInit, OnDestroy {
     private _container!: HTMLElement;
 
     // Drag handle
-    private _handle: HTMLElement;
+    private _handle!: HTMLElement;
     private _delta = {x: 0, y: 0};
     private _offset = {x: 0, y: 0};
 

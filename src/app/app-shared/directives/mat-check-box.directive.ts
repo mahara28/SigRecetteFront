@@ -6,7 +6,7 @@ import {MatCheckbox} from "@angular/material/checkbox";
   exportAs: "checkboxValue",
 })
 export class MatCheckBoxDirective {
-  @Input("checkboxValue") checkbox: MatCheckbox;
+  @Input("checkboxValue") checkbox!: MatCheckbox;
   @Input() falseValue: string = "N";
   @Input() trueValue: string = "Y";
 

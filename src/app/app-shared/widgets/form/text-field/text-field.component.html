@@ -10,29 +10,29 @@
     </div>
     <!--    style="color: black"-->
     <ng-container *ngIf="!isWithAutocomplete; else autocomplete_field_temp">
-        <input [MCEnableOnlyArabic]="enableOnlyArabic"
+        <input [mcEnableOnlyArabic]="enableOnlyArabic"
                [attr.disabled]="true"
                [maxlength]="max"
                [ngStyle]="{'text-align':isMontant ? 'right' : '', 'padding-right':isMontant ? '1%' : '' }"
-               [MCOnlyNumber]="number || isMontant || isCourRef || isMntD"
+               [mcOnlyNumber]="number || isMontant || isCourRef || isMntD"
                [readonly]="isDisabled"
-               [MCOnlylettre]="lettre"
+               [mcOnlylettre]="lettre"
                [numbersphoneOnly]="numberphone"
                [formControl]="control"
                [max]="max"
                [min]="min"
                [type]="type"
                [value]="value"
-                
+
                autocomplete="new-password"
                autocorrect="off"
                autocapitalize="off"
                spellcheck="false"
-               
+
                placeholder="{{placeholder | translate}}"
                [matTooltipDisabled]="!hasTooltip"
                [matTooltip]="hint != undefined ? hint : (label + (required(control)?' * ':'')|translate)"
-               
+
                matInput
                (change)="format(control?.value)"
                (keyup)="emitTypedValue($event)"
@@ -43,8 +43,8 @@
         <input matInput
                [ngStyle]="{'text-align':isMontant ? 'right' : '', 'padding-right':isMontant ? '1%' : '' }"
                [maxlength]="max"
-               [MCOnlyNumber]="number"
-               [MCOnlylettre]="lettre"
+               [mcOnlyNumber]="number"
+               [mcOnlylettre]="lettre"
                [formControl]="control"
                [max]="max"
                [min]="min"
@@ -131,10 +131,10 @@
     <!--    </button>-->
     <!-- <ng-content></ng-content>
 
-    
+
     <mat-error [control]="control" appControlError></mat-error> -->
 
  <mat-error *ngIf="control && control.invalid && (control.touched || control.dirty)">
   {{ getErrorMessage() }}
-</mat-error> 
+</mat-error>
 </mat-form-field>
