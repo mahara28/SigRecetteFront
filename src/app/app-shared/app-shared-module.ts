@@ -39,6 +39,9 @@ import { DebounceClickDirective } from './directives/click.directive';
     Spinner,
     SpinnerContainerComponent,
   ],
+  exports: [
+    TextFieldComponent
+  ],
   imports: [
     CommonModule,
     MatSidenavModule,

@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { AppTranslateService } from '../../../../../app-shared/services/translate/translate.service';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { AuthentificationService } from '../../../shared/services/authentification/authentification.service';
 import { Subscription } from 'rxjs';
 import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
@@ -21,11 +26,11 @@ export class AuthLogin {
     private formBuilder: UntypedFormBuilder,
     //public appTranslateService: AppTranslateService,
     //private toast: ToastService,
-    private localStorage:LocalStorageService,
+    private localStorage: LocalStorageService,
     private authentificationService: AuthentificationService,
     private router: Router,
     //private sharedService: SharedService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.authentificationService.logoutUser();
@@ -44,9 +49,9 @@ export class AuthLogin {
         Validators.required,
       ]),
       password: this.formBuilder.control(null, [Validators.required]),
-      type: this.formBuilder.control("send"),
-      refreshToken: this.formBuilder.control(null),
-      lang: "fr",
+      //type: this.formBuilder.control("send"),
+      //refreshToken: this.formBuilder.control(null),
+      //lang: "fr",
       //lang: AppTranslateService.getDefaultLang(),
     });
   }
@@ -58,8 +63,8 @@ export class AuthLogin {
   useLanguage(lang: any) {
     location.reload();
     console.assert(
-      ["fr", "ar"].includes(lang),
-      "Error changement langue in LoginComponent/useLanguage"
+      ['fr', 'ar'].includes(lang),
+      'Error changement langue in LoginComponent/useLanguage',
     );
     //this.appTranslateService.setDefaultLang(lang);
     //this.appTranslateService.useLanguage(lang);
@@ -71,21 +76,21 @@ export class AuthLogin {
 
   authentificate() {
     this.form.markAllAsTouched();
-    console.log("form: " + this.form.value)
+    console.log('form: ' + this.form.value);
     if (this.form.valid) {
       const payload = this.form.value;
 
       const refresh = this.localStorage.getItem('refresh_token');
 
       if (refresh) {
-        payload["refreshToken"] = refresh;
+        payload['refreshToken'] = refresh;
       }
       this.mySubscription = this.authentificationService
         .authenticate(payload)
         .subscribe((isLoggedIn) => {
           this.isLoginLoading = false;
           if (isLoggedIn) {
-            this.router.navigate(["/app/dashboard"]);
+            this.router.navigate(['/app']);
           }
         });
     }
@@ -95,7 +100,7 @@ export class AuthLogin {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const request: RequestObject = <RequestObject>{
-        uri: "notification/sendCode",
+        uri: 'notification/sendCode',
 
         params: {
           body: this.form.value,
@@ -116,7 +121,7 @@ interface RequestObject {
   };
   listFiles?: any[];
   microservice?: string;
-  method: "GET" | "DELETE" | "POST" | "PUT";
+  method: 'GET' | 'DELETE' | 'POST' | 'PUT';
   server?: string;
   speCase?: string;
 }
