@@ -4,7 +4,8 @@ import { LayoutsRoutingModule } from './layouts-routing.module';
 import { PublicModule } from './public/public-module';
 import { AppSharedModule } from '../app-shared/app-shared-module';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
-
+import { Private } from './private/private';
+import { PrivateModule } from './private/private-layout.module';
 
 @NgModule({
   declarations: [],
@@ -13,7 +14,8 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     LayoutsRoutingModule,
     AppSharedModule,
     PublicModule,
-    FlexLayoutModule
-  ]
+    PrivateModule,
+    FlexLayoutModule,
+  ],
 })
-export class LayoutsModule { }
+export class LayoutsModule {}

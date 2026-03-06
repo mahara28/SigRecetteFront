@@ -4,18 +4,18 @@ import { TextAreaComponent } from './widgets/form/text-area/text-area.component'
 import { TextFieldComponent } from './widgets/form/text-field/text-field.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
-import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Spinner } from './widgets/spinner/spinner';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinnerContainerComponent } from './widgets/spinner-container/spinner-container.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTreeModule } from "@angular/material/tree";
-import { MatMenuModule } from "@angular/material/menu";
-import { EnableOnlyArabicDirective } from "./directives/enableOnlyArabic.directive";
+import { MatTreeModule } from '@angular/material/tree';
+import { MatMenuModule } from '@angular/material/menu';
+import { EnableOnlyArabicDirective } from './directives/enableOnlyArabic.directive';
 import { NumbersOnlyInputDirective } from './directives/onlylettres.directive';
 import { OnlyNumber } from './directives/onlynumber.directive';
 import { NumberDirective } from './directives/phonenumber.directive';
@@ -33,16 +33,18 @@ import { SwiperCpaDirective } from './directives/swipercpa.directive';
 import { YearFormatDirective } from './directives';
 import { DebounceClickDirective } from './directives/click.directive';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { PrivateLayoutNavbar } from './widgets/layout/navbars/private-layout-navbar/private-layout-navbar';
+import { PrivateLayoutSidebar } from './widgets/layout/private-layout-sidebar/private-layout-sidebar';
 @NgModule({
   declarations: [
     TextAreaComponent,
     TextFieldComponent,
     Spinner,
     SpinnerContainerComponent,
+    PrivateLayoutNavbar,
+    PrivateLayoutSidebar,
   ],
-  exports: [
-    TextFieldComponent
-  ],
+  exports: [TextFieldComponent, PrivateLayoutNavbar, PrivateLayoutSidebar],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -76,8 +78,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     SwiperDirective,
     SwiperCpaDirective,
     YearFormatDirective,
-    DebounceClickDirective
-
-]
+    DebounceClickDirective,
+  ],
 })
-export class AppSharedModule { }
+export class AppSharedModule {}

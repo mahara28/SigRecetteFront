@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewChild, OnDestroy, DoCheck } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+  OnDestroy,
+  DoCheck,
+} from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDrawerMode, MatSidenav, MatSidenavContainer } from '@angular/material/sidenav';
 import { Subscription } from 'rxjs';
@@ -9,13 +18,11 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-private-layout-sidebar',
-  imports: [ CommonModule,
-    RouterModule],
+  standalone: false,
   templateUrl: './private-layout-sidebar.html',
   styleUrl: './private-layout-sidebar.css',
 })
-export class PrivateLayoutSidebar   {
-
+export class PrivateLayoutSidebar {
   @Input() menus: Menu[] = [];
 
   expandedMenus = new Set<string>();

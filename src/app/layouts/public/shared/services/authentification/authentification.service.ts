@@ -105,8 +105,8 @@ export class AuthentificationService {
             if (refresh) {
               this.localStorage.setItem('refresh_token', refresh);
             }
-            subscriber.next(true);
-            /* this.isUserAuthentificated().subscribe((isAuthentificated) => {
+            //subscriber.next(true);
+            this.isUserAuthentificated().subscribe((isAuthentificated) => {
               if (isAuthentificated) {
                 subscriber.next(true);
               } else {
@@ -118,7 +118,7 @@ export class AuthentificationService {
                 //this.toast.error();
                 //subscriber.next(false);
               }
-            }); */
+            });
           } else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
             this.toast.error('authentification.login.errors.code');
             subscriber.next(false);
@@ -203,6 +203,7 @@ export class AuthentificationService {
   }
 
   public fetchWhoAmI(): Observable<any> {
+    console.log('token :', this.getAccessToken());
     return new Observable<any>((subscriber) => {
       if (!isEmptyValue(this.getAccessToken())) {
         const request: RequestObject = <RequestObject>{
