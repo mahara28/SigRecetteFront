@@ -1,52 +1,110 @@
 <main class="auth-creative-wrapper">
-        <div class="auth-creative-inner">
-            <div class="creative-card-wrapper">
-                <div class="card my-4 overflow-hidden" style="z-index: 1">
-                    <div class="row flex-1 g-0">
-                        <div class="col-lg-6 h-100 my-auto order-1 order-lg-0">
-                            <div class="wd-50 bg-white p-2 rounded-circle shadow-lg position-absolute translate-middle top-50 start-50 d-none d-lg-block">
-                                <img src="assets/images/logo.png" alt="" class="img-fluid">
-                            </div>
-                            <div class="creative-card-body card-body p-sm-5">
-                                <h2 class="fs-20 fw-bolder mb-4">Se Connecter</h2>
-                                <!-- <h4 class="fs-13 fw-bold mb-2">Login to your account</h4> -->
-                                <form [formGroup]="form" class="w-100 mt-4 pt-2">
-                                    <div class="mb-4">
-                                        <input type="email" class="form-control" placeholder="Email or Username" value="wrapcode.info@gmail.com" required>
-                                    </div>
-                                    <div class="mb-3">
-                                        <input type="password" class="form-control" placeholder="Password" value="123456" required>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div>
-                                            <div class="custom-control custom-checkbox">
-                                                <!-- <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                <label class="custom-control-label c-pointer" for="rememberMe">Remember Me</label> -->
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <a href="auth-reset-creative.html" class="fs-11 text-primary">Mot de passe oublié ?</a>
-                                        </div>
-                                    </div>
-                                    <div class="mt-5">
-                                        <button type="submit" (click)="login()" class="btn btn-lg btn-primary w-100">Se Connecter</button>
-                                        
-                                    </div>
-                                </form>
+  <div class="auth-creative-inner">
+    <div class="creative-card-wrapper">
+      <div class="card my-4 overflow-hidden" style="z-index: 1">
+        <div class="row flex-1 g-0">
+          <div class="col-lg-8 h-100 my-auto order-1 order-lg-0">
+            <!-- <div
+              class="wd-50 bg-white p-2 rounded-circle shadow-lg position-absolute translate-middle top-50 start-50 d-none d-lg-block"
+            >
+              <img src="assets/images/logo.png" alt="" class="img-fluid" />
+            </div> -->
+            <div class="creative-card-body card-body">
+              <h2 class="fs-20 fw-bolder mb-4">
+                {{ 'authentification.title' | translate }}
+              </h2>
+              <!-- <h4 class="fs-13 fw-bold mb-2">Login to your account</h4> -->
+              <div class="w-100">
+                <form
+                  [formGroup]="form"
+                  (keydown.enter)="login()"
+                  class="w-100"
+                >
+                  <!-- Email field - full width -->
+                  <div class="w-100 mb-4">
+                    <app-text-field
+                      max="50"
+                      [control]="getFormControl('email')"
+                      [label]="'authentification.login.email'"
+                    >
+                    </app-text-field>
+                  </div>
 
-                                <div class="mt-5 text-muted">
-                                     <span>  Pas encore de compte ? Contactez un administrateur.</span>
-                                    <!-- <a href="auth-register-creative.html" class="fw-bold">Create an Account</a> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 bg-primary order-0 order-lg-1">
-                            <div class="h-100 d-flex align-items-center justify-content-center">
-                                <img src="assets/images/auth/auth-user.png" alt="" class="img-fluid">
-                            </div>
-                        </div>
+                  <!-- Password field - full width -->
+                  <div class="w-100 mb-3">
+                    <app-text-field
+                      max="50"
+                      #password
+                      type="password"
+                      [control]="getFormControl('password')"
+                      [label]="'authentification.login.password'"
+                      [suffix]="password.type == 'password' ? 'visibility_off' : 'visibility'"
+                      [isIconSuffix]="true"
+                      [isSuffixClicked]="true"
+                      (suffixClickedEvent)="
+                        password.type = password.type == 'password' ? 'text' : 'password'
+                      "
+                    >
+                    </app-text-field>
+                  </div>
+
+                  <!-- Forgot password link -->
+                  <div
+                    class="d-flex align-items-center justify-content-between w-100 mt-2"
+                  >
+                    <div>
+                      <div class="custom-control custom-checkbox"></div>
                     </div>
-                </div>
+                    <div>
+                      <a
+                        href="auth-reset-creative.html"
+                        class="fs-11 text-primary"
+                      >
+                        {{ 'authentification.forget_pwd' | translate }}
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Login button - full width -->
+                  <div class="mt-5 w-100">
+                    <button
+                      type="submit"
+                      (click)="login()"
+                      class="btn btn-lg btn-primary w-100"
+                    >
+                      Login
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="mt-5 text-muted">
+                <span>
+                  Pas encore de compte ? Contactez un administrateur.</span
+                >
+                <!-- <a href="auth-register-creative.html" class="fw-bold">Create an Account</a> -->
+              </div>
             </div>
+          </div>
+
+          <div
+            class="col-lg-4 bg-primary order-0 order-lg-1 d-flex align-items-center justify-content-center p-4"
+          >
+            <div class="text-center text-white">
+              <h3 class="text-white fw-bold">Bienvenue !</h3>
+              <img
+                src="assets/images/auth/auth-user.png"
+                alt=""
+                class="img-fluid mb-3"
+                style="max-height: 280px"
+              />
+              <p class="text-white-50">
+                Connectez-vous pour accéder à votre espace
+              </p>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </div>
+</main>

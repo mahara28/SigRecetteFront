@@ -40,6 +40,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     Spinner,
     SpinnerContainerComponent,
   ],
+  exports: [
+    TextFieldComponent
+  ],
   imports: [
     CommonModule,
     MatSidenavModule,

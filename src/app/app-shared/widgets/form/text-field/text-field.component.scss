@@ -1,109 +1,16 @@
-
-/*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-::ng-deep.mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-outline {
-
-    color: rgba(0, 0, 0, 0.06);
-    background-color: #f7f7f7;
+.form-floating {
+    width: 100%;
 }
 
-::ng-deep .mat-tooltip {
-    color: #0a4d6c !important;
-    background-color: white !important;
-    font-size: 14px !important;
-    font-weight: 600 !important;
-    border-radius: 30px !important;
-    border: 2px solid #0a4d6c !important;
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-    text-align: center !important;
-    max-width: unset !important;
-    white-space: pre-wrap !important;
-    margin: 0!important;
-    margin-bottom: 3px !important;
+.form-floating input {
+    height: 52px;
+    border-radius: 8px;
 }
 
-
-
-.prefixClass{
-    background-color: #f7f7f7 !important;
-    border-right: solid 2px #8a8a8a !important;
-    width: 30px !important;
+.form-floating label {
+    padding-left: 0.75rem;
 }
 
-.datatable-header-search-field{
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-    & .mat-form-field-wrapper {
-        height: 30px;
-        padding-bottom: 0 !important;
-        margin: 0 !important;
-        /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-        /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-        /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-        /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-        & .mat-form-field-flex {
-            height: 30px;
-            padding-right: 0 !important;
-            padding-left: 5px !important;
-            //display: flex;
-            //align-items: flex-end;
-            //justify-content: space-evenly;
-            //flex-direction: row;
-            //flex-wrap: nowrap;
-            /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-            /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-            & .mat-form-field-outline {
-                //$borderRadius: 25px;
-                height: 30px;
-                background-color: white !important;
-                border-radius: 5px !important;
-                /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                & .mat-form-field-outline-start {
-                    //border-radius: $borderRadius 0 0 $borderRadius;
-                    width: 13px !important; // Override Material in-line style
-                }
-                /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                & .mat-form-field-outline-end {
-                    //border-radius: 0 $borderRadius $borderRadius 0;
-                }
-            }
-            /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-            /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-            /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-            & .mat-form-field-infix {
-                left: 4px;
-                padding: 0;
-                //top: -7px;
-                border-top-width: 0;
-                top: 3px;
-                color:black;
-                /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                & .mat-form-field-label,
-                & .mat-input-element {
-                    font-size: 95%;
-                    padding: 0 10px;
-                }
-                /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                & .mat-form-field-label-wrapper {
-                    //top: -1.04375em;
-                    //top: -0em;
-                    /*TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version.*/
-                    & .mat-form-field-label {
-                        height: 16px;
-                    }
-                }
-            }
-        }
-    }
-
-
-    .mat-focused .placeholder {
-        color: #00D318;
-    }
-
-
+.form-control.is-invalid {
+    border-color: #dc3545;
 }

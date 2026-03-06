@@ -29,6 +29,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/material-theme.scss",
               "src/assets/css/bootstrap.min.css",
               "src/assets/vendors/css/vendors.min.css",
               "src/assets/vendors/css/daterangepicker.min.css",

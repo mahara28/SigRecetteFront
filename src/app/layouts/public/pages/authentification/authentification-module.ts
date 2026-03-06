@@ -6,6 +6,7 @@ import { AuthentificationRoutingModule } from './authentification-routing.module
 import { AppSharedModule } from '../../../../app-shared/app-shared-module';
 import { LayoutsModule } from '../../../layouts-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppSharedModule,
     FormsModule,
     ReactiveFormsModule,
+    TranslateModule
   ]
 })
 export class AuthentificationModule { }
