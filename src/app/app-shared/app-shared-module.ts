@@ -32,6 +32,7 @@ import { SwiperDirective } from './directives/swiper.directive';
 import { SwiperCpaDirective } from './directives/swipercpa.directive';
 import { YearFormatDirective } from './directives';
 import { DebounceClickDirective } from './directives/click.directive';
+import { MatToolbarModule } from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -45,6 +46,7 @@ import { DebounceClickDirective } from './directives/click.directive';
   imports: [
     CommonModule,
     MatSidenavModule,
+    MatToolbarModule,
     MatTreeModule,
     MatMenuModule,
     MatFormFieldModule,
