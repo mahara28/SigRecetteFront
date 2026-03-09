@@ -6,8 +6,8 @@ import { Keepalive } from '@ng-idle/keepalive';
 import { Subject } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 import { environment } from '../../../../environements/environement';
-import { ConfirmDialogService } from '../confirm-dialog.service.ts/confirm-dialog.service';
 import { AuthentificationService } from '../../../layouts/public/shared/services/authentification/authentification.service';
+import { ConfirmDialogService } from '../confirm-dialog/confirm-dialog.service';
 
 @Injectable({
   providedIn: 'root'
