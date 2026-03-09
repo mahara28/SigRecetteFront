@@ -1,0 +1,22 @@
+[33m402f7ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{0}: reset: moving to ORIG_HEAD
+[33m402f7ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{1}: reset: moving to HEAD
+[33m402f7ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{2}: Branch: renamed refs/heads/maha to refs/heads/main
+[33m402f7ec[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m HEAD@{4}: pull: Merge made by the 'ort' strategy.
+[33m503c7d6[m HEAD@{5}: commit: pull
+[33m2c9e625[m[33m ([m[1;31morigin/maha[m[33m)[m HEAD@{6}: commit: widg
+[33mf38a91e[m HEAD@{7}: commit: corr1
+[33m2672488[m HEAD@{8}: reset: moving to 2672488
+[33m3433e0c[m HEAD@{9}: commit: corr1
+[33ma64a783[m HEAD@{10}: reset: moving to HEAD~1
+[33m2672488[m HEAD@{11}: commit: corr
+[33ma64a783[m HEAD@{12}: commit: corr
+[33m607e448[m HEAD@{13}: commit: correc
+[33m1688a33[m HEAD@{14}: commit: corrections
+[33mac9f4cd[m HEAD@{15}: pull origin main: Fast-forward
+[33mdc16e18[m HEAD@{16}: commit: derective
+[33m469372c[m HEAD@{17}: pull origin main: Fast-forward
+[33m7fc89b8[m HEAD@{18}: commit: congig
+[33m8972e7f[m HEAD@{19}: Branch: renamed refs/heads/main to refs/heads/maha
+[33m8972e7f[m HEAD@{21}: commit (merge): commit1
+[33mb98fe16[m HEAD@{22}: Branch: renamed refs/heads/master to refs/heads/main
+[33mb98fe16[m HEAD@{24}: commit (initial): commit1

@@ -1,0 +1,11 @@
+@if (isScrolling()) {
+  <button mat-mini-fab
+          class="go-up-button"
+          [class.mat-elevation-z2]="!isOver()"
+          [class.mat-elevation-z8]="isOver()"
+          (click)="goToTop()"
+          (mouseover)="setHover(true)"
+          (mouseleave)="setHover(false)">
+      <mat-icon>arrow_upward</mat-icon>
+  </button>
+}

@@ -1,0 +1,13 @@
+<div class="cursor-pointer" fxLayoutAlign="center center" [matMenuTriggerFor]="exportMenu"
+     matTooltip="{{ 'general.export' }}"
+     matTooltipPosition="above">
+    <mat-icon>exit_to_app</mat-icon>
+</div>
+
+<mat-menu #exportMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-menu-panel">
+    @for (opt of options; track opt.CODE) {
+        <button mat-menu-item (click)="onGenerateFile.emit(opt.CODE)" class="backbutt text-uppercase">
+            {{ opt.LABEL }}
+        </button>
+    }
+</mat-menu>
