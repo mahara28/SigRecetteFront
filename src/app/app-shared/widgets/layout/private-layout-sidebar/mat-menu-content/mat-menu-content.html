@@ -1,0 +1,53 @@
+<ng-container *ngFor="let submenu of submenus">
+  <ng-container [ngSwitch]="1">
+    <ng-container *ngSwitchCase="hasSubMenu(submenu)">
+      <button mat-menu-item [matMenuTriggerFor]="matSubSubMenu" class="sub-menu-item">
+        <div
+          class="menu-item-title-container"
+          fxFlex="100"
+          fxLayout="row nowrap"
+          fxLayoutAlign="start center"
+        >
+          <div *ngIf="!isEmptyValue(submenu.icon)" fxFlex="15" fxLayoutAlign="start center">
+            <mat-icon mat-list-icon>{{ submenu.icon }}</mat-icon>
+          </div>
+          <div
+            class="ml-1 menu-item-title"
+            fxFlex="85"
+            mat-line
+            fxLayout="row wrap"
+            fxLayoutAlign="start center"
+          >
+            {{ submenu.desFr | translate }}
+          </div>
+        </div>
+      </button>
+      <mat-menu #matSubSubMenu="matMenu" class="mat-menu">
+        <app-mat-menu-content [submenus]="submenu.listSousMenu ?? []"> </app-mat-menu-content>
+      </mat-menu>
+    </ng-container>
+    <ng-container *ngSwitchCase="!hasSubMenu(submenu)">
+      <button mat-menu-item [routerLink]="submenu.router" class="sub-menu-item">
+        <div
+          class="menu-item-title-container"
+          fxFlex="100"
+          fxLayout="row nowrap"
+          fxLayoutAlign="start center"
+        >
+          <div *ngIf="!isEmptyValue(submenu.icon)" fxFlex="15" fxLayoutAlign="start center">
+            <mat-icon mat-list-icon>{{ submenu.icon }}</mat-icon>
+          </div>
+          <div
+            class="ml-1 menu-item-title"
+            fxFlex="85"
+            mat-line
+            fxLayout="row wrap"
+            fxLayoutAlign="start center"
+          >
+            {{ submenu.desFr | translate }}
+          </div>
+        </div>
+      </button>
+    </ng-container>
+  </ng-container>
+</ng-container>

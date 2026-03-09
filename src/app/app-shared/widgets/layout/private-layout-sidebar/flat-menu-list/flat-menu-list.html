@@ -1,0 +1,78 @@
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- Node definition for leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let menuItem" [style.height]="getNodeHeight(menuItem)">
+    <mat-list-item
+      class="cursor-pointer menu-item"
+      [ngClass]="{ active: menuItem.id === getFromSessionStorage(selectedMenuKey) }"
+      title="{{ menuItem.tooltip || menuItem.title | translate }}"
+      (click)="onMenuClick(menuItem)"
+      [attr.menu-id]="menuItem.id"
+      [style]="getMenuStyle(menuItem)"
+    >
+      <div
+        fxFlex="100"
+        fxLayout="row nowrap"
+        fxLayoutAlign="start center"
+        class="menu-item-title-container"
+      >
+        <div *ngIf="!isEmptyValue(menuItem.icon)" fxFlex="13" fxLayoutAlign="start center">
+          <mat-icon mat-list-icon>{{ menuItem.icon }}</mat-icon>
+        </div>
+        <div
+          *ngIf="isSidebarExpanded || isSidebarShowing"
+          fxFlex="78"
+          class="mx-1 menu-item-title"
+          mat-line
+          fxLayout="row wrap"
+          fxLayoutAlign="start center"
+        >
+          {{ menuItem.title | translate }}
+        </div>
+      </div>
+    </mat-list-item>
+  </mat-tree-node>
+
+  <!-- Node definition for expandable nodes -->
+  <mat-tree-node
+    *matTreeNodeDef="let menuItem; when: hasChild"
+    [style.height]="getNodeHeight(menuItem)"
+  >
+    <mat-list-item
+      *ngIf="isSidebarExpanded || isSidebarShowing || menuItem.level === 0"
+      matTreeNodeToggle
+      class="cursor-pointer menu-item"
+      [ngClass]="{ active: menuItem.id === getFromSessionStorage(selectedMenuKey) }"
+      title="{{ menuItem.tooltip || menuItem.title | translate }}"
+      (click)="onMenuClick(menuItem)"
+      [attr.menu-id]="menuItem.id"
+      [style]="getMenuStyle(menuItem)"
+    >
+      <div
+        fxFlex="100"
+        fxLayout="row nowrap"
+        fxLayoutAlign="start center"
+        class="menu-item-title-container"
+      >
+        <div *ngIf="!isEmptyValue(menuItem.icon)" fxFlex="13" fxLayoutAlign="start center">
+          <mat-icon mat-list-icon>{{ menuItem.icon }}</mat-icon>
+        </div>
+        <ng-container *ngIf="isSidebarExpanded || isSidebarShowing">
+          <div
+            fxFlex="78"
+            class="mx-1 menu-item-title"
+            mat-line
+            fxLayout="row wrap"
+            fxLayoutAlign="start center"
+          >
+            {{ menuItem.title | translate }}
+          </div>
+          <div fxFlex="7" class="pr-0" fxLayoutAlign="end center">
+            <mat-icon class="menu-button" [ngClass]="{ rotated: treeControl.isExpanded(menuItem) }">
+              expand_more
+            </mat-icon>
+          </div>
+        </ng-container>
+      </div>
+    </mat-list-item>
+  </mat-tree-node>
+</mat-tree>

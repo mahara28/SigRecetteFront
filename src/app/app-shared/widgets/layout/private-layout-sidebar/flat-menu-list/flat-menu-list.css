@@ -1,0 +1,128 @@
+/* =============================================
+   Conteneur mat-tree
+   ============================================= */
+:host {
+    display: block;
+    width: 100%;
+}
+
+mat-tree {
+    background: transparent;
+    padding: 0 8px;
+}
+
+/* =============================================
+   Nœud de base
+   ============================================= */
+mat-tree-node {
+    min-height: unset !important;
+    height: auto !important;
+}
+
+/* =============================================
+   Item de menu (mat-list-item)
+   ============================================= */
+.menu-item {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 44px !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    margin: 2px 0 !important;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    color: #283c50 !important;
+}
+
+.menu-item:hover {
+    background: #eaebef !important;
+    color: #001327 !important;
+}
+
+.menu-item.active {
+    background: #eef2ff !important;
+    color: #001327 !important;
+    font-weight: 600;
+}
+
+/* Reset Material styles */
+.menu-item .mdc-list-item__content,
+.menu-item .mat-mdc-list-item-unscoped-content {
+    width: 100%;
+    padding: 0 !important;
+}
+
+/* =============================================
+   Conteneur interne
+   ============================================= */
+.menu-item-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    gap: 10px;
+}
+
+/* =============================================
+   Icône
+   ============================================= */
+.menu-item mat-icon {
+    font-size: 20px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    color: #6c757d;
+    flex-shrink: 0;
+    transition: color 0.15s;
+}
+
+.menu-item:hover mat-icon,
+.menu-item.active mat-icon {
+    color: #001327 !important;
+}
+
+/* =============================================
+   Texte
+   ============================================= */
+.menu-item-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+
+/* =============================================
+   Flèche expand
+   ============================================= */
+.menu-button {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    color: #adb5bd !important;
+    transition: transform 0.25s ease, color 0.25s ease !important;
+    flex-shrink: 0;
+    /* margin-left: auto; */
+ 
+}
+
+.menu-button.rotated {
+    transform: rotate(180deg);
+    color: #001327 !important;
+}
+
+/* =============================================
+   Indentation par niveau
+   ============================================= */
+.mat-tree-node[aria-level='2'] .menu-item-title-container {
+    padding-left: 32px;
+}
+
+.mat-tree-node[aria-level='3'] .menu-item-title-container {
+    padding-left: 52px;
+}

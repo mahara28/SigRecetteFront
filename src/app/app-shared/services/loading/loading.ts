@@ -1,8 +1,9 @@
-import { Injectable, inject, signal, computed, effect } from '@angular/core';
+import { Injectable, inject, signal, computed, effect, PLATFORM_ID } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SpinnerConfig } from '../../models/SpinnerConfig';
 import { Spinner } from '../../widgets/spinner/spinner';
 import { isEmptyValue } from '../../tools/utils/functions.utils';
+import { isPlatformBrowser } from '@angular/common';
 
 interface LoadingRequest {
   url: string;
@@ -11,10 +12,11 @@ interface LoadingRequest {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Loading {
   private readonly dialog = inject(MatDialog);
+  private readonly platformId = inject(PLATFORM_ID);
 
   // Signaux pour l'état réactif
   private readonly requests = signal<Map<string, LoadingRequest>>(new Map());
@@ -27,6 +29,7 @@ export class Loading {
 
   // Configuration statique
   private static readonly DEFAULT_CONFIG = new SpinnerConfig();
+  static SPINNER_PROGRESS_CONFIG = Loading.DEFAULT_CONFIG;
 
   private spinnerRef?: MatDialogRef<Spinner>;
 
@@ -34,12 +37,13 @@ export class Loading {
     // Effet pour gérer l'ouverture/fermeture du spinner
     effect(() => {
       const hasRequests = this.isLoading();
-
-      if (hasRequests && !this.spinnerVisible()) {
-        this.openSpinner();
-      } else if (!hasRequests && this.spinnerVisible()) {
-        this.closeSpinner();
-      }
+      Promise.resolve().then(() => {
+        if (hasRequests && !this.spinnerVisible()) {
+          this.openSpinner();
+        } else if (!hasRequests && this.spinnerVisible()) {
+          this.closeSpinner();
+        }
+      });
     });
   }
 
@@ -49,7 +53,30 @@ export class Loading {
   setLoading(loading: boolean, url: string, determinate: boolean = false): void {
     this.validateUrl(url);
 
-    this.requests.update(currentMap => {
+    if (isPlatformBrowser(this.platformId)) {
+      Promise.resolve().then(() => this._updateRequests(loading, url, determinate));
+    } else {
+      // SSR : synchrone (pas de Change Detection Angular)
+      this._updateRequests(loading, url, determinate);
+    }
+  }
+
+  private _updateRequests(loading: boolean, url: string, determinate: boolean): void {
+    this.requests.update((currentMap) => {
+      const newMap = new Map(currentMap);
+      if (loading) {
+        newMap.set(url, { url, determinate, timestamp: Date.now() });
+      } else {
+        newMap.delete(url);
+      }
+      return newMap;
+    });
+  }
+
+  /* setLoading(loading: boolean, url: string, determinate: boolean = false): void {
+    this.validateUrl(url);
+
+    this.requests.update((currentMap) => {
       const newMap = new Map(currentMap);
 
       if (loading) {
@@ -60,7 +87,7 @@ export class Loading {
 
       return newMap;
     });
-  }
+  } */
 
   /**
    * Ouvre le spinner
@@ -76,9 +103,9 @@ export class Loading {
       panelClass: 'loading-spinner-dialog-container',
       backdropClass: 'loading-spinner-backdrop-class',
       data: {
-        spinnerConfig,
-        determinate: determinate ?? false
-      }
+        spinnerConfig: config || new SpinnerConfig(),
+        determinate: determinate ?? false,
+      },
     });
 
     this.spinnerVisible.set(true);
@@ -88,10 +115,8 @@ export class Loading {
    * Ferme le spinner
    */
   private closeSpinner(): void {
-    if (this.spinnerRef) {
-      this.spinnerRef.close();
-      this.spinnerRef = undefined;
-    }
+    this.spinnerRef?.close();
+    this.spinnerRef = undefined;
     this.spinnerVisible.set(false);
   }
 
@@ -131,7 +156,7 @@ export class Loading {
   cleanupOldRequests(maxAgeMs: number = 60000): void {
     const now = Date.now();
 
-    this.requests.update(currentMap => {
+    this.requests.update((currentMap) => {
       const newMap = new Map();
 
       currentMap.forEach((request, url) => {
@@ -146,10 +171,7 @@ export class Loading {
 
   private validateUrl(url: string): void {
     if (isEmptyValue(url)) {
-      throw new Error('L\'URL de la requête est requise');
+      throw new Error("L'URL de la requête est requise");
     }
   }
-
-  // Propriété statique pour compatibilité
-  static SPINNER_PROGRESS_CONFIG = Loading.DEFAULT_CONFIG;
 }
