@@ -1,0 +1,72 @@
+
+<mat-form-field appearance="outline">
+
+  <!-- LABEL avec indicateur requis (structure conservée) -->
+  <mat-label>
+    {{ label }}
+    <span *ngIf="required" style="color: red">*</span>
+  </mat-label>
+
+  <!-- ================================================
+       VERSION 1: Sans reciproque (NOT reciproque)
+       Structure: true=yes, false=no
+       ================================================ -->
+
+  <ng-container *ngIf="!reciproque">
+    <mat-select disableOptionCentering [formControl]="control">
+      <mat-option [value]="true">
+        <span>{{ 'yes' | translate }}</span>
+      </mat-option>
+      <mat-option [value]="false">
+        <span>{{ 'no' | translate }}</span>
+      </mat-option>
+    </mat-select>
+  </ng-container>
+
+  <!-- ================================================
+       VERSION 2: String booleans (isstring)
+       Structure: 'false'=yes, 'true'=no
+       ================================================ -->
+
+  <ng-container *ngIf="isstring">
+    <mat-select disableOptionCentering [formControl]="control">
+      <mat-option [value]="'false'">
+        <span>{{ 'yes' | translate }}</span>
+      </mat-option>
+      <mat-option [value]="'true'">
+        <span>{{ 'no' | translate }}</span>
+      </mat-option>
+    </mat-select>
+  </ng-container>
+
+  <!-- ================================================
+       VERSION 3: Reciproque (inverted)
+       Structure: false=yes, true=no
+       ================================================ -->
+
+  <ng-container *ngIf="reciproque">
+    <mat-select disableOptionCentering [formControl]="control">
+      <mat-option [value]="false">
+        <span>{{ 'yes' | translate }}</span>
+      </mat-option>
+      <mat-option [value]="true">
+        <span>{{ 'no' | translate }}</span>
+      </mat-option>
+    </mat-select>
+  </ng-container>
+
+  <!-- ERROR MESSAGE (utiliser appControlError ou mat-error standard) -->
+<mat-error *ngIf="control.invalid && (control.dirty || control.touched)">
+  {{ label }} est requis
+</mat-error>  <!-- CLEAR BUTTON (structure conservée) -->
+  <button
+    (click)="clear($event)"
+    *ngIf="control.value == true || control.value == false"
+    aria-label="Clear"
+    mat-button
+    mat-icon-button
+    matSuffix>
+    <mat-icon>close</mat-icon>
+  </button>
+
+</mat-form-field>

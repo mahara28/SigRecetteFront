@@ -7,6 +7,9 @@ import { AppSharedModule } from '../../../../app-shared/app-shared-module';
 import { LayoutsModule } from '../../../layouts-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { Checkbox } from "../../../../app-shared/widgets/form/checkbox/checkbox";
+import { SelectBoolean } from "../../../../app-shared/widgets/form/select/select-boolean/select-boolean";
+import { SelectCommon } from "../../../../app-shared/widgets/form/select/select-common/select-common";
 
 
 @NgModule({
@@ -20,7 +23,10 @@ import { TranslateModule } from '@ngx-translate/core';
     AppSharedModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule
-  ]
+    TranslateModule,
+    Checkbox,
+    SelectBoolean,
+    SelectCommon
+]
 })
 export class AuthentificationModule { }
