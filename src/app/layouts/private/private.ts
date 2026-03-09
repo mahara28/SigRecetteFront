@@ -1,22 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { PrivateLayoutSidebar } from '../../app-shared/widgets/layout/private-layout-sidebar/private-layout-sidebar';
-import { APP_MENU } from '../../app-shared/tools/menu.config';
-import { AuthentificationRoutingModule } from '../public/pages/authentification/authentification-routing.module';
-import { Outlet } from '../../app-shared/widgets/outlet/outlet';
-import { AppSharedModule } from '../../app-shared/app-shared-module';
-import { SharedModule } from '../public/shared/shared-module';
-import { CommonModule } from '@angular/common';
 import { AuthentificationService } from '../public/shared/services/authentification/authentification.service';
 import { AppTranslateService } from '../../app-shared/services/translate/translate.service';
 import { ToastService } from '../../app-shared/services/toast/toast.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../app-shared/services/sharedWs/shared.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { Loading } from '../../app-shared/services';
 import { RequestObject } from '../../app-shared/models/RequestObject';
 import { PRIVATELAYOUTURI } from './shared/constantes/common/private-layout.uri';
 import { ConstanteWs } from '../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../app-shared/models/ResponseObject';
+import { Menu } from '../../app-shared/models';
 
 @Component({
   selector: 'app-private',
@@ -25,7 +19,7 @@ import { ResponseObject } from '../../app-shared/models/ResponseObject';
   styleUrl: './private.css',
 })
 export class Private implements OnInit {
-  listMenus: any;
+  listMenus: Menu[] = [];
   loading: boolean = true;
   isScrolling: boolean = false;
   isSmallScreen: boolean = false;
@@ -35,11 +29,10 @@ export class Private implements OnInit {
 
   constructor(
     private authentificationService: AuthentificationService,
-    private appTranslateService: AppTranslateService,
     private toast: ToastService,
     private router: Router,
     private sharedService: SharedService,
-     
+    private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
   ) {}
 
@@ -69,10 +62,8 @@ export class Private implements OnInit {
     this.sharedService.commonWs(request).subscribe({
       next: (response: ResponseObject) => {
         if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
-          //    this.listMenus = <Menu[]>response.payload;
-          // response.payload[0]["listSousMenu"][0]["urlAcces"] = "/app/adm/users";
-          // response.payload[0]["listSousMenu"][3]["urlAcces"] = "/app/adm/gp";
           this.listMenus = response.payload;
+          this.cdr.detectChanges();
           console.log(this.listMenus);
         } else {
           console.error(`Error in PrivateLayoutComponent/getMenu, error code :: ${response.code}`);
@@ -86,8 +77,16 @@ export class Private implements OnInit {
     });
   }
 
-  /* checkIfGoToUpBtnIsDisplayed(container: string) {
-    this.isScrolling = document.getElementsByTagName(container).item(0).scrollTop > 20;
-  } */
-  //menus = APP_MENU;
+  checkIfGoToUpBtnIsDisplayed(container: string): void {
+    this.isScrolling = (document.getElementsByTagName(container).item(0)?.scrollTop ?? 0) > 20;
+  }
+
+  @ViewChild('privateLayoutSidebar') PrivateLayoutSidebar!: PrivateLayoutSidebar;
+  onToggleSidebar(): void {
+    if (this.isSmallScreen) {
+      this.PrivateLayoutSidebar.sidebar.toggle();
+    } else {
+      this.PrivateLayoutSidebar.isSidebarExpanded = !this.PrivateLayoutSidebar.isSidebarExpanded;
+    }
+  }
 }

@@ -1,0 +1,136 @@
+@for (menuItem of listMenus(); track menuItem.id) {
+  <!-- ✅ Nœud avec sous-menus -->
+  @if (hasSubMenu(menuItem)) {
+    <div class="menu-row">
+      <!-- Item principal -->
+      <mat-list-item
+        class="cursor-pointer menu-item"
+        (click)="menuTrigger.openMenu(); _setMenuStyle(menuItem.idFonc); navigate(menuItem)"
+        [title]="menuItem.tooltip | translate"
+        [attr.menu-id]="menuItem.idFonc"
+      >
+        <div class="menu-item-title-container">
+          @if (!isEmptyValue(menuItem.icon)) {
+            <div class="menu-icon-wrapper">
+              <mat-icon mat-list-icon>{{ menuItem.icon }}</mat-icon>
+            </div>
+          }
+
+          @if (isSidebarExpanded() || isSidebarShowing()) {
+            <div class="menu-item-title mx-1" mat-line>
+              {{ getLabel(menuItem) | translate }}
+            </div>
+            @if (hasSubMenu(menuItem)) {
+              <div class="menu-expand-icon">
+                <mat-icon>navigate_next</mat-icon>
+              </div>
+            }
+          }
+        </div>
+      </mat-list-item>
+
+      <!-- Trigger caché pour matMenu -->
+      <div #menuTrigger="matMenuTrigger" [matMenuTriggerFor]="matMenu"></div>
+    </div>
+
+    <!-- Menu niveau 1 -->
+    <mat-menu #matMenu="matMenu" class="mat-menu">
+      <ng-container
+        [ngTemplateOutlet]="matSubMenuTemplate"
+        [ngTemplateOutletContext]="{ submenus: menuItem.listSousMenu }"
+      >
+      </ng-container>
+    </mat-menu>
+
+    <!-- Template récursif niveau 1 → 2 -->
+    <ng-template #matSubMenuTemplate let-submenus="submenus">
+      @for (submenu of submenus; track submenu.id) {
+        @if (hasSubMenu(submenu)) {
+          <!-- Sous-menu avec enfants -->
+          <button
+            mat-menu-item
+            [matMenuTriggerFor]="matSubMenu"
+            class="sub-menu-item"
+            [style]="getMenuStyle(submenu)"
+          >
+            <div class="menu-item-title-container">
+              @if (!isEmptyValue(submenu.icon)) {
+                <mat-icon mat-list-icon>{{ submenu.icon }}</mat-icon>
+              }
+              <span class="mx-1 menu-item-title">{{ getLabel(submenu) | translate }}</span>
+            </div>
+          </button>
+
+          <!-- Menu niveau 2 -->
+          <mat-menu #matSubMenu="matMenu" class="mat-menu">
+            @for (subsubmenu of submenu.listSousMenu; track subsubmenu.id) {
+              @if (hasSubMenu(subsubmenu)) {
+                <!-- Niveau 3 avec enfants (non navigable) -->
+                <button mat-menu-item class="sub-menu-item" [style]="getMenuStyle(subsubmenu)">
+                  <div class="menu-item-title-container">
+                    @if (!isEmptyValue(subsubmenu.icon)) {
+                      <mat-icon mat-list-icon>{{ subsubmenu.icon }}</mat-icon>
+                    }
+                    <span class="mx-1 menu-item-title">{{ getLabel(subsubmenu) | translate }}</span>
+                  </div>
+                </button>
+              } @else {
+                <!-- Niveau 3 feuille → navigable -->
+                <button
+                  mat-menu-item
+                  (click)="navigate(subsubmenu)"
+                  class="sub-menu-item"
+                  [style]="getMenuStyle(subsubmenu)"
+                >
+                  <div class="menu-item-title-container">
+                    @if (!isEmptyValue(subsubmenu.icon)) {
+                      <mat-icon mat-list-icon>{{ subsubmenu.icon }}</mat-icon>
+                    }
+                    <span class="mx-1 menu-item-title">{{ getLabel(subsubmenu) | translate }}</span>
+                  </div>
+                </button>
+              }
+            }
+          </mat-menu>
+        } @else {
+          <!-- Sous-menu feuille → navigable -->
+          <button
+            mat-menu-item
+            (click)="navigate(submenu)"
+            class="sub-menu-item"
+            [style]="getMenuStyle(submenu)"
+          >
+            <div class="menu-item-title-container">
+              @if (!isEmptyValue(submenu.icon)) {
+                <mat-icon mat-list-icon>{{ submenu.icon }}</mat-icon>
+              }
+              <span class="mx-1 menu-item-title">{{ getLabel(submenu) | translate }}</span>
+            </div>
+          </button>
+        }
+      }
+    </ng-template>
+  } @else {
+    <!-- ✅ Nœud feuille (sans sous-menus) -->
+    <mat-list-item
+      class="cursor-pointer menu-item"
+      (click)="_setMenuStyle(menuItem.idFonc); navigate(menuItem)"
+      [title]="menuItem.tooltip | translate"
+      [attr.menu-id]="menuItem.idFonc"
+    >
+      <div class="menu-item-title-container">
+        @if (!isEmptyValue(menuItem.icon)) {
+          <div class="menu-icon-wrapper">
+            <mat-icon mat-list-icon>{{ menuItem.icon }}</mat-icon>
+          </div>
+        }
+
+        @if (isSidebarExpanded() || isSidebarShowing()) {
+          <div class="menu-item-title mx-1" mat-line>
+            {{ getLabel(menuItem) | translate }}
+          </div>
+        }
+      </div>
+    </mat-list-item>
+  }
+}

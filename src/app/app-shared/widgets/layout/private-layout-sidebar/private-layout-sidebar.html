@@ -1,49 +1,69 @@
- <nav class="nxl-navigation">
-        <div class="navbar-wrapper">
-            <div class="m-header">
-                <a href="index.html" class="b-brand">
-                    <!-- ========   change your logo hear   ============ -->
-                    <img src="assets/images/sig-long.png" height="33px" alt="" class="logo logo-lg">
-                    <img src="assets/images/sig-long.png" alt="" class="logo logo-sm">
-                </a>
-            </div>
-            <div class="navbar-content">
-                <ul class="nxl-navbar">
-                    <li class="nxl-item nxl-caption">
-                        <label>Navigation</label>
-                    </li>
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-airplay"></i></span>
-                            <span class="nxl-mtext">Dashboards</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="index.html">CRM</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="analytics.html">Analytics</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nxl-item nxl-hasmenu">
-                        <a href="javascript:void(0);" class="nxl-link">
-                            <span class="nxl-micon"><i class="feather-at-sign"></i></span>
-                            <span class="nxl-mtext">Proposal</span><span class="nxl-arrow"><i class="feather-chevron-right"></i></span>
-                        </a>
-                        <ul class="nxl-submenu">
-                            <li class="nxl-item"><a class="nxl-link" href="proposal.html">Proposal</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="proposal-view.html">Proposal View</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="proposal-edit.html">Proposal Edit</a></li>
-                            <li class="nxl-item"><a class="nxl-link" href="proposal-create.html">Proposal Create</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <!-- <div class="card text-center">
-                    <div class="card-body">
-                        <i class="feather-sunrise fs-4 text-dark"></i>
-                        <h6 class="mt-4 text-dark fw-bolder">Downloading Center</h6>
-                        <p class="fs-11 my-3 text-dark">Duralux is a production ready CRM to get started up and running easily.</p>
-                        <a href="https://www.themewagon.com/themes/Duralux-admin" target="_blank" class="btn btn-primary text-dark w-100">Download Now</a>
-                    </div>
-                </div> -->
-            </div>
+<mat-sidenav-container #sidebarContainer class="mat-sidenav-container">
+  <!-- ===== SIDEBAR ===== -->
+  <mat-sidenav
+    #sidebar
+    [mode]="mode"
+    [opened]="!isSmallScreen"
+    [style.width]="sidebarWidth"
+    [ngClass]="isSmallScreen ? 'bg-color' : 'bg-transparent'"
+    class="no-print"
+  >
+    <nav class="nxl-navigation">
+      <div class="navbar-wrapper">
+        <!-- Logo -->
+        <div class="m-header">
+          <a class="b-brand" routerLink="/">
+            @if (isSidebarExpanded || isSidebarShowing) {
+              <img src="assets/images/logo.png" height="33px" alt="logo" class="logo logo-lg" />
+            } @else {
+              <img src="assets/images/logo.png" alt="logo" class="logo logo-sm" />
+            }
+          </a>
         </div>
+
+        <!-- Menus -->
+        <div class="navbar-content">
+          <app-spinner-container [isLoading]="onLoadingMenu" wrapperBackground="transparent">
+            @if (!listMenus.length) {
+              <p class="nxl-empty-menu">Liste des menus est actuellement vide !</p>
+            } @else {
+              <ul class="nxl-navbar">
+                @if (!isSmallScreen) {
+                  @if (CONFIG.PRIVATE_LAYOUT.sidebar.compact_menu || isSidebarExpanded) {
+                    <ng-container *ngTemplateOutlet="menuFixeTemp"></ng-container>
+                  } @else {
+                    <ng-container *ngTemplateOutlet="menuFlottantTemp"></ng-container>
+                  }
+                } @else {
+                  <ng-container *ngTemplateOutlet="menuFixeTemp"></ng-container>
+                }
+              </ul>
+            }
+          </app-spinner-container>
+        </div>
+      </div>
     </nav>
+  </mat-sidenav>
+
+  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <mat-sidenav-content class="mat-sidenav-content-wrapper">
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- ===== Templates ===== -->
+<ng-template #menuFixeTemp>
+  <app-flat-menu-list
+    [listMenus]="listMenus"
+    [isSidebarExpanded]="isSidebarExpanded"
+    [isSidebarShowing]="isSidebarShowing"
+  ></app-flat-menu-list>
+</ng-template>
+
+<ng-template #menuFlottantTemp>
+  <app-flot-menu-list
+    [listMenus]="listMenus"
+    [isSidebarExpanded]="isSidebarExpanded"
+    [isSidebarShowing]="isSidebarShowing"
+  ></app-flot-menu-list>
+</ng-template>

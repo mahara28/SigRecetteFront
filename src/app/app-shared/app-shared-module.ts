@@ -35,6 +35,12 @@ import { DebounceClickDirective } from './directives/click.directive';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PrivateLayoutNavbar } from './widgets/layout/navbars/private-layout-navbar/private-layout-navbar';
 import { PrivateLayoutSidebar } from './widgets/layout/private-layout-sidebar/private-layout-sidebar';
+import { MatListModule } from '@angular/material/list';
+import { FlatMenuList } from './widgets/layout/private-layout-sidebar/flat-menu-list/flat-menu-list';
+import { FlotMenuList } from './widgets/layout/private-layout-sidebar/flot-menu-list/flot-menu-list';
+import { MatMenuContent } from './widgets/layout/private-layout-sidebar/mat-menu-content/mat-menu-content';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -43,10 +49,21 @@ import { PrivateLayoutSidebar } from './widgets/layout/private-layout-sidebar/pr
     SpinnerContainerComponent,
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
+    FlatMenuList,
+    FlotMenuList,
+    MatMenuContent,
   ],
-  exports: [TextFieldComponent, PrivateLayoutNavbar, PrivateLayoutSidebar],
+  exports: [
+    TextFieldComponent,
+    PrivateLayoutNavbar,
+    PrivateLayoutSidebar,
+    FlatMenuList,
+    FlotMenuList,
+    MatMenuContent,
+  ],
   imports: [
     CommonModule,
+    RouterModule,
     MatSidenavModule,
     MatToolbarModule,
     MatTreeModule,
@@ -61,6 +78,8 @@ import { PrivateLayoutSidebar } from './widgets/layout/private-layout-sidebar/pr
     MatTooltipModule,
     MatProgressSpinnerModule,
     MatSelectModule,
+    MatListModule,
+    MatButtonModule,
 
     //******* Directive ********//
     BlockDirective,

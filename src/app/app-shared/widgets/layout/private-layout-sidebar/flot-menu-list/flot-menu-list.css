@@ -1,0 +1,120 @@
+/* =============================================
+   Conteneur principal
+   ============================================= */
+:host {
+    display: block;
+    width: 100%;
+    padding: 0 8px;
+}
+
+/* =============================================
+   Item principal (avec ou sans sous-menu)
+   ============================================= */
+.menu-item {
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 44px !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    margin: 2px 0 !important;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    color: #4a5568 !important;
+}
+
+.menu-item:hover {
+    background: #f0f4ff !important;
+    color: #3b5bdb !important;
+}
+
+.menu-item.active {
+    background: #eef2ff !important;
+    color: #3b5bdb !important;
+    font-weight: 600;
+}
+
+/* =============================================
+   Conteneur interne
+   ============================================= */
+.menu-item-title-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px 12px;
+    gap: 10px;
+}
+
+/* =============================================
+   Icône
+   ============================================= */
+.menu-icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-icon-wrapper mat-icon,
+.menu-item mat-icon {
+    font-size: 18px !important;
+    width: 18px !important;
+    height: 18px !important;
+    line-height: 18px !important;
+    color: #6c757d;
+    transition: color 0.15s;
+}
+
+.menu-item:hover mat-icon,
+.menu-item.active mat-icon {
+    color: #3b5bdb !important;
+}
+
+/* =============================================
+   Texte
+   ============================================= */
+.menu-item-title {
+    flex: 1;
+    font-size: 13.5px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: inherit;
+}
+
+/* =============================================
+   Flèche navigate_next
+   ============================================= */
+.menu-expand-icon mat-icon {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+    line-height: 16px !important;
+    color: #adb5bd !important;
+    margin-left: auto;
+}
+
+.menu-item:hover .menu-expand-icon mat-icon {
+    color: #3b5bdb !important;
+}
+
+/* =============================================
+   Ligne menu-row
+   ============================================= */
+.menu-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.menu-row mat-list-item {
+    flex: 1;
+}
+
+/* Trigger matMenu caché */
+.menu-row>div:last-child {
+    width: 0;
+    overflow: hidden;
+}
