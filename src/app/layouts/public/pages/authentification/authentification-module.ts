@@ -7,7 +7,6 @@ import { AppSharedModule } from '../../../../app-shared/app-shared-module';
 import { LayoutsModule } from '../../../layouts-module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { TextFieldComponent } from '../../../../app-shared/widgets';
 
 
 @NgModule({

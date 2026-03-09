@@ -1,10 +1,10 @@
-import { Inject, Injectable, InjectionToken } from '@angular/core';
+import { Inject, Injectable, InjectionToken, PLATFORM_ID } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 import { DateAdapter } from '@angular/material/core';
 import { take } from 'rxjs/operators';
 import { DIRECTION } from '../../constantes/Constantes';
-
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,9 @@ export class AppTranslateService {
   private static readonly KEY = 'LANG';
 
   constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
     @Inject(TranslateService) private _translate: TranslateService,
-    private dateAdapter: DateAdapter<any>
+    private dateAdapter: DateAdapter<any>,
   ) {
     this.useLanguage(); // applique la langue par défaut au démarrage
   }
@@ -22,12 +23,20 @@ export class AppTranslateService {
   setDefaultLang(lang: 'fr' | 'ar' | 'en'): void {
     this._translate.use(lang);
     this._translate.setDefaultLang(lang);
-    window.localStorage.setItem(AppTranslateService.KEY, lang);
+    if (isPlatformBrowser(this.platformId)) {
+      window.localStorage.setItem(AppTranslateService.KEY, lang);
+    }
     this.setDirection();
   }
 
   getDefaultLang(): 'fr' | 'ar' | 'en' {
-    return (window.localStorage.getItem(AppTranslateService.KEY) as 'fr' | 'ar' | 'en') ?? 'fr';
+    if (isPlatformBrowser(this.platformId)) {
+      // côté navigateur seulement
+      return (window.localStorage.getItem(AppTranslateService.KEY) as 'fr' | 'ar' | 'en') ?? 'fr';
+    }
+
+    // côté serveur : valeur par défaut
+    return 'fr';
   }
 
   static getDefaultLang(): 'fr' | 'ar' | 'en' {
@@ -60,7 +69,10 @@ export class AppTranslateService {
 
   getByObject(keyObject: any = {}): Record<string, any> {
     let result: Record<string, any> = {};
-    this._translate.get(keyObject).pipe(take(1)).subscribe(obj => result = obj);
+    this._translate
+      .get(keyObject)
+      .pipe(take(1))
+      .subscribe((obj) => (result = obj));
     return result;
   }
 }
