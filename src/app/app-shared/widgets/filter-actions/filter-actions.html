@@ -1,0 +1,36 @@
+<ng-container>
+  <div class="mobile-actions" fxHide.gt-md>
+    <button mat-icon-button type="reset" (click)="reset()">
+      <mat-icon>clear</mat-icon>
+    </button>
+    <button mat-icon-button type="button" (click)="onSearchClicked.emit()">
+      <mat-icon>search</mat-icon>
+    </button>
+
+    @if (hasShowMorebtn()) {
+      <ng-container [ngTemplateOutlet]="showMoreTemp"></ng-container>
+    }
+  </div>
+
+  <div class="desktop-actions" fxHide.lt-md>
+    <button class="search-btn" mat-raised-button type="button" (click)="onSearchClicked.emit()">
+      <mat-icon>search</mat-icon>
+      <span>{{ 'general.search' | translate }}</span>
+    </button>
+
+    <button class="reset-btn mx-2" mat-raised-button type="button" (click)="reset()">
+      <mat-icon>autorenew</mat-icon>
+      <span>{{ 'general.reset' | translate }}</span>
+    </button>
+
+    @if (hasShowMorebtn()) {
+      <ng-container [ngTemplateOutlet]="showMoreTemp"></ng-container>
+    }
+  </div>
+
+  <ng-template #showMoreTemp>
+    <button (click)="toggleShowMoreFlag()" mat-icon-button type="button">
+      <mat-icon class="show-more-icon">filter_list</mat-icon>
+    </button>
+  </ng-template>
+</ng-container>

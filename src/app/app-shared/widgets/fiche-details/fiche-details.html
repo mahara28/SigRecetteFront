@@ -1,0 +1,41 @@
+<mc-card [metadata]="{title: metadata().title, classList: {cardContent: 'p-0'}}">
+  <table mat-table [dataSource]="dataSource" style="width: 100%;">
+
+    <ng-container matColumnDef="label" sticky="true">
+      <td mat-cell *matCellDef="let row" class="text-averta text-14">
+        {{ row.label | translate }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <td mat-cell *matCellDef="let row" class="text-14">
+        @switch (row.type) {
+          @case (COMMON_TYPES_CODES.MONTANT) { <span>{{ row.value | montant }}</span> }
+          @case (COMMON_TYPES_CODES.DATE) { <span>{{ row.value | df }}</span> }
+          @case (COMMON_TYPES_CODES.DATETIME) { <span>{{ row.value | dhf }}</span> }
+          @case (COMMON_TYPES_CODES.HOURS_TIME) { <span>{{ row.value | hf }}</span> }
+
+          @case (COMMON_TYPES_CODES.TEXT_MULTILIGNE) {
+            @for (content of row.value.split(row.sep ?? ','); track content) {
+              <div>{{ content | typedValue | async | translate }}</div>
+            }
+          }
+
+          @case (COMMON_TYPES_CODES.OTHER) {
+            @if (templateRef()) {
+              <ng-container [ngTemplateOutlet]="templateRef()"
+                            [ngTemplateOutletContext]="{row: row}">
+              </ng-container>
+            }
+          }
+
+          @default {
+            <span>{{ row.value | typedValue | async }}</span>
+          }
+        }
+      </td>
+    </ng-container>
+
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</mc-card>

@@ -39,7 +39,7 @@ export class Private implements OnInit {
     private toast: ToastService,
     private router: Router,
     private sharedService: SharedService,
-    private _loading: Loading,
+     
     private breakpointObserver: BreakpointObserver,
   ) {}
 

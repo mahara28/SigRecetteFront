@@ -1,0 +1,17 @@
+<div fxLayout="row wrap" fxLayoutAlign="flex-start center">
+  <div fxFlex>
+    @if (label()) {
+      <div class="label">{{ label() }}:</div>
+    }
+  </div>
+
+  <div fxFlex style="padding: 0 25px">
+    <div class="pr-clr">
+      @if (value()) {
+        {{ value() }}
+      }
+
+      <ng-content select="[item-value]"></ng-content>
+    </div>
+  </div>
+</div>
