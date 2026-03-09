@@ -10,7 +10,6 @@ import { Datatable } from '../../../datatable/datatable';
 import { ButtonLoading } from '../../../buttons/button-loading/button-loading';
 import { SharedService } from '../../../../services/sharedWs/shared.service';
 import { ToastService } from '../../../../services/toast/toast.service';
-import { ConfirmDialogService } from '../../../../services/confirm-dialog.service.ts/confirm-dialog.service';
 import { COMMON_METADATA } from '../../../../constantes/common-metadata';
 import { GED_URI } from '../../../../../layouts/private/shared/constantes/common/ged.uri';
 import { ConstanteWs } from '../../../../constantes/constante-ws';
@@ -18,6 +17,7 @@ import { Dialog } from "../../dialog/dialog";
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { TextFieldComponent } from '../../../form/text-field/text-field.component';
 import { onAction } from '../../../../tools';
+import { ConfirmDialogService } from '../../../../services';
 
 
 @Component({

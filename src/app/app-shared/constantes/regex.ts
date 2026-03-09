@@ -44,4 +44,7 @@ export const regex = {
   yearNum: (): RegExp => /^(19|[2-9][0-9])\d{2}$/,
 
   passport: (): RegExp => /^([A-Z]|[a-z]|[0-9])*$/,
+  minuscule: (): RegExp => /[a-z]/,
+
+  majuscule: (): RegExp => /[A-Z]/,
 };
