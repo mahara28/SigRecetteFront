@@ -1,0 +1,29 @@
+<mc-dialog [title]="title()">
+  <form [formGroup]="form">
+    <div class="cp5" fxLayout="row wrap">
+     <!--  <div fxFlex="25">
+        <mc-text-field [control]="form.get('numDoc')" label="general.num_doc"></mc-text-field>
+      </div> -->
+    </div>
+  </form>
+
+  <div fxLayout="row nowrap">
+    <input type="file" [hidden]="true" (change)="onFileSelected($event)" #fileUpload multiple>
+
+    <mc-datatable fxFlex="100"
+              [responsePayload]="{
+                data: listAttachFiles(),
+                total: listAttachFiles().length,
+                isLoading: saveDocLoading()
+              }"
+              [metadata]="datatableMetadata"
+              >
+</mc-datatable>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="end center">
+    <mc-button-loading (click)="onSave()" [loading]="saveDocLoading()">
+       <span>{{ 'general.save' }}</span>
+    </mc-button-loading>
+  </div>
+</mc-dialog>

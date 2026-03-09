@@ -1,0 +1,27 @@
+@if (!isEmptyValue(metadata())) {
+  <mc-card
+    [metadata]="cardMetadata()"
+    (onFilterKeyUp)="onFilter($event)"
+    (onGenerateFile)="generateFile($event)"
+    (onImportClicked)="onImportEvent.emit($event)"
+    (onShowClicked)="onShowEvent.emit()"
+    (onBlockClicked)="onBlockEvent.emit()"
+    (onReplaceClicked)="onReplaceEvent.emit()"
+    (onDeleteAllClicked)="onActionEventEmitter('onDeleteAll')"
+    (onAddClicked)="onActionEventEmitter('onAdd')"
+    (onSaveClicked)="onActionEventEmitter('onSave')"
+  >
+    <mc-table
+  #t
+  [responsePayload]="responsePayload()"
+  [responsePayloadall]="responsePayloadall() ?? null"
+  [metadata]="metadata()"
+  (onAction)="onAction.emit($event)"
+  (sort)="sort.emit($event)"
+  (paginate)="paginate.emit($event)"
+>
+  <ng-content></ng-content>
+</mc-table>
+
+  </mc-card>
+}

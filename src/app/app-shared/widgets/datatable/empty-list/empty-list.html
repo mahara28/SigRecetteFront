@@ -1,0 +1,27 @@
+@if (isEmpty()) {
+  <mat-card
+    appearance="outlined"
+    [class.without-border]="withoutBorderSignal()"
+    class="empty-container mat-elevation-z0"
+  >
+    <mat-card-content class="empty-content">
+      <div class="empty-image-container">
+        <img
+          src="../../../../../assets/images/gallery/note.png"
+          alt="Aucune donnée disponible"
+          class="empty-image"
+          loading="lazy"
+        />
+      </div>
+      <h3 class="empty-message">
+        {{ msg }}
+      </h3>
+    </mat-card-content>
+  </mat-card>
+}
+
+@if (isNotEmpty()) {
+  <div class="content-container">
+    <ng-content></ng-content>
+  </div>
+}

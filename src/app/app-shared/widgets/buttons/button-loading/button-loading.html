@@ -1,0 +1,20 @@
+<button mat-button
+        [color]="btnClass() ? null : color()"
+        [type]="type()"
+        [disabled]="loading() || disabled()"
+        [class]="'button-loading ' + btnClass()"
+        [class.mat-raised-button]="raised()"
+        [class.mat-button]="!raised()"
+        [class.loading]="loading()">
+
+  <div class="btn-content-wrapper">
+    @if (loading()) {
+      <span class="btn-spinner"></span>
+      <span class="loading-text">{{ loadingText() | translate }}</span>
+    } @else {
+      <span class="content-slot">
+        <ng-content></ng-content>
+      </span>
+    }
+  </div>
+</button>

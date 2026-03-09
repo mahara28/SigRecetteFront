@@ -6,7 +6,7 @@ import { hasrequiredField } from '../../../tools/utils';
 
 
 @Component({
-    selector: 'app-text-area',
+    selector: 'mc-text-area',
     templateUrl: './text-area.component.html',
     standalone:false,
     styleUrls: ['./text-area.component.css']

@@ -10,7 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatCardModule } from "@angular/material/card";
 @Component({
-  selector: 'app-card',
+  selector: 'mc-card',
  imports: [
     CommonModule, ReactiveFormsModule, MatCardModule,
     MatIconModule, MatTooltipModule, TranslateModule

@@ -16,7 +16,7 @@ import { hasrequiredField, isEmptyValue } from "../../../tools/utils";
 import { EnableOnlyArabicDirective } from "../../../directives";
 
 @Component({
-  selector: "app-text-field",
+  selector: "mc-text-field",
   templateUrl: "./text-field.component.html",
   standalone: false,
   styleUrls: ["./text-field.component.scss"],
