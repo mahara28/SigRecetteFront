@@ -99,6 +99,12 @@
       "empty_list_notif": "Aucune notification pour le moment."
     }
   },
+  "LANG":{
+    "ARABIC": "ARABIC",
+    "FRENCH":"FRENCH",
+    "ENGLISH":"FRENCH",
+    "title":"Selectionner un Language"
+  },
   "authentification":{
     "title":"Se connecter",
     "forget_pwd":"Mot de passe oublie",
