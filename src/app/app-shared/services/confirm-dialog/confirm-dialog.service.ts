@@ -33,7 +33,7 @@ export interface ErrorOptions {
 })
 export class ConfirmDialogService {
   private readonly dialog = inject(MatDialog);
-
+private appTranslateService = inject(AppTranslateService);
   /**
    * Ouvre une boîte de dialogue de confirmation
    */
@@ -43,7 +43,7 @@ export class ConfirmDialogService {
       disableClose: true,
       autoFocus: true,
       width: options.width || '35%',
-      direction: AppTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       data: {
         title: options.title,
         description: options.description,
@@ -70,7 +70,7 @@ export class ConfirmDialogService {
   close() {
     this.dialog.closeAll();
   }
-  
+
   /**
    * Ouvre une boîte de dialogue de déconnexion
    */
@@ -79,7 +79,7 @@ export class ConfirmDialogService {
       panelClass: 'custom-dialog-container',
       disableClose: true,
       width: '400px',
-      direction: AppTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       data: { title, description }
     };
 
@@ -96,7 +96,7 @@ export class ConfirmDialogService {
       disableClose: true,
       autoFocus: true,
       width: options.width || '40%',
-      direction: AppTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       data: {
         msg: options.message,
         mutlimsgs: options.multiple || false,

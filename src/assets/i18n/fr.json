@@ -118,5 +118,15 @@
         "userErrorAuthExpiré": "Ce compte est expiré."
       }
     }
+  },
+  "VALIDATION": {
+    "REQUIRED": "Ce champ est obligatoire",
+    "MIN_LENGTH": "La longueur minimale est {{min}} caractères",
+    "MAX_LENGTH": "La longueur maximale est {{max}} caractères",
+    "EMAIL_INVALID": "Adresse e-mail invalide",
+    "IP_INVALID": "Adresse IP invalide",
+    "PATTERN_INVALID": "Format invalide",
+    "MIN_VALUE": "La valeur minimale est {{min}}",
+    "MAX_VALUE": "La valeur maximale est {{max}}"
   }
 }

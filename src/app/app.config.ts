@@ -37,7 +37,12 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     importProvidersFrom(
       TranslateModule.forRoot({
-        fallbackLang: 'fr',
+        defaultLanguage: 'fr',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
       }),
     ),
     provideTranslateHttpLoader({

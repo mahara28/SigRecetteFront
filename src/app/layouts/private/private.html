@@ -1,4 +1,8 @@
-<section class="body-wrapper">
+<section class="body-wrapper"
+  [dir]="currentDirection"
+  [class.rtl]="currentDirection === 'rtl'"
+  [class.ltr]="currentDirection === 'ltr'"
+>
   <app-private-layout-navbar class="no-print" (toggleSidebarEventEmitter)="onToggleSidebar()">
   </app-private-layout-navbar>
   <app-private-layout-sidebar #privateLayoutSidebar [listMenus]="listMenus">
@@ -14,7 +18,4 @@
     </div>
   </app-private-layout-sidebar>
 
-  <!-- <div class="content-container">
-    <mc-outlet></mc-outlet>
-  </div> -->
 </section>

@@ -43,7 +43,7 @@ export class FicheDetails {
 
     const getKey = (c: any) => typeof c.key === 'string'
       ? c.key
-      : c.key[this.ats.getDefaultLang()];
+      : c.key[this.ats.getCurrentLanguage()];
 
     const transposed = metadata.columns.map((column: any, i: number) => ({
       label: column.label,

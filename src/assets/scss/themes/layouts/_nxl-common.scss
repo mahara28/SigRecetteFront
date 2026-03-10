@@ -475,3 +475,112 @@
 }
 
 // Common layout css end
+
+// ============================================
+// ✅ RTL - Arabe
+// ============================================
+[dir="rtl"] {
+
+	// ✅ Container : margin-right au lieu de margin-left
+	.nxl-container {
+		margin-left: 0;
+		margin-right: $navigation-width;
+	}
+
+	// ✅ Minimenu container
+	&.minimenu,
+	.minimenu {
+		.nxl-container {
+			margin-left: 0;
+			margin-right: $navigation-collapsed-width;
+		}
+
+		.page-header {
+			left: 0;
+			right: $navigation-collapsed-width;
+		}
+	}
+
+	// ✅ Page header : inverser left/right
+	.page-header {
+		left: 0;
+		right: $navigation-width;
+
+		h5 {
+			// ✅ Inverser margin/padding/border
+			margin-right: 0;
+			margin-left: 8px;
+			padding-right: 0;
+			padding-left: 10px;
+			border-right: none;
+			border-left: 1px solid darken($body-bg, 10%);
+		}
+	}
+
+	// ✅ Content sidebar : inverser bordure
+	.nxl-container {
+		.nxl-content {
+			.main-content {
+				.content-sidebar {
+					border-right: none;
+					border-left: 1px solid $border-color;
+				}
+
+				.content-area {
+					.content-area-header {
+						.search-form {
+							.search-form-inner {
+								// ✅ padding symétrique, pas de changement nécessaire
+								// left/right déjà à 0
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// ✅ Scrollbar : inverser côté
+	.ps__rail-y {
+		right: auto;
+		left: 0;
+	}
+
+	.ps__thumb-y {
+		right: auto;
+		left: 2px;
+	}
+
+	// ✅ Upgrade card table : inverser text-align
+	.upgrade-card {
+		.up-price-table {
+			td,
+			th {
+				text-align: left;
+
+				+td,
+				+th {
+					text-align: center;
+				}
+
+				+td {
+					border-left: none;
+					border-right: 1px solid $body-bg;
+				}
+			}
+		}
+	}
+
+	// ✅ Hamburger : inverser rotation
+	.hamburger--arrowturn.is-active .hamburger-inner {
+		transform: rotate(180deg);
+	}
+
+	.hamburger--arrowturn.is-active .hamburger-inner::before {
+		transform: translate3d(-4px, 2px, 0) rotate(-45deg) scale(0.7, 1);
+	}
+
+	.hamburger--arrowturn.is-active .hamburger-inner::after {
+		transform: translate3d(-4px, -2px, 0) rotate(45deg) scale(0.7, 1);
+	}
+}

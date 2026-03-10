@@ -1,38 +1,8 @@
 .body-wrapper {
-    background-color: var(--private-layout-wrapper-background-color) !important;
-    background-image: var(--private-layout-wrapper-background-image) !important;
-    /* background-image: url("src/assets/images/gallery/side-bg.jpg");
-    background-size: cover;
-    color : black;
-    background-color: #cccccc; */
+  transition: direction 0.1s;
 }
 
-.body-container {
-    min-height: calc(100vh - 2*var(--nabvar-height)) !important;
+/* Ajustements spécifiques RTL pour la partie privée */
+.body-wrapper.rtl .body-container {
+  text-align: right;
 }
-
-.breadcrumb-wrapper {
-    position: sticky;
-    position: -webkit-sticky;
-    top: 0;
-    z-index: 2;
-    /* background-color: var(--private-layout-wrapper-background-color) !important;
-    background-image: var(--private-layout-wrapper-background-image) !important; */
-}
-
-.breadcrumb-container {
-    padding: 10px;
-    background-color: var(--private-layout-content-background-color);
-    border-radius: 1.25rem 1.25rem 0 0;
-}
-
-.content-container {
-    /*min-height: -webkit-fill-available;*/
-    min-height: inherit;
-    padding: 0 10px 10px 10px;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--private-layout-content-background-color);
-    border-radius: 0 0 1.25rem 1.25rem;
-}
-

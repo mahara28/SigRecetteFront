@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -11,23 +12,24 @@ import {
 } from "@angular/core";
 import { UntypedFormControl } from "@angular/forms";
 import { MatFormFieldAppearance, MatFormField, MatLabel } from "@angular/material/form-field";
-import { AppTranslateService } from "../../../services/translate/translate.service";
-import { hasrequiredField, isEmptyValue } from "../../../tools/utils";
+import { AppTranslateService, SupportedLanguage } from "../../../services/translate/translate.service";
+import { hasrequiredField, isEmptyValue, isInputChanged } from "../../../tools/utils";
 import { EnableOnlyArabicDirective } from "../../../directives";
+import { Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "mc-text-field",
-  templateUrl: "./text-field.component.html",
+  templateUrl: "./text-field.html",
   standalone: false,
-  styleUrls: ["./text-field.component.scss"],
+  styleUrls: ["./text-field.css"],
   encapsulation: ViewEncapsulation.None,
 })
-export class TextFieldComponent implements OnInit, OnChanges {
+export class TextField implements OnInit, OnChanges {
   protected readonly AppTranslateService = AppTranslateService;
   listFilteredOptions = [];
   required = hasrequiredField;
   isEmptyValue = isEmptyValue;
-
+  private readonly destroy$ = new Subject<void>();
 
   @ViewChild("select") select: any;
 
@@ -76,29 +78,33 @@ export class TextFieldComponent implements OnInit, OnChanges {
   @Output() onFocusEvent = new EventEmitter<any>();
   @Output() emitSelectedValueEvent = new EventEmitter<any>();
   @Output() suffixClickedEvent = new EventEmitter<any>();
+  private currentLanguage: SupportedLanguage = 'fr';
+  constructor(
+    public appTranslateService: AppTranslateService,
+    private cdr: ChangeDetectorRef
+  ) {
 
-  constructor() { }
+  }
   ngOnInit(): void {
-    if (this.isWithAutocomplete && this.control.value) {
-      this.typedValue = this.control.value;
-    }
+    this.appTranslateService.currentLanguage
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => {
+        this.currentLanguage = lang;
+        this.cdr.markForCheck();
+      });
   }
-
-
-
-
-
-
   ngOnChanges(changes: SimpleChanges): void {
-    const { listData } = changes;
-    if (listData) {
-      if (listData.currentValue !== listData.previousValue) {
-        this.loadDataSource(listData.currentValue);
-      }
+    if (isInputChanged(changes, 'control')) {
+      this.control = changes['control'].currentValue;
     }
   }
 
-  loadDataSource(listData:any) {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadDataSource(listData: any) {
     this.listData = listData;
     this.filterListData();
   }
@@ -147,14 +153,14 @@ export class TextFieldComponent implements OnInit, OnChanges {
         const value = String(option[this.itemToFilterWith] ?? '');
 
         return value
-        .toLowerCase()
-        .includes(this.typedValue.toString().toLowerCase());
+          .toLowerCase()
+          .includes(this.typedValue.toString().toLowerCase());
 
       });
     }
   }
 
-  format(data:any) {
+  format(data: any) {
     if (!isEmptyValue(data) && this.isCourRef) {
       data = data
         .toString()
@@ -223,7 +229,7 @@ export class TextFieldComponent implements OnInit, OnChanges {
     }
   }
 
-  onOptionSelected(event:any) {
+  onOptionSelected(event: any) {
     if (this.isGet) {
       this.typedValue = "";
       this.control.setValue(null);
@@ -234,7 +240,7 @@ export class TextFieldComponent implements OnInit, OnChanges {
     }
   }
 
-  onChange(event:any) {
+  onChange(event: any) {
     this.onChangeEvent.emit(event.target.value);
   }
 
@@ -245,97 +251,180 @@ export class TextFieldComponent implements OnInit, OnChanges {
     this.onChangeEvent.emit(null);
   }
 
+  /*  getErrorMessage(): string {
+     const c = this.control;
+     if (!c) return '';
+
+     // langue par défaut (fr / ar)
+     const lang = this.AppTranslateService.getDefaultLang?.() ?? 'fr';
+
+     if (!(c.touched || c.dirty)) return '';
+
+     // required
+     if (c.hasError('required') && (!c.value || c.value === '')) {
+       return lang === 'fr'
+         ? 'Ce champ est obligatoire'
+         : 'هذا الحقل إجباري';
+     }
+
+     const valueLength = c.value ? (c.value.length ?? 0) : 0;
+
+     // exact length (min == max)
+     if (c.hasError('maxlength') && c.hasError('minlength')) {
+       const err = c.getError('minlength');
+       const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : undefined);
+       return lang === 'fr'
+           ? `La valeur doit contenir exactement ${requiredLength} caractères`
+           : `يجب أن يحتوي على ${requiredLength} أرقام`;
+     }
+     if (this.min && this.max && Number(this.min) === Number(this.max)) {
+       const requiredLength = Number(this.min);
+       if (valueLength > 0 && valueLength !== requiredLength) {
+         return lang === 'fr'
+           ? `La valeur doit contenir exactement ${requiredLength} caractères`
+           : `يجب أن يحتوي على ${requiredLength} أرقام`;
+       }
+     }
+
+     // minlength
+     if (c.hasError('minlength')) {
+       const err = c.getError('minlength');
+       const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : 6);
+       return lang === 'fr'
+         ? `Mot de passe trop court (minimum ${requiredLength} caractères)`
+         : `كلمة المرور قصيرة جدًا (الحد الأدنى ${requiredLength} أحرف)`;
+     }
+     if (this.min && valueLength > 0 && valueLength < Number(this.min)) {
+       return lang === 'fr'
+         ? `Valeur trop courte (minimum ${this.min} caractères)`
+         : `القيمة قصيرة جدًا (الحد الأدنى ${this.min} أحرف)`;
+     }
+
+     // maxlength
+     if (c.hasError('maxlength')) {
+       const err = c.getError('maxlength');
+       const requiredLength = err?.requiredLength ?? (this.max ? Number(this.max) : undefined);
+       return lang === 'fr'
+         ? `Valeur trop longue (maximum ${requiredLength} caractères)`
+         : `القيمة طويلة جدًا (الحد الأقصى ${requiredLength} أحرف)`;
+     }
+     if (this.max && valueLength > Number(this.max)) {
+       return lang === 'fr'
+         ? `Valeur trop longue (maximum ${this.max} caractères)`
+         : `القيمة طويلة جدًا (الحد الأقصى ${this.max} أحرف)`;
+     }
+
+
+
+
+     // email
+     if (c.hasError('email')) {
+       return lang === 'fr'
+         ? 'Adresse e-mail invalide'
+         : 'البريد الإلكتروني غير صالح';
+     }
+
+     if (c.hasError('invalidIp')) {
+       return lang === 'fr'
+         ? "Adresse IP invalide"
+         : "عنوان IP غير صالح";
+     }
+
+
+
+     // pattern
+     if (c.hasError('pattern')) {
+       return lang === 'fr'
+         ? 'Format invalide'
+         : 'تنسيق غير صالح';
+     }
+
+     return '';
+   } */
+
   getErrorMessage(): string {
     const c = this.control;
     if (!c) return '';
 
-    // langue par défaut (fr / ar)
-    const lang = this.AppTranslateService?.getDefaultLang?.() ?? 'fr';
-
+    // ✅ Vérifier que le control a été touché ou modifié
     if (!(c.touched || c.dirty)) return '';
-
-    // required
-    if (c.hasError('required') && (!c.value || c.value === '')) {
-      return lang === 'fr'
-        ? 'Ce champ est obligatoire'
-        : 'هذا الحقل إجباري';
-    }
 
     const valueLength = c.value ? (c.value.length ?? 0) : 0;
 
-    // exact length (min == max)
-    if (c.hasError('maxlength') && c.hasError('minlength')) {
-      const err = c.getError('minlength');
-      const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : undefined);
-      return lang === 'fr'
-          ? `La valeur doit contenir exactement ${requiredLength} caractères`
-          : `يجب أن يحتوي على ${requiredLength} أرقام`;
+
+    if (c.hasError('required') && (!c.value || c.value === '')) {
+      return this.appTranslateService.getByKey('VALIDATION.REQUIRED');
     }
+
+
+    if (c.hasError('maxlength') && c.hasError('minlength')) {
+      const requiredLength =
+        c.getError('minlength')?.requiredLength ?? (this.min ? Number(this.min) : undefined);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: requiredLength }
+      );
+    }
+
     if (this.min && this.max && Number(this.min) === Number(this.max)) {
       const requiredLength = Number(this.min);
       if (valueLength > 0 && valueLength !== requiredLength) {
-        return lang === 'fr'
-          ? `La valeur doit contenir exactement ${requiredLength} caractères`
-          : `يجب أن يحتوي على ${requiredLength} أرقام`;
+        return this.appTranslateService.getByKeyWithParams(
+          'VALIDATION.MIN_LENGTH',
+          { min: requiredLength }
+        );
       }
     }
 
-    // minlength
+
     if (c.hasError('minlength')) {
-      const err = c.getError('minlength');
-      const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : 6);
-      return lang === 'fr'
-        ? `Mot de passe trop court (minimum ${requiredLength} caractères)`
-        : `كلمة المرور قصيرة جدًا (الحد الأدنى ${requiredLength} أحرف)`;
+      const requiredLength =
+        c.getError('minlength')?.requiredLength ?? (this.min ? Number(this.min) : 6);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: requiredLength }
+      );
     }
+
     if (this.min && valueLength > 0 && valueLength < Number(this.min)) {
-      return lang === 'fr'
-        ? `Valeur trop courte (minimum ${this.min} caractères)`
-        : `القيمة قصيرة جدًا (الحد الأدنى ${this.min} أحرف)`;
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: this.min }
+      );
     }
 
-    // maxlength
+
     if (c.hasError('maxlength')) {
-      const err = c.getError('maxlength');
-      const requiredLength = err?.requiredLength ?? (this.max ? Number(this.max) : undefined);
-      return lang === 'fr'
-        ? `Valeur trop longue (maximum ${requiredLength} caractères)`
-        : `القيمة طويلة جدًا (الحد الأقصى ${requiredLength} أحرف)`;
+      const requiredLength =
+        c.getError('maxlength')?.requiredLength ?? (this.max ? Number(this.max) : undefined);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MAX_LENGTH',
+        { max: requiredLength }
+      );
     }
+
     if (this.max && valueLength > Number(this.max)) {
-      return lang === 'fr'
-        ? `Valeur trop longue (maximum ${this.max} caractères)`
-        : `القيمة طويلة جدًا (الحد الأقصى ${this.max} أحرف)`;
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MAX_LENGTH',
+        { max: this.max }
+      );
     }
 
 
-
-
-    // email
     if (c.hasError('email')) {
-      return lang === 'fr'
-        ? 'Adresse e-mail invalide'
-        : 'البريد الإلكتروني غير صالح';
+      return this.appTranslateService.getByKey('VALIDATION.EMAIL_INVALID');
     }
 
     if (c.hasError('invalidIp')) {
-      return lang === 'fr'
-        ? "Adresse IP invalide"
-        : "عنوان IP غير صالح";
+      return this.appTranslateService.getByKey('VALIDATION.IP_INVALID');
     }
 
 
-
-    // pattern
     if (c.hasError('pattern')) {
-      return lang === 'fr'
-        ? 'Format invalide'
-        : 'تنسيق غير صالح';
+      return this.appTranslateService.getByKey('VALIDATION.PATTERN_INVALID');
     }
 
     return '';
   }
-
-
 
 }

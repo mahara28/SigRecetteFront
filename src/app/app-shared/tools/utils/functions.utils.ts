@@ -1,5 +1,6 @@
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { ToastService } from '../../services';
+import { SimpleChanges } from '@angular/core';
 
 // ################################################
 // # Type Guards & Validation Functions
@@ -29,7 +30,9 @@ export function isEmptyObject(obj: Record<string, any> | null | undefined): bool
     isEmptyValue(Object.entries(obj))
   );
 }
-
+export function isInputChanged(changes: SimpleChanges | any, inputName: string): boolean {
+  return changes && changes.hasOwnProperty(inputName) && !changes[inputName].firstChange;
+}
 /**
  * Vérifie si une valeur est un nombre
  * @param value Valeur à vérifier

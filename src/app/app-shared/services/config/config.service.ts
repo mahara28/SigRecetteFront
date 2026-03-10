@@ -44,12 +44,28 @@ export class ConfigService {
      * Initialise la langue de l'application
      */
     private initializeLanguage(): void {
+    try {
+        // ✅ Obtenir la langue stockée
+        const storedLanguage = this.appTranslateService.getCurrentLanguage();
+
+        // ✅ Initialiser avec cette langue
+        this.appTranslateService.setLanguage(storedLanguage);
+
+        console.log(`📍 Langue initialisée: ${storedLanguage}`);
+
+    } catch (error) {
+        console.error('❌ Erreur lors de l\'initialisation de la langue:', error);
+
+        // ✅ Fallback robuste
         try {
-            this.appTranslateService.useLanguage();
-        } catch (error) {
-            console.error('Erreur lors de l\'initialisation de la langue:', error);
+            this.appTranslateService.setLanguage('fr');
+            console.warn('⚠️ Fallback à FR');
+        } catch (fallbackError) {
+            console.error('❌ Erreur lors du fallback:', fallbackError);
         }
     }
+}
+
 
     /**
      * Configure le suivi du titre de la page

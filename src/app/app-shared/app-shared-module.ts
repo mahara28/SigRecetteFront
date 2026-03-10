@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextAreaComponent } from './widgets/form/text-area/text-area.component';
-import { TextFieldComponent } from './widgets/form/text-field/text-field.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -41,10 +41,11 @@ import { FlotMenuList } from './widgets/layout/private-layout-sidebar/flot-menu-
 import { MatMenuContent } from './widgets/layout/private-layout-sidebar/mat-menu-content/mat-menu-content';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { TextField } from './widgets/form/text-field/text-field';
 @NgModule({
   declarations: [
     TextAreaComponent,
-    TextFieldComponent,
+    TextField,
     Spinner,
     SpinnerContainerComponent,
     PrivateLayoutNavbar,
@@ -54,7 +55,7 @@ import { RouterModule } from '@angular/router';
     MatMenuContent,
   ],
   exports: [
-    TextFieldComponent,
+    TextField,
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
     FlatMenuList,

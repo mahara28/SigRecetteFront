@@ -12,6 +12,9 @@
 	width: $navigation-width;
 	transition: all 0.3s ease;
 
+	// ✅ LTR par défaut : sidebar à gauche
+	left: 0;
+
 	.m-header {
 		z-index: 1;
 		overflow: hidden;
@@ -102,7 +105,6 @@
 
 		.nxl-arrow {
 			float: right;
-			//display: inline-block;
 			transition: all 0.2s ease-in-out;
 		}
 
@@ -353,6 +355,149 @@ html.minimenu {
 
 					label {
 						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+
+// ============================================
+// ✅ RTL - Arabe
+// ============================================
+[dir="rtl"] {
+
+	// ✅ Sidebar à droite au lieu de gauche
+	.nxl-navigation {
+		left: auto;
+		right: 0;
+
+		.m-header {
+			// ✅ Inverser les bordures
+			border-right: none;
+			border-left: 1px solid $border-color;
+		}
+
+		.navbar-content {
+			// ✅ Inverser la bordure
+			border-right: none;
+			border-left: 1px solid $border-color;
+
+			.nxl-micon {
+				// ✅ Inverser margin icône
+				margin-right: 0;
+				margin-left: 12px;
+			}
+
+			.nxl-arrow {
+				// ✅ Inverser float
+				float: left;
+			}
+
+			.nxl-badge {
+				// ✅ Inverser margin badge
+				margin-left: 0;
+				margin-right: 8px;
+			}
+
+			.nxl-submenu {
+				.nxl-link {
+					// ✅ Inverser indentation sous-menu niveau 1
+					margin-left: 5px !important;
+					margin-right: 35px !important;
+				}
+
+				.nxl-submenu {
+					.nxl-link {
+						margin-left: 5px !important;
+						margin-right: 45px !important;
+					}
+
+					.nxl-submenu {
+						.nxl-link {
+							margin-left: 5px !important;
+							margin-right: 55px !important;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// ✅ Overlay menu overlay côté droit
+	.nxl-menu-overlay {
+		left: auto;
+		right: 0;
+	}
+
+	// ✅ Non-minimenu RTL
+	&:not(.minimenu),
+	html:not(.minimenu) {
+		.nxl-navigation {
+			.nxl-submenu {
+				>.nxl-item {
+					&:before {
+						left: auto;
+						right: 60px;
+					}
+				}
+
+				.nxl-submenu {
+					>.nxl-item {
+						&:before {
+							left: auto;
+							right: 80px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// ✅ Minimenu RTL
+	&.minimenu,
+	html.minimenu {
+		.nxl-navigation {
+			.navbar-content {
+				.nxl-caption {
+					&:before {
+						// ✅ Inverser padding icône caption
+						padding-left: 0;
+						padding-right: 20px;
+					}
+				}
+			}
+
+			&:hover {
+				.navbar-content {
+					// ✅ Sidebar expanded à gauche en RTL
+					right: 0;
+					left: auto;
+
+					border-right: none;
+					border-left: 1px solid $border-color;
+
+					.nxl-submenu {
+						.nxl-link {
+							padding-left: 0;
+							padding-right: 20px;
+							margin-left: 15px !important;
+							margin-right: 50px !important;
+						}
+
+						.nxl-submenu {
+							.nxl-link {
+								margin-left: 15px !important;
+								margin-right: 65px !important;
+							}
+
+							.nxl-submenu {
+								.nxl-link {
+									margin-left: 15px !important;
+									margin-right: 80px !important;
+								}
+							}
+						}
 					}
 				}
 			}

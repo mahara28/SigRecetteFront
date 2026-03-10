@@ -104,8 +104,8 @@ export function initDatatableDetails(
     alignments: []
   };
 
-  const currentLang = appTranslateService.getDefaultLang();
-  const dir = appTranslateService.getDir();
+  const currentLang = appTranslateService.getCurrentLanguage();
+  const dir = appTranslateService.getCurrentDirection();
 
   for (const col of metadataColumns) {
     // Récupération de la clé de colonne
@@ -192,8 +192,8 @@ export function initExportedColumns(
     alignments: []
   };
 
-  const currentLang = appTranslateService.getDefaultLang();
-  const dir = appTranslateService.getDir();
+  const currentLang = appTranslateService.getCurrentLanguage();
+  const dir = appTranslateService.getCurrentDirection();
 
   for (const col of metadataColumns) {
     if (!isEmptyValue(col.export)) {
@@ -293,7 +293,7 @@ export const getColumnKey = (
   appTranslateService: AppTranslateService
 ): string => {
   if (typeof column === 'object') {
-    return column[appTranslateService.getDefaultLang()] || '';
+    return column[appTranslateService.getCurrentLanguage()] || '';
   }
   return column;
 };

@@ -248,7 +248,7 @@ export class WsFactory {
     if (method === ConstanteWs._CODE_POST) {
       searchObject = searchObject || new SearchObject();
       searchObject.sort = searchObject.sort || new Sort(
-        getNmCurrentLabel(this.appTranslateService.getDefaultLang(), 'libelle'),
+        getNmCurrentLabel(this.appTranslateService.getCurrentLanguage(), 'libelle'),
         'asc nulls last'
       );
       searchObject.listCol = searchObject.listCol || ['id', 'code', 'libelleAr', 'libelleFr', 'libelleEn'];
