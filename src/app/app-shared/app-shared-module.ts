@@ -41,6 +41,30 @@ import { FlotMenuList } from './widgets/layout/private-layout-sidebar/flot-menu-
 import { MatMenuContent } from './widgets/layout/private-layout-sidebar/mat-menu-content/mat-menu-content';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Breadcrumb, Card, ConfirmDialog, Datatable, FicheDetails } from './widgets';
+import { Table } from './widgets/datatable/table/table';
+import { BreadcrumbModule } from './widgets/angular-crumbs/src/lib';
+import { MatCardModule } from '@angular/material/card';
+import { CardTitle } from './widgets/card/card-title/card-title';
+import {
+  DateFormatheurePipe,
+  DateFormatMMYYPipe,
+  DateFormatPipe,
+  HeureFormatPipe,
+  MinutesFormatPipe,
+  MontantPipe,
+  OrderTranslatePipe,
+  SafehtmlPipe,
+  TypedValuePipe,
+} from './pipes';
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { DayMonthFormatPipe } from './pipes/day-month-format.pipe';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -52,14 +76,43 @@ import { RouterModule } from '@angular/router';
     FlatMenuList,
     FlotMenuList,
     MatMenuContent,
+    ConfirmDialog,
+    Breadcrumb,
+    Card,
+    CardTitle,
+    FicheDetails,
+    Datatable,
+    Table,
   ],
   exports: [
+    MatMenuContent,
+    MatDialogModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatCardModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatRadioModule,
+    TranslateModule,
+    SpinnerContainerComponent,
+    TextFieldComponent,
+    FicheDetails,
+
+    //Composant
     TextFieldComponent,
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
     FlatMenuList,
     FlotMenuList,
-    MatMenuContent,
+    ConfirmDialog,
+    Datatable,
+    Table,
+    BreadcrumbModule,
+    Breadcrumb,
+    Card,
+    CardTitle,
   ],
   imports: [
     CommonModule,
@@ -80,6 +133,14 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     MatListModule,
     MatButtonModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    BreadcrumbModule,
+    MatCardModule,
+    MatTableModule, // ✅ fix: [dataSource], matColumnDef, mat-table
+    MatSortModule, // ✅ fix: matSort, mat-sort-header
+    MatPaginatorModule, // ✅ fix: mat-paginator
+    MatRadioModule,
 
     //******* Directive ********//
     BlockDirective,
@@ -98,6 +159,19 @@ import { RouterModule } from '@angular/router';
     SwiperCpaDirective,
     YearFormatDirective,
     DebounceClickDirective,
+
+    //pipe
+    DateFormatheurePipe,
+    DateFormatPipe,
+    MontantPipe,
+    OrderTranslatePipe,
+    SafehtmlPipe,
+    TypedValuePipe,
+    HeureFormatPipe,
+    DateFormatMMYYPipe,
+    TruncatePipe,
+    DayMonthFormatPipe,
+    MinutesFormatPipe,
   ],
 })
 export class AppSharedModule {}

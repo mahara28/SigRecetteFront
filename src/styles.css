@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'assets/scss/theme.scss';
+
 /* ==============================================
    À ajouter dans styles.css (global)
    Override du panel mat-menu

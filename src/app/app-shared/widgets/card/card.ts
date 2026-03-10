@@ -1,22 +1,31 @@
-import { Component, input, computed, OnInit, inject, output, Output, viewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  input,
+  computed,
+  OnInit,
+  inject,
+  output,
+  Output,
+  viewChild,
+  ElementRef,
+  ViewEncapsulation,
+} from '@angular/core';
 import { CommonModule, NgStyle, UpperCasePipe } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { isEmptyValue } from '../../tools';
-import { toSignal } from "@angular/core/rxjs-interop";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { toSignal } from '@angular/core/rxjs-interop';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatCardModule } from "@angular/material/card";
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'mc-card',
- imports: [
-    CommonModule, ReactiveFormsModule, MatCardModule,
-    MatIconModule, MatTooltipModule, TranslateModule
-  ],
+  standalone: false,
   templateUrl: './card.html',
   styleUrl: './card.css',
+  encapsulation: ViewEncapsulation.None,
 })
 export class Card implements OnInit {
   private fb = inject(FormBuilder);
@@ -36,11 +45,11 @@ export class Card implements OnInit {
   onFilterKeyUp = output<any>();
   onGenerateFile = output<any>();
 
-  fileUpload = viewChild<ElementRef<HTMLInputElement>>("fileUpload");
+  fileUpload = viewChild<ElementRef<HTMLInputElement>>('fileUpload');
 
   // Signal pour détecter le mobile (remplace le subscribe manuel)
   isSmallScreen = toSignal(
-    this.breakpointObserver.observe([Breakpoints.Handset]).pipe(map(res => res.matches))
+    this.breakpointObserver.observe([Breakpoints.Handset]).pipe(map((res) => res.matches)),
   );
 
   // Metadata formatée via un Signal calculé (très performant)
@@ -53,17 +62,17 @@ export class Card implements OnInit {
         cardContent: m?.styleList?.cardContent ?? {},
       },
       classList: {
-        card: m?.classList?.card ?? "mb-3",
-        cardContent: m?.classList?.cardContent ?? "py-3 px-4",
+        card: m?.classList?.card ?? 'mb-3',
+        cardContent: m?.classList?.cardContent ?? 'py-3 px-4',
       },
       cardTooltips: {
-        add: m?.cardTooltips?.add ?? "general.icons.tooltip.add",
-        delete: m?.cardTooltips?.delete ?? "general.icons.tooltip.delete_item",
-        show: m?.cardTooltips?.show ?? "general.icons.tooltip.show",
-        validate: m?.cardTooltips?.validate ?? "general.icons.tooltip.validate",
-        block: m?.cardTooltips?.block ?? "general.icons.tooltip.block",
-        replace: m?.cardTooltips?.replace ?? "general.icons.tooltip.replace",
-        import: m?.cardTooltips?.import ?? "general.import",
+        add: m?.cardTooltips?.add ?? 'general.icons.tooltip.add',
+        delete: m?.cardTooltips?.delete ?? 'general.icons.tooltip.delete_item',
+        show: m?.cardTooltips?.show ?? 'general.icons.tooltip.show',
+        validate: m?.cardTooltips?.validate ?? 'general.icons.tooltip.validate',
+        block: m?.cardTooltips?.block ?? 'general.icons.tooltip.block',
+        replace: m?.cardTooltips?.replace ?? 'general.icons.tooltip.replace',
+        import: m?.cardTooltips?.import ?? 'general.import',
       },
       hasAdd: m?.hasAdd ?? false,
       hasDelete: m?.hasDelete ?? false,
@@ -74,8 +83,8 @@ export class Card implements OnInit {
       hasReplace: m?.hasreplace ?? false,
       hasBlock: m?.hasblock ?? false,
       hasSave: m?.hasSave ?? false,
-      uploadType: m?.uploadType ?? ".csv, .xlsx",
-      isMultiple: m?.isMultiple ?? false
+      uploadType: m?.uploadType ?? '.csv, .xlsx',
+      isMultiple: m?.isMultiple ?? false,
     };
   });
 
@@ -86,7 +95,7 @@ export class Card implements OnInit {
   });
 
   formRapidSearch: FormGroup = this.fb.group({
-    typedValue: ['']
+    typedValue: [''],
   });
 
   ngOnInit(): void {}
@@ -100,7 +109,7 @@ export class Card implements OnInit {
     const files = this.fileUpload()?.nativeElement.files;
     if (files) {
       this.onImportClicked.emit(files);
-      (event.target as HTMLInputElement).value = "";
+      (event.target as HTMLInputElement).value = '';
     }
   }
 }

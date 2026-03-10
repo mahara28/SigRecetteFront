@@ -1,29 +1,24 @@
-import { Component, input, output, viewChild, computed, signal } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { Component, input, output, viewChild, computed, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import { Card } from "../card/card";
-import { EXPORT_TYPES_CODES } from "../../constantes/Constantes";
-import { isEmptyValue } from "../../tools";
-import { Table } from "./table/table";
-
+import { Card } from '../card/card';
+import { EXPORT_TYPES_CODES } from '../../constantes/Constantes';
+import { isEmptyValue } from '../../tools';
+import { Table } from './table/table';
 
 @Component({
   selector: 'mc-datatable',
-  imports: [Card, Table],
+  standalone: false,
   templateUrl: './datatable.html',
   styleUrl: './datatable.css',
 })
 export class Datatable {
-
-
   metadata = input.required<any>();
   responsePayload = input.required<{ data: any[]; total: number; isLoading: boolean }>();
   responsePayloadall = input<{ data: any[]; total: number; isLoading: boolean } | null>(null);
 
-
-
   // ViewChildren version Signal
-  table = viewChild<Table>("t");
+  table = viewChild<Table>('t');
 
   // Outputs version moderne
   onAction = output<any>();
@@ -40,24 +35,24 @@ export class Datatable {
     if (!m) return null;
 
     return {
-      title: m.title ?? "",
+      title: m.title ?? '',
       ref: m.ref,
       styleList: {
         card: m.styleList?.card,
-        cardContent: { ...(m.styleList?.cardContent ?? {}), "overflow-y": "hidden" },
+        cardContent: { ...(m.styleList?.cardContent ?? {}), 'overflow-y': 'hidden' },
       },
       classList: {
-        card: m.classList?.card ?? "mb-3",
-        cardContent: m.classList?.cardContent ?? "p-0",
+        card: m.classList?.card ?? 'mb-3',
+        cardContent: m.classList?.cardContent ?? 'p-0',
       },
       cardTooltips: {
-        add: m.cardTooltips?.add ?? "general.icons.tooltip.add",
-        delete: m.cardTooltips?.delete ?? "general.icons.tooltip.delete_item",
-        show: m.cardTooltips?.show ?? "general.icons.tooltip.show",
-        validate: m.cardTooltips?.validate ?? "general.icons.tooltip.validate",
-        block: m.cardTooltips?.block ?? "general.icons.tooltip.block",
-        replace: m.cardTooltips?.replace ?? "general.icons.tooltip.replace",
-        import: m.cardTooltips?.import ?? "general.import",
+        add: m.cardTooltips?.add ?? 'general.icons.tooltip.add',
+        delete: m.cardTooltips?.delete ?? 'general.icons.tooltip.delete_item',
+        show: m.cardTooltips?.show ?? 'general.icons.tooltip.show',
+        validate: m.cardTooltips?.validate ?? 'general.icons.tooltip.validate',
+        block: m.cardTooltips?.block ?? 'general.icons.tooltip.block',
+        replace: m.cardTooltips?.replace ?? 'general.icons.tooltip.replace',
+        import: m.cardTooltips?.import ?? 'general.import',
       },
       hasAdd: m.hasAdd ?? true,
       hasExport: m.hasExport ?? true,
@@ -68,18 +63,18 @@ export class Datatable {
       hasreplace: m.hasreplace ?? false,
       hasDelete: m.hasDelete ?? false,
       hasSave: m.hasSave ?? false,
-      uploadType: m.uploadType ?? ".csv, .xlsx",
-      isMultiple: m.isMultiple ?? false
+      uploadType: m.uploadType ?? '.csv, .xlsx',
+      isMultiple: m.isMultiple ?? false,
     };
   });
 
   onFilter(typedValue: any) {
-   // this.table()?.onFilter(typedValue);
+    // this.table()?.onFilter(typedValue);
   }
 
   generateFile(fileType: string) {
     if (fileType === EXPORT_TYPES_CODES.PDF.CODE || fileType === EXPORT_TYPES_CODES.EXCEL.CODE) {
-      this.onActionEventEmitter("onExport", fileType);
+      this.onActionEventEmitter('onExport', fileType);
     }
   }
 

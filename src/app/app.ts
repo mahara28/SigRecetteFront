@@ -5,21 +5,19 @@ import { APP_MENU } from './app-shared/tools/menu.config';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LayoutsModule } from './layouts/layouts-module';
 import { DIRECTION } from './app-shared/constantes/Constantes';
-
+import { AppSharedModule } from './app-shared/app-shared-module';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LayoutsModule],
+  imports: [RouterOutlet, LayoutsModule, AppSharedModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('sigFront');
   protected readonly DIRECTION = DIRECTION;
 
-  constructor(
-    private translate: TranslateService
-  ) {
+  constructor(private translate: TranslateService) {
     translate.addLangs(['ar', 'fr']);
     translate.setDefaultLang('fr');
 
@@ -28,6 +26,4 @@ export class App {
     translate.use(browserLang?.match(/ar|fr/) ? browserLang : 'fr');
   }
   menus = APP_MENU;
-
-  
 }

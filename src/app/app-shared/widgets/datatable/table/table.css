@@ -1,0 +1,526 @@
+/* =============================================
+   Variables
+   ============================================= */
+:host {
+  --primary: #3b5bdb;
+  --primary-light: #eef2ff;
+  --success: #0ca678;
+  --success-light: #e6f9f1;
+  --danger: #e03131;
+  --danger-light: #fff0f0;
+  --warning: #f59f00;
+  --warning-light: #fff9db;
+  --text-primary: #1a1d23;
+  --text-secondary: #6c757d;
+  --border: #e9ecef;
+  --bg-hover: #f8f9fa;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* =============================================
+   Page wrapper
+   ============================================= */
+.page-wrapper {
+  padding: 24px;
+  background: #f5f6fa;
+  min-height: 100%;
+}
+
+/* =============================================
+   Page header
+   ============================================= */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.breadcrumb-nav i {
+  font-size: 11px;
+}
+
+.breadcrumb-item.active {
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.page-header-right {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* =============================================
+   Boutons actions header
+   ============================================= */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #2f4ac7;
+  box-shadow: 0 4px 12px rgba(59, 91, 219, 0.3);
+}
+
+.btn-outline {
+  background: #fff;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover {
+  background: var(--bg-hover);
+}
+
+/* =============================================
+   Card
+   ============================================= */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* =============================================
+   Card header
+   ============================================= */
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.badge-count {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.card-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== Search ===== */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.search-input {
+  padding: 7px 12px 7px 32px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 13px;
+  width: 220px;
+  outline: none;
+  transition: border 0.15s;
+  color: var(--text-primary);
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.1);
+}
+
+.header-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  font-size: 14px;
+}
+
+.btn-icon:hover {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* =============================================
+   Table
+   ============================================= */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.nxl-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Header */
+.nxl-table th.mat-mdc-header-cell {
+  background: #f8f9fa;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* Cells */
+.nxl-table td.mat-mdc-cell {
+  padding: 14px 16px;
+  font-size: 13.5px;
+  color: var(--text-primary);
+  border-bottom: 1px solid #f1f3f5;
+  vertical-align: middle;
+}
+
+/* Row hover */
+.nxl-table tr.table-row:hover td {
+  background: #f8f9fc;
+}
+
+.nxl-table tr.table-row.selected td {
+  background: var(--primary-light);
+}
+
+/* ===== Checkbox personnalisé ===== */
+.col-checkbox {
+  width: 48px;
+}
+
+.custom-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.custom-checkbox input[type='checkbox'] {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 2px solid #ced4da;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.custom-checkbox input[type='checkbox']:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.custom-checkbox input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+/* ===== Avatar cellule ===== */
+.cell-with-avatar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.cell-text {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.cell-text.rtl {
+  direction: rtl;
+  font-family: 'Cairo', 'Tajawal', sans-serif;
+}
+
+/* ===== Code badge ===== */
+.code-badge {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-family: 'Fira Code', monospace;
+}
+
+/* ===== Status badge ===== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.status-active {
+  background: var(--success-light);
+  color: var(--success);
+}
+
+.status-active .status-dot {
+  background: var(--success);
+}
+
+.status-inactive {
+  background: var(--warning-light);
+  color: var(--warning);
+}
+
+.status-inactive .status-dot {
+  background: var(--warning);
+}
+
+.status-unknown {
+  background: #f1f3f5;
+  color: var(--text-secondary);
+}
+
+.status-unknown .status-dot {
+  background: #adb5bd;
+}
+
+/* ===== Actions ===== */
+.text-end {
+  text-align: right !important;
+}
+
+.actions-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.btn-icon-action {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+  font-size: 14px;
+}
+
+.btn-icon-action:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* ===== Dropdown action ===== */
+.dropdown-action {
+  position: relative;
+}
+
+/* =============================================
+   Empty / Loading states
+   ============================================= */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.empty-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.empty-text {
+  font-size: 14px;
+  margin: 0;
+}
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* =============================================
+   Card footer / Pagination
+   ============================================= */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.pagination-info strong {
+  color: var(--text-primary);
+}
+
+/* Reset Material paginator */
+::ng-deep .mat-mdc-paginator {
+  background: transparent !important;
+  font-size: 13px !important;
+}
+
+/* =============================================
+   Mat menu override (action dropdown)
+   ============================================= */
+::ng-deep .action-dropdown.mat-mdc-menu-panel {
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid var(--border) !important;
+  min-width: 160px !important;
+  padding: 4px !important;
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item {
+  border-radius: 6px !important;
+  font-size: 13px !important;
+  min-height: 38px !important;
+  color: var(--text-primary) !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item i {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item:hover {
+  background: var(--primary-light) !important;
+  color: var(--primary) !important;
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item.danger {
+  color: var(--danger) !important;
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item.danger i {
+  color: var(--danger) !important;
+}
+
+::ng-deep .action-dropdown .mat-mdc-menu-item.danger:hover {
+  background: var(--danger-light) !important;
+}
+
+/* =============================================
+   Sort header
+   ============================================= */
+::ng-deep .mat-sort-header-arrow {
+  color: var(--primary) !important;
+}

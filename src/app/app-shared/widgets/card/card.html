@@ -1,12 +1,13 @@
-<mat-card [appearance]="'outlined'"
-          [ngStyle]="metadata().styleList.card"
-          [class]="metadata().classList.card">
-
+<mat-card
+  [appearance]="'outlined'"
+  [ngStyle]="metadata().styleList.card"
+  [class]="metadata().classList.card"
+>
   @if (hasHeader()) {
-    <mat-card-header class="st2i-card-header">
+    <mat-card-header class="card-header">
       <div class="header-container">
         <div class="title-section">
-          <span class="st2i-card-title">{{ metadata().title | translate }}</span>
+          <span class="card-title">{{ metadata().title | translate }}</span>
         </div>
 
         <div class="actions-section" [class.is-mobile]="isSmallScreen()">
@@ -20,31 +21,56 @@
           }
 
           @if (metadata().hasDelete) {
-            <mat-icon class="cursor-pointer" (click)="onDeleteAllClicked.emit()"
-                      [matTooltip]="metadata().cardTooltips.delete | translate">delete_circle_outline</mat-icon>
+            <mat-icon
+              class="cursor-pointer"
+              (click)="onDeleteAllClicked.emit()"
+              [matTooltip]="metadata().cardTooltips.delete | translate"
+              >delete_circle_outline</mat-icon
+            >
           }
 
           @if (metadata().hasShow) {
-            <mat-icon class="cursor-pointer" (click)="onShowClicked.emit()"
-                      [matTooltip]="metadata().cardTooltips.show | translate">visibility</mat-icon>
+            <mat-icon
+              class="cursor-pointer"
+              (click)="onShowClicked.emit()"
+              [matTooltip]="metadata().cardTooltips.show | translate"
+              >visibility</mat-icon
+            >
           }
 
           @if (metadata().hasSave) {
-            <mat-icon class="cursor-pointer" (click)="onSaveClicked.emit()"
-                      [matTooltip]="metadata().cardTooltips.validate | translate">check_circle</mat-icon>
+            <mat-icon
+              class="cursor-pointer"
+              (click)="onSaveClicked.emit()"
+              [matTooltip]="metadata().cardTooltips.validate | translate"
+              >check_circle</mat-icon
+            >
           }
 
           @if (metadata().hasImport) {
-            <mat-icon class="cursor-pointer" (click)="fileInput.click()"
-                      [matTooltip]="metadata().cardTooltips.import | translate">get_app</mat-icon>
-            <input #fileInput hidden type="file" (change)="onImportClickedfn($event)"
-                   [accept]="metadata().uploadType" [multiple]="metadata().isMultiple">
+            <mat-icon
+              class="cursor-pointer"
+              (click)="fileInput.click()"
+              [matTooltip]="metadata().cardTooltips.import | translate"
+              >get_app</mat-icon
+            >
+            <input
+              #fileInput
+              hidden
+              type="file"
+              (change)="onImportClickedfn($event)"
+              [accept]="metadata().uploadType"
+              [multiple]="metadata().isMultiple"
+            />
           }
 
           @if (metadata().hasFilter) {
             <form [formGroup]="formRapidSearch" class="filter-form">
-              <input formControlName="typedValue" [placeholder]="'general.filter' | translate"
-                     (keyup)="onFilterKeyUp.emit($event)">
+              <input
+                formControlName="typedValue"
+                [placeholder]="'general.filter' | translate"
+                (keyup)="onFilterKeyUp.emit($event)"
+              />
             </form>
           }
         </div>
@@ -52,9 +78,11 @@
     </mat-card-header>
   }
 
-  <mat-card-content [class]="metadata().classList.cardContent"
-                    [ngStyle]="metadata().styleList.cardContent"
-                    style="overflow-x: auto; border-radius: 12px">
+  <mat-card-content
+    [class]="metadata().classList.cardContent"
+    [ngStyle]="metadata().styleList.cardContent"
+    style="overflow-x: auto; border-radius: 12px"
+  >
     <ng-content></ng-content>
   </mat-card-content>
 </mat-card>
