@@ -7,7 +7,6 @@ import { ConfirmDialog } from '../../widgets/dialogs/alert-dialog/confirm-dialog
 import { DialogError } from '../../widgets/dialogs/alert-dialog/dialog-error/dialog-error';
 import { ConfirmDialogLogout } from '../../widgets/dialogs/alert-dialog/confirm-dialog-logout/confirm-dialog-logout';
 
-
 // Types pour les options
 export interface ConfirmOptions {
   title?: string;
@@ -29,15 +28,15 @@ export interface ErrorOptions {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfirmDialogService {
   private readonly dialog = inject(MatDialog);
-private appTranslateService = inject(AppTranslateService);
+  private appTranslateService = inject(AppTranslateService);
   /**
    * Ouvre une boîte de dialogue de confirmation
    */
-  confirm(options: ConfirmOptions = {}): Observable<boolean> {
+  /* confirm(options: ConfirmOptions = {}): Observable<boolean> {
     const dialogConfig: MatDialogConfig = {
       panelClass: 'custom-dialog-container',
       disableClose: true,
@@ -58,8 +57,36 @@ private appTranslateService = inject(AppTranslateService);
 
     const dialogRef = this.dialog.open(ConfirmDialog, dialogConfig);
     return dialogRef.afterClosed();
+  } */
+  confirm(
+    title?: string,
+    description?: string,
+    count?: any,
+    withcheckbox?: boolean,
+    labelcheckBox?: string,
+    btn1Label?: string,
+    btn2Label?: string,
+    showApprove?: boolean,
+  ): Observable<boolean> {
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: {
+        title,
+        description,
+        count,
+        withcheckbox,
+        labelcheckBox,
+        btn1Label,
+        btn2Label,
+        showApprove,
+      },
+      panelClass: 'custom-dialog-container',
+      disableClose: true,
+      width: '35%',
+      direction: AppTranslateService.getStoredDirection(),
+      autoFocus: true,
+    });
+    return dialogRef.afterClosed();
   }
-
   confirmLogin(title?: string, description?: string): Observable<any> {
     const dialogRef2 = this.dialog.open(ConfirmDialogLogout, {
       data: { title, description },
@@ -80,7 +107,7 @@ private appTranslateService = inject(AppTranslateService);
       disableClose: true,
       width: '400px',
       direction: this.appTranslateService.getCurrentDirection(),
-      data: { title, description }
+      data: { title, description },
     };
 
     const dialogRef = this.dialog.open(ConfirmDialogLogout, dialogConfig);
@@ -100,8 +127,8 @@ private appTranslateService = inject(AppTranslateService);
       data: {
         msg: options.message,
         mutlimsgs: options.multiple || false,
-        listmsg: options.details || []
-      }
+        listmsg: options.details || [],
+      },
     };
 
     const dialogRef = this.dialog.open(DialogError, dialogConfig);

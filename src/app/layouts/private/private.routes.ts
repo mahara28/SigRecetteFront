@@ -11,4 +11,9 @@ export const PrivateRoutes: Routes = [
     path: 'dashboard',
     component: Dashboard,
   },
+  {
+    path: 'adm',
+    loadChildren: () =>
+      import('./pages/administration/administration.module').then((m) => m.AdministrationModule),
+  },
 ];

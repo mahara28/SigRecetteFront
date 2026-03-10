@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppSharedModule } from '../../app-shared/app-shared-module';
-import { SharedModule } from '../public/shared/shared-module';
 import { Private } from './private';
 import { Outlet } from '../../app-shared/widgets/outlet/outlet';
+import { AppSharedModule } from '../../app-shared/app-shared-module';
 
 @NgModule({
   exports: [],
   declarations: [Private],
-  imports: [CommonModule, AppSharedModule, SharedModule, Outlet],
+  imports: [CommonModule, AppSharedModule, Outlet],
 })
 export class PrivateModule {}
