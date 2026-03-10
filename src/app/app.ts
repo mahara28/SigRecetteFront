@@ -5,8 +5,8 @@ import { APP_MENU } from './app-shared/tools/menu.config';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LayoutsModule } from './layouts/layouts-module';
 import { DIRECTION } from './app-shared/constantes/Constantes';
-import { AppSharedModule } from './app-shared/app-shared-module';
 import { AppTranslateService } from './app-shared/services';
+import { AppSharedModule } from './app-shared/app-shared-module';
 
 @Component({
   selector: 'app-root',
