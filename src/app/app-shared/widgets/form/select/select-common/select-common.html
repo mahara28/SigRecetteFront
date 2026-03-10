@@ -1,10 +1,10 @@
 <mat-form-field
   appearance="outline"
   class="select-common-field"
-  [attr.data-cy]="'select-' + (metadata?.label ?? '')">
+  [attr.data-cy]="'select-' + (metadata.label ?? '')">
 
   <!-- LABEL -->
-  <mat-label *ngIf="metadata?.label">
+  <mat-label *ngIf="metadata.label">
     {{ metadata.label | translate }}
     <span
       *ngIf="hasRequiredField(control)"
@@ -22,14 +22,14 @@
   #select
   [formControl]="control"
   [multiple]="metadata.multiple ?? false"
-  
+
   (openedChange)="onSelectToggle($event)"
   (selectionChange)="changeValue($event.value)"
   [attr.aria-label]="metadata.label"
   class="select-common-input">
 
     <!-- CAS 1: AVEC FILTRAGE -->
-    <mat-select-trigger *ngIf="metadata?.filter">
+    <mat-select-trigger *ngIf="metadata.filter">
       <input
         #matSelectFilter
         type="text"
@@ -37,11 +37,11 @@
         class="filter-input"
         placeholder="Rechercher..."
         (keyup)="filter($event.target.value)"
-        [attr.aria-label]="'Filtrer ' + (metadata?.label ?? '')">
+        [attr.aria-label]="'Filtrer ' + (metadata.label ?? '')">
     </mat-select-trigger>
 
     <!-- CAS 2: REGROUPEMENT / HIÉRARCHIE -->
-    <ng-container *ngIf="metadata?.grouping || metadata?.parentChild">
+    <ng-container *ngIf="metadata.grouping || metadata.parentChild">
       <mat-optgroup *ngFor="let group of listsearch" [label]="getOptionLabel(group)">
         <mat-option
           *ngFor="let child of group.children ?? []"
@@ -56,7 +56,7 @@
     </ng-container>
 
     <!-- CAS 3: SANS REGROUPEMENT (Liste plate) -->
-<ng-container *ngIf="!(metadata?.grouping || metadata?.parentChild)">
+<ng-container *ngIf="!(metadata.grouping || metadata.parentChild)">
   <mat-option
     *ngFor="let item of listsearch.filter(i => isShowOption(i))"
     [value]="getValue(item)"
@@ -86,7 +86,7 @@
     matSuffix
     (click)="clear($event)"
     type="button"
-    [attr.aria-label]="'Effacer ' + (metadata?.label ?? '')"
+    [attr.aria-label]="'Effacer ' + (metadata.label ?? '')"
     class="clear-button">
     <mat-icon>close</mat-icon>
   </button>
@@ -94,10 +94,10 @@
   <!-- ERROR MESSAGE -->
   <mat-error *ngIf="control.invalid && (control.dirty || control.touched)" class="error-message">
     <span *ngIf="control.hasError('required')">
-      {{ metadata?.label | translate }} est requis
+      {{ metadata.label | translate }} est requis
     </span>
     <span *ngIf="control.hasError('pattern')">
-      {{ metadata?.label | translate }} a un format invalide
+      {{ metadata.label | translate }} a un format invalide
     </span>
   </mat-error>
 

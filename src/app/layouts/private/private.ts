@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PrivateLayoutSidebar } from '../../app-shared/widgets/layout/private-layout-sidebar/private-layout-sidebar';
 import { AuthentificationService } from '../public/shared/services/authentification/authentification.service';
-import { AppTranslateService } from '../../app-shared/services/translate/translate.service';
+import { AppTranslateService, SupportedLanguage } from '../../app-shared/services/translate/translate.service';
 import { ToastService } from '../../app-shared/services/toast/toast.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../../app-shared/services/sharedWs/shared.service';
@@ -11,22 +11,24 @@ import { PRIVATELAYOUTURI } from './shared/constantes/common/private-layout.uri'
 import { ConstanteWs } from '../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../app-shared/models/ResponseObject';
 import { Menu } from '../../app-shared/models';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-private',
   standalone: false,
   templateUrl: './private.html',
   styleUrl: './private.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Private implements OnInit {
+export class Private implements OnInit, OnDestroy  {
   listMenus: Menu[] = [];
   loading: boolean = true;
   isScrolling: boolean = false;
   isSmallScreen: boolean = false;
-  obj: any;
-  responsePayload: any = {};
-  params: any = {};
 
+ currentLang: SupportedLanguage = 'fr';
+ currentDirection: 'rtl' | 'ltr' = 'ltr';
+ private readonly destroy$ = new Subject<void>();
   constructor(
     private authentificationService: AuthentificationService,
     private toast: ToastService,
@@ -34,19 +36,39 @@ export class Private implements OnInit {
     private sharedService: SharedService,
     private cdr: ChangeDetectorRef,
     private breakpointObserver: BreakpointObserver,
+    private appTranslateService: AppTranslateService,
   ) {}
 
   ngOnInit(): void {
+  this.currentDirection = this.appTranslateService.getCurrentDirection();
+  this.currentLang = this.appTranslateService.getCurrentLanguage();
+  this.cdr.markForCheck();
+
     this.breakpointObserver.observe(['(max-width: 767px)']).subscribe((result) => {
       this.isSmallScreen = result.matches;
     });
-    // this.listenToLoading();
-    this.getMenu();
-    // this.router.events.pipe( filter(event=>event instanceof NavigationEnd)).subscribe((e:NavigationEnd)=>{
-    //     document.querySelector('.mat-sidenav-content-wrapper').scrollTop = 0;
-    // })
-  }
+    //   langue
+    this.appTranslateService.currentLanguage
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => {
+        this.currentLang = lang;
+        this.cdr.markForCheck();
+      });
 
+    //   direction
+    this.appTranslateService.direction
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((dir) => {
+        this.currentDirection = dir;
+        this.cdr.markForCheck(); // Nécessaire avec OnPush
+      });
+    this.getMenu();
+
+  }
+ ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
   getMenu() {
     let userinfo = this.authentificationService.getuserinfo();
     const request: RequestObject = <RequestObject>{

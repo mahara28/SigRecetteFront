@@ -20,7 +20,7 @@ export class Heading {
   constructor(private translate: AppTranslateService) {}
 
   // ✅ Correction : On utilise computed pour transformer la méthode en signal réactif
-  protected readonly dir = computed(() => this.translate.getDir());
+  protected readonly dir = computed(() => this.translate.getCurrentDirection());
 }
 
 

@@ -12,7 +12,7 @@ export * from './heading/heading';
 export * from './paginator/paginator';
 export * from './form/text-area/text-area.component';
 export * from './breadcrumb/breadcrumb';
-export * from './form/text-field/text-field.component';
+export * from './form/text-field/text-field';
 //export * from './form/select-date/select-date';
 export * from './buttons/button-loading/button-loading';
 export * from './filter-actions/filter-actions';

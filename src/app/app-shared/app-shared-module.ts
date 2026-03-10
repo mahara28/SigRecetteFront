@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextAreaComponent } from './widgets/form/text-area/text-area.component';
-import { TextFieldComponent } from './widgets/form/text-field/text-field.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -43,7 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Breadcrumb, Card, ConfirmDialog, Datatable, FicheDetails } from './widgets';
+import { Breadcrumb, Card, ConfirmDialog, Datatable, FicheDetails, TextField } from './widgets';
 import { Table } from './widgets/datatable/table/table';
 import { BreadcrumbModule } from './widgets/angular-crumbs/src/lib';
 import { MatCardModule } from '@angular/material/card';
@@ -68,7 +67,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     TextAreaComponent,
-    TextFieldComponent,
+    TextField,
     Spinner,
     SpinnerContainerComponent,
     PrivateLayoutNavbar,
@@ -97,11 +96,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatRadioModule,
     TranslateModule,
     SpinnerContainerComponent,
-    TextFieldComponent,
+    TextField,
     FicheDetails,
 
     //Composant
-    TextFieldComponent,
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
     FlatMenuList,

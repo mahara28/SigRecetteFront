@@ -41,3 +41,27 @@
 		}
 	}
 }
+
+// ============================================
+// ✅ RTL - Arabe
+// ============================================
+[dir="rtl"] {
+	.main-content {
+		.content-sidebar {
+			.content-sidebar-body {
+				.nxl-content-sidebar-item {
+					.nav-item {
+						// ✅ Inverser margin : LTR = 0 15px 5px 15px
+						margin: 0 15px 5px 15px;
+
+						.nav-link {
+							// ✅ Inverser direction flex pour aligner icône à droite
+							flex-direction: row-reverse;
+							text-align: right;
+						}
+					}
+				}
+			}
+		}
+	}
+}

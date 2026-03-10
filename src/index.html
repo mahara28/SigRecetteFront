@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>SigFront</title>
@@ -15,13 +15,44 @@
     />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
-    <script>
+
+ <script>
       if (global === undefined) {
         var global = window;
       }
     </script>
+    <script>
+      (function () {
+        var STORAGE_KEY = 'lang';
+        var DEFAULT_LANG = 'fr';
+
+         var lang = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
+    if (!['ar', 'fr', 'en'].includes(lang)) {
+      lang = DEFAULT_LANG;
+    }
+
+        var dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        // Appliquer immédiatement sur <html> et <body>
+
+         document.documentElement.dir = dir;
+    document.documentElement.lang = lang;
+
+        // Ajouter classe pour le thème
+         document.body
+      ? applyClass()
+      : document.addEventListener('DOMContentLoaded', applyClass);
+
+    function applyClass() {
+      document.body.dir = dir;
+      document.body.classList.add(dir);
+    }
+      })();
+    </script>
+
+
   </head>
-  <body>
+  <body >
     <app-root></app-root>
   </body>
 </html>
