@@ -128,5 +128,22 @@
     "PATTERN_INVALID": "Format invalide",
     "MIN_VALUE": "La valeur minimale est {{min}}",
     "MAX_VALUE": "La valeur maximale est {{max}}"
+  },
+  "administration": {
+    "title": "Administration",
+    "breadcrumb": "Administration"
+  },
+  "profil":{
+    "list_menu": "Liste des modules",
+    "title": "Gestion profils",
+    "breadcrumb": "Gestion profils",
+    "table": {
+          "title": "Liste profils",
+          "columns": {
+            "login": "Code",
+            "Désignation": "Désignation",
+            "FActif": "Actif"
+          }
+        }
   }
 }

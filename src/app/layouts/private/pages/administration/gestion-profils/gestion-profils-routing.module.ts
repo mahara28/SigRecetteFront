@@ -11,8 +11,8 @@ const routes: Routes = [
     path: 'userProfil',
 
     data: {
-      title: 'administration.gp.title',
-      breadcrumb: 'administration.gp.breadcrumb',
+      title: 'profil.title',
+      breadcrumb: 'profil.breadcrumb',
     },
 
     children: [

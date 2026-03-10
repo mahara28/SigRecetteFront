@@ -17,13 +17,13 @@ export function maxLengthWithCustomMessage(maxLength: number, message: string): 
 export const FicheListeProfilsMetadata = {
   tableListProfilsMetadata: {
     ref: 'TableGestionProfils',
-    title: 'administration.gp.ficheListProfils.table.title',
+    title: 'profil.table.title',
     hasPagination: true, // true | false, default: true
     hasAdd: true,
     hasFilter: false,
     columns: [
       {
-        label: 'administration.gp.ficheListProfils.table.columns.login',
+        label: 'profil.table.columns.login',
         key: 'code',
         style: {
           width: '20%',
@@ -34,7 +34,7 @@ export const FicheListeProfilsMetadata = {
         },
       },
       {
-        label: 'administration.gp.ficheListProfils.table.columns.Désignation',
+        label: 'profil.table.columns.Désignation',
         key: 'desFr',
         style: {
           width: '20%',
@@ -45,7 +45,7 @@ export const FicheListeProfilsMetadata = {
         },
       },
       {
-        label: 'administration.gp.ficheListProfils.table.columns.FActif',
+        label: 'profil.table.columns.FActif',
         key: 'isActive',
         style: {
           width: '10%',
@@ -89,8 +89,8 @@ export const FicheListeProfilsMetadata = {
   },
   filtreListProfilsMetadata: {
     labels: {
-      codProfil: 'administration.gp.ficheListProfils.table.columns.login',
-      desProfil: 'administration.gp.ficheListProfils.table.columns.Désignation',
+      codProfil: 'profil.table.columns.login',
+      desProfil: 'profil.table.columns.Désignation',
     },
   },
 };
@@ -109,11 +109,11 @@ export const FicheDetailsProfil = {
     title: 'administration.gp.fichedetailProfil.detail',
     columns: [
       {
-        label: 'administration.gp.ficheListProfils.table.columns.login',
+        label: 'profil.table.columns.login',
         key: 'code',
       },
       {
-        label: 'administration.gp.ficheListProfils.table.columns.Désignation',
+        label: 'profil.table.columns.Désignation',
         key: {
           fr: 'desFr',
           en: 'desEn',
@@ -121,7 +121,7 @@ export const FicheDetailsProfil = {
       },
 
       {
-        label: 'administration.gp.ficheListProfils.table.columns.FActif',
+        label: 'profil.table.columns.FActif',
         key: 'isActive',
       },
     ],
