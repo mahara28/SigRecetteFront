@@ -15,7 +15,7 @@ import { GED_URI } from '../../../../../layouts/private/shared/constantes/common
 import { ConstanteWs } from '../../../../constantes/constante-ws';
 import { Dialog } from "../../dialog/dialog";
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { TextFieldComponent } from '../../../form/text-field/text-field.component';
+
 import { onAction } from '../../../../tools';
 import { ConfirmDialogService } from '../../../../services';
 

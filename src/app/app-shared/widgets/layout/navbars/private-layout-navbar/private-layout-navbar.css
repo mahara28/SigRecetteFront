@@ -1,0 +1,15 @@
+.nxl-header {
+  right: 0px;
+  left: 280px;
+  z-index: 1025;
+  position: fixed;
+  color: #eaebef;
+  background: #fff;
+  min-height: 80px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+:host([dir="rtl"]) .nxl-header {
+  right: 280px;
+  left: 0px;
+}

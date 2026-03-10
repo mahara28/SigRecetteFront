@@ -27,12 +27,12 @@ export class SelectAppLanguage implements OnInit {
 
 
     get optionsList() {
-        return this.options.filter(_ => _.code != this.AppTranslateService.getDefaultLang());
+        return this.options.filter(_ => _.code != this.AppTranslateService.getCurrentLanguage());
     }
 
 
     useLanguage(lang: 'fr' | 'ar' ) {
-        this.AppTranslateService.useLanguage(lang);
+        this.AppTranslateService.setLanguage(lang);
         location.reload();
     }
 }
