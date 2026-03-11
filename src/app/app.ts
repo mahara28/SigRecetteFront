@@ -31,5 +31,6 @@ export class App implements OnInit {
       localStorage.setItem('lang', 'fr');
     }
   }
+  
   menus = APP_MENU;
 }
