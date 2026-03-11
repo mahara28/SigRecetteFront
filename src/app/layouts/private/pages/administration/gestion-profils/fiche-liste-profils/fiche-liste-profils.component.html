@@ -1,0 +1,14 @@
+<div fxFlex="100" fxFlex.lt-md="100">
+  <!-- <pfs-filtre-liste-profils (searchoptions)="onSearch($event)"
+         #filtre (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch(): null"></pfs-filtre-liste-profils>
+      -->
+</div>
+
+<mc-datatable
+  [responsePayload]="params.listeProfils.payload"
+  [metadata]="params.listeProfils.metadata"
+  (onAction)="onAction(this, $event)"
+  (paginate)="onPaginate($event)"
+  (sort)="onSort($event)"
+>
+</mc-datatable>

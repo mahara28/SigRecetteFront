@@ -1,21 +1,16 @@
-<section class="body-wrapper"
-  [dir]="currentDirection"
-  [class.rtl]="currentDirection === 'rtl'"
-  [class.ltr]="currentDirection === 'ltr'"
->
-  <app-private-layout-navbar class="no-print" (toggleSidebarEventEmitter)="onToggleSidebar()">
-  </app-private-layout-navbar>
-  <app-private-layout-sidebar #privateLayoutSidebar [listMenus]="listMenus">
-    <div class="body-container">
-      <div class="breadcrumb-wrapper no-print">
-        <div class="breadcrumb-container">
-          <!-- <mc-breadcrumb [isPrivateLayout]="true"></mc-breadcrumb> -->
-        </div>
-      </div>
-      <div class="content-container" (scroll)="checkIfGoToUpBtnIsDisplayed('content-container')">
-        <mc-outlet></mc-outlet>
-      </div>
-    </div>
-  </app-private-layout-sidebar>
+<app-private-layout-sidebar #privateLayoutSidebar [listMenus]="listMenus">
+</app-private-layout-sidebar>
 
-</section>
+<app-private-layout-navbar class="no-print" (toggleSidebarEventEmitter)="onToggleSidebar()">
+</app-private-layout-navbar>
+
+<div class="nxl-container" (scroll)="checkIfGoToUpBtnIsDisplayed('content-container')">
+  <div class="nxl-content">
+    <div class="page-header">
+      <mc-breadcrumb [isPrivateLayout]="true"></mc-breadcrumb>
+    </div>
+    <div class="main-content">
+      <mc-outlet></mc-outlet>
+    </div>
+  </div>
+</div>

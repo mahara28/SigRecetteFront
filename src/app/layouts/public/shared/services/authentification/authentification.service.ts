@@ -272,7 +272,7 @@ export class AuthentificationService {
   }
 
   public logout(): void {
-    this.logoutback(AuthentificationService.authenticatedUser!.id);
+    //this.logoutback(AuthentificationService.authenticatedUser!.id);
     this.removeAccessToken();
     AuthentificationService.authenticatedUser = undefined;
     this.userLoggedIn.next(false);

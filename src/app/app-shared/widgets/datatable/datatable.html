@@ -12,16 +12,15 @@
     (onSaveClicked)="onActionEventEmitter('onSave')"
   >
     <mc-table
-  #t
-  [responsePayload]="responsePayload()"
-  [responsePayloadall]="responsePayloadall() ?? null"
-  [metadata]="metadata()"
-  (onAction)="onAction.emit($event)"
-  (sort)="sort.emit($event)"
-  (paginate)="paginate.emit($event)"
->
-  <ng-content></ng-content>
-</mc-table>
-
+      #t
+      [responsePayload]="responsePayload()"
+      [responsePayloadall]="responsePayloadall() ?? null"
+      [metadata]="metadata()"
+      (onAction)="onAction.emit($event)"
+      (sort)="sort.emit($event)"
+      (paginate)="paginate.emit($event)"
+    >
+      <ng-content></ng-content>
+    </mc-table>
   </mc-card>
 }

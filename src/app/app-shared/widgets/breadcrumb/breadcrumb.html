@@ -1,0 +1,47 @@
+<div style="padding: 0 5px">
+  <breadcrumb #parent>
+    <ng-container *ngIf="!isPrivateLayout">
+      <mat-toolbar
+        class="app-toolbar"
+        appCard
+        style="z-index: auto; min-height: 48px; height: auto; background-color: white"
+      >
+        <div style="display: contents">
+          <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+            <span>
+              <span *ngIf="!route.terminal" style="cursor: pointer">
+                <span [routerLink]="[route.url]">{{ route.displayName | translate }}</span>
+                <span style="margin: 0 5px" *ngIf="!route.terminal"> /</span>
+              </span>
+              <span *ngIf="route.terminal" class="tag-text active" aria-current="page">
+                {{ route.displayName | translate }}
+              </span>
+            </span>
+          </ng-template>
+        </div>
+      </mat-toolbar>
+    </ng-container>
+    <div *ngIf="isPrivateLayout">
+      <ng-template ngFor let-route [ngForOf]="parent.breadcrumbs">
+        <span *ngIf="!route.terminal">
+          <span *ngIf="route.route!.component" class="cursor-pointer" [routerLink]="[route.url]">{{
+            route.displayName | translate
+          }}</span>
+          <span *ngIf="!route.route!.component && !includeDefaultChildRoute(route)">{{
+            route.displayName | translate
+          }}</span>
+          <span
+            *ngIf="!route.route!.component && includeDefaultChildRoute(route)"
+            class="cursor-pointer"
+            [routerLink]="[route.url]"
+            >{{ route.displayName | translate }}</span
+          >
+          <span style="margin: 0 5px; cursor: auto" *ngIf="!route.terminal"> > </span>
+        </span>
+        <span *ngIf="route.terminal" class="tag-text active" aria-current="page">
+          {{ route.displayName | translate }}
+        </span>
+      </ng-template>
+    </div>
+  </breadcrumb>
+</div>
