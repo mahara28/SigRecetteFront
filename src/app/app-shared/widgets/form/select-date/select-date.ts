@@ -1,19 +1,25 @@
-
 import {
   Component,
   EventEmitter,
   Input,
-  OnChanges,
-  OnInit,
   Output,
-  SimpleChanges,
-  inject,
+  ChangeDetectorRef
 } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { DateAdapter } from '@angular/material/core';
-import { hasrequiredField, isEmptyValue, isSomeInputsChanged } from '../../../tools';
-import moment from 'moment';
 
+import { FormControl } from '@angular/forms';
+import { DateAdapter } from '@angular/material/core';
+
+import moment from 'moment';
+/** utilisation**
+ * <st2i-select-date-time
+ *[label]="'date.creation'"
+  [control]="form.controls.dateCreation"
+  [hasTooltip]="true"
+  [minDate]="minDate"
+  [maxDate]="maxDate"
+  (onChangeEvent)="dateChanged($event)">
+</st2i-select-date-time>
+ */
 
 @Component({
   selector: 'mc-select-date',
@@ -21,50 +27,50 @@ import moment from 'moment';
   templateUrl: './select-date.html',
   styleUrl: './select-date.css',
 })
-export class SelectDate implements OnInit, OnChanges{
- @Input() min?: Date | null;
-  @Input() max?: Date | null;
+export class SelectDate {@Input() label!: string;
+
   @Input() control!: FormControl;
-  @Input() label: string = '';
-  @Input() hint: string = '';
-  @Input() hideRequiredMarker: boolean = false;
-  @Input() hasTooltip: boolean = false;
+
+  @Input() minDate?: Date;
+  @Input() maxDate?: Date;
+
+  @Input() hasTooltip = false;
+  @Input() disabled = false;
 
   @Output() onChangeEvent = new EventEmitter<any>();
 
-  required = hasrequiredField;
+  constructor(
+    private dateAdapter: DateAdapter<any>,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
-  private adapter = inject(DateAdapter<any>);
+  chooseDate(): void {
 
-  ngOnInit(): void {
-    this.adapter.setLocale(moment.locale());
-  }
+    const selectedDate = this.control.value;
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (isSomeInputsChanged(changes, ['min', 'max'])) {
-      if (changes['min']?.currentValue !== changes['min']?.previousValue) {
-        this.min = !isEmptyValue(changes['min']?.currentValue)
-          ? new Date(changes['min']?.currentValue)
-          : null;
-        this.adapter.setLocale(moment.locale());
-      }
+    if (selectedDate) {
 
-      if (changes['max']?.currentValue !== changes['max']?.previousValue) {
-        this.max = !isEmptyValue(changes['max']?.currentValue)
-          ? new Date(changes['max']?.currentValue)
-          : null;
-        this.adapter.setLocale(moment.locale());
-      }
+      const safeMoment = moment.isMoment(selectedDate)
+        ? selectedDate
+        : moment(selectedDate);
+
+      this.control.setValue(safeMoment);
+
+      this.onChangeEvent.emit(safeMoment);
     }
+
+    this.dateAdapter.setLocale(moment.locale());
   }
 
-  clear(mouseEvent: MouseEvent): void {
-    mouseEvent.stopPropagation();
-    this.control.setValue(undefined);
+  clear(event: MouseEvent) {
+
+    event.stopPropagation();
+
+    this.control.setValue(null);
   }
 
-  chooseDate(date: any): void {
-    this.adapter.setLocale(moment.locale());
-    this.onChangeEvent.emit(date);
+  getFormattedDateValueForTheTooltip(dateVal: any) {
+
+    return moment(dateVal).format("DD/MM/YYYY HH:mm");
   }
 }

@@ -1,39 +1,28 @@
-<mat-form-field appearance="outline">
-
+<mat-form-field appearance="outline" class="full-width">
   <mat-label>{{ label | translate }}</mat-label>
 
   <input
     matInput
-    [ngxMatDatetimePicker]="picker"
+    [matDatepicker]="picker"
     [formControl]="control"
     [min]="minDate"
     [max]="maxDate"
-    [disabled]="disabled"
     [matTooltipDisabled]="!hasTooltip"
-    [matTooltip]="hasTooltip && control?.value != undefined
-      ? getFormattedDateValueForTheTooltip(control?.value)
-      : (label | translate)"
-    (click)="picker.open()"
-    (ngxMatDatetimePickerChange)="dateChange($event)"
+    [matTooltip]="
+      hasTooltip && control.value
+        ? getFormattedDateValueForTheTooltip(control.value)
+        : (label | translate)
+    "
   />
 
-  <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 
-  <ngx-mat-datetime-picker
+  <mat-datepicker
     #picker
-    [showSpinners]="showSpinners"
-    [showSeconds]="showSeconds"
-    [stepHour]="stepHour"
-    [stepMinute]="stepMinute"
-    [stepSecond]="stepSecond"
-    [touchUi]="touchUi"
-    [color]="color"
-    [enableMeridian]="enableMeridian"
-    [defaultTime]="[0, 0, 0]"
     (closed)="chooseDate()"
-  >
-  </ngx-mat-datetime-picker>
+  ></mat-datepicker>
 
-  <mat-error [control]="control" appControlError></mat-error>
-
+  <mat-error *ngIf="control.invalid">
+    {{ "form.error" | translate }}
+  </mat-error>
 </mat-form-field>

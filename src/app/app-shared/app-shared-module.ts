@@ -68,8 +68,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
-import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -159,13 +158,15 @@ import { NgxMatMomentModule } from '@angular-material-components/moment-adapter'
     MatInputModule,
     MatDatepickerModule,
     MatTooltipModule,
-     MatFormFieldModule,
+    MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
     MatTooltipModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule, 
-    NgxMatMomentModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatTooltipModule,
 
     //******* Directive ********//
     BlockDirective,
