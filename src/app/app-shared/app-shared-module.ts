@@ -64,6 +64,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { SelectDate } from './widgets/form/select-date/select-date';
+import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { NgxMatMomentModule } from '@angular-material-components/moment-adapter';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -82,6 +88,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     FicheDetails,
     Datatable,
     Table,
+    SelectDate,
+    SelectDateTime,
+
+
   ],
   exports: [
     MatMenuContent,
@@ -98,6 +108,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SpinnerContainerComponent,
     TextField,
     FicheDetails,
+    MatFormFieldModule,
 
     //Composant
     PrivateLayoutNavbar,
@@ -111,6 +122,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     Breadcrumb,
     Card,
     CardTitle,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+
   ],
   imports: [
     CommonModule,
@@ -135,10 +151,21 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     BreadcrumbModule,
     MatCardModule,
-    MatTableModule, // ✅ fix: [dataSource], matColumnDef, mat-table
-    MatSortModule, // ✅ fix: matSort, mat-sort-header
-    MatPaginatorModule, // ✅ fix: mat-paginator
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     MatRadioModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+     MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatTooltipModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule, 
+    NgxMatMomentModule,
 
     //******* Directive ********//
     BlockDirective,

@@ -33,6 +33,23 @@ export function isEmptyObject(obj: Record<string, any> | null | undefined): bool
 export function isInputChanged(changes: SimpleChanges | any, inputName: string): boolean {
   return changes && changes.hasOwnProperty(inputName) && !changes[inputName].firstChange;
 }
+
+/**
+ * Vérifie si au moins un des inputs spécifiés a changé
+ * @param changes SimpleChanges reçu dans ngOnChanges
+ * @param inputNames Tableau des noms d'inputs à vérifier
+ * @returns true si au moins un des inputs a changé
+ *
+ * @example
+ * isSomeInputsChanged(changes, ['min', 'max']) // true si min ou max a changé
+ */
+
+export function isSomeInputsChanged(
+  changes: SimpleChanges,
+  inputNames: string[]
+): boolean {
+  return inputNames.some((inputName) => isInputChanged(changes, inputName));
+}
 /**
  * Vérifie si une valeur est un nombre
  * @param value Valeur à vérifier
