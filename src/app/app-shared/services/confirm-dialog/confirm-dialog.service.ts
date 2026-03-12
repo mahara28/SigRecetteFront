@@ -82,7 +82,7 @@ export class ConfirmDialogService {
       panelClass: 'custom-dialog-container',
       disableClose: true,
       width: '35%',
-      direction: AppTranslateService.getStoredDirection(),
+      direction: AppTranslateService.getDir(),
       autoFocus: true,
     });
     return dialogRef.afterClosed();
@@ -106,7 +106,7 @@ export class ConfirmDialogService {
       panelClass: 'custom-dialog-container',
       disableClose: true,
       width: '400px',
-      direction: this.appTranslateService.getCurrentDirection(),
+      direction: this.appTranslateService.getDir(),
       data: { title, description },
     };
 
@@ -123,7 +123,7 @@ export class ConfirmDialogService {
       disableClose: true,
       autoFocus: true,
       width: options.width || '40%',
-      direction: this.appTranslateService.getCurrentDirection(),
+      direction: this.appTranslateService.getDir(),
       data: {
         msg: options.message,
         mutlimsgs: options.multiple || false,

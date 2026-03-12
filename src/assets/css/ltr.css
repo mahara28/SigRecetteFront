@@ -1,0 +1,207 @@
+div,
+span {
+  font-family: "Averta", serif;
+}
+/*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--private-layout-content-color-2);
+}
+
+/*TODO(mdc-migration): The following rule targets internal classes of radio that may no longer apply for the MDC version.*/
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  color: var(--private-layout-content-color-2);
+  background-color: var(--private-layout-content-color-2);
+}
+
+/*.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {*/
+/*    background-color:rgb(255, 37, 37,.26);*/
+/*}*/
+.psbc5 > * {
+  padding-right: 5px;
+  padding-bottom: 5px;
+}
+
+::ng-deep.mat-card {
+  box-shadow: 11px -15px 22px 43px rgba(130, 122, 130, 1);
+}
+
+/*.material-icons {
+    padding-rigt: 4px;
+}*/
+.red-snackbar {
+  background: rgb(232, 65, 24);
+  margin-left: auto;
+  margin-right: auto;
+}
+.mat-simple-snack-bar span {
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+
+.green-snackbar {
+  background: green;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.yellow-snackbar {
+  background: #f8f4c3;
+  margin-left: auto;
+  margin-right: auto;
+  color: #9f824b;
+  font-weight: bold;
+}
+.blue-snackbar {
+  background: #001e8c;
+  border: 2px solid #001e8c;
+  margin-left: auto;
+  margin-right: auto;
+  background: #ffffff;
+  color: #001e8c;
+  font-weight: bold;
+}
+th.mat-header-cell:first-child,
+td.mat-cell:first-child {
+  /* row border */
+  border-left: 0 !important;
+  border-radius: 8px 0 0 0;
+}
+th.mat-header-cell:last-child,
+td.mat-cell:last-child {
+  /* row border */
+  border-right: 0 !important;
+  border-radius: 0 8px 0 0;
+}
+
+td.mat-cell {
+  padding-left: 6px !important;
+}
+
+.logo-partie-prenante-wrapper-1 {
+  position: absolute;
+  left: var(--sidebar-width-not-expanded);
+}
+
+.logo-partie-prenante-wrapper-2 {
+  position: absolute;
+  left: calc(var(--sidebar-width-expanded) + 10px);
+}
+
+.go-up-button {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 2.5rem;
+  background-color: var(--private-layout-content-color-2);
+}
+
+.navbar-content {
+  padding-left: 5px;
+}
+
+.border-x {
+  border-right: double 4px #87899a;
+  border-left: 0;
+}
+
+@media (min-width: 768px) {
+  .mat-sidenav-content-wrapper-p {
+    padding: 0 0.875rem 1rem 0 !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .mat-sidenav-content-wrapper-p {
+    padding: 0 0.875rem 1rem 0.875rem !important;
+  }
+}
+
+/* custom padding*/
+
+.cpdl-0 {
+  padding-left: 0 !important;
+}
+
+.cpdl-1 {
+  padding-left: 0.25rem !important;
+}
+
+.cpdl-2 {
+  padding-left: 0.5rem !important;
+}
+
+.cpdl-3 {
+  padding-left: 1rem !important;
+}
+
+.cpdl-4 {
+  padding-left: 1.5rem !important;
+}
+
+.cpdl-5 {
+  padding-left: 3rem !important;
+}
+
+.cpdr-0 {
+  padding-right: 0 !important;
+}
+
+.cpdr-1 {
+  padding-right: 0.25rem !important;
+}
+
+.cpdr-2 {
+  padding-right: 0.5rem !important;
+}
+
+.cpdr-3 {
+  padding-right: 1rem !important;
+}
+
+.cpdr-4 {
+  padding-right: 1.5rem !important;
+}
+
+.cpdr-5 {
+  padding-right: 3rem !important;
+}
+
+/* custom margins*/
+.cmd-0 {
+  margin-left: 0 !important;
+}
+
+.cmd-1 {
+  margin-left: 0.25rem !important;
+}
+
+.cmd-2 {
+  margin-left: 0.5rem !important;
+}
+
+.cmd-3 {
+  margin-left: 1rem !important;
+}
+.cmd-4 {
+  margin-left: 1.5rem !important;
+}
+
+.cmd-5 {
+  margin-left: 3rem !important;
+}
+
+.profile-info {
+    border-left: 4px solid var(--danger);
+    border-right: none;
+}
+
+.info-icon {
+    margin-right: 15px;
+    margin-left: 0;
+}
+
+.card-icon {
+    margin-right: 15px;
+    margin-left: 0;
+}

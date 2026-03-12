@@ -78,7 +78,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { SelectCommon } from './widgets/form/select/select-common/select-common';
+import { FlexLayoutModule, DefaultShowHideDirective } from '@ngbracket/ngx-layout';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -102,6 +104,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     SelectDateTime,
     EmptyList,
     Paginator,
+    SelectCommon,
+
   ],
   exports: [
     MatMenuContent,
@@ -119,6 +123,16 @@ import { MatNativeDateModule } from '@angular/material/core';
     TextField,
     FicheDetails,
     MatFormFieldModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatTooltipModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule,
 
     //Composant
     PrivateLayoutNavbar,
@@ -182,6 +196,17 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule,
+    FlexLayoutModule,
+
 
     //******* Directive ********//
     BlockDirective,
@@ -200,7 +225,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     SwiperCpaDirective,
     YearFormatDirective,
     DebounceClickDirective,
-
     //pipe
     DateFormatheurePipe,
     DateFormatPipe,
@@ -213,6 +237,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     TruncatePipe,
     DayMonthFormatPipe,
     MinutesFormatPipe,
-  ],
+],
 })
 export class AppSharedModule {}

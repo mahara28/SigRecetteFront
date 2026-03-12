@@ -9,9 +9,9 @@ export class SelectMetadata {
   parentChild?: boolean;
   flotParentChild?: boolean;
   hideRequiredMarker?: boolean;
-  optionLabel?: object | string;
-  groupLabel?: object | string;
+  optionLabel!: object | string;
+  groupLabel!: object | string;
   value?: object | string;
   emittedValue?: string;
-  compareWith?: (o1: any, o2: any) => boolean;
+  
 }

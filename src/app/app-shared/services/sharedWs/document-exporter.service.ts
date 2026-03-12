@@ -24,11 +24,11 @@ export class DocumentExporterService {
   private pdfMake: any;
 
   private get isRtl(): boolean {
-    return this.appTranslateService.getCurrentDirection() === DIRECTION.RTL;
+    return this.appTranslateService.getDir() === DIRECTION.RTL;
   }
 
   private get currentLang(): string {
-    return this.appTranslateService.getCurrentLanguage();
+    return this.appTranslateService.getDefaultLang();
   }
 
   /**

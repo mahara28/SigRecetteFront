@@ -12,7 +12,7 @@ export class DateFormatheurePipe implements PipeTransform {
     }
 
     const format =
-      AppTranslateService.getStoredDirection() === DIRECTION.RTL
+      AppTranslateService.getDir() === DIRECTION.RTL
         ? "YYYY/MM/DD HH:mm"
         : "DD/MM/YYYY HH:mm";
 

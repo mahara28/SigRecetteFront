@@ -90,9 +90,9 @@ export class FicheListeProfilsComponent implements OnInit {
           if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
             for (let item of response.payload.data) {
               if (item['isActive'] == 1) {
-                item['isActive'] = AppTranslateService.getStoredLanguage() == 'fr' ? 'Oui' : 'نعم ';
+                item['isActive'] = AppTranslateService.getDefaultLang() == 'fr' ? 'Oui' : 'نعم ';
               } else {
-                item['isActive'] = AppTranslateService.getStoredLanguage() == 'fr' ? 'Non' : 'لا';
+                item['isActive'] = AppTranslateService.getDefaultLang() == 'fr' ? 'Non' : 'لا';
               }
             }
             this.params.listeProfils.payload = response.payload;
@@ -132,9 +132,9 @@ export class FicheListeProfilsComponent implements OnInit {
           if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
             for (let item of response.payload.data) {
               if (item['isActive'] == 1) {
-                item['isActive'] = AppTranslateService.getStoredLanguage() == 'fr' ? 'Oui' : 'نعم ';
+                item['isActive'] = AppTranslateService.getDefaultLang() == 'fr' ? 'Oui' : 'نعم ';
               } else {
-                item['isActive'] = AppTranslateService.getStoredLanguage() == 'fr' ? 'Non' : 'لا';
+                item['isActive'] = AppTranslateService.getDefaultLang() == 'fr' ? 'Non' : 'لا';
               }
             }
 
@@ -210,7 +210,7 @@ export class FicheListeProfilsComponent implements OnInit {
     const searcho: SearchObject = new SearchObject();
     searcho.sort = new Sort('code', 'asc');
 
-    searcho.language = AppTranslateService.getStoredLanguage();
+    searcho.language = AppTranslateService.getDefaultLang();
     searcho.typeExport = typeExport.item;
 
     searcho.metadata = this.params['listeProfils'].metadata;
