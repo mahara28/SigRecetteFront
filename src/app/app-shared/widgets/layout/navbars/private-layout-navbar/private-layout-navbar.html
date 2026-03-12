@@ -3,7 +3,9 @@
 
     <!-- LEFT SIDE -->
     <div class="header-left d-flex align-items-center gap-4">
-      <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse">
+      <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse"
+      (click)="onToggleSidebar()"
+      [attr.aria-expanded]="isSidebarOpen">
         <div class="hamburger hamburger--arrowturn">
           <div class="hamburger-box">
             <div class="hamburger-inner"></div>
@@ -70,8 +72,8 @@
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-                      <img src="assets/vendors/img/flags/1x1/sa.svg" alt="Arabic" class="img-fluid" />
-                    </div>
+<!--                       <img src="assets/vendors/img/flags/1x1/sa.svg" alt="Arabic" class="img-fluid" />
+ -->                    </div>
                     <span>{{ 'LANG.ARABIC' | translate }}</span>
                   </a>
                 </div>
@@ -85,8 +87,8 @@
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-                      <img src="assets/vendors/img/flags/1x1/fr.svg" alt="French" class="img-fluid" />
-                    </div>
+<!--                       <img src="assets/vendors/img/flags/1x1/fr.svg" alt="French" class="img-fluid" />
+ -->                    </div>
                     <span>{{ 'LANG.FRENCH' | translate }}</span>
                   </a>
                 </div>

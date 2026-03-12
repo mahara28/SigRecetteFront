@@ -1,506 +1,361 @@
 /*
 <--!----------------------------------------------------------------!-->
-<--! Navigarion CSS Start !-->
+<--! Navigation CSS Start !-->
 <--!----------------------------------------------------------------!-->
 */
 .nxl-navigation {
-	top: 0;
-	bottom: 0;
-	z-index: 1026;
-	position: fixed;
-	background: $white;
-	width: $navigation-width;
-	transition: all 0.3s ease;
+  top: 0;
+  bottom: 0;
+  z-index: 1026;
+  position: fixed;
+  background: $white;
+  width: $navigation-width;
+  transition: all 0.3s ease;
+  inset-inline-start: 0; /* ✅ LTR: left:0 | RTL: right:0 */
 
-	// ✅ LTR par défaut : sidebar à gauche
-	left: 0;
+  .m-header {
+    z-index: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    padding: 15px 30px;
+    align-items: center;
+    height: $header-height;
+    border-inline-end: 1px solid $border-color; /* ✅ LTR: border-right | RTL: border-left */
+    border-bottom: 1px solid $border-color;
 
-	.m-header {
-		z-index: 1;
-		overflow: hidden;
-		position: relative;
-		display: flex;
-		padding: 15px 30px;
-		align-items: center;
-		height: $header-height;
-		/* background: #3454d1db; */
-		border-right: 1px solid $border-color;
-		border-bottom: 1px solid $border-color;
+    .logo-sm {
+      display: none;
+    }
+  }
 
-		.logo-sm {
-			display: none;
-		}
-	}
+  .navbar-content {
+    padding: 10px 0;
+    position: relative;
+    border-inline-end: 1px solid $border-color; /* ✅ LTR: border-right | RTL: border-left */
+    height: calc(100vh - #{$header-height});
 
-	.navbar-content {
-		padding: 10px 0;
-		position: relative;
-		border-right: 1px solid $border-color;
-		height: calc(100vh - #{$header-height});
+    ul {
+      list-style: none;
+      padding-inline-start: 0; /* ✅ LTR: padding-left | RTL: padding-right */
+      margin-bottom: 0;
+    }
 
-		ul {
-			list-style: none;
-			padding-left: 0;
-			margin-bottom: 0;
-		}
+    .nxl-caption {
+      display: block;
+      color: $brand-muted;
+      font-size: $font-10;
+      font-weight: $font-700;
+      letter-spacing: 0.07em;
+      padding: 15px 20px 10px;
+      text-transform: uppercase;
 
-		.nxl-caption {
-			display: block;
-			color: $brand-muted;
-			font-size: $font-10;
-			font-weight: $font-700;
-			letter-spacing: 0.07em;
-			padding: 15px 20px 10px;
-			text-transform: uppercase;
+      label {
+        margin-bottom: 0;
+      }
 
-			label {
-				margin-bottom: 0;
-			}
+      span:not(.badge) {
+        display: block;
+        color: #67758a;
+        text-transform: $font-capitalize;
+        font: {
+          size: 10px;
+          weight: 500;
+        }
+      }
+    }
 
-			span:not(.badge) {
-				display: block;
-				color: #67758a;
-				text-transform: $font-capitalize;
+    .nxl-micon {
+      margin-inline-end: 12px; /* ✅ LTR: margin-right | RTL: margin-left */
+      display: inline-block;
+      vertical-align: middle;
 
-				font: {
-					size: 10px;
-					weight: 500;
-				}
-			}
-		}
+      i {
+        font-size: 18px;
+      }
+    }
 
-		.nxl-micon {
-			margin-right: 12px;
-			display: inline-block;
-			vertical-align: middle;
+    .nxl-link {
+      display: block;
+      line-height: 1.2;
+      padding: 10px 15px;
+      font-size: $font-13;
+      color: $brand-dark;
+      font-weight: $font-600;
+      transition: all 0.3s ease;
 
-			i {
-				font-size: 18px;
-			}
-		}
+      &.active,
+      &:hover {
+        text-decoration: none;
+        color: $brand-dark;
+        transition: all 0.3s ease;
 
-		.nxl-link {
-			display: block;
-			line-height: 1.2;
-			padding: 10px 15px;
-			font-size: $font-13;
-			color: $brand-dark;
-			font-weight: $font-600;
-			transition: all 0.3s ease;
+        .nxl-micon i {
+          color: $brand-dark;
+          transition: all 0.3s ease;
+        }
+      }
+    }
 
-			&.active,
-			&:hover {
-				text-decoration: none;
-				color: $brand-dark;
-				transition: all 0.3s ease;
+    .nxl-arrow {
+      float: inline-end; /* ✅ LTR: float-right | RTL: float-left */
+      transition: all 0.2s ease-in-out;
+    }
 
-				.nxl-micon {
-					i {
-						color: $brand-dark;
-						transition: all 0.3s ease;
-					}
-				}
-			}
-		}
+    .nxl-badge {
+      margin-inline-start: 8px; /* ✅ LTR: margin-left | RTL: margin-right */
+    }
 
-		.nxl-arrow {
-			float: right;
-			transition: all 0.2s ease-in-out;
-		}
+    .nxl-submenu {
+      .nxl-link {
+        font-size: 0.8rem;
+        padding: 10px 20px;
+        margin-inline-start: 35px !important; /* ✅ LTR: margin-left | RTL: margin-right */
+        margin-inline-end: 5px !important;    /* ✅ LTR: margin-right | RTL: margin-left */
+      }
 
-		.nxl-badge {
-			margin-left: 8px;
-		}
+      .nxl-submenu {
+        .nxl-link {
+          margin-inline-start: 45px !important;
+        }
 
-		.nxl-submenu {
-			.nxl-link {
-				font-size: 0.8rem;
-				padding: 10px 20px;
-				margin-left: 35px !important;
-				margin-right: 5px !important;
-			}
+        .nxl-submenu {
+          .nxl-link {
+            margin-inline-start: 55px !important;
+          }
+        }
+      }
+    }
 
-			.nxl-submenu {
-				.nxl-link {
-					margin-left: 45px !important;
-				}
+    .nxl-item {
+      &.disabled a {
+        cursor: not-allowed;
+        user-select: none;
+      }
 
-				.nxl-submenu {
-					.nxl-link {
-						margin-left: 55px !important;
-					}
-				}
-			}
-		}
+      &.active,
+      &:hover {
+        > .nxl-link {
+          color: $darken;
+          background-color: $brand-light;
+          transition: all 0.3s ease;
 
-		.nxl-item {
-			&.disabled {
-				a {
-					cursor: not-allowed;
-					user-select: none;
-				}
-			}
+          .nxl-micon i {
+            color: $darken;
+            transition: all 0.3s ease;
+          }
+        }
+      }
+    }
 
-			&.active,
-			&:hover {
-				>.nxl-link {
-					color: $darken;
-					background-color: $brand-light;
-					transition: all 0.3s ease;
+    .nxl-navbar {
+      > .nxl-item {
+        &.active,
+        &:hover {
+          > .nxl-link {
+            color: $darken;
+            background-color: $brand-light;
+            transition: all 0.3s ease;
+          }
+        }
+      }
+    }
 
-					.nxl-micon {
-						i {
-							color: $darken;
-							transition: all 0.3s ease;
-						}
-					}
-				}
-			}
-		}
+    .nxl-hasmenu {
+      &.nxl-trigger {
+        > .nxl-submenu {
+          display: block;
+        }
 
-		.nxl-navbar {
-			>.nxl-item {
+        > .nxl-link > .nxl-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    }
 
-				&.active,
-				&:hover {
-					>.nxl-link {
-						color: $darken;
-						background-color: $brand-light;
-						transition: all 0.3s ease;
-					}
-				}
-			}
-		}
-
-		.nxl-hasmenu {
-			&.nxl-trigger {
-				>.nxl-submenu {
-					display: block;
-				}
-
-				>.nxl-link {
-					>.nxl-arrow {
-						transform: rotate(90deg);
-					}
-				}
-			}
-		}
-
-		.card {
-			margin: 20px;
-			color: $brand-dark;
-			background: $gray-100;
-			border-color: $border-color;
-		}
-	}
+    .card {
+      margin: 20px;
+      color: $brand-dark;
+      background: $gray-100;
+      border-color: $border-color;
+    }
+  }
 }
 
+// ✅ Overlay : inset-inline-start couvre les deux sens
 .nxl-menu-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: 1;
-	background: rgba(0, 0, 0, 0.2);
-}
-
-html:not(.minimenu) {
-	.nxl-navigation {
-		.nxl-link {
-			margin: 3px 15px;
-			border-radius: 5px;
-		}
-
-		.nxl-submenu {
-			position: relative;
-
-			.nxl-item {
-				margin: 3px 10px;
-				border-radius: 5px;
-			}
-
-			.nxl-submenu {
-				>.nxl-item {
-					&:before {
-						left: 60px;
-					}
-				}
-
-				.nxl-submenu {
-					>.nxl-item {
-						&:before {
-							left: 80px;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-html.minimenu {
-	.nxl-navigation {
-		width: $navigation-collapsed-width;
-		transition: all 0.3s ease;
-
-		.logo-sm {
-			width: 42px;
-			display: block;
-			transition: all 0.3s ease;
-		}
-
-		.logo-lg,
-		.nxl-mtext,
-		.nxl-arrow,
-		.card {
-			display: none;
-			transition: all 0.3s ease;
-		}
-
-		.navbar-content {
-			width: 100px;
-			transition: all 0.3s ease;
-
-			.nxl-link {
-				margin: 0 20px;
-				padding: 12px 20px;
-				border-radius: 6px 6px;
-			}
-
-			.nxl-hasmenu.nxl-trigger {
-				>.nxl-submenu {
-					display: none;
-				}
-			}
-
-			.nxl-caption {
-				position: relative;
-
-				&:before {
-					top: 0;
-					display: flex;
-					align-items: center;
-					width: 100%;
-					height: 100%;
-					font-size: 16px;
-					padding-left: 20px;
-					content: "\e9a4";
-					position: absolute;
-					font-family: feather !important;
-				}
-
-				label {
-					display: none;
-				}
-			}
-		}
-	}
-
-	/*minimenu-hover-expend*/
-	.nxl-navigation {
-		&:hover {
-			.navbar-content {
-				position: absolute !important;
-				width: $navigation-width;
-				background-color: $white;
-				border-right: 1px solid $border-color;
-				transition: all 0.3s ease;
-
-				.nxl-caption,
-				.nxl-mtext,
-				.nxl-arrow,
-				.card {
-					display: inline-block;
-					transition: all 0.3s ease;
-				}
-
-				.nxl-link {
-					margin: 0 15px;
-					margin-bottom: 3px;
-					padding: 10px 20px;
-				}
-
-				.nxl-submenu {
-					.nxl-link {
-						margin-bottom: 3px;
-						padding-left: 20px;
-						margin-left: 50px !important;
-						margin-right: 15px !important;
-					}
-
-					.nxl-submenu {
-						.nxl-link {
-							margin-left: 65px !important;
-						}
-
-						.nxl-submenu {
-							.nxl-link {
-								margin-left: 80px !important;
-							}
-						}
-					}
-				}
-
-				.nxl-hasmenu.nxl-trigger {
-					>.nxl-submenu {
-						display: block;
-					}
-				}
-
-				.nxl-caption {
-					&:before {
-						content: none;
-					}
-
-					label {
-						display: block;
-					}
-				}
-			}
-		}
-	}
+  position: fixed;
+  top: 0;
+  inset-inline-start: 0; /* ✅ LTR: left:0 | RTL: right:0 */
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 // ============================================
-// ✅ RTL - Arabe
+// Non-minimenu
+// ============================================
+html:not(.minimenu) {
+  .nxl-navigation {
+    .nxl-link {
+      margin: 3px 15px;
+      border-radius: 5px;
+    }
+
+    .nxl-submenu {
+      position: relative;
+
+      .nxl-item {
+        margin: 3px 10px;
+        border-radius: 5px;
+      }
+
+      .nxl-submenu {
+        > .nxl-item {
+          &:before {
+            inset-inline-start: 60px; /* ✅ LTR: left | RTL: right */
+          }
+        }
+
+        .nxl-submenu {
+          > .nxl-item {
+            &:before {
+              inset-inline-start: 80px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// Minimenu
+// ============================================
+html.minimenu {
+  .nxl-navigation {
+    width: $navigation-collapsed-width;
+    transition: all 0.3s ease;
+
+    .logo-sm {
+      width: 42px;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .logo-lg,
+    .nxl-mtext,
+    .nxl-arrow,
+    .card {
+      display: none;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-content {
+      width: 100px;
+      transition: all 0.3s ease;
+
+      .nxl-link {
+        margin: 0 20px;
+        padding: 12px 20px;
+        border-radius: 6px 6px;
+      }
+
+      .nxl-hasmenu.nxl-trigger > .nxl-submenu {
+        display: none;
+      }
+
+      .nxl-caption {
+        position: relative;
+
+        &:before {
+          top: 0;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          font-size: 16px;
+          padding-inline-start: 20px; /* ✅ LTR: padding-left | RTL: padding-right */
+          content: "\e9a4";
+          position: absolute;
+          font-family: feather !important;
+        }
+
+        label {
+          display: none;
+        }
+      }
+    }
+  }
+
+  // ✅ Minimenu hover expand
+  .nxl-navigation:hover {
+    .navbar-content {
+      position: absolute !important;
+      width: $navigation-width;
+      background-color: $white;
+      border-inline-end: 1px solid $border-color; /* ✅ logique */
+      transition: all 0.3s ease;
+
+      .nxl-caption,
+      .nxl-mtext,
+      .nxl-arrow,
+      .card {
+        display: inline-block;
+        transition: all 0.3s ease;
+      }
+
+      .nxl-link {
+        margin: 0 15px;
+        margin-bottom: 3px;
+        padding: 10px 20px;
+      }
+
+      .nxl-submenu {
+        .nxl-link {
+          margin-bottom: 3px;
+          padding-inline-start: 20px;           /* ✅ logique */
+          margin-inline-start: 50px !important; /* ✅ logique */
+          margin-inline-end: 15px !important;
+        }
+
+        .nxl-submenu {
+          .nxl-link {
+            margin-inline-start: 65px !important;
+          }
+
+          .nxl-submenu {
+            .nxl-link {
+              margin-inline-start: 80px !important;
+            }
+          }
+        }
+      }
+
+      .nxl-hasmenu.nxl-trigger > .nxl-submenu {
+        display: block;
+      }
+
+      .nxl-caption {
+        &:before {
+          content: none;
+        }
+
+        label {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+// ============================================
+// ✅ RTL — uniquement ce qui ne peut pas être logique
+// (rotation de flèche en trigger)
 // ============================================
 [dir="rtl"] {
-
-	// ✅ Sidebar à droite au lieu de gauche
-	.nxl-navigation {
-		left: auto;
-		right: 0;
-
-		.m-header {
-			// ✅ Inverser les bordures
-			border-right: none;
-			border-left: 1px solid $border-color;
-		}
-
-		.navbar-content {
-			// ✅ Inverser la bordure
-			border-right: none;
-			border-left: 1px solid $border-color;
-
-			.nxl-micon {
-				// ✅ Inverser margin icône
-				margin-right: 0;
-				margin-left: 12px;
-			}
-
-			.nxl-arrow {
-				// ✅ Inverser float
-				float: left;
-			}
-
-			.nxl-badge {
-				// ✅ Inverser margin badge
-				margin-left: 0;
-				margin-right: 8px;
-			}
-
-			.nxl-submenu {
-				.nxl-link {
-					// ✅ Inverser indentation sous-menu niveau 1
-					margin-left: 5px !important;
-					margin-right: 35px !important;
-				}
-
-				.nxl-submenu {
-					.nxl-link {
-						margin-left: 5px !important;
-						margin-right: 45px !important;
-					}
-
-					.nxl-submenu {
-						.nxl-link {
-							margin-left: 5px !important;
-							margin-right: 55px !important;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// ✅ Overlay menu overlay côté droit
-	.nxl-menu-overlay {
-		left: auto;
-		right: 0;
-	}
-
-	// ✅ Non-minimenu RTL
-	&:not(.minimenu),
-	html:not(.minimenu) {
-		.nxl-navigation {
-			.nxl-submenu {
-				>.nxl-item {
-					&:before {
-						left: auto;
-						right: 60px;
-					}
-				}
-
-				.nxl-submenu {
-					>.nxl-item {
-						&:before {
-							left: auto;
-							right: 80px;
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// ✅ Minimenu RTL
-	&.minimenu,
-	html.minimenu {
-		.nxl-navigation {
-			.navbar-content {
-				.nxl-caption {
-					&:before {
-						// ✅ Inverser padding icône caption
-						padding-left: 0;
-						padding-right: 20px;
-					}
-				}
-			}
-
-			&:hover {
-				.navbar-content {
-					// ✅ Sidebar expanded à gauche en RTL
-					right: 0;
-					left: auto;
-
-					border-right: none;
-					border-left: 1px solid $border-color;
-
-					.nxl-submenu {
-						.nxl-link {
-							padding-left: 0;
-							padding-right: 20px;
-							margin-left: 15px !important;
-							margin-right: 50px !important;
-						}
-
-						.nxl-submenu {
-							.nxl-link {
-								margin-left: 15px !important;
-								margin-right: 65px !important;
-							}
-
-							.nxl-submenu {
-								.nxl-link {
-									margin-left: 15px !important;
-									margin-right: 80px !important;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
+  .nxl-hasmenu.nxl-trigger > .nxl-link > .nxl-arrow {
+    transform: rotate(-90deg); /* ✅ Inverser la rotation de la flèche */
+  }
 }

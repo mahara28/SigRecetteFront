@@ -22,31 +22,53 @@
       }
     </script>
     <script>
-      (function () {
+      (function() {
+        console.log('🔧 Script de langue exécuté');
+
         var STORAGE_KEY = 'lang';
         var DEFAULT_LANG = 'fr';
 
-         var lang = localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG;
-    if (!['ar', 'fr', 'en'].includes(lang)) {
-      lang = DEFAULT_LANG;
-    }
+        // Vérifier si localStorage est disponible
+        try {
+          var storedLang = localStorage.getItem(STORAGE_KEY);
+          console.log('  - Langue stockée:', storedLang);
 
-        var dir = lang === 'ar' ? 'rtl' : 'ltr';
+          var lang = storedLang || DEFAULT_LANG;
 
-        // Appliquer immédiatement sur <html> et <body>
+          // Valider la langue
+          if (!['ar', 'fr', 'en'].includes(lang)) {
+            console.log('  - Langue invalide, utilisation du défaut');
+            lang = DEFAULT_LANG;
+          }
 
-         document.documentElement.dir = dir;
-    document.documentElement.lang = lang;
+          var dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-        // Ajouter classe pour le thème
-         document.body
-      ? applyClass()
-      : document.addEventListener('DOMContentLoaded', applyClass);
+          console.log(`  - Application: ${lang} (${dir})`);
 
-    function applyClass() {
-      document.body.dir = dir;
-      document.body.classList.add(dir);
-    }
+          // Appliquer immédiatement sur <html>
+          document.documentElement.dir = dir;
+          document.documentElement.lang = lang;
+
+          // Fonction pour appliquer au body quand il sera disponible
+          function applyToBody() {
+            if (document.body) {
+              document.body.dir = dir;
+              document.body.classList.remove('rtl', 'ltr');
+              document.body.classList.add(dir);
+              console.log('  ✓ Appliqué au body');
+            } else {
+              setTimeout(applyToBody, 10);
+            }
+          }
+
+          applyToBody();
+
+        } catch (e) {
+          console.error('Erreur localStorage:', e);
+          // Fallback
+          document.documentElement.dir = 'ltr';
+          document.documentElement.lang = DEFAULT_LANG;
+        }
       })();
     </script>
 
