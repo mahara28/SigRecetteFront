@@ -1,4 +1,3 @@
-
 import {
   Component,
   EventEmitter,
@@ -8,7 +7,8 @@ import {
   signal,
   computed,
   effect,
-  inject
+  inject,
+  SimpleChanges,
 } from '@angular/core';
 import { MatPaginator, PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
@@ -16,66 +16,41 @@ import { CommonModule } from '@angular/common';
 import { pagination, paginationOptions } from '../../constantes';
 import { Pagination } from '../../models/Pagination';
 
-
 @Component({
   selector: 'mc-paginator',
-  imports: [CommonModule, MatPaginatorModule],
+  standalone: false,
   templateUrl: './paginator.html',
   styleUrl: './paginator.css',
 })
 export class Paginator {
-
+  @Output() paginate: EventEmitter<Pagination> = new EventEmitter<Pagination>();
+  @Output() paginatedatatable: EventEmitter<Pagination> = new EventEmitter<Pagination>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  // Outputs typés
-  @Output() pageChange = new EventEmitter<Pagination>();
-  @Output() pageChangeDataTable = new EventEmitter<Pagination>();
+  @Input() pageIndex = 0;
+  @Input() total!: number;
 
-  // Inputs transformés en signals
-  private pageIndexSignal = signal<number>(0);
-  private totalSignal = signal<number>(0);
-  private pageSizeSignal = signal<number>(pagination().itemsPerPage);
+  @Input() pageSize = pagination().itemsPerPage;
+  pageSizeOptions = paginationOptions();
 
-  @Input() set pageIndex(value: number) {
-    this.pageIndexSignal.set(value ?? 0);
-  }
+  constructor() {}
 
-  @Input() set total(value: number) {
-    this.totalSignal.set(value ?? 0);
-  }
-
-  @Input() set pageSize(value: number) {
-    this.pageSizeSignal.set(value ?? pagination().itemsPerPage);
-  }
-
-  // Computed values
-  protected pageSizeOptions = computed(() =>
-    paginationOptions(this.pageSizeSignal())
-  );
-
-  protected paginatorConfig = computed(() => ({
-    length: this.totalSignal(),
-    pageSize: this.pageSizeSignal(),
-    pageIndex: this.pageIndexSignal(),
-    pageSizeOptions: this.pageSizeOptions(),
-    showFirstLastButtons: true
-  }));
-
-  // Effet pour mettre à jour le paginator quand total change
-  private totalEffect = effect(() => {
-    const total = this.totalSignal();
-    if (this.paginator) {
-      this.paginator.length = total;
+  ngOnChanges(changes: SimpleChanges): void {
+    const { total, pageSize } = changes;
+    if (total.currentValue !== total.previousValue && !total.isFirstChange() && this.paginator) {
+      this.paginator.length = this.total;
     }
-  });
+    if (pageSize?.currentValue !== pageSize?.previousValue) {
+      this.pageSizeOptions = paginationOptions(pageSize.currentValue);
+    }
+  }
 
-  onPageChange(event: PageEvent): void {
-    const pagination: Pagination = {
-      limit: event.pageSize,
-      offSet: event.pageIndex
-    };
+  ngAfterViewInit(): void {
+    this.paginator.length = this.total;
+  }
 
-    this.pageChange.emit(pagination);
-    this.pageChangeDataTable.emit(pagination);
+  onPageChange(event: PageEvent) {
+    this.paginate.emit({ limit: event.pageSize, offSet: event.pageIndex });
+    this.paginatedatatable.emit({ limit: event.pageSize, offSet: event.pageIndex });
   }
 }

@@ -20,7 +20,8 @@ export const FicheListeProfilsMetadata = {
     title: 'profil.table.title',
     hasPagination: true, // true | false, default: true
     hasAdd: true,
-    hasFilter: false,
+    hasFilter: true,
+    hasExport: true,
     columns: [
       {
         label: 'profil.table.columns.login',

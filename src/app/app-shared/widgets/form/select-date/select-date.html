@@ -5,8 +5,8 @@
     matInput
     [matDatepicker]="picker"
     [formControl]="control"
-    [min]="minDate"
-    [max]="maxDate"
+    [min]="min"
+    [max]="max"
     [matTooltipDisabled]="!hasTooltip"
     [matTooltip]="
       hasTooltip && control.value
@@ -15,11 +15,17 @@
     "
   />
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+<<<<<<< HEAD
   <mat-datepicker
     #picker
     (closed)="chooseDate()"
   ></mat-datepicker>
+=======
+
+  <mat-datepicker #picker (closed)="chooseDate()"></mat-datepicker>
+
+>>>>>>> 6f4eae89b9caf4ff094b991680b11fd8e9986cdd
   <mat-error *ngIf="control.invalid">
-    {{ "form.error" | translate }}
+    {{ 'form.error' | translate }}
   </mat-error>
 </mat-form-field>

@@ -16,7 +16,7 @@
           @if (metadata().hasAdd) {
             <div class="st2i-add-btn pill-outline" role="button" (click)="onAddClicked.emit()">
               <mat-icon>add</mat-icon>
-              <span>إضافة</span>
+              <!-- <span>{{ general.add | translate }}</span> -->
             </div>
           }
 
@@ -38,6 +38,15 @@
             >
           }
 
+          <!-- @if (metadata().hasReplace) {
+            <mat-icon
+              class="cursor-pointer"
+              (click)="onReplaceClicked.emit()"
+              [matTooltip]="metadata().cardTooltips.replace | translate"
+              >visibility</mat-icon
+            >
+          } -->
+
           @if (metadata().hasSave) {
             <mat-icon
               class="cursor-pointer"
@@ -46,6 +55,14 @@
               >check_circle</mat-icon
             >
           }
+          @if (metadata().hasExport) {
+            <mc-datatable-export
+              (onGenerateFile)="onGenerateFile.emit($event)"
+            ></mc-datatable-export>
+          }
+          <!-- <div fxFlex="none" fxLayoutAlign="center" *ngIf="metadata().hasExport">
+                    <st2i-datatable-export  (onGenerateFile)="onGenerateFile.emit($event)"></st2i-datatable-export>
+                </div> -->
 
           @if (metadata().hasImport) {
             <mat-icon
@@ -69,7 +86,7 @@
               <input
                 formControlName="typedValue"
                 [placeholder]="'general.filter' | translate"
-                (keyup)="onFilterKeyUp.emit($event)"
+                (keyup)="onFilterKeyUp.emit(formRapidSearch.get('typedValue')?.value)"
               />
             </form>
           }

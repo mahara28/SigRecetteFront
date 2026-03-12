@@ -6,6 +6,7 @@
 
 <mc-datatable
   [responsePayload]="params.listeProfils.payload"
+  [responsePayloadall]="params.listeProfils.payloadall"
   [metadata]="params.listeProfils.metadata"
   (onAction)="onAction(this, $event)"
   (paginate)="onPaginate($event)"

@@ -3,10 +3,10 @@ import { Component, Input, computed, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { isEmptyValue } from '../../../tools';
-import { MatCard, MatCardContent } from "@angular/material/card";
+import { MatCard, MatCardContent } from '@angular/material/card';
 @Component({
   selector: 'mc-empty-list',
-  imports: [MatCard, MatCardContent],
+  standalone: false,
   templateUrl: './empty-list.html',
   styleUrl: './empty-list.css',
 })
@@ -41,6 +41,6 @@ export class EmptyList {
   });
 
   protected containerClass = computed(() => ({
-    'without-border': this.withoutBorderSignal()
+    'without-border': this.withoutBorderSignal(),
   }));
 }
