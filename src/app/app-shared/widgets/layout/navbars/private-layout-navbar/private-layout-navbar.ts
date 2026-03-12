@@ -44,14 +44,22 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.currentLang = this.appTranslateService.getCurrentLanguage();
     this.currentDirection = this.appTranslateService.getCurrentDirection();
-    this.observeDirectionChanges();
+    //this.observeDirectionChanges();
     this.appTranslateService.currentLanguage
     .pipe(takeUntil(this.destroy$))
     .subscribe((lang) => {
       this.currentLang = lang;
+      this.currentDirection = this.appTranslateService.getCurrentDirection();
       this.cdr.markForCheck();
     });
 
+    this.appTranslateService.direction
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((dir) => {
+
+        this.currentDirection = dir;
+        this.cdr.markForCheck();
+      });
     this.getUser();
     this.breakpointObserver
     .observe(['(max-width: 767px)'])
@@ -59,6 +67,7 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     .subscribe((result) => {
       this.flags.sidebarOpened = !result.matches;
       this.flags.isSmallScreen = result.matches;
+      this.cdr.markForCheck();
     });
   }
 
@@ -104,7 +113,7 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     // location.reload(); // plus besoin si ton service applique la traduction en direct
   } */
 
-  protected readonly AppTranslateService = AppTranslateService;
+  //protected readonly AppTranslateService = AppTranslateService;
 
   private observeDirectionChanges(): void {
   this.appTranslateService.direction
@@ -136,25 +145,27 @@ private applyDirectionToDOM(direction: 'rtl' | 'ltr'): void {
 }
 
 useLanguage(lang: SupportedLanguage): void {
-  try {
-    // Mettre à jour l'état
-    this.currentLang = lang;
+ // this.languageChanged.emit(lang);
+  this.appTranslateService.setLanguage(lang);
+}
+ protected readonly AppTranslateService = AppTranslateService;
 
-    // Définir la langue
-    this.appTranslateService.setLanguage(lang);
+ // Méthodes pour les notifications
+markAllAsRead(): void {
+  // Implémentez la logique
+}
 
-    // Appliquer la direction
-    const direction = this.appTranslateService.getCurrentDirection();
-    this.applyDirectionToDOM(direction);
-    this.currentDirection = direction;
+markAsRead(event: Event): void {
+  event.stopPropagation();
+  // Implémentez la logique
+}
 
-    // Notifier le changement
-    this.cdr.markForCheck();
+removeNotification(event: Event): void {
+  event.stopPropagation();
+  // Implémentez la logique
+}
 
-    console.log(`📍 Langue: ${lang}, Direction: ${direction}`);
-
-  } catch (error) {
-    console.error('❌ Erreur:', error);
-  }
+viewAllNotifications(): void {
+  // Implémentez la logique
 }
 }

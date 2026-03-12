@@ -1,26 +1,20 @@
-<!-- Utiliser [attr.dir] au lieu de [dir] pour être sûr -->
+<!-- private.html -->
 <div class="private-layout" [attr.dir]="currentDirection">
 
   <app-private-layout-sidebar
     #privateLayoutSidebar
     [listMenus]="listMenus"
-    [attr.dir]="currentDirection"
-    [class.rtl]="currentDirection === 'rtl'"
-    [class.ltr]="currentDirection === 'ltr'">
+    [attr.dir]="currentDirection">
   </app-private-layout-sidebar>
 
   <app-private-layout-navbar
     class="no-print"
     (toggleSidebarEventEmitter)="onToggleSidebar()"
-    [attr.dir]="currentDirection"
-    [class.rtl]="currentDirection === 'rtl'"
-    [class.ltr]="currentDirection === 'ltr'">
+    
+    [attr.dir]="currentDirection">
   </app-private-layout-navbar>
 
-  <div class="nxl-container body-wrapper"
-       [attr.dir]="currentDirection"
-       [class.rtl]="currentDirection === 'rtl'"
-       [class.ltr]="currentDirection === 'ltr'">
+  <div class="nxl-container body-wrapper" [attr.dir]="currentDirection">
     <div class="nxl-content">
 
       <div class="page-header">

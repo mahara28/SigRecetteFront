@@ -1,4 +1,4 @@
-<header class="nxl-header" >
+<header class="nxl-header" [attr.dir]="currentDirection">
   <div class="header-wrapper">
 
     <!-- LEFT SIDE -->
@@ -48,8 +48,7 @@
             data-bs-toggle="dropdown"
             data-bs-auto-close="outside"
           ><i class="fa fa-language" aria-hidden="true"></i>
-<!--             <img src="assets/vendors/img/flags/4x3/us.svg" alt="" class="img-fluid wd-20" />
- -->          </a>
+          </a>
           <div
             class="dropdown-menu nxl-h-dropdown nxl-language-dropdown"
             [class.dropdown-menu-end]="currentDirection === 'ltr'"
@@ -72,13 +71,10 @@
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-<!--                       <img src="assets/vendors/img/flags/1x1/sa.svg" alt="Arabic" class="img-fluid" />
- -->                    </div>
+                    </div>
                     <span>{{ 'LANG.ARABIC' | translate }}</span>
                   </a>
                 </div>
-
-
 
                 <div
                   class="col-sm-4 col-6 language_select"
@@ -87,8 +83,7 @@
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-<!--                       <img src="assets/vendors/img/flags/1x1/fr.svg" alt="French" class="img-fluid" />
- -->                    </div>
+                    </div>
                     <span>{{ 'LANG.FRENCH' | translate }}</span>
                   </a>
                 </div>
