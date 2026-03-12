@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TextAreaComponent } from './widgets/form/text-area/text-area.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,7 +13,7 @@ import { SpinnerContainerComponent } from './widgets/spinner-container/spinner-c
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { EnableOnlyArabicDirective } from './directives/enableOnlyArabic.directive';
 import { NumbersOnlyInputDirective } from './directives/onlylettres.directive';
 import { OnlyNumber } from './directives/onlynumber.directive';
@@ -42,7 +42,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Breadcrumb, Card, ConfirmDialog, Datatable, FicheDetails, TextField } from './widgets';
+import {
+  Breadcrumb,
+  Card,
+  ConfirmDialog,
+  Datatable,
+  DatatableExport,
+  EmptyList,
+  FicheDetails,
+  Paginator,
+  TextField,
+} from './widgets';
 import { Table } from './widgets/datatable/table/table';
 import { BreadcrumbModule } from './widgets/angular-crumbs/src/lib';
 import { MatCardModule } from '@angular/material/card';
@@ -87,10 +97,11 @@ import { MatNativeDateModule } from '@angular/material/core';
     FicheDetails,
     Datatable,
     Table,
+    DatatableExport,
     SelectDate,
     SelectDateTime,
-
-
+    EmptyList,
+    Paginator,
   ],
   exports: [
     MatMenuContent,
@@ -117,6 +128,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     ConfirmDialog,
     Datatable,
     Table,
+    DatatableExport,
     BreadcrumbModule,
     Breadcrumb,
     Card,
@@ -125,7 +137,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatInputModule,
     MatDatepickerModule,
     MatTooltipModule,
-
+    EmptyList,
+    Paginator,
   ],
   imports: [
     CommonModule,
@@ -167,6 +180,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatFormFieldModule,
     MatNativeDateModule,
     MatTooltipModule,
+    MatMenuTrigger,
+    MatIcon,
 
     //******* Directive ********//
     BlockDirective,

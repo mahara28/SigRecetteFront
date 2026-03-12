@@ -96,6 +96,7 @@ export class FicheListeProfilsComponent implements OnInit {
               }
             }
             this.params.listeProfils.payload = response.payload;
+            console.log(this.params.listeProfils);
           } else {
             console.error(
               `Error in FicheListeProfilsComponent/initListProfils, error code :: ${response.code}`,

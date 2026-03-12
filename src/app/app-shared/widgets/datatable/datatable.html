@@ -13,14 +13,14 @@
   >
     <mc-table
       #t
-      [responsePayload]="responsePayload()"
-      [responsePayloadall]="responsePayloadall() ?? null"
+      [responsePayload]="responsePayload()!"
+      [responsePayloadall]="responsePayloadall()"
       [metadata]="metadata()"
       (onAction)="onAction.emit($event)"
       (sort)="sort.emit($event)"
       (paginate)="paginate.emit($event)"
     >
-      <ng-content></ng-content>
+      <ng-content [OtherColumn]></ng-content>
     </mc-table>
   </mc-card>
 }
