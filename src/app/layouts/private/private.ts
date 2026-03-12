@@ -48,15 +48,20 @@ export class Private implements OnInit, OnDestroy  {
     this.appTranslateService.currentLanguage
       .pipe(takeUntil(this.destroy$))
       .subscribe((lang) => {
-        console.log('🔄 Langue changée dans Private:', lang);
         this.currentLang = lang;
         this.currentDirection = this.appTranslateService.getCurrentDirection();
 
         // Forcer la mise à jour du template
         this.applyDirectionToDOM();
-        this.cdr.detectChanges(); // Force la détection de changements
+        this.cdr.detectChanges();
+      });
+      this.appTranslateService.direction
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((dir) => {
 
-        console.log('   Nouvelle direction:', this.currentDirection);
+        this.currentDirection = dir;
+        this.applyDirectionToDOM();
+        this.cdr.detectChanges();
       });
 
     this.getMenu();
@@ -67,6 +72,10 @@ this.breakpointObserver.observe(['(max-width: 768px)'])
         this.cdr.markForCheck();
       });
   }
+onLanguageChanged(lang: SupportedLanguage): void {
+  this.appTranslateService.setLanguage(lang);
+}
+
 
   private applyDirectionToDOM(): void {
     // Appliquer la direction au body et à l'élément principal
