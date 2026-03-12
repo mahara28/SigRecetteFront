@@ -21,16 +21,8 @@ export class App implements OnInit {
   constructor(private appTranslate: AppTranslateService) {}
 
   ngOnInit(): void {
-    // Récupère la langue sauvegardée ou 'fr' par défaut
-    const savedLang = localStorage.getItem('lang') as 'fr' | 'ar' | null;
-    if (savedLang && ['fr', 'ar'].includes(savedLang)) {
-      this.appTranslate.setLanguage(savedLang);
-    } else {
-      // Défaut à 'fr' si rien n'est trouvé
-      this.appTranslate.setLanguage('fr');
-      localStorage.setItem('lang', 'fr');
-    }
+    
   }
-  
+
   menus = APP_MENU;
 }

@@ -48,7 +48,7 @@ export const LANGUAGES_CONFIG: Record<SupportedLanguage, { name: string; dir: 'r
 export class AppTranslateService {
 
 
-  private static readonly STORAGE_KEY = 'APP_LANGUAGE';
+  private static readonly STORAGE_KEY = 'lang';
   private static readonly DEFAULT_LANGUAGE: SupportedLanguage = 'fr';
 
   private currentLanguage$ = new BehaviorSubject<SupportedLanguage>(

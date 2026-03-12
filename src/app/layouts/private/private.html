@@ -1,16 +1,37 @@
-<app-private-layout-sidebar #privateLayoutSidebar [listMenus]="listMenus">
-</app-private-layout-sidebar>
+<!-- Utiliser [attr.dir] au lieu de [dir] pour être sûr -->
+<div class="private-layout" [attr.dir]="currentDirection">
 
-<app-private-layout-navbar class="no-print" (toggleSidebarEventEmitter)="onToggleSidebar()">
-</app-private-layout-navbar>
+  <app-private-layout-sidebar
+    #privateLayoutSidebar
+    [listMenus]="listMenus"
+    [attr.dir]="currentDirection"
+    [class.rtl]="currentDirection === 'rtl'"
+    [class.ltr]="currentDirection === 'ltr'">
+  </app-private-layout-sidebar>
 
-<div class="nxl-container" (scroll)="checkIfGoToUpBtnIsDisplayed('content-container')">
-  <div class="nxl-content">
-    <div class="page-header">
-      <mc-breadcrumb [isPrivateLayout]="true"></mc-breadcrumb>
-    </div>
-    <div class="main-content">
-      <mc-outlet></mc-outlet>
+  <app-private-layout-navbar
+    class="no-print"
+    (toggleSidebarEventEmitter)="onToggleSidebar()"
+    [attr.dir]="currentDirection"
+    [class.rtl]="currentDirection === 'rtl'"
+    [class.ltr]="currentDirection === 'ltr'">
+  </app-private-layout-navbar>
+
+  <div class="nxl-container body-wrapper"
+       [attr.dir]="currentDirection"
+       [class.rtl]="currentDirection === 'rtl'"
+       [class.ltr]="currentDirection === 'ltr'">
+    <div class="nxl-content">
+
+      <div class="page-header">
+        <mc-breadcrumb [isPrivateLayout]="true"></mc-breadcrumb>
+      </div>
+
+      <div class="main-content">
+        <mc-outlet></mc-outlet>
+      </div>
+
     </div>
   </div>
+
 </div>

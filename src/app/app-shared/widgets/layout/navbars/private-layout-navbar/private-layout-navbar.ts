@@ -71,10 +71,13 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  toggleSidebar() {
+  onToggleSidebar() {
     this.flags.sidebarOpened = !this.flags.sidebarOpened;
     this.toggleSidebarEventEmitter.emit();
   }
+  isSidebarOpen: boolean = true;
+
+
 
   goHome() {
     this.router.navigate(['/app']);

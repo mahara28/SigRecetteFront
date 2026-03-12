@@ -29,6 +29,8 @@ export class Private implements OnInit, OnDestroy  {
  currentLang: SupportedLanguage = 'fr';
  currentDirection: 'rtl' | 'ltr' = 'ltr';
  private readonly destroy$ = new Subject<void>();
+@ViewChild('privateLayoutSidebar') PrivateLayoutSidebar!: PrivateLayoutSidebar;
+
   constructor(
     private authentificationService: AuthentificationService,
     private toast: ToastService,
@@ -40,30 +42,51 @@ export class Private implements OnInit, OnDestroy  {
   ) {}
 
   ngOnInit(): void {
-  this.currentDirection = this.appTranslateService.getCurrentDirection();
-  this.currentLang = this.appTranslateService.getCurrentLanguage();
-  this.cdr.markForCheck();
-
-    this.breakpointObserver.observe(['(max-width: 767px)']).subscribe((result) => {
-      this.isSmallScreen = result.matches;
-    });
-    //   langue
+    this.currentDirection = this.appTranslateService.getCurrentDirection();
+    this.currentLang = this.appTranslateService.getCurrentLanguage();
+    this.applyDirectionToDOM();
     this.appTranslateService.currentLanguage
       .pipe(takeUntil(this.destroy$))
       .subscribe((lang) => {
+        console.log('🔄 Langue changée dans Private:', lang);
         this.currentLang = lang;
+        this.currentDirection = this.appTranslateService.getCurrentDirection();
+
+        // Forcer la mise à jour du template
+        this.applyDirectionToDOM();
+        this.cdr.detectChanges(); // Force la détection de changements
+
+        console.log('   Nouvelle direction:', this.currentDirection);
+      });
+
+    this.getMenu();
+this.breakpointObserver.observe(['(max-width: 768px)'])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(result => {
+        this.isSmallScreen = result.matches;
         this.cdr.markForCheck();
       });
+  }
 
-    //   direction
-    this.appTranslateService.direction
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((dir) => {
-        this.currentDirection = dir;
-        this.cdr.markForCheck(); // Nécessaire avec OnPush
-      });
-    this.getMenu();
+  private applyDirectionToDOM(): void {
+    // Appliquer la direction au body et à l'élément principal
+    document.documentElement.dir = this.currentDirection;
+    document.documentElement.lang = this.currentLang;
 
+    // Ajouter/retirer les classes RTL/LTR
+    document.body.dir = this.currentDirection;
+    document.body.classList.remove('rtl', 'ltr');
+    document.body.classList.add(this.currentDirection);
+
+    // Appliquer aussi à l'élément principal du layout
+    const layoutElements = document.querySelectorAll('.private-layout');
+    layoutElements.forEach(el => {
+      el.setAttribute('dir', this.currentDirection);
+    });
+    const event = new CustomEvent('directionChanged', {
+      detail: { direction: this.currentDirection }
+    });
+    window.dispatchEvent(event);
   }
  ngOnDestroy(): void {
     this.destroy$.next();
@@ -103,7 +126,6 @@ export class Private implements OnInit, OnDestroy  {
     this.isScrolling = (document.getElementsByTagName(container).item(0)?.scrollTop ?? 0) > 20;
   }
 
-  @ViewChild('privateLayoutSidebar') PrivateLayoutSidebar!: PrivateLayoutSidebar;
   onToggleSidebar(): void {
     if (this.isSmallScreen) {
       this.PrivateLayoutSidebar.sidebar.toggle();

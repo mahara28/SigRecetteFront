@@ -4,455 +4,398 @@
 <--!----------------------------------------------------------------!-->
 */
 .nxl-container {
-	position: relative;
-	top: $header-height;
-	margin-left: $navigation-width;
-	min-height: calc(100vh - #{$header-height});
-	transition: all 0.3s ease;
+  position: relative;
+  top: $header-height;
+  margin-inline-start: $navigation-width; /* ✅ LTR: margin-left | RTL: margin-right */
+  min-height: calc(100vh - #{$header-height});
+  transition: all 0.3s ease;
 
-	.nxl-content {
-		&.without-header {
-			padding-top: 0px;
-		}
+  .nxl-content {
+    &.without-header {
+      padding-top: 0px;
+    }
 
-		&.nxl-full-content {
-			.main-content {
-				padding: 0px;
-			}
-		}
+    &.nxl-full-content {
+      .main-content {
+        padding: 0px;
+      }
+    }
 
-		.main-content {
-			overflow-x: hidden;
-			padding: 30px 30px 5px;
+    .main-content {
+      overflow-x: hidden;
+      padding: 30px 30px 5px;
 
-			.content-sidebar,
-			.content-area {
-				width: 100%;
-				height: 100vh;
-				position: relative;
-			}
+      .content-sidebar,
+      .content-area {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+      }
 
-			.content-sidebar {
-				overflow-y: auto;
-				background-color: $white;
-				border-right: 1px solid $border-color;
+      .content-sidebar {
+        overflow-y: auto;
+        background-color: $white;
+        border-inline-end: 1px solid $border-color; /* ✅ LTR: border-right | RTL: border-left */
 
-				.content-sidebar-header {
-					height: 75px;
-					padding: 25px 30px;
-					border-bottom: 1px solid $border-color;
-					display: flex;
-					align-items: center;
-				}
-			}
+        .content-sidebar-header {
+          height: 75px;
+          padding: 25px 30px;
+          border-bottom: 1px solid $border-color;
+          display: flex;
+          align-items: center;
+        }
+      }
 
-			.content-area {
-				.content-area-header {
-					height: 75px;
-					padding: 25px 30px;
-					background-color: $white;
-					border-bottom: 1px solid $border-color;
-					gap: 15px;
-					display: flex;
-					align-items: center;
+      .content-area {
+        .content-area-header {
+          height: 75px;
+          padding: 25px 30px;
+          background-color: $white;
+          border-bottom: 1px solid $border-color;
+          gap: 15px;
+          display: flex;
+          align-items: center;
 
-					.search-form {
-						&.search-form-active {
-							display: block;
-						}
+          .search-form {
+            &.search-form-active {
+              display: block;
+            }
 
-						.search-form-inner {
-							top: 0;
-							left: 0;
-							right: 0;
-							bottom: 0;
-							gap: 25px;
-							z-index: 1;
-							width: 100%;
-							display: flex;
-							padding: 0 25px;
-							position: absolute;
-							align-items: center;
-							background-color: $white;
-						}
-					}
-				}
+            .search-form-inner {
+              top: 0;
+              inset-inline-start: 0; /* ✅ LTR: left | RTL: right */
+              inset-inline-end: 0;   /* ✅ LTR: right | RTL: left */
+              bottom: 0;
+              gap: 25px;
+              z-index: 1;
+              width: 100%;
+              display: flex;
+              padding: 0 25px;
+              position: absolute;
+              align-items: center;
+              background-color: $white;
+            }
+          }
+        }
 
-				.content-area-body {
-					padding: 30px 30px;
-				}
-			}
-		}
-	}
+        .content-area-body {
+          padding: 30px 30px;
+        }
+      }
+    }
+    
+  }
 
-	.page-header+.nxl-content {
-		padding-top: calc(30px + 65px);
-	}
+  .page-header + .nxl-content {
+    padding-top: calc(30px + 65px);
+  }
 
-	.page-header {
-		.page-header-right {
-			.reportrange-picker {
-				cursor: pointer;
-				width: max-content;
+  .page-header {
+    .page-header-right {
+      .reportrange-picker {
+        cursor: pointer;
+        width: max-content;
 
-				.reportrange-picker-field {
-					color: $brand-dark;
-					padding: 10px 15px;
-					font-size: $font-12;
-					font-weight: $font-500;
-					text-transform: $font-uppercase;
-					border: 1px solid $border-color-2;
-					border-radius: $radius-sm;
-				}
-			}
-		}
+        .reportrange-picker-field {
+          color: $brand-dark;
+          padding: 10px 15px;
+          font-size: $font-12;
+          font-weight: $font-500;
+          text-transform: $font-uppercase;
+          border: 1px solid $border-color-2;
+          border-radius: $radius-sm;
+        }
+      }
+    }
 
-		.filter-btn {
-			cursor: pointer;
-			gap: 10px;
-			display: flex;
-			align-items: center;
-			padding: 9px 15px 8px;
-			border-radius: $radius-sm;
-			border: 1px solid $border-color-2;
-		}
-	}
+    .filter-btn {
+      cursor: pointer;
+      gap: 10px;
+      display: flex;
+      align-items: center;
+      padding: 9px 15px 8px;
+      border-radius: $radius-sm;
+      border: 1px solid $border-color-2;
+    }
+  }
 
-	.page-header-collapse {
-		.accordion-body {
-			padding: 30px 30px;
-			background-color: $white;
-			border-bottom: 1px solid $border-color;
-		}
-	}
+  .page-header-collapse {
+    .accordion-body {
+      padding: 30px 30px;
+      background-color: $white;
+      border-bottom: 1px solid $border-color;
+    }
+  }
 
-	.footer {
-		padding: 20px 30px;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		background-color: $white;
-		border-top: 1px solid $border-color;
-	}
+  .footer {
+    padding: 20px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $white;
+    border-top: 1px solid $border-color;
+  }
 }
 
 .minimenu {
-	.nxl-container {
-		margin-left: $navigation-collapsed-width;
-	}
+  .nxl-container {
+    margin-inline-start: $navigation-collapsed-width; /* ✅ logique */
+  }
 
-	.page-header {
-		left: $navigation-collapsed-width;
-	}
+  .page-header {
+    inset-inline-start: $navigation-collapsed-width; /* ✅ logique */
+  }
 }
 
 .page-header {
-	display: flex;
-	align-items: center;
-	top: $header-height;
-	left: $navigation-width;
-	right: 0;
-	z-index: 1023;
-	min-height: 65px;
-	padding: 0 30px;
-	background: $white;
-	box-shadow: $card-shadow;
+  display: flex;
+  align-items: center;
+  top: $header-height;
+  inset-inline-start: $navigation-width; /* ✅ LTR: left | RTL: right */
+  inset-inline-end: 0;                   /* ✅ LTR: right | RTL: left */
+  z-index: 1023;
+  min-height: 65px;
+  padding: 0 30px;
+  background: $white;
+  box-shadow: $card-shadow;
+  position: fixed; /* nécessaire pour inset-inline-* */
 
-	.page-block {
-		width: calc(100% - 50%);
-	}
+  .page-block {
+    width: calc(100% - 50%);
+  }
 
-	.page-header-title {
-		display: inline-block;
-	}
+  .page-header-title {
+    display: inline-block;
+  }
 
-	h5 {
-		margin-bottom: 0;
-		margin-right: 8px;
-		padding-right: 10px;
-		color: $brand-dark;
-		font-weight: $font-600;
-		border-right: 1px solid darken($body-bg, 10%);
-	}
+  h5 {
+    margin-bottom: 0;
+    margin-inline-end: 8px;          /* ✅ LTR: margin-right | RTL: margin-left */
+    padding-inline-end: 10px;        /* ✅ LTR: padding-right | RTL: padding-left */
+    color: $brand-dark;
+    font-weight: $font-600;
+    border-inline-end: 1px solid darken($body-bg, 10%); /* ✅ LTR: border-right | RTL: border-left */
+  }
 
-	.breadcrumb {
-		padding: 0;
-		display: inline-flex;
-		margin-bottom: 0;
-		background: transparent;
-		font-size: 13px;
-		color: $brand-muted;
-		font-weight: $font-800;
+  .breadcrumb {
+    padding: 0;
+    display: inline-flex;
+    margin-bottom: 0;
+    background: transparent;
+    font-size: 13px;
+    color: $brand-muted;
+    font-weight: $font-800;
 
-		a {
-			color: $brand-dark;
-		}
+    a {
+      color: $brand-dark;
+    }
 
-		.breadcrumb-item {
-			a:hover {
-				color: $primary;
-			}
+    .breadcrumb-item {
+      a:hover {
+        color: $primary;
+      }
 
-			+.breadcrumb-item::before {
-				position: relative;
-				top: 2px;
-			}
+      + .breadcrumb-item::before {
+        position: relative;
+        top: 2px;
+      }
 
-			&:last-child {
-				opacity: 0.75;
-				font-weight: $font-400;
-			}
-		}
+      &:last-child {
+        opacity: 0.75;
+        font-weight: $font-400;
+      }
+    }
 
-		svg {
-			width: 14px;
-			height: 14px;
-			vertical-align: baseline;
-		}
-	}
+    svg {
+      width: 14px;
+      height: 14px;
+      vertical-align: baseline;
+    }
+  }
+}
+
+// ✅ Séparateur breadcrumb inversé en RTL
+[dir="rtl"] .page-header .breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+  transform: scaleX(-1);
 }
 
 .upgrade-card {
-	.card-body {
-		padding-bottom: 100px;
-		z-index: 1;
-		position: relative;
-	}
+  .card-body {
+    padding-bottom: 100px;
+    z-index: 1;
+    position: relative;
+  }
 
-	>.container {
-		z-index: 5;
-		position: relative;
-		margin-top: -60px;
-	}
+  > .container {
+    z-index: 5;
+    position: relative;
+    margin-top: -60px;
+  }
 
-	.up-price-table {
-		td {
-			border-color: $body-bg;
-		}
+  .up-price-table {
+    td {
+      border-color: $body-bg;
+    }
 
-		th {
-			border: none;
+    th {
+      border: none;
 
-			+th {
-				border-radius: 5px 5px 0 0;
-				padding: 20px 0;
-			}
-		}
+      + th {
+        border-radius: 5px 5px 0 0;
+        padding: 20px 0;
+      }
+    }
 
-		tbody {
-			tr {
-				&:first-child td {
-					border-top: none;
-				}
-			}
-		}
+    tbody {
+      tr {
+        &:first-child td {
+          border-top: none;
+        }
+      }
+    }
 
-		td,
-		th {
-			text-align: right;
+    td,
+    th {
+      text-align: end; /* ✅ LTR: right | RTL: left */
 
-			+td,
-			+th {
-				text-align: center;
-			}
+      + td,
+      + th {
+        text-align: center;
+      }
 
-			+td {
-				border-left: 1px solid $body-bg;
-			}
-		}
-	}
+      + td {
+        border-inline-start: 1px solid $body-bg; /* ✅ LTR: border-left | RTL: border-right */
+      }
+    }
+  }
 }
 
-// Burgur menu start
+// ============================================
+// Hamburger menu
+// ============================================
 .hamburger {
-	display: inline-block;
-	cursor: pointer;
-	transition: filter 0.15s linear;
-	width: 20px;
-	height: 20px;
+  display: inline-block;
+  cursor: pointer;
+  transition: filter 0.15s linear;
+  width: 20px;
+  height: 20px;
 
-	&.is-active {
-		.hamburger-inner {
-			background-color: #000;
+  &.is-active {
+    .hamburger-inner {
+      background-color: #000;
 
-			&::after,
-			&::before {
-				background-color: #000;
-			}
-		}
-	}
+      &::after,
+      &::before {
+        background-color: #000;
+      }
+    }
+  }
 }
 
 .hamburger-inner {
-	display: block;
-	top: 50%;
-	margin-top: -2px;
-	width: 18px;
-	height: 2px;
-	background-color: $header-color;
-	border-radius: 4px;
-	position: absolute;
-	transition: transform 0.15s ease;
+  display: block;
+  top: 50%;
+  margin-top: -2px;
+  width: 18px;
+  height: 2px;
+  background-color: $header-color;
+  border-radius: 4px;
+  position: absolute;
+  transition: transform 0.15s ease;
 
-	&::after,
-	&::before {
-		width: 18px;
-		height: 2px;
-		background-color: $header-color;
-		border-radius: 4px;
-		position: absolute;
-		transition: transform 0.15s ease;
-	}
+  &::after,
+  &::before {
+    width: 18px;
+    height: 2px;
+    background-color: $header-color;
+    border-radius: 4px;
+    position: absolute;
+    transition: transform 0.15s ease;
+    content: "";
+    display: block;
+  }
 
-	&::after,
-	&::before {
-		content: "";
-		display: block;
-	}
+  &::before {
+    top: -6px;
+  }
 
-	&::before {
-		top: -6px;
-	}
-
-	&::after {
-		bottom: -6px;
-	}
+  &::after {
+    bottom: -6px;
+  }
 }
 
+// ✅ LTR
 .hamburger--arrowturn.is-active .hamburger-inner {
-	transform: rotate(-180deg);
+  transform: rotate(-180deg);
 }
 
 .hamburger--arrowturn.is-active .hamburger-inner::before {
-	transform: translate3d(4px, 2px, 0) rotate(45deg) scale(0.7, 1);
+  transform: translate3d(4px, 2px, 0) rotate(45deg) scale(0.7, 1);
 }
 
 .hamburger--arrowturn.is-active .hamburger-inner::after {
-	transform: translate3d(4px, -2px, 0) rotate(-45deg) scale(0.7, 1);
+  transform: translate3d(4px, -2px, 0) rotate(-45deg) scale(0.7, 1);
 }
 
-// Burgur menu End
+// ✅ RTL : inverser les rotations du hamburger
+[dir="rtl"] {
+  .hamburger--arrowturn.is-active .hamburger-inner {
+    transform: rotate(180deg);
+  }
+
+  .hamburger--arrowturn.is-active .hamburger-inner::before {
+    transform: translate3d(-4px, 2px, 0) rotate(-45deg) scale(0.7, 1);
+  }
+
+  .hamburger--arrowturn.is-active .hamburger-inner::after {
+    transform: translate3d(-4px, -2px, 0) rotate(45deg) scale(0.7, 1);
+  }
+}
+
+// ============================================
+// Perfect Scrollbar
+// ============================================
 .ps {
-	touch-action: auto;
-	overflow-anchor: none;
-	overflow: hidden !important;
+  touch-action: auto;
+  overflow-anchor: none;
+  overflow: hidden !important;
 }
 
 .ps__rail-x {
-	display: none;
-	opacity: 0;
-	height: 15px;
-	bottom: 0;
-	position: absolute;
-	transition: background-color 0.2s linear, opacity 0.2s linear;
+  display: none;
+  opacity: 0;
+  height: 15px;
+  bottom: 0;
+  position: absolute;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
 }
 
 .ps__rail-y {
-	right: 0;
-	opacity: 0;
-	width: 15px;
-	display: none;
-	position: absolute;
-	transition: background-color 0.2s linear, opacity 0.2s linear;
+  inset-inline-end: 0; /* ✅ LTR: right | RTL: left automatique */
+  opacity: 0;
+  width: 15px;
+  display: none;
+  position: absolute;
+  transition: background-color 0.2s linear, opacity 0.2s linear;
+  z-index: 5;
 }
 
-.ps--active-x>.ps__rail-x,
-.ps--active-y>.ps__rail-y {
-	display: block;
-	background-color: transparent;
+.ps--active-x > .ps__rail-x,
+.ps--active-y > .ps__rail-y {
+  display: block;
+  background-color: transparent;
 }
 
-.ps:hover> {
-
-	.ps__rail-x,
-	.ps__rail-y {
-		opacity: 0.6;
-	}
+.ps:hover > .ps__rail-x,
+.ps:hover > .ps__rail-y,
+.ps--focus > .ps__rail-x,
+.ps--focus > .ps__rail-y {
+  opacity: 0.6;
 }
 
-.ps--focus> {
-
-	.ps__rail-x,
-	.ps__rail-y {
-		opacity: 0.6;
-	}
-}
-
-.ps--scrolling-x>.ps__rail-x,
-.ps--scrolling-y>.ps__rail-y {
-	opacity: 0.6;
-}
-
-.ps {
-
-	.ps__rail-x.ps--clicking,
-	.ps__rail-x:focus,
-	.ps__rail-x:hover,
-	.ps__rail-y.ps--clicking,
-	.ps__rail-y:focus,
-	.ps__rail-y:hover {
-		opacity: 0.9;
-		background-color: #eee;
-	}
-}
-
-.ps__thumb-x {
-	height: 6px;
-	bottom: 2px;
-	border-radius: 6px;
-	position: absolute;
-	background-color: #aaa;
-	transition: background-color 0.2s linear, height 0.2s ease-in-out;
-}
-
-.ps__thumb-y {
-	width: 6px;
-	right: 2px;
-	position: absolute;
-	border-radius: 6px;
-	background-color: #aaa;
-	transition: background-color 0.2s linear, width 0.2s ease-in-out;
-}
-
-.ps__rail-x {
-
-	&.ps--clicking .ps__thumb-x,
-	&:focus>.ps__thumb-x,
-	&:hover>.ps__thumb-x {
-		height: 10px;
-		background-color: #999;
-	}
-}
-
-.ps__rail-y {
-
-	&.ps--clicking .ps__thumb-y,
-	&:focus>.ps__thumb-y,
-	&:hover>.ps__thumb-y {
-		width: 10px;
-		background-color: #999;
-	}
-}
-
-@supports (-ms-overflow-style: none) {
-	.ps {
-		overflow: auto !important;
-	}
-}
-
-@media screen and (-ms-high-contrast: active),
-(-ms-high-contrast: none) {
-	.ps {
-		overflow: auto !important;
-	}
-}
-
-.navbar-content {
-	position: relative;
-}
-
-.ps__rail-y {
-	z-index: 5;
+.ps--scrolling-x > .ps__rail-x,
+.ps--scrolling-y > .ps__rail-y {
+  opacity: 0.6;
 }
 
 .ps .ps__rail-x.ps--clicking,
@@ -461,126 +404,58 @@
 .ps .ps__rail-y.ps--clicking,
 .ps .ps__rail-y:focus,
 .ps .ps__rail-y:hover {
-	background: transparent;
+  opacity: 0.9;
+  background-color: transparent;
+}
+
+.ps__thumb-x {
+  height: 6px;
+  bottom: 2px;
+  border-radius: 6px;
+  position: absolute;
+  background-color: #aaa;
+  transition: background-color 0.2s linear, height 0.2s ease-in-out;
 }
 
 .ps__thumb-y {
-	background: $gray-400;
+  width: 6px;
+  inset-inline-end: 2px; /* ✅ LTR: right | RTL: left */
+  position: absolute;
+  border-radius: 6px;
+  background-color: $gray-400;
+  transition: background-color 0.2s linear, width 0.2s ease-in-out;
 }
 
-.ps__rail-y.ps--clicking .ps__thumb-y,
-.ps__rail-y:focus>.ps__thumb-y,
-.ps__rail-y:hover>.ps__thumb-y {
-	background: $gray-500;
+.ps__rail-x {
+  &.ps--clicking .ps__thumb-x,
+  &:focus > .ps__thumb-x,
+  &:hover > .ps__thumb-x {
+    height: 10px;
+    background-color: #999;
+  }
 }
 
-// Common layout css end
+.ps__rail-y {
+  &.ps--clicking .ps__thumb-y,
+  &:focus > .ps__thumb-y,
+  &:hover > .ps__thumb-y {
+    width: 10px;
+    background-color: $gray-500;
+  }
+}
 
-// ============================================
-// ✅ RTL - Arabe
-// ============================================
-[dir="rtl"] {
+@supports (-ms-overflow-style: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}
 
-	// ✅ Container : margin-right au lieu de margin-left
-	.nxl-container {
-		margin-left: 0;
-		margin-right: $navigation-width;
-	}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .ps {
+    overflow: auto !important;
+  }
+}
 
-	// ✅ Minimenu container
-	&.minimenu,
-	.minimenu {
-		.nxl-container {
-			margin-left: 0;
-			margin-right: $navigation-collapsed-width;
-		}
-
-		.page-header {
-			left: 0;
-			right: $navigation-collapsed-width;
-		}
-	}
-
-	// ✅ Page header : inverser left/right
-	.page-header {
-		left: 0;
-		right: $navigation-width;
-
-		h5 {
-			// ✅ Inverser margin/padding/border
-			margin-right: 0;
-			margin-left: 8px;
-			padding-right: 0;
-			padding-left: 10px;
-			border-right: none;
-			border-left: 1px solid darken($body-bg, 10%);
-		}
-	}
-
-	// ✅ Content sidebar : inverser bordure
-	.nxl-container {
-		.nxl-content {
-			.main-content {
-				.content-sidebar {
-					border-right: none;
-					border-left: 1px solid $border-color;
-				}
-
-				.content-area {
-					.content-area-header {
-						.search-form {
-							.search-form-inner {
-								// ✅ padding symétrique, pas de changement nécessaire
-								// left/right déjà à 0
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-	// ✅ Scrollbar : inverser côté
-	.ps__rail-y {
-		right: auto;
-		left: 0;
-	}
-
-	.ps__thumb-y {
-		right: auto;
-		left: 2px;
-	}
-
-	// ✅ Upgrade card table : inverser text-align
-	.upgrade-card {
-		.up-price-table {
-			td,
-			th {
-				text-align: left;
-
-				+td,
-				+th {
-					text-align: center;
-				}
-
-				+td {
-					border-left: none;
-					border-right: 1px solid $body-bg;
-				}
-			}
-		}
-	}
-
-	// ✅ Hamburger : inverser rotation
-	.hamburger--arrowturn.is-active .hamburger-inner {
-		transform: rotate(180deg);
-	}
-
-	.hamburger--arrowturn.is-active .hamburger-inner::before {
-		transform: translate3d(-4px, 2px, 0) rotate(-45deg) scale(0.7, 1);
-	}
-
-	.hamburger--arrowturn.is-active .hamburger-inner::after {
-		transform: translate3d(-4px, -2px, 0) rotate(45deg) scale(0.7, 1);
-	}
+.navbar-content {
+  position: relative;
 }
