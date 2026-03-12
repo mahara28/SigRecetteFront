@@ -53,6 +53,7 @@ export class Datatable {
         block: m.cardTooltips?.block ?? 'general.icons.tooltip.block',
         replace: m.cardTooltips?.replace ?? 'general.icons.tooltip.replace',
         import: m.cardTooltips?.import ?? 'general.import',
+        imprime: m.cardTooltips?.imprime ?? 'general.imprime',
       },
       hasAdd: m.hasAdd ?? true,
       hasExport: m.hasExport ?? true,
@@ -63,6 +64,7 @@ export class Datatable {
       hasreplace: m.hasreplace ?? false,
       hasDelete: m.hasDelete ?? false,
       hasSave: m.hasSave ?? false,
+      hasImprime: m.hasImprime ?? false,
       uploadType: m.uploadType ?? '.csv, .xlsx',
       isMultiple: m.isMultiple ?? false,
     };

@@ -1,0 +1,48 @@
+.checklist-leaf-node {
+    padding-top: 0.625rem;
+}
+
+
+a ,mat-tree-node{
+    /* your own custom styles here */
+    /* e.g. */
+
+    background-color: white !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 30px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    text-align: center !important;
+    max-width: unset !important;
+    white-space: pre-wrap !important;
+}
+::ng-deep .mat-checkbox-disabled .mat-checkbox-label{
+    color: black;
+}
+
+th.mat-header-cell {
+    color: black;
+    background-color: #f0f1f1;
+    text-align: center !important;
+    text-decoration-color: black;
+    -webkit-text-fill-color: black;
+    border-radius: 0 !important;
+    font-size: 16px !important;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.centered-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;}
+

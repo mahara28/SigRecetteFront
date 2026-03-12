@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'mc-button-loading',
-  imports: [CommonModule, MatButtonModule, TranslateModule],
+  standalone: false,
   templateUrl: './button-loading.html',
   styleUrl: './button-loading.css',
 })
@@ -17,8 +17,4 @@ export class ButtonLoading {
   loadingText = input<string>('general.errors.waiting');
   type = input<'button' | 'submit'>('submit');
   color = input<'primary' | 'accent' | 'warn'>('primary');
-
 }
-
-
-

@@ -1,0 +1,72 @@
+<div fxFlex="100" fxFlex.lt-md="100" class="fix-height-matrice-container">
+  <mc-card
+    [metadata]="{
+      title: '',
+      hasFilter: false,
+      hasAdd: false,
+      hasTree: true,
+      classList: { cardContent: 'p-0 overflow-hidden' },
+    }"
+  >
+    <ng-container>
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>
+            <span [style.paddingLeft.px]="10"> {{ 'Menu' }} </span>
+          </th>
+          <td mat-cell *matCellDef="let data">
+            <button
+              mat-icon-button
+              [style.visibility]="!data.expandable ? 'hidden' : ''"
+              [style.marginLeft.px]="data.level * 30"
+              (click)="treeControl.toggle(data)"
+            >
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{ treeControl.isExpanded(data) ? 'expand_more' : 'chevron_right' }}
+              </mat-icon>
+            </button>
+            <span>
+              {{ data.desFr }}
+            </span>
+          </td></ng-container
+        >
+
+        <ng-container matColumnDef="isRead">
+          <th mat-header-cell *matHeaderCellDef style="width: 12%">
+            {{ 'Consultation' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let node">
+            <mat-checkbox
+              class="centered-cell"
+              *ngIf="node.isOnlyWrite != true"
+              [checked]="node.isChecked || checklistSelection.isSelected(node)"
+              [indeterminate]="checkIndeterminate(node)"
+              (change)="toogleElements(node, $event)"
+              [disabled]="isDisable"
+            >
+            </mat-checkbox></td
+        ></ng-container>
+
+        <ng-container matColumnDef="isWrite">
+          <th mat-header-cell *matHeaderCellDef style="width: 12%">
+            {{ 'Modification' | translate }}
+          </th>
+          <td mat-cell *matCellDef="let node">
+            <mat-checkbox
+              class="centered-cell"
+              [disabled]="isDisable"
+              [checked]="node.isWrite"
+              [indeterminate]="checkIndeterminateWrite(node)"
+              (change)="toogleOnWrite(node, $event)"
+            >
+            </mat-checkbox></td
+        ></ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </ng-container>
+  </mc-card>
+</div>
+
+<ng-template #emptyListContainer> </ng-template>

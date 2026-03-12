@@ -9,27 +9,25 @@ import {
   viewChild,
   ElementRef,
   ViewEncapsulation,
+  ViewChild,
 } from '@angular/core';
-import { CommonModule, NgStyle, UpperCasePipe } from '@angular/common';
 import { FormGroup, UntypedFormBuilder } from '@angular/forms';
 import { isEmptyValue } from '../../tools';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { TranslateModule } from '@ngx-translate/core';
-import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'mc-card',
   standalone: false,
   templateUrl: './card.html',
-  styleUrl: './card.css',
+  styleUrl: './card.scss',
   encapsulation: ViewEncapsulation.None,
 })
 export class Card implements OnInit {
   private fb = inject(UntypedFormBuilder);
   private breakpointObserver = inject(BreakpointObserver);
+
+  @ViewChild('printSection', { static: true }) printSection!: ElementRef;
 
   // Signal Inputs
   metadataInput = input.required<any>({ alias: 'metadata' });
@@ -44,6 +42,7 @@ export class Card implements OnInit {
   onImportClicked = output<FileList>();
   onFilterKeyUp = output<any>();
   onGenerateFile = output<any>();
+  onImprimeClicked = output<void>();
 
   fileUpload = viewChild<ElementRef<HTMLInputElement>>('fileUpload');
   params: object = {};
@@ -56,6 +55,7 @@ export class Card implements OnInit {
   // Metadata formatée via un Signal calculé (très performant)
   metadata = computed(() => {
     const m = this.metadataInput();
+    console.log(m);
     return {
       title: m?.title,
       styleList: {
@@ -74,6 +74,7 @@ export class Card implements OnInit {
         block: m?.cardTooltips?.block ?? 'general.icons.tooltip.block',
         replace: m?.cardTooltips?.replace ?? 'general.icons.tooltip.replace',
         import: m?.cardTooltips?.import ?? 'general.import',
+        imprime: m?.cardTooltips?.imprime ?? 'general.imprime',
       },
       hasAdd: m?.hasAdd ?? false,
       hasDelete: m?.hasDelete ?? false,
@@ -84,6 +85,7 @@ export class Card implements OnInit {
       hasReplace: m?.hasreplace ?? false,
       hasBlock: m?.hasblock ?? false,
       hasSave: m?.hasSave ?? false,
+      hasImprime: m?.hasImprime ?? false,
       uploadType: m?.uploadType ?? '.csv, .xlsx',
       isMultiple: m?.isMultiple ?? false,
     };
@@ -92,7 +94,7 @@ export class Card implements OnInit {
   // Calcul du header via Signal
   hasHeader = computed(() => {
     const m = this.metadata();
-    return !isEmptyValue(m.title) || m.hasAdd || m.hasFilter || m.hasExport;
+    return !isEmptyValue(m.title) || m.hasAdd || m.hasFilter || m.hasExport || m.hasImprime;
   });
 
   formRapidSearch: FormGroup = this.fb.group({
@@ -104,6 +106,10 @@ export class Card implements OnInit {
       this.formRapidSearch.get('typedValue')?.valueChanges.subscribe((value) => {
         this.onFilterKeyUp.emit(value);
       });
+    }
+
+    if (this.metadataInput()?.hasImprime) {
+      console.log('hase imprime icone');
     }
   }
 
@@ -119,4 +125,6 @@ export class Card implements OnInit {
       (event.target as HTMLInputElement).value = '';
     }
   }
+
+  printPage() {}
 }
