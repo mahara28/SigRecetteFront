@@ -1,247 +1,104 @@
-<ng-container *ngIf="!isEmptyValue(metadata)">
+<mat-form-field
+  appearance="outline"
+  class="select-common-field"
+  [attr.data-cy]="'select-' + (metadata.label ?? '')">
 
-  <!-- SELECT NORMAL -->
-  <mat-form-field
-    *ngIf="!metadata.flotParentChild"
-    appearance="outline"
-    class="my-custom-form-field"
-    [hideRequiredMarker]="metadata.hideRequiredMarker">
+  <!-- LABEL -->
+  <mat-label *ngIf="metadata.label">
+    {{ metadata.label | translate }}
+    <span
+      *ngIf="hasRequiredField(control)"
+      class="required-indicator"
+      aria-label="required">
+      *
+    </span>
+  </mat-label>
 
-    <mat-label>{{ metadata.label | translate }}</mat-label>
+  <!-- HINT TEXT -->
+  <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
 
-    <mat-select
-      #select
-      [formControl]="control"
-      [disabled]="!!metadata.disabled"
-      [multiple]="metadata.multiple"
-      disableOptionCentering
-      (openedChange)="onSelectToggle($event)"
-      (selectionChange)="changeValue($event.value)"
-      [matTooltipDisabled]="!metadata.tooltip"
-      [matTooltip]="tooltipTxt | translate">
+  <!-- SELECT PRINCIPAL -->
+ <mat-select
+  #select
+  [formControl]="control"
+  [multiple]="metadata.multiple ?? false"
 
-      <!-- SEARCH -->
-      <div *ngIf="metadata.filter && !isEmptyValue(listItems)">
-        <input
-          #matSelectFilter
-          matInput
-          type="text"
-          class="mat-select-filter"
-          MatInputAutofocus
-          [placeholder]="'general.search' | translate"
-          (keyup)="filter($any($event.target).value)" />
-      </div>
+  (openedChange)="onSelectToggle($event)"
+  (selectionChange)="changeValue($event.value)"
+  [attr.aria-label]="metadata.label"
+  class="select-common-input">
 
-      <!-- OPTIONS -->
-      <ng-container *ngIf="!isEmptyValue(listItems)">
+    <!-- CAS 1: AVEC FILTRAGE -->
+    <mat-select-trigger *ngIf="metadata.filter">
+      <input
+        #matSelectFilter
+        type="text"
+        matInput
+        class="filter-input"
+        placeholder="Rechercher..."
+        (keyup)="filter($event.target.value)"
+        [attr.aria-label]="'Filtrer ' + (metadata.label ?? '')">
+    </mat-select-trigger>
 
-        <ng-container [ngSwitch]="true">
-
-          <!-- GROUPING -->
-          <ng-container *ngSwitchCase="metadata.grouping">
-
-            <mat-optgroup
-              *ngFor="let group of listItems"
-              [label]="getOptionLabel(group)"
-              [disabled]="group.disabled"
-              [fxHide]="!isShowOption(group)">
-
-              <mat-option
-                *ngFor="let c of group.children"
-                [value]="getValue(c)"
-                [disabled]="c.disabled"
-                [fxHide]="!isShowOption(c, group)"
-                [matTooltip]="getOptionLabel(c) | translate"
-                matTooltipPosition="right">
-
-                {{ getOptionLabel(c) | translate }}
-
-              </mat-option>
-
-            </mat-optgroup>
-
-          </ng-container>
-
-          <!-- PARENT CHILD -->
-          <ng-container *ngSwitchCase="metadata.parentChild">
-
-            <ng-container *ngFor="let parent of listItems">
-
-              <mat-option
-                [value]="getValue(parent)"
-                [fxHide]="!isShowOption(parent)"
-                [matTooltip]="getOptionLabel(parent) | translate"
-                matTooltipPosition="right">
-
-                {{ getOptionLabel(parent) | translate }}
-
-              </mat-option>
-
-              <div
-                *ngIf="!isEmptyValue(parent.children) && parent.children?.length"
-                class="mx-3">
-
-                <mat-option
-                  *ngFor="let c of parent.children"
-                  [value]="getValue(c)"
-                  [disabled]="c.disabled"
-                  [fxHide]="!isShowOption(c, parent)"
-                  [matTooltip]="getOptionLabel(c) | translate"
-                  matTooltipPosition="right">
-
-                  {{ getOptionLabel(c) | translate }}
-
-                </mat-option>
-
-              </div>
-
-            </ng-container>
-
-          </ng-container>
-
-          <!-- DEFAULT -->
-          <ng-container *ngSwitchDefault>
-
-            <mat-option
-              *ngFor="let c of listItems"
-              [value]="getValue(c)"
-              [disabled]="c.disabled"
-              [fxHide]="!isShowOption(c)"
-              [matTooltip]="getOptionLabel(c) | translate"
-              matTooltipPosition="right">
-
-              {{ getOptionLabel(c) | translate }}
-
-            </mat-option>
-
-          </ng-container>
-
-        </ng-container>
-
-      </ng-container>
-
-      <!-- EMPTY LIST -->
-      <ng-container *ngIf="isEmptyValue(listItems) || isEmptyValue(listsearch)">
-
-        <mat-option [value]="null" class="empty-option">
-          {{ 'general.empty_list_table' | translate }}
+    <!-- CAS 2: REGROUPEMENT / HIÉRARCHIE -->
+    <ng-container *ngIf="metadata.grouping || metadata.parentChild">
+      <mat-optgroup *ngFor="let group of listsearch" [label]="getOptionLabel(group)">
+        <mat-option
+          *ngFor="let child of group.children ?? []"
+          [value]="getValue(child)"
+          [disabled]="child.disabled ?? false"
+          (onSelectionChange)="setControlsValues(child)"
+          [attr.data-value]="getValue(child)"
+          class="select-option">
+          {{ getOptionLabel(child) }}
         </mat-option>
+      </mat-optgroup>
+    </ng-container>
 
-      </ng-container>
-
-    </mat-select>
-
-    <mat-hint *ngIf="hint" class="hint">
-      <h5>{{ hint | translate }}</h5>
-    </mat-hint>
-
-    <mat-error [control]="control" appControlError></mat-error>
-
-    <!-- CLEAR BUTTON -->
-    <button
-      *ngIf="control.value && metadata.reset && !control.disabled"
-      mat-icon-button
-      matSuffix
-      type="button"
-      aria-label="Clear"
-      (click)="clear($event)">
-
-      <mat-icon style="color:red">close</mat-icon>
-
-    </button>
-
-  </mat-form-field>
-
-  <!-- FLOAT MENU MODE -->
-  <div
-    *ngIf="metadata.flotParentChild && !isEmptyValue(form)"
-    class="cursor-pointer"
-    #selectFlotMenuContainer>
-
-    <form [formGroup]="form">
-
-      <mc-text-field
-        [control]="form.get('svl')"
-        [label]="metadata.label || ''"
-        [hasTooltip]="!!metadata.tooltip"
-        [hasReset]="control.value && metadata.reset && !control.disabled"
-        [isIconSuffix]="true"
-        [suffix]="'arrow_drop_down'"
-        [matMenuTriggerFor]="main_items"
-        [suffixStyleList]="'position: unset; cursor: pointer'"
-        (onChangeEvent)="isEmptyValue($event) ? control.setValue(null) : null">
-
-      </mc-text-field>
-
-    </form>
-
-    <mat-menu #main_items="matMenu" class="select-flot-menu">
-
-      <div
-        class="mt-2"
-        [style.width.px]="selectFlotMenuContainer.getBoundingClientRect().width">
-
-        <ng-container *ngFor="let p of listItems">
-
-          <ng-container *ngIf="hasChildren(p)">
-
-            <button mat-menu-item [matMenuTriggerFor]="sub_items">
-              {{ getOptionLabel(p) }}
-            </button>
-
-            <mat-menu #sub_items="matMenu" class="select-flot-menu">
-
-              <ng-container *ngFor="let c of p.children">
-
-                <ng-container *ngIf="hasChildren(c)">
-
-                  <button mat-menu-item [matMenuTriggerFor]="sub_sub_items">
-                    {{ getOptionLabel(c) }}
-                  </button>
-
-                  <mat-menu #sub_sub_items="matMenu" class="select-flot-menu">
-
-                    <button
-                      mat-menu-item
-                      *ngFor="let sc of c.children"
-                      (click)="setControlsValues(sc)">
-
-                      {{ getOptionLabel(sc) }}
-
-                    </button>
-
-                  </mat-menu>
-
-                </ng-container>
-
-                <ng-container *ngIf="!hasChildren(c)">
-
-                  <button mat-menu-item (click)="setControlsValues(c)">
-                    {{ getOptionLabel(c) }}
-                  </button>
-
-                </ng-container>
-
-              </ng-container>
-
-            </mat-menu>
-
-          </ng-container>
-
-          <ng-container *ngIf="!hasChildren(p)">
-
-            <button mat-menu-item (click)="setControlsValues(p)">
-              {{ getOptionLabel(p) }}
-            </button>
-
-          </ng-container>
-
-        </ng-container>
-
-      </div>
-
-    </mat-menu>
-
-  </div>
-
+    <!-- CAS 3: SANS REGROUPEMENT (Liste plate) -->
+<ng-container *ngIf="!(metadata.grouping || metadata.parentChild)">
+  <mat-option
+    *ngFor="let item of listsearch.filter(i => isShowOption(i))"
+    [value]="getValue(item)"
+    [disabled]="item.disabled ?? false"
+    (onSelectionChange)="setControlsValues(item)"
+    [attr.data-value]="getValue(item)"
+    class="select-option">
+    {{ getOptionLabel(item) }}
+  </mat-option>
 </ng-container>
+
+  </mat-select>
+
+  <!-- TOOLTIP -->
+  <span
+    *ngIf="!isEmptyValue(control.value)"
+    [matTooltip]="tooltipTxt"
+    matTooltipPosition="above"
+    class="tooltip-text">
+    {{ tooltipTxt }}
+  </span>
+
+  <!-- CLEAR BUTTON -->
+  <button
+    *ngIf="!isEmptyValue(control.value) && !control.disabled"
+    mat-icon-button
+    matSuffix
+    (click)="clear($event)"
+    type="button"
+    [attr.aria-label]="'Effacer ' + (metadata.label ?? '')"
+    class="clear-button">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <!-- ERROR MESSAGE -->
+  <mat-error *ngIf="control.invalid && (control.dirty || control.touched)" class="error-message">
+    <span *ngIf="control.hasError('required')">
+      {{ metadata.label | translate }} est requis
+    </span>
+    <span *ngIf="control.hasError('pattern')">
+      {{ metadata.label | translate }} a un format invalide
+    </span>
+  </mat-error>
+
+</mat-form-field>

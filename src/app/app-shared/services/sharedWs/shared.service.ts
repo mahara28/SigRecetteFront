@@ -65,7 +65,7 @@ export class SharedService {
     const dialogRef = this.dialog.open(dialog, {
       disableClose: true,
       width: width,
-      direction: this.appTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       autoFocus: false,
       data: data
     });
@@ -88,7 +88,7 @@ export class SharedService {
       disableClose: true,
       height: height,
       width: width,
-      direction: this.appTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       autoFocus: true,
       data: data
     });
@@ -116,7 +116,7 @@ export class SharedService {
       disableClose: config.disableClose ?? true,
       width: config.width ?? '68%',
       height: config.height,
-      direction: this.appTranslateService.getDir(),
+      direction: this.appTranslateService.getCurrentDirection(),
       autoFocus: config.autoFocus ?? false,
       data: config.data,
       panelClass: config.panelClass

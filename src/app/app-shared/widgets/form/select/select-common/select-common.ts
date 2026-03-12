@@ -37,114 +37,95 @@ import {
   isEmptyValue,
   isInputChanged,
 } from '../../../../tools';
-import { AppTranslateService } from '../../../../services';
-import { Pipe } from '@angular/core';
+import { AppTranslateService, SupportedLanguage } from '../../../../services';
 
 
 @Component({
   selector: 'mc-select',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonModule,
+    TranslateModule,
+  ],
   templateUrl: './select-common.html',
   styleUrl: './select-common.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectCommon implements OnInit, OnChanges {
-  @Input() autofocusSelectValue = false;
+export class SelectCommon implements OnInit, OnChanges, OnDestroy {
 
-  @Input() control!: FormControl<any>;
+  @Input() control: FormControl<any> = new FormControl(null);
 
   @Input() listItems: any[] = [];
 
   @Input() metadata!: SelectMetadata;
-  listItemsFiltered: any[] = [];
 
-  @Input() hint?: string;
+  @Input() hint: string = '';
+
+  @Input() autofocusSelectValue: boolean = false;
+
+  @Input() form?: FormGroup;
 
   @Output() onValueChangeEvent = new EventEmitter<any>();
 
-
+  @ViewChild('matSelectFilter') matSelectFilter!: ElementRef;
+  @ViewChild('matMenuTrigger') matMenuTrigger!: MatMenuTrigger;
   @ViewChild('select') select!: MatSelect;
+  @ViewChild('myFormField') myFormField!: ElementRef;
 
-  @ViewChild('matSelectFilter') matSelectFilter?: ElementRef<HTMLInputElement>;
+  readonly hasRequiredField = hasrequiredField;
 
-  @ViewChild('matMenuTrigger') matMenuTrigger?: MatMenuTrigger;
-
-  @ViewChild('myFormField') myFormField?: ElementRef;
-
-
-  //form?: FormGroup;
-
-  required = hasrequiredField;
-
-  isEmptyValue = isEmptyValue;
 
   listsearch: any[] = [];
 
   params: any = {};
 
-  isSelectOpened = false;
+  isSelectOpened: boolean = false;
 
+  private readonly destroy$ = new Subject<void>();
+
+  private currentLanguage: SupportedLanguage;
+  isEmptyValue = isEmptyValue;
 
   constructor(
     public appTranslateService: AppTranslateService,
-
+    private cdr: ChangeDetectorRef
   ) {
+    // Initialiser la langue actuelle
+    this.currentLanguage = this.appTranslateService.getCurrentLanguage();
   }
-  form: FormGroup = new FormGroup({
-    svl: new FormControl(null),
-
-  });
-  get tooltipTxt(): string | undefined {
-    const lang = this.appTranslateService.getDefaultLang();
-    if (isEmptyValue(this.control?.value)) {
-      return this.appTranslateService.getByKey(this.metadata?.label ?? '');
-    }
-
-    if (!isEmptyValue(this.listItems)) {
-
-      const lang = this.appTranslateService.getDefaultLang();
-
-      const value =
-        typeof this.metadata.value === 'object'
-          ? (this.metadata.value as Record<string, string>)[lang]
-          : this.metadata.value;
-
-      const optionLabel =
-        typeof this.metadata.optionLabel === 'object'
-          ? (this.metadata.optionLabel as Record<string, string>)[lang]
-          : this.metadata.optionLabel;
-
-      if (Array.isArray(this.control.value)) {
-
-        return this.listItems
-          .filter(e => this.control.value.includes(e[value as string]))
-          .map(e => this.appTranslateService.getByKey(e[optionLabel as string]))
-          .join(', ');
-      }
-
-      return this.listItems
-        .filter(e => e[value as string] === this.control.value)
-        .map(e => e[optionLabel as string])[0];
-    }
-
-    return undefined;
-  }
-
 
   ngOnInit(): void {
-    this.params['menuPosition'] = { x: 0, y: 0 };
+    this.params['menuPosition'] = {} as { x: number; y: number };
+    this.initForm(!!this.metadata.flotParentChild);
 
-    this.initForm(this.metadata?.flotParentChild);
+    // ✅ Observer les changements de langue
+    this.appTranslateService.currentLanguage
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => {
+        this.currentLanguage = lang;
+        this.cdr.markForCheck(); // Forcer la détection des changements
+      });
+
+    // ✅ Charger les données initiales
+    this.loadDataSource(this.listItems);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     if (isInputChanged(changes, 'listItems')) {
       this.loadDataSource(changes['listItems'].currentValue);
     }
 
     if (isInputChanged(changes, 'metadata')) {
-      this.initForm(changes['metadata'].currentValue);
+      this.initForm(changes['metadata']?.currentValue?.flotParentChild);
     }
 
     if (isInputChanged(changes, 'control')) {
@@ -152,211 +133,313 @@ export class SelectCommon implements OnInit, OnChanges {
     }
   }
 
-  initForm(metadata: any) {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-    if (metadata?.flotParentChild) {
-
-      this.form = new FormGroup({
-        svl: new FormControl(
-          {
-            value: isEmptyValue(this.control.value)
-              ? null
-              : this.getOptionLabel(
-                this.getItem(this.listItems, metadata.value, this.control.value)
-              ),
-            disabled: this.control.disabled
-          }
-        )
-      });
-
+  get tooltipTxt(): string {
+    if (isEmptyValue(this.control?.value)) {
+      return this.appTranslateService.getByKey(
+        this.metadata.label ?? ''
+      );
     }
 
+    if (!isEmptyValue(this.listItems)) {
+      const value = this.getPropertyForLang(this.metadata.value);
+      const optionLabel = this.getPropertyForLang(
+        this.metadata.optionLabel
+      );
+
+      if (Array.isArray(this.control.value)) {
+        return this.listItems
+          .filter((e) => this.control.value.includes(e[value]))
+          .map((e) => e[optionLabel])
+          .join(', ');
+      }
+
+      return (
+        this.listItems
+          .filter((e) => e[value] === this.control.value)
+          .map((e) => e[optionLabel])[0] ?? ''
+      );
+    }
+
+    return '';
   }
 
 
 
-  clear(event: MouseEvent) {
-
-    event.stopPropagation();
-
-    this.control.setValue(null);
-
-    this.onValueChangeEvent.emit(null);
-
-  }
-
-  getOptionLabel(item: any): string {
-
-    if (!this.metadata?.optionLabel) {
-      console.error('SelectMetadata optionLabel missing');
-      return '';
-    }
-
-    if (typeof this.metadata.optionLabel === 'string') {
-      return item[this.metadata.optionLabel];
-    }
-
-    const lang = this.appTranslateService.getDefaultLang();
-
-    const optionLabel =
-      (this.metadata.optionLabel as Record<string, string>)[lang];
-
-    return item[optionLabel];
-
-
-  }
-  getValue(item: any) {
-
-    if (!this.metadata.value) {
-      return item;
-    }
-
-    if (typeof this.metadata.value === 'object') {
-
-      const lang = this.appTranslateService.getDefaultLang();
-
-      const valueKey =
-        (this.metadata.value as Record<string, string>)[lang];
-
-      return item[valueKey];
-    }
-
-    return item[this.metadata.value];
-  }
-
-
-  changeValue(value: any) {
-
-    if (isEmptyValue(value)) {
-      return;
-    }
-
-    if (this.metadata.multiple && Array.isArray(value)) {
-
-      value = value.filter(v => !isEmptyValue(v));
-
-      this.control.setValue(value);
-
-      this.select.close();
-
-    }
-
-    this.onValueChangeEvent.emit(value);
-
-  }
-
-
-
-  hasChildren(item: any): boolean {
-
-    return (
-      Array.isArray(item?.children) &&
-      item.children.length > 0
-    );
-
-  }
-
-
-
-  setControlsValues(item: any) {
-
-    this.control.setValue(this.getValue(item));
-
-    this.form?.get('svl')?.setValue(this.getOptionLabel(item));
-
-  }
-
-
-
-  filter(value: string) {
-
-    if (isEmptyValue(value)) {
-
-      this.listsearch = [...this.listItems];
-
-      return;
-
-    }
-
-    const v = value.toUpperCase();
-
-    this.listsearch = this.listItems.filter(item => {
-
-      const label = this.getOptionLabel(item);
-
-      return label?.toUpperCase().includes(v);
-
-    });
-
-  }
-
-
-
-  onSelectToggle(isOpen: boolean) {
-
-    if (!isOpen && this.matSelectFilter) {
-
-      this.matSelectFilter.nativeElement.value = '';
-
-      this.listsearch = [...this.listItems];
-
-    }
-
-    if (isOpen && this.matSelectFilter) {
-
-      this.matSelectFilter.nativeElement.focus();
-
-    }
-
-    this.isSelectOpened = isOpen;
-
-  }
-
-
-
-  private loadDataSource(listItems: any[]) {
-
-    this.listItems = listItems ?? [];
-
-    this.listsearch = [...this.listItems];
-
-  }
-
-
-
-  getItem(list: any[], property: string, value: any): any {
-
-    for (const item of list) {
-
+  getItem<M extends Record<string, any>>(
+    listItems: M[],
+    property: string,
+    value: string
+  ): M | null {
+    for (const item of listItems) {
       if (item[property] === value) {
         return item;
       }
 
       if (this.hasChildren(item)) {
+        const found = this.getItem(
+          item['children'] as M[],
+          property,
+          value
+        );
 
-        const child = this.getItem(item.children, property, value);
-
-        if (!isEmptyValue(child)) {
-          return child;
+        if (!isEmptyValue(found)) {
+          return found;
         }
-
       }
-
     }
 
     return null;
-
   }
-  isShowOption(item: any, parent?: any): boolean {
-    // Exemple : cacher les éléments désactivés
-    if (!item) return false;
-    if (item.disabled) return false;
 
-    // Si tu as un filtrage actif (comme un search), tu peux l'intégrer
-    if (this.metadata?.filter && this.listItemsFiltered) {
-      return this.listItemsFiltered.includes(item);
+  /**
+   * Efface la sélection
+   */
+  clear(event: MouseEvent): void {
+    event.stopPropagation();
+    this.control.setValue(null);
+    this.onValueChangeEvent.emit(null);
+  }
+
+
+  getOptionLabel(item: any): string {
+    if (!this.metadata.optionLabel) {
+      console.warn(
+        'SelectCommon: optionLabel manquant dans les métadonnées'
+      );
+      return '';
     }
 
-    return true; // sinon, afficher
+    const property = this.getPropertyForLang(this.metadata.optionLabel);
+    return item[property] ?? '';
+  }
+
+
+  getValue(item: any): any {
+    if (!this.metadata.value) {
+      return item;
+    }
+
+    const property = this.getPropertyForLang(this.metadata.value);
+    return item[property];
+  }
+
+
+  changeValue(value: any): void {
+    if (isEmptyValue(value)) {
+      return;
+    }
+
+    // Filtrer les valeurs vides en cas de multi-sélection
+    if (this.metadata.multiple && Array.isArray(value)) {
+      const filtered = value.filter((e) => !isEmptyValue(e));
+      if (filtered.length !== value.length) {
+        this.control.setValue(filtered);
+        this.select.close();
+        return;
+      }
+    }
+
+    // Déterminer quelle valeur émettre
+    const emittedValue = this.getEmittedValue(value);
+    this.onValueChangeEvent.emit(emittedValue);
+  }
+
+
+  filter(searchValue: string): void {
+    if (isEmptyValue(searchValue)) {
+      this.listsearch = [...this.listItems];
+      return;
+    }
+
+    if (this.metadata.grouping || this.metadata.parentChild) {
+      this.listsearch = this.searchItemsInTree(
+        this.listItems,
+        searchValue
+      );
+    } else {
+      this.listsearch = this.listItems.filter((item) =>
+        this.checkItemMatch(item, searchValue)
+      );
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  isShowOption(item: any, parent?: any): boolean {
+    if (!this.metadata.filter || !this.isSelectOpened) {
+      return true;
+    }
+
+    if (this.metadata.grouping || this.metadata.parentChild) {
+      if (!isEmptyObject(parent)) {
+        return !isEmptyObject(
+          this.listsearch
+            .find((p) => p.id === parent.id)
+            ?.children?.find((c: any) => c.id === item.id)
+        );
+      }
+      return !isEmptyObject(this.listsearch.find((i) => i.id === item.id));
+    }
+
+    return this.listsearch.includes(item);
+  }
+
+  onSelectToggle(isOpened: boolean): void {
+    if (!isOpened && !isEmptyObject(this.matSelectFilter)) {
+      this.matSelectFilter['nativeElement'].value = '';
+      this.listsearch = [...this.listItems];
+    } else if (isOpened && !isEmptyObject(this.matSelectFilter)) {
+      setTimeout(() => {
+        this.matSelectFilter?.nativeElement?.focus();
+      });
+    }
+
+    this.isSelectOpened = isOpened;
+  }
+
+
+  hasChildren(item: any): boolean {
+    return (
+      Array.isArray(item.children) &&
+      !isEmptyValue(item.children) &&
+      item.children.length > 0
+    );
+  }
+
+
+  setControlsValues(item: any): void {
+    this.control.setValue(this.getValue(item));
+    this.form?.get('svl')?.setValue(this.getOptionLabel(item));
+  }
+
+
+
+
+
+private getPropertyForLang(property: any): string {
+  if (!property) return '';
+  if (typeof property === 'string') return property;
+  if (typeof property === 'object' && property !== null) {
+    return property[this.currentLanguage] ?? '';
+  }
+  return '';
+}
+
+  private initForm(flotParentChild: boolean): void {
+    if (!isEmptyValue(flotParentChild) && flotParentChild) {
+      this.form = new FormGroup({
+        svl: new FormControl({
+          value: isEmptyValue(this.control.value)
+            ? null
+            : this.getOptionLabel(
+                this.getItem(
+                  this.listItems,
+                  this.getPropertyForLang(this.metadata.value),
+                  this.control.value
+                )
+              ),
+          disabled: this.control.disabled,
+        }),
+      });
+    }
+  }
+
+  private loadDataSource(listItems: any[]): void {
+    this.listItems = listItems ?? [];
+    this.listsearch = [...(listItems ?? [])];
+  }
+
+  private transformListItems(listItems: any[]): any[] {
+    const flattened: any[] = [];
+    for (const item of listItems) {
+      flattened.push(item);
+      if (this.hasChildren(item)) {
+        flattened.push(...item['children']);
+      }
+    }
+    return flattened;
+  }
+
+
+  private checkItemMatch(item: any, searchValue: string): boolean {
+    if (!this.metadata.optionLabel) {
+      return false;
+    }
+
+    const property = this.getPropertyForLang(
+      this.metadata.optionLabel
+    );
+    const itemValue = item[property];
+
+    if (!itemValue) {
+      return false;
+    }
+
+    return String(itemValue)
+      .toUpperCase()
+      .includes(searchValue.toUpperCase());
+  }
+
+  private searchItemsInTree(tree: any[], searchValue: string): any[] {
+    const results: any[] = [];
+
+    for (const item of tree) {
+      const tempItem = { ...item };
+      let childResults: any[] = [];
+
+      if (!isEmptyValue(tempItem.children)) {
+        childResults = this.searchItemsInTree(
+          tempItem.children,
+          searchValue
+        );
+      }
+
+      tempItem.children = [...childResults];
+
+      if (
+        this.checkItemMatch(tempItem, searchValue) ||
+        !isEmptyValue(childResults)
+      ) {
+        results.push(tempItem);
+      }
+    }
+
+    return results;
+  }
+
+
+  private getEmittedValue(value: any): any {
+    if (isEmptyValue(value)) {
+      return null;
+    }
+
+    const isMultiple = Array.isArray(value);
+    const values = isMultiple ? value : [value];
+    const flattened = this.transformListItems(this.listItems);
+
+    const matched = flattened.filter((item) =>
+      values.includes(this.getValue(item))
+    );
+
+    if (
+      isEmptyValue(this.metadata.emittedValue) ||
+      this.metadata.emittedValue === '—'
+    ) {
+      return isMultiple ? matched : matched[0];
+    }
+
+    if (this.metadata.emittedValue === this.metadata.value) {
+      return value;
+    }
+
+    const key = this.metadata.emittedValue as string;
+    const emitted = matched.map((i) => i[key]);
+
+    return isMultiple ? emitted : emitted[0];
   }
 }

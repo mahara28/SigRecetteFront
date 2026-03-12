@@ -1,4 +1,4 @@
-<header class="nxl-header" >
+<header class="nxl-header" [attr.dir]="currentDirection">
   <div class="header-wrapper">
 
     <!-- LEFT SIDE -->
@@ -35,6 +35,8 @@
     <!-- RIGHT SIDE -->
     <div
       class="header-right"
+      [class.ms-auto]="currentDirection === 'ltr'"
+      [class.me-auto]="currentDirection === 'rtl'"
     >
       <div class="d-flex align-items-center">
 
@@ -46,10 +48,11 @@
             data-bs-toggle="dropdown"
             data-bs-auto-close="outside"
           ><i class="fa fa-language" aria-hidden="true"></i>
-<!--             <img src="assets/vendors/img/flags/4x3/us.svg" alt="" class="img-fluid wd-20" />
- -->          </a>
+          </a>
           <div
             class="dropdown-menu nxl-h-dropdown nxl-language-dropdown"
+            [class.dropdown-menu-end]="currentDirection === 'ltr'"
+            [class.dropdown-menu-start]="currentDirection === 'rtl'"
           >
             <div class="dropdown-divider mt-0"></div>
             <div class="language-items-wrapper">
@@ -63,24 +66,24 @@
 
                 <div
                   class="col-sm-4 col-6 language_select"
+                  [class.active]="currentLang === 'ar'"
+                  (click)="useLanguage('ar')"
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-<!--                       <img src="assets/vendors/img/flags/1x1/sa.svg" alt="Arabic" class="img-fluid" />
- -->                    </div>
+                    </div>
                     <span>{{ 'LANG.ARABIC' | translate }}</span>
                   </a>
                 </div>
 
-
-
                 <div
                   class="col-sm-4 col-6 language_select"
+                  [class.active]="currentLang === 'fr'"
+                  (click)="useLanguage('fr')"
                 >
                   <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
                     <div class="avatar-image avatar-sm">
-<!--                       <img src="assets/vendors/img/flags/1x1/fr.svg" alt="French" class="img-fluid" />
- -->                    </div>
+                    </div>
                     <span>{{ 'LANG.FRENCH' | translate }}</span>
                   </a>
                 </div>
@@ -142,6 +145,8 @@
           </a>
           <div
             class="dropdown-menu nxl-h-dropdown nxl-notifications-menu"
+            [class.dropdown-menu-end]="currentDirection === 'ltr'"
+            [class.dropdown-menu-start]="currentDirection === 'rtl'"
           >
             <div class="d-flex justify-content-between align-items-center notifications-head">
               <h6 class="fw-bold text-dark mb-0">Notifications</h6>
@@ -252,6 +257,8 @@
           </a>
           <div
             class="dropdown-menu nxl-h-dropdown nxl-user-dropdown"
+            [class.dropdown-menu-end]="currentDirection === 'ltr'"
+            [class.dropdown-menu-start]="currentDirection === 'rtl'"
           >
             <div class="dropdown-header">
               <div class="d-flex align-items-center">

@@ -1,12 +1,20 @@
-<div class="private-layout">
+<!-- private.html -->
+<div class="private-layout" [attr.dir]="currentDirection">
 
-  <app-private-layout-sidebar #privateLayoutSidebar [listMenus]="listMenus">
+  <app-private-layout-sidebar
+    #privateLayoutSidebar
+    [listMenus]="listMenus"
+    [attr.dir]="currentDirection">
   </app-private-layout-sidebar>
 
-  <app-private-layout-navbar class="no-print" (toggleSidebarEventEmitter)="onToggleSidebar()">
+  <app-private-layout-navbar
+    class="no-print"
+    (toggleSidebarEventEmitter)="onToggleSidebar()"
+    
+    [attr.dir]="currentDirection">
   </app-private-layout-navbar>
 
-  <div class="nxl-container body-wrapper">
+  <div class="nxl-container body-wrapper" [attr.dir]="currentDirection">
     <div class="nxl-content">
 
       <div class="page-header">

@@ -76,7 +76,7 @@ export class FlotMenuList implements OnInit {
   }
 
   getLabel(menu: Menu): string {
-    const lang = this.appTranslateService.getDefaultLang();
+    const lang = this.appTranslateService.getCurrentLanguage();
     if (lang === 'fr') return menu.desFr ?? '';
     if (lang === 'ar') return menu.desAr ?? menu.desFr ?? '';
     if (lang === 'en') return menu.desEn ?? menu.desFr ?? '';

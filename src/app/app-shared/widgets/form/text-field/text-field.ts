@@ -12,7 +12,7 @@ import {
 } from "@angular/core";
 import { UntypedFormControl } from "@angular/forms";
 import { MatFormFieldAppearance, MatFormField, MatLabel } from "@angular/material/form-field";
-import { AppTranslateService  } from "../../../services/translate/translate.service";
+import { AppTranslateService, SupportedLanguage } from "../../../services/translate/translate.service";
 import { hasrequiredField, isEmptyValue, isInputChanged } from "../../../tools/utils";
 import { EnableOnlyArabicDirective } from "../../../directives";
 import { Subject, takeUntil } from "rxjs";
@@ -26,7 +26,7 @@ import { Subject, takeUntil } from "rxjs";
 })
 export class TextField implements OnInit, OnChanges {
   protected readonly AppTranslateService = AppTranslateService;
-
+  listFilteredOptions = [];
   required = hasrequiredField;
   isEmptyValue = isEmptyValue;
   private readonly destroy$ = new Subject<void>();
@@ -57,10 +57,7 @@ export class TextField implements OnInit, OnChanges {
   @Input() numberphone = false;
   @Input() hideRequiredMarker = false;
   @Input() isWithAutocomplete = false;
-
-  @Input() listData: any[] = [];
-  listFilteredOptions: any[] = [];
-
+  @Input() listData = [];
   @Input() isDisabled = false;
   @Input() itemToFilterWith: string = "";
   @Input() hasTooltip: boolean = false;
@@ -81,7 +78,7 @@ export class TextField implements OnInit, OnChanges {
   @Output() onFocusEvent = new EventEmitter<any>();
   @Output() emitSelectedValueEvent = new EventEmitter<any>();
   @Output() suffixClickedEvent = new EventEmitter<any>();
-
+  private currentLanguage: SupportedLanguage = 'fr';
   constructor(
     public appTranslateService: AppTranslateService,
     private cdr: ChangeDetectorRef
@@ -89,78 +86,345 @@ export class TextField implements OnInit, OnChanges {
 
   }
   ngOnInit(): void {
-    if (this.isWithAutocomplete && this.control.value) {
-      this.typedValue = this.control.value;
+    this.appTranslateService.currentLanguage
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => {
+        this.currentLanguage = lang;
+        this.cdr.markForCheck();
+      });
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (isInputChanged(changes, 'control')) {
+      this.control = changes['control'].currentValue;
     }
   }
- ngOnChanges(changes: SimpleChanges): void {
-  if (isInputChanged(changes, 'control')) {
-    this.control = changes['control'].currentValue;
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
-  // ✅ accès sécurisé pour listData
-  if (changes['listData']) {
-    this.loadDataSource(changes['listData'].currentValue);
-  }
-}
-
-loadDataSource(listData: any[]): void {
-    this.listData = listData ?? [];
+  loadDataSource(listData: any) {
+    this.listData = listData;
     this.filterListData();
   }
 
-emitTypedValue(event: KeyboardEvent): void {
-    const input = event.target as HTMLInputElement;
-    const maxLength = this.max ?? undefined;
-    let value = input.value;
+  emitTypedValue(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    const maxLength = this.max ? parseInt(this.max, 10) : undefined;
 
-    if (maxLength && value.length >= maxLength) event.preventDefault();
+    if (maxLength !== undefined && inputElement.value.length >= maxLength) {
+      event.preventDefault();
+      // Check if the user has the content selected
+      const selectionStart = inputElement.selectionStart;
+      const selectionEnd = inputElement.selectionEnd;
+      if (
+        selectionStart !== null &&
+        selectionEnd !== null &&
+        selectionStart !== selectionEnd
+      ) {
+        const currentValue = inputElement.value;
+        const newValue =
+          currentValue.substring(0, selectionStart) +
+          event.key +
+          currentValue.substring(selectionEnd);
 
-    this.keyUpEvent.emit(value);
-  }
-
-  filterListData(): void {
-    if (!this.typedValue) {
-      this.listFilteredOptions = [...this.listData];
+        if (newValue.length <= maxLength) {
+          // Check the value type
+          if (this.number) {
+            if (!isNaN(Number(newValue))) inputElement.value = newValue;
+          } else {
+            inputElement.value = newValue;
+          }
+          inputElement.setSelectionRange(selectionStart + 1, selectionStart + 1);
+        }
+      }
+      this.keyUpEvent.emit(inputElement.value);
     } else {
-      const filterText = this.typedValue.toLowerCase();
-      this.listFilteredOptions = this.listData.filter(opt =>
-        opt[this.itemToFilterWith]?.toString().toLowerCase().includes(filterText)
-      );
+      this.keyUpEvent.emit(inputElement.value);
     }
   }
 
-  clear(event: MouseEvent): void {
-    event.stopPropagation();
+  filterListData() {
+    if (!this.typedValue) {
+      this.listFilteredOptions = [...this.listData];
+    } else {
+      this.listFilteredOptions = this.listData.filter((option) => {
+        const value = String(option[this.itemToFilterWith] ?? '');
+
+        return value
+          .toLowerCase()
+          .includes(this.typedValue.toString().toLowerCase());
+
+      });
+    }
+  }
+
+  format(data: any) {
+    if (!isEmptyValue(data) && this.isCourRef) {
+      data = data
+        .toString()
+        .replace(/[^0-9.]*!/g, "")
+        .replace(",", ".")
+        .replace(/[^\d\.]/g, "")
+        .replace(/\./, "x")
+        .replace(/\./g, "")
+        .replace(/x/, ".")
+        .replace(/^\.+/, "")
+        .replace(/^0+/, "");
+      if (data.toString().includes(".")) {
+        let indexVirgule = data.indexOf(".");
+        if (
+          data.substring(0, indexVirgule).length > 2 ||
+          data.substring(indexVirgule + 1, data.length).length > 4
+        ) {
+          this.control.setErrors({ "general.erreur_montant": true });
+        } else {
+          if (this.isCourRef && !isNaN(data)) {
+            this.control.setValue(Number(data));
+          }
+        }
+      } else {
+        if (data.length > 12) {
+          this.control.setErrors({ "general.erreur_montant": true });
+        } else {
+          if (this.isCourRef && !isNaN(data)) {
+            this.control.setValue(Number(data));
+          }
+        }
+      }
+    }
+    if (!isEmptyValue(data) && this.isMntD) {
+      data = data
+        .toString()
+        .replace(/[^0-9.]*!/g, "")
+        .replace(",", ".")
+        .replace(/[^\d\.]/g, "")
+        .replace(/\./, "x")
+        .replace(/\./g, "")
+        .replace(/x/, ".")
+        .replace(/^\.+/, "")
+        .replace(/^0+/, "");
+      if (data.toString().includes(".")) {
+        let indexVirgule = data.indexOf(".");
+        if (
+          data.substring(0, indexVirgule).length > 6 ||
+          data.substring(indexVirgule + 1, data.length).length > 3
+        ) {
+          this.control.setErrors({ "general.erreur_montant": true });
+        } else {
+          if (this.isMntD && !isNaN(data)) {
+            this.control.setValue(Number(data));
+          }
+        }
+      } else {
+        if (data.length > 12) {
+          this.control.setErrors({ "general.erreur_montant": true });
+        } else {
+          if (this.isMntD && !isNaN(data)) {
+            this.control.setValue(Number(data));
+          }
+        }
+      }
+    }
+  }
+
+  onOptionSelected(event: any) {
+    if (this.isGet) {
+      this.typedValue = "";
+      this.control.setValue(null);
+      this.emitSelectedValueEvent.emit(event.option.value);
+    } else {
+      this.typedValue = event.option.value[this.itemToFilterWith];
+      this.emitSelectedValueEvent.emit(event.option.value);
+    }
+  }
+
+  onChange(event: any) {
+    this.onChangeEvent.emit(event.target.value);
+  }
+
+
+  clear($event: MouseEvent) {
+    $event.stopPropagation();
     this.control.setValue(null);
     this.onChangeEvent.emit(null);
   }
 
+  /*  getErrorMessage(): string {
+     const c = this.control;
+     if (!c) return '';
+
+     // langue par défaut (fr / ar)
+     const lang = this.AppTranslateService.getDefaultLang?.() ?? 'fr';
+
+     if (!(c.touched || c.dirty)) return '';
+
+     // required
+     if (c.hasError('required') && (!c.value || c.value === '')) {
+       return lang === 'fr'
+         ? 'Ce champ est obligatoire'
+         : 'هذا الحقل إجباري';
+     }
+
+     const valueLength = c.value ? (c.value.length ?? 0) : 0;
+
+     // exact length (min == max)
+     if (c.hasError('maxlength') && c.hasError('minlength')) {
+       const err = c.getError('minlength');
+       const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : undefined);
+       return lang === 'fr'
+           ? `La valeur doit contenir exactement ${requiredLength} caractères`
+           : `يجب أن يحتوي على ${requiredLength} أرقام`;
+     }
+     if (this.min && this.max && Number(this.min) === Number(this.max)) {
+       const requiredLength = Number(this.min);
+       if (valueLength > 0 && valueLength !== requiredLength) {
+         return lang === 'fr'
+           ? `La valeur doit contenir exactement ${requiredLength} caractères`
+           : `يجب أن يحتوي على ${requiredLength} أرقام`;
+       }
+     }
+
+     // minlength
+     if (c.hasError('minlength')) {
+       const err = c.getError('minlength');
+       const requiredLength = err?.requiredLength ?? (this.min ? Number(this.min) : 6);
+       return lang === 'fr'
+         ? `Mot de passe trop court (minimum ${requiredLength} caractères)`
+         : `كلمة المرور قصيرة جدًا (الحد الأدنى ${requiredLength} أحرف)`;
+     }
+     if (this.min && valueLength > 0 && valueLength < Number(this.min)) {
+       return lang === 'fr'
+         ? `Valeur trop courte (minimum ${this.min} caractères)`
+         : `القيمة قصيرة جدًا (الحد الأدنى ${this.min} أحرف)`;
+     }
+
+     // maxlength
+     if (c.hasError('maxlength')) {
+       const err = c.getError('maxlength');
+       const requiredLength = err?.requiredLength ?? (this.max ? Number(this.max) : undefined);
+       return lang === 'fr'
+         ? `Valeur trop longue (maximum ${requiredLength} caractères)`
+         : `القيمة طويلة جدًا (الحد الأقصى ${requiredLength} أحرف)`;
+     }
+     if (this.max && valueLength > Number(this.max)) {
+       return lang === 'fr'
+         ? `Valeur trop longue (maximum ${this.max} caractères)`
+         : `القيمة طويلة جدًا (الحد الأقصى ${this.max} أحرف)`;
+     }
+
+
+
+
+     // email
+     if (c.hasError('email')) {
+       return lang === 'fr'
+         ? 'Adresse e-mail invalide'
+         : 'البريد الإلكتروني غير صالح';
+     }
+
+     if (c.hasError('invalidIp')) {
+       return lang === 'fr'
+         ? "Adresse IP invalide"
+         : "عنوان IP غير صالح";
+     }
+
+
+
+     // pattern
+     if (c.hasError('pattern')) {
+       return lang === 'fr'
+         ? 'Format invalide'
+         : 'تنسيق غير صالح';
+     }
+
+     return '';
+   } */
+
   getErrorMessage(): string {
     const c = this.control;
-    if (!c || !(c.touched || c.dirty)) return '';
-    const lang = this.AppTranslateService?.getDefaultLang?.() ?? 'fr';
+    if (!c) return '';
 
-    if (c.hasError('required')) return lang === 'fr' ? 'Ce champ est obligatoire' : 'هذا الحقل إجباري';
-    if (c.hasError('minlength')) return lang === 'fr' ? `Mot de passe trop court` : `كلمة المرور قصيرة جدًا`;
-    if (c.hasError('maxlength')) return lang === 'fr' ? `Valeur trop longue` : `القيمة طويلة جدًا`;
-    if (c.hasError('email')) return lang === 'fr' ? 'Adresse e-mail invalide' : 'البريد الإلكتروني غير صالح';
-    if (c.hasError('pattern')) return lang === 'fr' ? 'Format invalide' : 'تنسيق غير صالح';
+    // ✅ Vérifier que le control a été touché ou modifié
+    if (!(c.touched || c.dirty)) return '';
+
+    const valueLength = c.value ? (c.value.length ?? 0) : 0;
+
+
+    if (c.hasError('required') && (!c.value || c.value === '')) {
+      return this.appTranslateService.getByKey('VALIDATION.REQUIRED');
+    }
+
+
+    if (c.hasError('maxlength') && c.hasError('minlength')) {
+      const requiredLength =
+        c.getError('minlength')?.requiredLength ?? (this.min ? Number(this.min) : undefined);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: requiredLength }
+      );
+    }
+
+    if (this.min && this.max && Number(this.min) === Number(this.max)) {
+      const requiredLength = Number(this.min);
+      if (valueLength > 0 && valueLength !== requiredLength) {
+        return this.appTranslateService.getByKeyWithParams(
+          'VALIDATION.MIN_LENGTH',
+          { min: requiredLength }
+        );
+      }
+    }
+
+
+    if (c.hasError('minlength')) {
+      const requiredLength =
+        c.getError('minlength')?.requiredLength ?? (this.min ? Number(this.min) : 6);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: requiredLength }
+      );
+    }
+
+    if (this.min && valueLength > 0 && valueLength < Number(this.min)) {
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MIN_LENGTH',
+        { min: this.min }
+      );
+    }
+
+
+    if (c.hasError('maxlength')) {
+      const requiredLength =
+        c.getError('maxlength')?.requiredLength ?? (this.max ? Number(this.max) : undefined);
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MAX_LENGTH',
+        { max: requiredLength }
+      );
+    }
+
+    if (this.max && valueLength > Number(this.max)) {
+      return this.appTranslateService.getByKeyWithParams(
+        'VALIDATION.MAX_LENGTH',
+        { max: this.max }
+      );
+    }
+
+
+    if (c.hasError('email')) {
+      return this.appTranslateService.getByKey('VALIDATION.EMAIL_INVALID');
+    }
+
+    if (c.hasError('invalidIp')) {
+      return this.appTranslateService.getByKey('VALIDATION.IP_INVALID');
+    }
+
+
+    if (c.hasError('pattern')) {
+      return this.appTranslateService.getByKey('VALIDATION.PATTERN_INVALID');
+    }
 
     return '';
   }
 
-  public format(data: any): void {
-  if (!data) return;
-   
-  if (this.isCourRef || this.isMntD) {
-    let val = data.toString().replace(/[^\d.]/g, '');
-    this.control.setValue(val ? Number(val) : null);
-  }
-}
-
-// onChange pour template
-public onChange(event: any): void {
-  this.onChangeEvent.emit(event.target?.value);
-}
 }

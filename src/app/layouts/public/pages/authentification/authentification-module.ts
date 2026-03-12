@@ -24,7 +24,7 @@ import { SharedModule } from '../../shared/shared-module';
     TranslateModule,
     Checkbox,
     SelectBoolean,
-    
+    SelectCommon,
   ],
 })
 export class AuthentificationModule {}

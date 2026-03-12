@@ -135,7 +135,7 @@ export class Table {
   getColumnKey(column: any): string {
     if (!column) return '';
     if (typeof column === 'object') {
-      return column[this.ats.getDefaultLang()] || (Object.values(column)[0] as string);
+      return column[this.ats.getCurrentLanguage()] || (Object.values(column)[0] as string);
     }
     return column;
   }
@@ -284,7 +284,7 @@ export class Table {
 
   getDateFormat(format: string | Record<string, string>): string {
     if (typeof format === 'object' && format !== null) {
-      const lang = AppTranslateService.getDefaultLang();
+      const lang = AppTranslateService.getStoredLanguage();
 
       return format[lang] ?? Object.values(format)[0];
     }

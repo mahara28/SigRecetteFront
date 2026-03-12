@@ -66,7 +66,7 @@ export class FlatMenuList implements OnInit {
       icon: node.icon,
       path: node.router,
       tooltip: node.desFr,
-      title: this.appTranslateService.getDefaultLang() === 'fr' ? node.desFr : node.desAr,
+      title: this.appTranslateService.getCurrentLanguage() === 'fr' ? node.desFr : node.desAr,
       externalLink: !!(node.router && node.router.includes('http')),
       expandable: !isEmptyValue(node.listSousMenu) && node.listSousMenu!.length > 0,
       level,
@@ -130,7 +130,7 @@ export class FlatMenuList implements OnInit {
   getMenuStyle(menuItem?: FlatMenu): Record<string, string> {
     const getMargin = (niv: number): Record<string, string> => {
       const name =
-        this.appTranslateService.getDir() === DIRECTION.LTR ? 'padding-left' : 'padding-right';
+        this.appTranslateService.getCurrentDirection() === DIRECTION.LTR ? 'padding-left' : 'padding-right';
       return { [name]: niv * 1.875 + 'rem' };
     };
 
