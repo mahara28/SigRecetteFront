@@ -71,7 +71,6 @@ export class PrivateLayoutSidebar {
     if (listMenus) {
       //this.listMenus = listMenus?.currentValue;
       this.listMenus = listMenus.currentValue ?? [];
-      console.log(listMenus);
       //if (this.listMenus) {
       this.onLoadingMenu = false;
       //}

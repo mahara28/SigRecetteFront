@@ -1,0 +1,23 @@
+.checklist-leaf-node {
+  padding-top: 0.625rem;
+}
+
+a,
+mat-tree-node {
+  background-color: rgb(214, 45, 45) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-align: center !important;
+  max-width: unset !important;
+  white-space: pre-wrap !important;
+}
+::ng-deep .mat-checkbox-disabled .mat-checkbox-label {
+  color: black;
+}
+
+mat-checkbox-label {
+  color: brown;
+}

@@ -130,7 +130,9 @@ export class FlatMenuList implements OnInit {
   getMenuStyle(menuItem?: FlatMenu): Record<string, string> {
     const getMargin = (niv: number): Record<string, string> => {
       const name =
-        this.appTranslateService.getCurrentDirection() === DIRECTION.LTR ? 'padding-left' : 'padding-right';
+        this.appTranslateService.getCurrentDirection() === DIRECTION.LTR
+          ? 'padding-left'
+          : 'padding-right';
       return { [name]: niv * 1.875 + 'rem' };
     };
 
@@ -168,6 +170,7 @@ export class FlatMenuList implements OnInit {
       } else {
         this.router.navigateByUrl(menu.path!);
         this.sessionStorage.setItem('currPermission', menu.isWrite.toString());
+        this.setToSessionStorage(this.selectedMenuKey, menu.id);
       }
     }
   }

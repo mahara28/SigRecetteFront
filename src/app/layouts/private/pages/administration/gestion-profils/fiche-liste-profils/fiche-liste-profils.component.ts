@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RequestObject, SearchObject, Sort } from '../../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { initSearchObject, isEmptyValue, onAction } from '../../../../../../app-shared/tools';
@@ -13,6 +13,9 @@ import { FicheListeProfilsMetadata } from '../gestion-profils.metadata';
 import { ConstanteWs } from '../../../../../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../../../../../app-shared/models/ResponseObject';
 import { FICHE_LISTE_PROFILS } from '../gestion-profils-uri';
+import { SessionStorageService } from '../../../../../../app-shared/services/SessionStorage/session-storage.service';
+import { Icons } from '../../../../../../app-shared/constantes/Icons';
+import { PermissionService } from '../../../../shared/gestion-permission/permission.service';
 
 @Component({
   selector: 'app-fiche-liste-profils',
@@ -23,14 +26,16 @@ import { FICHE_LISTE_PROFILS } from '../gestion-profils-uri';
 export class FicheListeProfilsComponent implements OnInit {
   subscriptionsList: Subscription[] = [];
   params: any = {};
+  idFonc!: any;
   protected readonly onAction = onAction;
   searchObject!: SearchObject;
-  constructor(
-    private sharedService: SharedService,
-    private toast: ToastService,
-    private confirmDialogService: ConfirmDialogService,
-    private router: Router,
-  ) {}
+
+  private sessionStorage = inject(SessionStorageService);
+  private sharedService = inject(SharedService);
+  private toast = inject(ToastService);
+  private confirmDialogService = inject(ConfirmDialogService);
+  private router = inject(Router);
+  private permissionService = inject(PermissionService);
 
   ngOnInit() {
     this.initMetadata();
@@ -56,6 +61,10 @@ export class FicheListeProfilsComponent implements OnInit {
       }),
       searchObjectall: new SearchObject(),
     };
+    //****** Gestion des droit d'accée ****//
+    this.params['listeProfils'] = this.permissionService.getMetadataWithPermissions(
+      FicheListeProfilsMetadata.tableListProfilsMetadata,
+    );
   }
 
   onPaginate(event: any) {
@@ -96,7 +105,6 @@ export class FicheListeProfilsComponent implements OnInit {
               }
             }
             this.params.listeProfils.payload = response.payload;
-            console.log(this.params.listeProfils);
           } else {
             console.error(
               `Error in FicheListeProfilsComponent/initListProfils, error code :: ${response.code}`,

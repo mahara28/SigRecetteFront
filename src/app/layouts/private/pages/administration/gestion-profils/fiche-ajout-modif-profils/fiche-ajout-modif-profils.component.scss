@@ -1,0 +1,59 @@
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.section-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #343a40;
+}
+
+.subheader-underline {
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 6px;
+}
+
+.radio-label {
+  font-weight: 500;
+  color: #495057;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+
+/**********/
+// Dans votre fichier de styles du composant
+.action-buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-top: 20px; // Ajoutez de l'espace si nécessaire
+  width: 100%;
+
+  // Forcez les boutons à s'aligner correctement
+  mc-button-loading,
+  button {
+    flex-shrink: 0; // Empêche la réduction des boutons
+  }
+}
+
+// Assurez-vous que le card-body permet l'alignement
+.card-body {
+  display: flex;
+  flex-direction: column;
+
+  > :last-child {
+    align-self: flex-end; // Aligne le dernier élément (boutons) à la fin
+    width: 100%; // Garde la largeur complète si nécessaire
+  }
+}

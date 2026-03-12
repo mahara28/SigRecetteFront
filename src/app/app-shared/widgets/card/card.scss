@@ -5,10 +5,12 @@
    ============================================= */
 
 /* ===== Conteneur hôte ===== */
-mc-card {
-  display: block;
-  width: 100%;
-  height: 100%;
+mc-card mat-card {
+  border-radius: 14px !important;
+  border: 1px solid #e9ecef;
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.2s ease;
 }
 
 /* =============================================
@@ -54,7 +56,7 @@ mc-card .header-container {
   width: 100%;
   gap: 12px;
   flex-wrap: wrap;
-}
+} 
 
 /* ===== Titre ===== */
 mc-card .title-section {
@@ -86,53 +88,100 @@ mc-card .actions-section.is-mobile {
 }
 
 /* ===== Bouton Ajouter ===== */
-mc-card .st2i-add-btn.pill-outline {
+mc-card .mc-add-btn.pill-outline {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 14px;
-  border-radius: 20px;
+  justify-content: center;
+  gap: 6px;
+
+  padding: 4px 4px;
+  border-radius: 999px;
+
   border: 1.5px solid #3b5bdb;
+  background: #ffffff;
+
   color: #3b5bdb;
   font-size: 13px;
   font-weight: 500;
+
   cursor: pointer;
-  transition:
-    background 0.15s,
-    color 0.15s;
-  background: transparent;
   user-select: none;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
-mc-card .st2i-add-btn.pill-outline mat-icon {
-  font-size: 16px !important;
-  width: 16px !important;
-  height: 16px !important;
-  line-height: 16px !important;
+/* icône */
+mc-card .mc-add-btn.pill-outline mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  line-height: 18px !important;
 }
 
-mc-card .st2i-add-btn.pill-outline:hover {
-  background: #eef2ff;
+/* hover */
+mc-card .mc-add-btn.pill-outline:hover {
+  background: #3b5bdb;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(59, 91, 219, 0.25);
+}
+
+/* active (click) */
+mc-card .mc-add-btn.pill-outline:active {
+  transform: scale(0.96);
+  box-shadow: none;
+}
+
+/* focus accessibilité */
+mc-card .mc-add-btn.pill-outline:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 91, 219, 0.35);
 }
 
 /* ===== Icônes actions ===== */
 mc-card .actions-section mat-icon.cursor-pointer {
-  font-size: 20px !important;
-  width: 20px !important;
-  height: 20px !important;
-  line-height: 20px !important;
-  color: #6c757d;
-  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px !important;
+  width: 32px;
+  height: 32px;
+
+  color: #3b5bdb;
   border-radius: 8px;
+
   transition:
-    background 0.15s,
-    color 0.15s;
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+
   cursor: pointer;
 }
 
+/* Hover */
 mc-card .actions-section mat-icon.cursor-pointer:hover {
-  background: #f0f4ff;
+  background-color: #eef2ff;
   color: #3b5bdb;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Active (click) */
+mc-card .actions-section mat-icon.cursor-pointer:active {
+  transform: scale(0.95);
+  box-shadow: none;
+}
+
+/* Focus clavier (accessibilité) */
+mc-card .actions-section mat-icon.cursor-pointer:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59, 91, 219, 0.35);
 }
 
 /* ===== Filtre ===== */

@@ -44,6 +44,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import {
   Breadcrumb,
+  ButtonLoading,
   Card,
   ConfirmDialog,
   Datatable,
@@ -79,6 +80,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
 import { MatNativeDateModule } from '@angular/material/core';
+import { FlexLayoutModule } from 'ng-flex-layout';
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -102,6 +104,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     SelectDateTime,
     EmptyList,
     Paginator,
+    ButtonLoading,
   ],
   exports: [
     MatMenuContent,
@@ -139,6 +142,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTooltipModule,
     EmptyList,
     Paginator,
+    ButtonLoading,
   ],
   imports: [
     CommonModule,
@@ -182,6 +186,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
+    FlexLayoutModule,
+    
 
     //******* Directive ********//
     BlockDirective,

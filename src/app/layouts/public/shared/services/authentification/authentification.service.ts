@@ -274,6 +274,7 @@ export class AuthentificationService {
   public logout(): void {
     //this.logoutback(AuthentificationService.authenticatedUser!.id);
     this.removeAccessToken();
+    this.sessionStorage.removeItem('selectedMenu');
     AuthentificationService.authenticatedUser = undefined;
     this.userLoggedIn.next(false);
     this.router.navigate(['/public/authentification/login']);

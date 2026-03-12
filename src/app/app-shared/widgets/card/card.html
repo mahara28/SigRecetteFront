@@ -14,7 +14,7 @@
           <ng-content select="[headerActions]"></ng-content>
 
           @if (metadata().hasAdd) {
-            <div class="st2i-add-btn pill-outline" role="button" (click)="onAddClicked.emit()">
+            <div class="mc-add-btn pill-outline" role="button" (click)="onAddClicked.emit()">
               <mat-icon>add</mat-icon>
               <!-- <span>{{ general.add | translate }}</span> -->
             </div>
@@ -60,6 +60,7 @@
               (onGenerateFile)="onGenerateFile.emit($event)"
             ></mc-datatable-export>
           }
+
           <!-- <div fxFlex="none" fxLayoutAlign="center" *ngIf="metadata().hasExport">
                     <st2i-datatable-export  (onGenerateFile)="onGenerateFile.emit($event)"></st2i-datatable-export>
                 </div> -->
@@ -81,6 +82,24 @@
             />
           }
 
+          <!-- @if (metadata().hasImprime) {
+            <mat-icon
+              class="cursor-pointer"
+              (click)="printPage()"
+              [matTooltip]="metadata().cardTooltips.imprime | translate"
+              >print</mat-icon
+            >
+          } -->
+
+          @if (metadata().hasImprime) {
+            <mat-icon
+              class="cursor-pointer action-icon print-icon pill-outline"
+              (click)="onImprimeClicked.emit()"
+              [matTooltip]="metadata().cardTooltips.imprime | translate"
+              >print</mat-icon
+            >
+          }
+
           @if (metadata().hasFilter) {
             <form [formGroup]="formRapidSearch" class="filter-form">
               <input
@@ -94,11 +113,11 @@
       </div>
     </mat-card-header>
   }
-
   <mat-card-content
+    #printSection
     [class]="metadata().classList.cardContent"
     [ngStyle]="metadata().styleList.cardContent"
-    style="overflow-x: auto; border-radius: 12px"
+    style="overflow-x: auto; overflow-y: auto; border-radius: 12px"
   >
     <ng-content></ng-content>
   </mat-card-content>

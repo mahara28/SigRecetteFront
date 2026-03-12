@@ -19,9 +19,10 @@ export const FicheListeProfilsMetadata = {
     ref: 'TableGestionProfils',
     title: 'profil.table.title',
     hasPagination: true, // true | false, default: true
-    hasAdd: true,
+    hasAdd: false,
     hasFilter: true,
-    hasExport: true,
+    hasExport: false,
+    hasImprime: false,
     columns: [
       {
         label: 'profil.table.columns.login',
@@ -97,10 +98,10 @@ export const FicheListeProfilsMetadata = {
 };
 export const FicheAjoutEditProfil = {
   labels: {
-    code: 'administration.gp.ficheAddprofil.form.labels.code',
-    desFr: 'administration.gp.ficheAddprofil.form.labels.desFr',
-    desEn: 'administration.gp.ficheAddprofil.form.labels.desEn',
-    isActive: 'administration.gp.ficheAddprofil.form.labels.isActive',
+    code: 'profil.form.labels.code',
+    desFr: 'profil.form.labels.desFr',
+    desEn: 'profil.form.labels.desEn',
+    isActive: 'profil.form.labels.isActive',
   },
 };
 
