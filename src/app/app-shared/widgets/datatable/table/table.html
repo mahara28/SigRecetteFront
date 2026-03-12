@@ -68,10 +68,51 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
   </table>
-
-  @if (dataSource.data.length === 0 && !responsePayload().isLoading) {
-    <div class="empty-state">
-      {{ 'general.no_data' | translate }}
-    </div>
-  }
+  <mat-paginator
+    [length]="dataSource.data.length"
+    [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    (page)="onPaginateChange($event)"
+  >
+  </mat-paginator>
+  <ng-template #emptyValueTemp>-</ng-template>
+  <ng-template #valueTemp let-row="row" let-column="column">
+    <ng-container [ngSwitch]="column['type']">
+      <ng-container *ngSwitchDefault>
+        {{ row[getColumnKey(column['key'])] ?? '-' }}
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.TEXT_MULTILIGNE">
+        <div *ngFor="let content of row[getColumnKey(column['key'])].split(column['sep'])">
+          {{ row[getColumnKey(column['key'])] ?? '-' | translate }}
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.PARAGRAPH">
+        {{ row[getColumnKey(column['key'])] ?? '-' | truncate }}
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.MONTANT" style="text-align: end">
+        {{ row[column['key']] | montant }}
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.MYDATE">
+        {{ row[column['key']] | dfMY }}
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.DATE">
+        <div class="dtClass">
+          {{ row[column['key']] | df: getDateFormat(column['format']) }}
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.DATETIME">
+        <div class="dtClass">
+          {{ row[column['key']] | dhf }}
+        </div>
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.TIME">
+        {{ row[column['key']] | mf }}
+      </ng-container>
+      <ng-container *ngSwitchCase="COMMON_TYPES_CODES.HOURS_TIME">
+        <div class="dtClass">
+          {{ row[column['key']] | hf }}
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
 </div>

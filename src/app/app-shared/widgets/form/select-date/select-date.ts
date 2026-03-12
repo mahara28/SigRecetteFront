@@ -1,10 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  ChangeDetectorRef
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -27,12 +21,13 @@ import moment from 'moment';
   templateUrl: './select-date.html',
   styleUrl: './select-date.css',
 })
-export class SelectDate {@Input() label!: string;
+export class SelectDate {
+  @Input() label!: string;
 
   @Input() control!: FormControl;
 
-  @Input() minDate?: Date;
-  @Input() maxDate?: Date;
+  @Input() min?: Date;
+  @Input() max?: Date;
 
   @Input() hasTooltip = false;
   @Input() disabled = false;
@@ -41,18 +36,14 @@ export class SelectDate {@Input() label!: string;
 
   constructor(
     private dateAdapter: DateAdapter<any>,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
   ) {}
 
   chooseDate(): void {
-
     const selectedDate = this.control.value;
 
     if (selectedDate) {
-
-      const safeMoment = moment.isMoment(selectedDate)
-        ? selectedDate
-        : moment(selectedDate);
+      const safeMoment = moment.isMoment(selectedDate) ? selectedDate : moment(selectedDate);
 
       this.control.setValue(safeMoment);
 
@@ -63,14 +54,12 @@ export class SelectDate {@Input() label!: string;
   }
 
   clear(event: MouseEvent) {
-
     event.stopPropagation();
 
     this.control.setValue(null);
   }
 
   getFormattedDateValueForTheTooltip(dateVal: any) {
-
-    return moment(dateVal).format("DD/MM/YYYY HH:mm");
+    return moment(dateVal).format('DD/MM/YYYY HH:mm');
   }
 }

@@ -11,7 +11,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule, NgStyle, UpperCasePipe } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder } from '@angular/forms';
 import { isEmptyValue } from '../../tools';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -28,10 +28,10 @@ import { MatCardModule } from '@angular/material/card';
   encapsulation: ViewEncapsulation.None,
 })
 export class Card implements OnInit {
-  private fb = inject(FormBuilder);
+  private fb = inject(UntypedFormBuilder);
   private breakpointObserver = inject(BreakpointObserver);
 
-  // Signal Inputs (Angular 21)
+  // Signal Inputs
   metadataInput = input.required<any>({ alias: 'metadata' });
 
   // Outputs (Nouvelle syntaxe output)
@@ -46,6 +46,7 @@ export class Card implements OnInit {
   onGenerateFile = output<any>();
 
   fileUpload = viewChild<ElementRef<HTMLInputElement>>('fileUpload');
+  params: object = {};
 
   // Signal pour détecter le mobile (remplace le subscribe manuel)
   isSmallScreen = toSignal(
@@ -98,7 +99,13 @@ export class Card implements OnInit {
     typedValue: [''],
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.metadataInput()?.hasFilter) {
+      this.formRapidSearch.get('typedValue')?.valueChanges.subscribe((value) => {
+        this.onFilterKeyUp.emit(value);
+      });
+    }
+  }
 
   clear() {
     this.formRapidSearch.get('typedValue')?.setValue(null);

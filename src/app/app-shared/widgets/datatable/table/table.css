@@ -2,7 +2,7 @@
    Variables
    ============================================= */
 :host {
-  --primary: #3b5bdb;
+  --primary: #0f3cef;
   --primary-light: #eef2ff;
   --success: #0ca678;
   --success-light: #e6f9f1;
@@ -35,8 +35,9 @@
   align-items: flex-start;
   justify-content: space-between;
   margin-bottom: 24px;
-  gap: 16px;
+  gap: 15px;
   flex-wrap: wrap;
+  background: var(--text-secondary);
 }
 
 .page-title {

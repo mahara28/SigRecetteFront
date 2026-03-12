@@ -1,4 +1,4 @@
-import { Component, input, output, viewChild, computed, signal } from '@angular/core';
+import { Component, input, output, viewChild, computed, signal, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Card } from '../card/card';
@@ -13,8 +13,8 @@ import { Table } from './table/table';
   styleUrl: './datatable.css',
 })
 export class Datatable {
-  metadata = input.required<any>();
-  responsePayload = input.required<{ data: any[]; total: number; isLoading: boolean }>();
+  metadata = input<any>();
+  responsePayload = input<{ data: any[]; total: number; isLoading: boolean }>();
   responsePayloadall = input<{ data: any[]; total: number; isLoading: boolean } | null>(null);
 
   // ViewChildren version Signal
@@ -69,7 +69,7 @@ export class Datatable {
   });
 
   onFilter(typedValue: any) {
-    // this.table()?.onFilter(typedValue);
+    this.table()?.onFilter(typedValue);
   }
 
   generateFile(fileType: string) {
@@ -79,9 +79,10 @@ export class Datatable {
   }
 
   onActionEventEmitter(handler: string, item: any = null, index: number | null = null) {
+    const m = this.metadata();
     this.onAction.emit({
-      handler: handler + this.metadata().ref,
-      row: { item: item, index: index },
+      handler: handler + m?.ref,
+      row: { item, index },
     });
   }
 
