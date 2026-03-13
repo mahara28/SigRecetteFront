@@ -133,6 +133,13 @@
     "title": "Administration",
     "breadcrumb": "Administration"
   },
+  "menu":{
+    "Administration":"Administration",
+    "Parametrage": "Paramétrage",
+    "Utilisateurs": "Utilisateurs",
+    "Profils": "Profils",
+    "TableauDeBord": "Tableau de bord"
+  },
   "activeStatus": "Actif",
   "inactiveStatus": "Inactif",
   "accountStatus": "Statut du compte",

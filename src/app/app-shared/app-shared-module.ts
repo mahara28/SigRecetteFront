@@ -81,6 +81,7 @@ import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from 'ng-flex-layout';
+
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -186,8 +187,8 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
-    FlexLayoutModule,
     
+
 
     //******* Directive ********//
     BlockDirective,

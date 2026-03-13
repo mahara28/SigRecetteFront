@@ -128,5 +128,12 @@
     "PATTERN_INVALID": "صيغة غير صالحة",
     "MIN_VALUE": "الحد الأدنى للقيمة هو {{min}}",
     "MAX_VALUE": "الحد الأقصى للقيمة هو {{max}}"
+  },
+  "menu":{
+    "Administration":"الإ دارة",
+    "Parametrage": "الإعدادات",
+    "Utilisateurs": "المستخدمين",
+    "Profils": "الملفات الشخصية",
+    "TableauDeBord": "لوحة القيادة"
   }
 }
