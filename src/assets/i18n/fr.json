@@ -149,6 +149,7 @@
     "title": "Gestion profils",
     "breadcrumb": "Gestion profils",
     "add_profil": "Ajouter Profil",
+    "update_profil": "Modifier Profil",
     "table": {
       "title": "Liste profils",
       "columns": {

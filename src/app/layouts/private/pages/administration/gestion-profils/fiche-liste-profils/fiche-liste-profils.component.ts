@@ -21,7 +21,7 @@ import { PermissionService } from '../../../../shared/gestion-permission/permiss
   selector: 'app-fiche-liste-profils',
   standalone: false,
   templateUrl: './fiche-liste-profils.component.html',
-  styleUrls: ['./fiche-liste-profils.component.css'],
+  styleUrls: ['./fiche-liste-profils.component.scss'],
 })
 export class FicheListeProfilsComponent implements OnInit {
   subscriptionsList: Subscription[] = [];

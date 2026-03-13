@@ -68,7 +68,11 @@
             <h5 class="fw-bold">{{ 'profil.menus' | translate }}</h5>
           </div>
 
-          <!-- <app-submenu [editMode]="editMod" [data]="listMenus" (dataChecked)="getdatacheked($event)"></app-submenu> -->
+          <app-submenu
+            [editMode]="editMod"
+            [data]="listMenus"
+            (dataChecked)="getdatacheked($event)"
+          ></app-submenu>
         </div>
       </form>
 

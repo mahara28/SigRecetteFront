@@ -10,7 +10,10 @@ import { FicheAjoutModifProfilsComponent } from './fiche-ajout-modif-profils/fic
 import { TreeViewMenuComponent } from './fiche-ajout-modif-profils/tree-view-menu/tree-view-menu.component';
 import { MatIcon } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SubmenuComponent } from './fiche-ajout-modif-profils/submenu/submenu.component';
+import {
+  ChecklistDatabase,
+  SubmenuComponent,
+} from './fiche-ajout-modif-profils/submenu/submenu.component';
 @NgModule({
   declarations: [
     FicheListeProfilsComponent,
@@ -21,9 +24,7 @@ import { SubmenuComponent } from './fiche-ajout-modif-profils/submenu/submenu.co
     SubmenuComponent,
     TreeViewMenuComponent,
   ],
-  providers: [
-    //ChecklistDatabase,
-  ],
+  providers: [ChecklistDatabase],
   imports: [
     CommonModule,
     GestionProfilsRoutingModule,
