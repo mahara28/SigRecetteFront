@@ -33,20 +33,20 @@ const routes: Routes = [
         path: 'add',
         component: FicheAjoutModifProfilsComponent,
         data: {
-          title: 'administration.gp.ficheAddprofil.add',
-          breadcrumb: 'administration.gp.ficheAddprofil.add',
+          title: 'profil.add_profil',
+          breadcrumb: 'profil.add_profil',
           type: 'a',
         },
       },
-      /*{
-      path: "update/:id",
-      component: FicheAjoutModifProfilsComponent,
-      data: {
-        title: 'administration.gp.ficheEditProfil.update',
-      breadcrumb: 'administration.gp.ficheEditProfil.update',
-      type: 'e'
+      {
+        path: 'update/:id',
+        component: FicheAjoutModifProfilsComponent,
+        data: {
+          title: 'profil.update_profil',
+          breadcrumb: 'profil.update_profil',
+          type: 'e',
+        },
       },
-    }, */
     ],
   },
 ];
