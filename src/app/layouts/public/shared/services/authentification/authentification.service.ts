@@ -321,7 +321,7 @@ export class AuthentificationService {
     }
 
     const request: RequestObject = <RequestObject>{
-      uri: AuthentificationUri.LOGIN.REFRESH_TOKEN,
+      //uri: AuthentificationUri.LOGIN.REFRESH_TOKEN,
       method: ConstanteWs._CODE_POST,
       params: {
         body: { refreshToken },

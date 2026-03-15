@@ -11,6 +11,7 @@ import { AuthentificationService } from '../../../shared/services/authentificati
 import { Subscription } from 'rxjs';
 import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
 import { LocalStorageService } from '../../../../../app-shared/services/localStorage/local-storage.service';
+import { RequestObject } from '../../../../../app-shared/models';
 
 @Component({
   selector: 'app-auth-login',
@@ -110,18 +111,4 @@ export class AuthLogin {
       //// to be continued
     }
   }
-}
-interface RequestObject {
-  uri: string;
-  params?: {
-    body?: object;
-    query?: object;
-    path?: string[];
-    formData?: object;
-  };
-  listFiles?: any[];
-  microservice?: string;
-  method: 'GET' | 'DELETE' | 'POST' | 'PUT';
-  server?: string;
-  speCase?: string;
 }

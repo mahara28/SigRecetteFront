@@ -15,11 +15,7 @@
               </h2>
               <!-- <h4 class="fs-13 fw-bold mb-2">Login to your account</h4> -->
               <div class="w-100">
-                <form
-                  [formGroup]="form"
-                  (keydown.enter)="login()"
-                  class="w-100"
-                >
+                <form [formGroup]="form" class="w-100">
                   <!-- Email field - full width -->
                   <div class="w-100 mb-4">
                     <mc-text-field
@@ -28,7 +24,6 @@
                       [label]="'authentification.login.email'"
                     >
                     </mc-text-field>
-                    
                   </div>
 
                   <!-- Password field - full width -->
@@ -50,17 +45,12 @@
                   </div>
 
                   <!-- Forgot password link -->
-                  <div
-                    class="d-flex align-items-center justify-content-between w-100 mt-2"
-                  >
+                  <div class="d-flex align-items-center justify-content-between w-100 mt-2">
                     <div>
                       <div class="custom-control custom-checkbox"></div>
                     </div>
                     <div>
-                      <a
-                        href="auth-reset-creative.html"
-                        class="fs-11 text-primary"
-                      >
+                      <a href="auth-reset-creative.html" class="fs-11 text-primary">
                         {{ 'authentification.forget_pwd' | translate }}
                       </a>
                     </div>
@@ -68,11 +58,7 @@
 
                   <!-- Login button - full width -->
                   <div class="mt-5 w-100">
-                    <button
-                      type="submit"
-                      (click)="login()"
-                      class="btn btn-lg btn-primary w-100"
-                    >
+                    <button type="submit" (click)="login()" class="btn btn-lg btn-primary w-100">
                       Login
                     </button>
                   </div>
@@ -80,9 +66,7 @@
               </div>
 
               <div class="mt-5 text-muted">
-                <span>
-                  Pas encore de compte ? Contactez un administrateur.</span
-                >
+                <span> Pas encore de compte ? Contactez un administrateur.</span>
                 <!-- <a href="auth-register-creative.html" class="fw-bold">Create an Account</a> -->
               </div>
             </div>
@@ -99,9 +83,7 @@
                 class="img-fluid mb-3"
                 style="max-height: 280px"
               />
-              <p class="text-white-50">
-                Connectez-vous pour accéder à votre espace
-              </p>
+              <p class="text-white-50">Connectez-vous pour accéder à votre espace</p>
             </div>
           </div>
         </div>
