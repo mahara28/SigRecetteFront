@@ -114,15 +114,15 @@ export class SubmenuComponent {
       params: {
         query: {
           // idProfil: this.id
-          idProfil: '',
+          idProfil: null,
         },
       },
 
       method: ConstanteWs._CODE_GET,
     };
-    console.log('getMenue: ' + request);
+    console.log('getMenue:', request);
 
-    /*this.sharedService.commonWs(request).subscribe({
+    this.sharedService.commonWs(request).subscribe({
       next: (response: ResponseObject) => {
         if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
           const menuData = response.payload || [];
@@ -139,7 +139,7 @@ export class SubmenuComponent {
         console.error(`Error in FicheAjoutModifProfilsComponent/getMenu, error :: ${error}`);
         this.toast.error();
       },
-    });*/
+    });
   }
 
   getParentNode(node: MenuFlatNode): MenuFlatNode | null {

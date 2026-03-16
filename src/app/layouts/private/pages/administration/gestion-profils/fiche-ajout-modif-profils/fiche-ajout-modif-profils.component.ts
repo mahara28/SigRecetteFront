@@ -144,7 +144,16 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
         this.confirmDialogService.confirm().subscribe((flag) => {
           if (flag) {
             let reqData = this.form.value;
-            reqData['listAdmFoncIds'] = this.listmenuscheked;
+            reqData['listAdmFoncIds'] = this.listmenuscheked.map((id: number) => ({
+              idFonc: id,
+              isList: 1,
+              isUpdate: 0,
+              isSupp: 0,
+              isDetails: 0,
+              isExport: 0,
+              isImprime: 0,
+              isAdd: 0,
+            }));
             if (this.editMod) {
               reqData['id'] = this.id;
             }
