@@ -25,7 +25,7 @@ export class Private implements OnInit, OnDestroy  {
   loading: boolean = true;
   isScrolling: boolean = false;
   isSmallScreen: boolean = false;
-
+  isSidebarOpen: boolean = true;
  currentLang: SupportedLanguage = 'fr';
  currentDirection: 'rtl' | 'ltr' = 'ltr';
  private readonly destroy$ = new Subject<void>();
@@ -42,6 +42,10 @@ export class Private implements OnInit, OnDestroy  {
   ) {}
 
   ngOnInit(): void {
+
+    const savedState = localStorage.getItem('sidebarState');
+    this.isSidebarOpen = savedState ? JSON.parse(savedState) : true;
+
     this.currentDirection = this.appTranslateService.getCurrentDirection();
     this.currentLang = this.appTranslateService.getCurrentLanguage();
     this.applyDirectionToDOM();
@@ -77,7 +81,7 @@ onLanguageChanged(lang: SupportedLanguage): void {
 }
 
 
-  private applyDirectionToDOM(): void {
+  /* private applyDirectionToDOM(): void {
     // Appliquer la direction au body et à l'élément principal
     document.documentElement.dir = this.currentDirection;
     document.documentElement.lang = this.currentLang;
@@ -96,7 +100,7 @@ onLanguageChanged(lang: SupportedLanguage): void {
       detail: { direction: this.currentDirection }
     });
     window.dispatchEvent(event);
-  }
+  } */
  ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
@@ -135,11 +139,36 @@ onLanguageChanged(lang: SupportedLanguage): void {
     this.isScrolling = (document.getElementsByTagName(container).item(0)?.scrollTop ?? 0) > 20;
   }
 
-  onToggleSidebar(): void {
-    if (this.isSmallScreen) {
-      this.PrivateLayoutSidebar.sidebar.toggle();
-    } else {
-      this.PrivateLayoutSidebar.isSidebarExpanded = !this.PrivateLayoutSidebar.isSidebarExpanded;
-    }
+ /*  onToggleSidebar(state: boolean): void {
+
+    this.isSidebarOpen = state;
+
+    // Sauvegarder l'état
+    localStorage.setItem('sidebarState', JSON.stringify(state));
+
+    // Forcer la mise à jour
+    this.cdr.detectChanges();
+  }
+ */
+  private applyDirectionToDOM(): void {
+    // Appliquer la direction au body et à l'élément principal
+    document.documentElement.dir = this.currentDirection;
+    document.documentElement.lang = this.currentLang;
+
+    // Ajouter/retirer les classes RTL/LTR
+    document.body.dir = this.currentDirection;
+    document.body.classList.remove('rtl', 'ltr');
+    document.body.classList.add(this.currentDirection);
+
+    // Appliquer aussi à l'élément principal du layout
+    const layoutElements = document.querySelectorAll('.private-layout');
+    layoutElements.forEach(el => {
+      el.setAttribute('dir', this.currentDirection);
+    });
+
+    const event = new CustomEvent('directionChanged', {
+      detail: { direction: this.currentDirection }
+    });
+    window.dispatchEvent(event);
   }
 }

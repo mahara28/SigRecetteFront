@@ -129,11 +129,45 @@
     "MIN_VALUE": "الحد الأدنى للقيمة هو {{min}}",
     "MAX_VALUE": "الحد الأقصى للقيمة هو {{max}}"
   },
+  "administration": {
+    "title": "الإدارة",
+    "breadcrumb": "الإدارة"
+},
   "menu":{
     "Administration":"الإ دارة",
     "Parametrage": "الإعدادات",
     "Utilisateurs": "المستخدمين",
     "Profils": "الملفات الشخصية",
     "TableauDeBord": "لوحة القيادة"
-  }
+  },
+  "activeStatus": "نشط",
+"inactiveStatus": "غير نشط",
+"accountStatus": "حالة الحساب",
+"profil": {
+    "list_menu": "قائمة الوحدات",
+    "menus": "قائمة الوحدات",
+    "title": "إدارة الملفات الشخصية",
+    "breadcrumb": "إدارة الملفات الشخصية",
+    "add_profil": "إضافة ملف شخصي",
+    "update_profil": "تعديل الملف الشخصي",
+    "table": {
+        "title": "قائمة الملفات الشخصية",
+        "columns": {
+            "login": "الكود",
+            "Désignation": "التسمية",
+            "FActif": "نشط"
+        }
+    },
+    "form": {
+        "labels": {
+            "code": "الكود",
+            "desFr": "التسمية",
+            "desEn": "التسمية (إنجليزي)",
+            "isActive": "نشط"
+        },
+        "errors": {
+            "selectionner_menu": "يجب اختيار وحدات"
+        }
+    }
+}
 }

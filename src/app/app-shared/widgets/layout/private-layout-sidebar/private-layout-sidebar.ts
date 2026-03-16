@@ -41,12 +41,11 @@ export class PrivateLayoutSidebar {
   onLoadingMenu: boolean = true;
   CONFIG = CONFIG;
   Direction = DIRECTION;
-
-  isSidebarExpanded: boolean = true;
-  isSidebarShowing: boolean = false;
   mode!: MatDrawerMode;
   private breakpointSubscription!: Subscription;
   private readonly platformId = inject(PLATFORM_ID);
+  @Input() isSidebarExpanded: boolean = true;
+  @Input() isSidebarShowing: boolean = false;
 
   constructor(
     public appTranslateService: AppTranslateService,

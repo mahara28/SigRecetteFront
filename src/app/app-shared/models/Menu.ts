@@ -24,6 +24,7 @@ export interface Menu {
   icon?: string;
   router?: string;
   desFr?: string;
+  codeTranslate?: string;
   desEn?: string;
   checked?: number;
   isActive?: number;
@@ -32,5 +33,6 @@ export interface Menu {
   externalLink?: boolean;
   tooltip: string;
   idFonc: string;
+
   listSousMenu?: Menu[];
 }

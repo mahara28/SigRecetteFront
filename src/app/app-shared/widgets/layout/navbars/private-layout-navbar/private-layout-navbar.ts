@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatToolbar } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrivateLayoutNavbar implements OnInit, OnDestroy {
+
   currentLang: SupportedLanguage = 'fr';
   currentDirection: 'rtl' | 'ltr' = 'ltr';
   flags: {
@@ -29,8 +30,10 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     email: ' ',
   };
   private readonly destroy$ = new Subject<void>();
-  @Output() toggleSidebarEventEmitter = new EventEmitter<boolean>();
-
+  //@Output() toggleSidebarEventEmitter = new EventEmitter<boolean>();
+  @Input() isSidebarOpen: boolean = true;
+  @Output() isSidebarOpenChange = new EventEmitter<boolean>();
+  @Output() languageChanged = new EventEmitter<SupportedLanguage>();
   @ViewChild('toolbar') toolbar!: MatToolbar;
 
   constructor(
@@ -75,16 +78,26 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
   return this.currentDirection;
 }
 
+selectLanguage(lang: SupportedLanguage): void {
+
+    this.languageChanged.emit(lang);
+    this.appTranslateService.setLanguage(lang);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
 
+ /**
+   * Bascule l'état du sidebar (ouvert/fermé)
+   */
   onToggleSidebar() {
-    this.flags.sidebarOpened = !this.flags.sidebarOpened;
-    this.toggleSidebarEventEmitter.emit();
+    this.isSidebarOpen = !this.isSidebarOpen;
+    this.isSidebarOpenChange.emit(this.isSidebarOpen);
+    //this.toggleSidebarEventEmitter.emit(this.isSidebarOpen);
+    this.cdr.markForCheck();
   }
-  isSidebarOpen: boolean = true;
 
 
 
@@ -145,7 +158,7 @@ private applyDirectionToDOM(direction: 'rtl' | 'ltr'): void {
 }
 
 useLanguage(lang: SupportedLanguage): void {
- // this.languageChanged.emit(lang);
+  this.languageChanged.emit(lang);
   this.appTranslateService.setLanguage(lang);
 }
  protected readonly AppTranslateService = AppTranslateService;

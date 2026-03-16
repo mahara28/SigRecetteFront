@@ -16,7 +16,7 @@
     [type]="type"
     [readonly]="isDisabled"
     [value]="value"
-    [placeholder]="label | translate"
+    [placeholder]="placeholder | translate"
     autocomplete="off"
     (change)="format(control?.value)"
     (keyup)="emitTypedValue($event)"

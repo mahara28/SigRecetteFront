@@ -100,8 +100,8 @@
     }
   },
   "LANG": {
-    "ARABIC": "ARABIC",
-    "FRENCH": "FRENCH",
+    "ARABIC": "Arabe",
+    "FRENCH": "Français",
     "ENGLISH": "FRENCH",
     "title": "Selectionner un Language"
   },

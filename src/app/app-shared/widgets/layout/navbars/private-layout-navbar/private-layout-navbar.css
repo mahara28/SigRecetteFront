@@ -1,3 +1,4 @@
+/* ===== STYLES EXISTANTS ===== */
 .nxl-header {
   right: 0px;
   left: 280px;
@@ -13,6 +14,7 @@
   right: 280px;
   left: 0px;
 }
+
 /* Support RTL pour les dropdowns */
 [dir="rtl"] .dropdown-menu-start {
   right: auto !important;
@@ -38,4 +40,235 @@
 [dir="rtl"] .ms-auto {
   margin-left: 0 !important;
   margin-right: auto !important;
+}
+
+/* Pour les drapeaux si vous utilisez flag-icons */
+.fi {
+  width: 20px;
+  height: 15px;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ===== NOUVEAUX STYLES POUR LE MENU DE LANGUE ===== */
+
+/* Style du menu dropdown - largeur automatique */
+::ng-deep .nxl-language-dropdown {
+  min-width: 180px !important;
+  max-width: 280px !important;
+  width: auto !important;
+}
+
+::ng-deep .nxl-language-dropdown .mat-mdc-menu-content {
+  padding: 8px 0 !important;
+}
+
+/* Style pour l'en-tête */
+::ng-deep .nxl-language-dropdown .select-language {
+  cursor: default;
+  background-color: #fafafa;
+  padding: 12px 16px !important;
+  min-height: auto !important;
+}
+
+::ng-deep .nxl-language-dropdown .select-language h6 {
+  font-weight: 600;
+  color: #333;
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+/* Style pour le conteneur des langues */
+::ng-deep .nxl-language-dropdown .language-list {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+/* Style pour les items de langue */
+::ng-deep .nxl-language-dropdown .language-select-item {
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+  height: 44px !important;
+  line-height: 44px !important;
+}
+
+::ng-deep .nxl-language-dropdown .language-select-item .mdc-list-item__primary-text {
+  width: 100%;
+}
+
+/* Contenu de l'item */
+::ng-deep .nxl-language-dropdown .language-item-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  white-space: nowrap;
+}
+
+/* Nom de la langue */
+::ng-deep .nxl-language-dropdown .language-name {
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Icône de check */
+::ng-deep .nxl-language-dropdown .language-check-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #4caf50;
+  flex-shrink: 0;
+}
+
+/* Placeholder pour alignement */
+::ng-deep .nxl-language-dropdown .language-check-placeholder {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Hover effect */
+::ng-deep .nxl-language-dropdown .language-select-item:hover {
+  background-color: #f8f9fa !important;
+  border-left-color: #a8c1e0;
+}
+
+/* Active state */
+::ng-deep .nxl-language-dropdown .language-select-item.active {
+  background-color: #e7f1ff !important;
+  border-left-color: #a8c1e0;
+  font-weight: 500;
+}
+
+::ng-deep .nxl-language-dropdown .language-select-item.active .language-name {
+  font-weight: 500;
+}
+
+/* Style pour le pied de page */
+::ng-deep .nxl-language-dropdown .language-footer {
+  cursor: default;
+  background-color: #fafafa;
+  padding: 10px 16px !important;
+  min-height: auto !important;
+}
+
+::ng-deep .nxl-language-dropdown .language-footer small {
+  font-size: 12px;
+  color: #666;
+  display: block;
+  text-align: center;
+}
+
+/* Style pour les séparateurs */
+::ng-deep .nxl-language-dropdown mat-divider {
+  margin: 4px 0 !important;
+  border-top-color: #e0e0e0 !important;
+}
+
+/* Support RTL */
+[dir="rtl"] ::ng-deep .nxl-language-dropdown .language-select-item {
+  border-left: none;
+  border-right: 3px solid transparent;
+}
+
+[dir="rtl"] ::ng-deep .nxl-language-dropdown .language-select-item:hover,
+[dir="rtl"] ::ng-deep .nxl-language-dropdown .language-select-item.active {
+  border-right-color: #a8c1e0;
+  border-left-color: transparent;
+}
+
+[dir="rtl"] ::ng-deep .nxl-language-dropdown .language-item-content {
+  flex-direction: row-reverse;
+}
+
+/* Animation d'apparition */
+::ng-deep .cdk-overlay-pane .mat-mdc-menu-panel.nxl-language-dropdown {
+  animation: slideIn 0.15s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablettes */
+@media (max-width: 768px) {
+  ::ng-deep .nxl-language-dropdown {
+    min-width: 160px !important;
+    max-width: 240px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-select-item {
+    height: 42px !important;
+    line-height: 42px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-name {
+    font-size: 13px;
+  }
+
+  ::ng-deep .nxl-language-dropdown .select-language h6 {
+    font-size: 13px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 480px) {
+  ::ng-deep .nxl-language-dropdown {
+    min-width: 140px !important;
+    max-width: 200px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-select-item {
+    height: 40px !important;
+    line-height: 40px !important;
+    padding: 0 12px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-check-icon,
+  ::ng-deep .nxl-language-dropdown .language-check-placeholder {
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-name {
+    font-size: 12px;
+  }
+
+  ::ng-deep .nxl-language-dropdown .select-language {
+    padding: 8px 12px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .select-language h6 {
+    font-size: 12px;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-footer {
+    padding: 8px 12px !important;
+  }
+
+  ::ng-deep .nxl-language-dropdown .language-footer small {
+    font-size: 11px;
+  }
+}
+
+/* Très petits écrans */
+@media (max-width: 360px) {
+  ::ng-deep .nxl-language-dropdown {
+    min-width: 130px !important;
+    max-width: 180px !important;
+  }
 }

@@ -4,13 +4,16 @@
   <app-private-layout-sidebar
     #privateLayoutSidebar
     [listMenus]="listMenus"
+    [isSidebarExpanded]="isSidebarOpen"
+    [isSidebarShowing]="false"
     [attr.dir]="currentDirection">
   </app-private-layout-sidebar>
 
   <app-private-layout-navbar
     class="no-print"
-    (toggleSidebarEventEmitter)="onToggleSidebar()"
-    
+    [(isSidebarOpen)]="isSidebarOpen"
+    (languageChanged)="onLanguageChanged($event)"
+
     [attr.dir]="currentDirection">
   </app-private-layout-navbar>
 

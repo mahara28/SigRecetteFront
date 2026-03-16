@@ -103,3 +103,33 @@
     transform: translateX(0);
   }
 }
+/* Dans private-layout-navbar.css */
+.nxl-navigation-toggle a {
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.nxl-navigation-toggle a:hover {
+  transform: scale(1.1);
+}
+
+/* Animation pour l'icône */
+.nxl-navigation-toggle i {
+  font-size: 20px;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.nxl-navigation-toggle a:hover i {
+  color: #a8c1e0;
+}
+
+/* Support RTL */
+[dir="rtl"] .nxl-navigation-toggle a {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .nxl-navigation-toggle a:hover {
+  transform: scaleX(-1) scale(1.1);
+}

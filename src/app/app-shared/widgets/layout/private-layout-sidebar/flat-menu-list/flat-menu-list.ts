@@ -17,6 +17,7 @@ interface Menu {
   router?: string;
   desFr?: string;
   desEn?: string;
+  codeTranslate?: string;
   checked?: number;
   isActive?: number;
   idParent?: string;
@@ -37,6 +38,7 @@ interface FlatMenu extends Menu {
   expandable: boolean;
   level: number;
   isWrite: boolean;
+  translationKey: string;
 }
 
 @Component({
@@ -61,18 +63,20 @@ export class FlatMenuList implements OnInit {
   // selectedMenuKey = CONFIG.LOCAL_STORAGE_KEYS.SELECTED_MENU;
 
   private _transformer = (node: Menu, level: number): FlatMenu => {
+    const translationKey = node.codeTranslate|| '';
     return {
       id: node.id,
       icon: node.icon,
       path: node.router,
-      tooltip: node.desFr,
-      title: this.appTranslateService.getCurrentLanguage() === 'fr' ? node.desFr : node.desAr,
+      tooltip: translationKey,
+      title: translationKey,
       externalLink: !!(node.router && node.router.includes('http')),
       expandable: !isEmptyValue(node.listSousMenu) && node.listSousMenu!.length > 0,
       level,
       isWrite: node.checked === 1,
       idAdmFonc: node.code ?? '',
       listSousMenu: node.listSousMenu,
+      translationKey,
     };
   };
 
@@ -136,10 +140,10 @@ export class FlatMenuList implements OnInit {
       return { [name]: niv * 1.875 + 'rem' };
     };
 
-    const labelLength = menuItem?.label?.length ?? 0;
-    const tstyle: Record<string, string> = isEmptyValue(labelLength)
+    const labelKey = menuItem?.translationKey ?? '';
+    const tstyle: Record<string, string> = isEmptyValue(labelKey)
       ? { height: '56px' }
-      : Math.round(labelLength / 24) + 1 > 2
+      : Math.round(labelKey.length / 24) + 1 > 2
         ? { height: '100%', 'padding-top': '5px', 'padding-bottom': '5px' }
         : { height: '56px' };
 
