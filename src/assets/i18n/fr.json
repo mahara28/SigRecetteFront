@@ -94,11 +94,17 @@
     "yes": "Oui",
     "from": "Du",
     "to": "Au",
+    "downloadPdf": "Télécharger en PDF",
+    "print": "Imprimer",
+    "back": "Retour",
+    "home": "Accueil",
+    "login":"Login",
     "notifications_panel": {
       "title": "Notifications",
       "empty_list_notif": "Aucune notification pour le moment."
     }
   },
+  "noAccount":"Pas encore de compte ? Contactez un administrateur.",
   "LANG": {
     "ARABIC": "Arabe",
     "FRENCH": "Français",

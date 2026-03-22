@@ -99,6 +99,9 @@ selectLanguage(lang: SupportedLanguage): void {
     this.cdr.markForCheck();
   }
 
+getHeaderClass(): string {
+  return this.isSidebarOpen ? 'nxl-header sidebar-open' : 'nxl-header sidebar-closed';
+}
 
 
   goHome() {

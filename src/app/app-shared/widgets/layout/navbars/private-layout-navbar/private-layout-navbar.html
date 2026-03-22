@@ -1,4 +1,8 @@
-<header class="nxl-header" [attr.dir]="currentDirection">
+<header class="nxl-header"
+[attr.dir]="currentDirection"
+[ngClass]="getHeaderClass()"
+
+>
   <div class="header-wrapper">
 
     <!-- LEFT SIDE -->
@@ -41,6 +45,7 @@
       class="header-right"
       [class.ms-auto]="currentDirection === 'ltr'"
       [class.me-auto]="currentDirection === 'rtl'"
+      
     >
       <div class="d-flex align-items-center">
 
