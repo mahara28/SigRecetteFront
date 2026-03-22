@@ -1,5 +1,6 @@
 .form-floating {
     width: 100%;
+    position: relative;
 }
 
 .form-floating input {
@@ -11,6 +12,167 @@
     padding-left: 0.75rem;
 }
 
+/* Style pour l'état invalid */
 .form-control.is-invalid {
     border-color: #dc3545;
+    background-image: none; /* Supprime l'image par défaut de Bootstrap */
+}
+
+/* ===== GESTION DES ICÔNES ===== */
+
+/* Icône prefixe (gauche) - LTR */
+.form-floating .prefix-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.75rem;
+    z-index: 5;
+    color: #6c757d;
+    pointer-events: none;
+}
+
+/* Icône suffixe (droite) - LTR */
+.form-floating .suffix-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0.75rem;
+    z-index: 5;
+    color: #6c757d;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+/* Ajustement du padding pour les icônes en LTR */
+.form-floating input.form-control[style*="padding-left"] {
+    padding-left: 2.5rem !important;
+}
+
+.form-floating input.form-control[style*="padding-right"] {
+    padding-right: 2.5rem !important;
+}
+
+/* ===== SUPPORT RTL ===== */
+
+/* Inverser les positions des icônes en RTL */
+[dir="rtl"] .form-floating .prefix-icon {
+    left: auto;
+    right: 0.75rem;
+}
+
+[dir="rtl"] .form-floating .suffix-icon {
+    right: auto;
+    left: 0.75rem;
+}
+
+/* Ajustement du texte pour RTL */
+[dir="rtl"] input.form-control {
+    text-align: right;
+}
+
+/* Label en RTL */
+[dir="rtl"] label {
+    right: 0;
+    left: auto;
+    text-align: right;
+    transform-origin: right top;
+    padding-right: 0.75rem;
+    padding-left: 0;
+}
+
+/* Animation du label en RTL */
+[dir="rtl"] .form-floating>.form-control:focus~label,
+[dir="rtl"] .form-floating>.form-control:not(:placeholder-shown)~label,
+[dir="rtl"] .form-floating>.form-control-plaintext~label,
+[dir="rtl"] .form-floating>.form-select~label {
+    transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+}
+
+/* Messages d'erreur en RTL */
+[dir="rtl"] .invalid-feedback {
+    text-align: right;
+}
+
+/* Ajustement des paddings pour les icônes en RTL */
+[dir="rtl"] input.form-control {
+    padding-left: 0.75rem;
+    padding-right: 2.5rem;
+}
+
+[dir="rtl"] input.form-control:not(:placeholder-shown) {
+    padding-right: 2.5rem;
+}
+
+/* ===== ÉTAT INVALID AVEC ICÔNES ===== */
+
+/* Pour LTR - garder l'icône à gauche même en état invalid */
+.form-control.is-invalid ~ .prefix-icon {
+    color: #dc3545;
+}
+
+.form-control.is-invalid ~ .suffix-icon {
+    color: #dc3545;
+}
+
+/* Pour RTL - icône à droite en état invalid */
+[dir="rtl"] .form-control.is-invalid ~ .prefix-icon {
+    color: #dc3545;
+}
+
+[dir="rtl"] .form-control.is-invalid ~ .suffix-icon {
+    color: #dc3545;
+}
+
+/* Si vous voulez une icône d'erreur spécifique */
+.form-control.is-invalid {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+}
+
+/* Ajuster la position de l'icône d'erreur en RTL */
+[dir="rtl"] .form-control.is-invalid {
+    background-position: left 0.75rem center;
+    padding-right: 0.75rem;
+    padding-left: 2.5rem;
+}
+
+/* Éviter le chevauchement avec nos icônes personnalisées */
+.form-control.is-invalid[style*="padding-left"] {
+    background-position: right 0.75rem center;
+}
+
+[dir="rtl"] .form-control.is-invalid[style*="padding-right"] {
+    background-position: left 0.75rem center;
+}
+
+/* Animation pour le changement de direction */
+.form-control,
+label,
+.invalid-feedback,
+.prefix-icon,
+.suffix-icon {
+    transition: all 0.2s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+    .form-floating input {
+        height: 48px;
+        font-size: 14px;
+    }
+
+    .form-floating .prefix-icon,
+    .form-floating .suffix-icon {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-floating input {
+        height: 44px;
+        font-size: 13px;
+    }
 }

@@ -56,7 +56,7 @@ import {
 } from './widgets';
 import { Table } from './widgets/datatable/table/table';
 import { BreadcrumbModule } from './widgets/angular-crumbs/src/lib';
-import { MatCardModule } from '@angular/material/card';
+import { MatCardModule, MatCardTitle } from '@angular/material/card';
 import { CardTitle } from './widgets/card/card-title/card-title';
 import {
   DateFormatheurePipe,
@@ -81,6 +81,7 @@ import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from 'ng-flex-layout';
+
 @NgModule({
   declarations: [
     TextAreaComponent,
@@ -113,6 +114,7 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     MatButtonModule,
     MatTooltipModule,
     MatCardModule,
+    MatCardTitle,
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
@@ -122,7 +124,7 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     TextField,
     FicheDetails,
     MatFormFieldModule,
-
+    CommonModule,
     //Composant
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
@@ -186,8 +188,8 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
-    FlexLayoutModule,
-    
+
+
 
     //******* Directive ********//
     BlockDirective,

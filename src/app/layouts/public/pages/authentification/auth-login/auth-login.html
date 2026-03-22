@@ -59,14 +59,14 @@
                   <!-- Login button - full width -->
                   <div class="mt-5 w-100">
                     <button type="submit" (click)="login()" class="btn btn-lg btn-primary w-100">
-                      Login
+                     {{ 'general.login' | translate}}
                     </button>
                   </div>
                 </form>
               </div>
 
               <div class="mt-5 text-muted">
-                <span> Pas encore de compte ? Contactez un administrateur.</span>
+                <span> {{'noAccount'| translate}}</span>
                 <!-- <a href="auth-register-creative.html" class="fw-bold">Create an Account</a> -->
               </div>
             </div>

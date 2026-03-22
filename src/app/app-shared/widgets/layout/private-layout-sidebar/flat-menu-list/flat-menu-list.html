@@ -4,7 +4,7 @@
     <mat-list-item
       class="cursor-pointer menu-item"
       [ngClass]="{ active: menuItem.id === getFromSessionStorage(selectedMenuKey) }"
-      title="{{ menuItem.tooltip || menuItem.title | translate }}"
+      title="{{ menuItem.translationKey | translate }}"
       (click)="onMenuClick(menuItem)"
       [attr.menu-id]="menuItem.id"
       [style]="getMenuStyle(menuItem)"
@@ -26,7 +26,7 @@
           fxLayout="row wrap"
           fxLayoutAlign="start center"
         >
-          {{ menuItem.title | translate }}
+          {{ menuItem.translationKey | translate }}
         </div>
       </div>
     </mat-list-item>
@@ -42,7 +42,7 @@
       matTreeNodeToggle
       class="cursor-pointer menu-item"
       [ngClass]="{ active: menuItem.id === getFromSessionStorage(selectedMenuKey) }"
-      title="{{ menuItem.tooltip || menuItem.title | translate }}"
+      title="{{ menuItem.translationKey | translate }}"
       (click)="onMenuClick(menuItem)"
       [attr.menu-id]="menuItem.id"
       [style]="getMenuStyle(menuItem)"
@@ -64,7 +64,7 @@
             fxLayout="row wrap"
             fxLayoutAlign="start center"
           >
-            {{ menuItem.title | translate }}
+            {{ menuItem.translationKey | translate }}
           </div>
           <div fxFlex="7" class="pr-0" fxLayoutAlign="end center">
             <mat-icon class="menu-button" [ngClass]="{ rotated: treeControl.isExpanded(menuItem) }">

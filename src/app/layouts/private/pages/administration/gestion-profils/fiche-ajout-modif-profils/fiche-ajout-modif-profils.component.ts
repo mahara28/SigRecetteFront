@@ -124,9 +124,9 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
 
     if (this.editMod) {
       this.getMenu();
-      this.title = 'administration.gp.ficheEditProfil.update';
+      this.title = 'profil.add_profil';
     } else {
-      this.title = 'administration.gp.ficheAddprofil.add';
+      this.title = 'profil.add_profil';
     }
   }
 

@@ -1,4 +1,8 @@
-<header class="nxl-header" [attr.dir]="currentDirection">
+<header class="nxl-header"
+[attr.dir]="currentDirection"
+[ngClass]="getHeaderClass()"
+
+>
   <div class="header-wrapper">
 
     <!-- LEFT SIDE -->
@@ -14,10 +18,14 @@
       </a>
 
       <div class="nxl-navigation-toggle">
-        <a href="javascript:void(0);" id="menu-mini-button">
+        <a href="javascript:void(0);" id="menu-mini-button"
+        (click)="onToggleSidebar()"
+     [style.display]="!isSidebarOpen ? 'none' : 'inline-block'">
           <i class="feather-align-left"></i>
         </a>
-        <a href="javascript:void(0);" id="menu-expend-button" style="display: none">
+        <a href="javascript:void(0);" id="menu-expend-button" style="display: none"
+        (click)="onToggleSidebar()"
+     [style.display]="isSidebarOpen ? 'none' : 'inline-block'">
           <i class="feather-arrow-right"></i>
         </a>
       </div>
@@ -37,61 +45,68 @@
       class="header-right"
       [class.ms-auto]="currentDirection === 'ltr'"
       [class.me-auto]="currentDirection === 'rtl'"
+      
     >
       <div class="d-flex align-items-center">
 
         <!-- LANGUAGE SWITCHER -->
-        <div class="dropdown nxl-h-item nxl-header-language d-none d-sm-flex">
+      <div class="nxl-h-item nxl-header-language d-none d-sm-flex">
+  <button mat-icon-button
+          class="nxl-head-link me-0 nxl-language-link"
+          [matMenuTriggerFor]="languageMenu">
+    <i class="fa fa-language" aria-hidden="true"></i>
+  </button>
 
-           <a href="javascript:void(0);"
-            class="nxl-head-link me-0 nxl-language-link"
-            data-bs-toggle="dropdown"
-            data-bs-auto-close="outside"
-          ><i class="fa fa-language" aria-hidden="true"></i>
-          </a>
-          <div
-            class="dropdown-menu nxl-h-dropdown nxl-language-dropdown"
-            [class.dropdown-menu-end]="currentDirection === 'ltr'"
-            [class.dropdown-menu-start]="currentDirection === 'rtl'"
-          >
-            <div class="dropdown-divider mt-0"></div>
-            <div class="language-items-wrapper">
-              <div class="select-language px-4 py-2 hstack justify-content-between gap-4">
-                <div class="lh-lg">
-                  <h6 class="mb-0">{{ 'LANG.title' | translate }}</h6>
-                </div>
-              </div>
-              <div class="dropdown-divider"></div>
-              <div class="row px-4 pt-3">
+  <mat-menu #languageMenu="matMenu"
+            class="nxl-language-dropdown"
+            [class.rtl-menu]="currentDirection === 'rtl'"
+            [overlapTrigger]="false"
+            xPosition="after">
 
-                <div
-                  class="col-sm-4 col-6 language_select"
-                  [class.active]="currentLang === 'ar'"
-                  (click)="useLanguage('ar')"
-                >
-                  <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
-                    <div class="avatar-image avatar-sm">
-                    </div>
-                    <span>{{ 'LANG.ARABIC' | translate }}</span>
-                  </a>
-                </div>
+    <div class="language-items-wrapper">
+      <!-- En-tête -->
+      <div class="select-language" mat-menu-item disabled>
+        <h6 class="mb-0">{{ 'LANG.title' | translate }}</h6>
+      </div>
 
-                <div
-                  class="col-sm-4 col-6 language_select"
-                  [class.active]="currentLang === 'fr'"
-                  (click)="useLanguage('fr')"
-                >
-                  <a href="javascript:void(0);" class="d-flex align-items-center gap-2">
-                    <div class="avatar-image avatar-sm">
-                    </div>
-                    <span>{{ 'LANG.FRENCH' | translate }}</span>
-                  </a>
-                </div>
+      <mat-divider></mat-divider>
 
-              </div>
-            </div>
+      <!-- Liste des langues -->
+      <div class="language-list">
+        <!-- Arabe -->
+        <button mat-menu-item
+                class="language-select-item"
+                [class.active]="currentLang === 'ar'"
+                (click)="selectLanguage('ar')">
+          <div class="language-item-content">
+            <mat-icon class="language-check-icon"
+                      *ngIf="currentLang === 'ar'">check_circle</mat-icon>
+            <span class="language-check-placeholder"
+                  *ngIf="currentLang !== 'ar'"></span>
+            <span class="language-name">{{ 'LANG.ARABIC' | translate }}</span>
           </div>
-        </div>
+        </button>
+
+        <!-- Français -->
+        <button mat-menu-item
+                class="language-select-item"
+                [class.active]="currentLang === 'fr'"
+                (click)="selectLanguage('fr')">
+          <div class="language-item-content">
+            <mat-icon class="language-check-icon"
+                      *ngIf="currentLang === 'fr'">check_circle</mat-icon>
+            <span class="language-check-placeholder"
+                  *ngIf="currentLang !== 'fr'"></span>
+            <span class="language-name">{{ 'LANG.FRENCH' | translate }}</span>
+          </div>
+        </button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+    </div>
+  </mat-menu>
+</div>
 
         <!-- FULLSCREEN -->
         <div class="nxl-h-item d-none d-sm-flex">
@@ -250,7 +265,7 @@
             data-bs-auto-close="outside"
           >
             <img
-              src="assets/images/avatar/1.png"
+              src="assets/images/avatar/avatar.jpg"
               alt="user-image"
               class="img-fluid user-avtar me-0"
             />
@@ -263,7 +278,7 @@
             <div class="dropdown-header">
               <div class="d-flex align-items-center">
                 <img
-                  src="assets/images/avatar/1.png"
+                  src="assets/images/avatar/avatar.jpg"
                   alt="user-image"
                   class="img-fluid user-avtar"
                 />
