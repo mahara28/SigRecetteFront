@@ -105,7 +105,6 @@ export class Private implements OnInit, OnDestroy {
     });
     window.dispatchEvent(event);
   } */
-
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

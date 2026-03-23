@@ -23,35 +23,22 @@
       </mat-checkbox>
       <!-- Dropdown permissions -->
       <div class="dropdown" *ngIf="!node.children || node.children.length === 0">
-        <a
-          href="javascript:void(0)"
-          class="avatar-text avatar-md"
-          data-bs-toggle="dropdown"
-          data-bs-auto-close="outside"
-          data-bs-offset="0, 22"
-        >
-          <i class="feather-plus"></i>
+        <a href="javascript:void(0)" class="avatar-text avatar-md" (click)="toggleDropdown(node)">
+          <i [class]="openNodeId === node.id ? 'feather-minus' : 'feather-plus'"></i>
         </a>
-        <ul class="dropdown-menu dropdown-menu-end p-2">
+
+        <ul class="dropdown-menu dropdown-menu-end p-2" [class.show]="openNodeId === node.id">
           <li *ngFor="let perm of permissionList" class="mb-1">
             <mat-checkbox
               [checked]="node.permissions?.[perm.key]"
               (change)="togglePermission(node, perm.key)"
-              [disabled]="isDisable"
+              [checked]="flatNodeMap.get(node)?.permissions?.[perm.key]"
             >
               {{ perm.label | translate }}
             </mat-checkbox>
           </li>
         </ul>
       </div>
-
-      <!-- <button
-        class="btn btn-primary me-2"
-        color="primary"
-        (click)="node.showPermissions = !node.showPermissions"
-      >
-        <i class="feather-plus me-2"></i> Permissions
-      </button> -->
     </div>
 
     <!-- Permissions uniquement si node est feuille et menu coché -->

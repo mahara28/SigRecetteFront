@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   EventEmitter,
+  HostListener,
   inject,
   Input,
   Output,
@@ -70,12 +71,12 @@ export class ChecklistDatabase {
       node.id = item.id;
       node.checked = item.checked || false;
       node.permissions = {
-        add: false,
-        update: false,
-        delete: false,
-        details: false,
-        export: false,
-        import: false,
+        add: item.isAdd === 1,
+        update: item.isUpdate === 1,
+        delete: item.isSupp === 1,
+        details: item.isDetails === 1,
+        export: item.isExport === 1,
+        import: item.isImprime === 1,
       };
       if (item.listSousMenu) {
         node.children = this.buildFileTree(item.listSousMenu, level + 1);
@@ -99,11 +100,14 @@ export class ChecklistDatabase {
 })
 export class SubmenuComponent {
   @Output() dataChecked = new EventEmitter<any>();
+
   @Input() editMode: any;
   @Input() data: any;
   @Input() isDisable: boolean = false;
   checkedItemIds: string[] = [];
   private cdr = inject(ChangeDetectorRef);
+
+  openNodeId: string | null = null;
 
   permissionList: { key: PermissionKey; label: string; icon: string }[] = [
     { key: 'add', label: 'menu.perm_add', icon: 'add_circle' },
@@ -126,10 +130,44 @@ export class SubmenuComponent {
       this.database.dataChange.next(data);
     }
   }
+  emitData() {
+    const result: any[] = [];
+
+    this.treeControl.dataNodes.forEach((flatNode) => {
+      const node = this.flatNodeMap.get(flatNode);
+
+      if (node && node.checked) {
+        result.push({
+          idFonc: node.id,
+          permissions: node.permissions,
+        });
+        console.log('resultat : ', result);
+      }
+    });
+
+    this.dataChecked.emit(result);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.dropdown')) {
+      this.openNodeId = null;
+    }
+  }
 
   isNodeEnabled(node: MenuNode): boolean {
     return !!node.checked;
   }
+  toggleDropdown(node: MenuNode) {
+    if (this.openNodeId === node.id) {
+      this.openNodeId = null; // fermer si déjà ouvert
+    } else {
+      this.openNodeId = node.id; // ouvrir et fermer les autres
+    }
+  }
+
   handleCheckedNodes() {
     this.dataSource.data.forEach((node) => {
       if (!node.checked) {
@@ -193,7 +231,7 @@ export class SubmenuComponent {
     return null;
   }
 
-  handleCheckboxChange(change: any): void {
+  /* handleCheckboxChange(change: any): void {
     change.added.forEach((node: any) => {
       if (!this.checkedItemIds.includes(node.id)) {
         this.checkedItemIds.push(node.id);
@@ -228,8 +266,30 @@ export class SubmenuComponent {
     });
 
     this.dataChecked.emit(this.checkedItemIds);
-  }
+  } */
 
+  handleCheckboxChange(): void {
+    const result: any[] = [];
+
+    this.treeControl.dataNodes.forEach((flatNode) => {
+      if (this.checklistSelection.isSelected(flatNode)) {
+        const node = this.flatNodeMap.get(flatNode);
+
+        if (node) {
+          result.push({
+            idFonc: node.id,
+            permissions: node.permissions,
+          });
+        }
+      }
+    });
+
+    this.checkedItemIds = result.map((r) => r.idFonc);
+
+    this.dataChecked.emit(result);
+
+    console.log('FINAL RESULT:', result);
+  }
   toggleMenu(node: MenuNode) {
     node.checked = !node.checked;
 
@@ -241,12 +301,17 @@ export class SubmenuComponent {
     }
 
     // Force Angular à rafraîchir le template
-    this.cdr.markForCheck();
+    //this.cdr.markForCheck();
   }
 
-  togglePermission(node: MenuNode, key: PermissionKey) {
-    if (!node.checked) return; // ne pas activer si menu décoché
-    node.permissions![key] = !node.permissions![key];
+  togglePermission(flatNode: MenuFlatNode, key: PermissionKey) {
+    const node = this.flatNodeMap.get(flatNode);
+
+    if (!node || !this.checklistSelection.isSelected(flatNode)) return;
+
+    node.permissions[key] = !node.permissions[key];
+
+    console.log('toggle:', node);
   }
 
   flatNodeMap = new Map<MenuFlatNode, MenuNode>();
@@ -286,7 +351,8 @@ export class SubmenuComponent {
       this.selectAllCheckboxes();
     });
     this.checklistSelection.changed.subscribe((change) => {
-      this.handleCheckboxChange(change);
+      this.handleCheckboxChange();
+      //this.emitData();
     });
   }
   selectAllCheckboxes() {
