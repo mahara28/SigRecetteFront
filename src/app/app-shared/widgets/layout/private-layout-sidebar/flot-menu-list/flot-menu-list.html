@@ -1,5 +1,5 @@
 @for (menuItem of listMenus(); track menuItem.id) {
-  <!-- ✅ Nœud avec sous-menus -->
+  <!--Nœud avec sous-menus -->
   @if (hasSubMenu(menuItem)) {
     <div class="menu-row">
       <!-- Item principal -->
@@ -18,7 +18,8 @@
 
           @if (isSidebarExpanded() || isSidebarShowing()) {
             <div class="menu-item-title mx-1" mat-line>
-              {{ getLabel(menuItem) | translate }}
+              <!-- {{ getLabel(menuItem) | translate }} -->
+              {{ menuItem.codeTranslate | translate }}
             </div>
             @if (hasSubMenu(menuItem)) {
               <div class="menu-expand-icon">
@@ -111,7 +112,7 @@
       }
     </ng-template>
   } @else {
-    <!-- ✅ Nœud feuille (sans sous-menus) -->
+    <!-- Nœud feuille (sans sous-menus) -->
     <mat-list-item
       class="cursor-pointer menu-item"
       (click)="_setMenuStyle(menuItem.idFonc); navigate(menuItem)"
@@ -127,7 +128,8 @@
 
         @if (isSidebarExpanded() || isSidebarShowing()) {
           <div class="menu-item-title mx-1" mat-line>
-            {{ getLabel(menuItem) | translate }}
+            <!-- {{ getLabel(menuItem) | translate }} -->
+            {{ menuItem.codeTranslate | translate }}
           </div>
         }
       </div>

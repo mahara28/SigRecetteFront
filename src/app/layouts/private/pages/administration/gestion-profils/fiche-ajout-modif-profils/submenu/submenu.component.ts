@@ -11,12 +11,15 @@ import { ConstanteWs } from '../../../../../../../app-shared/constantes/constant
 import { ResponseObject } from '../../../../../../../app-shared/models/ResponseObject';
 import { SharedService } from '../../../../../../../app-shared/services/sharedWs/shared.service';
 
+type PermissionKey = 'add' | 'update' | 'delete' | 'details' | 'export' | 'import';
+
 export class MenuNode {
   children!: MenuNode[];
   item!: string;
   label!: string;
   id!: string;
   checked!: boolean;
+  permissions!: Record<PermissionKey, boolean>; // droits
 }
 
 export class MenuFlatNode {
@@ -52,15 +55,26 @@ export class ChecklistDatabase {
       const node = new MenuNode();
       const label =
         AppTranslateService.getStoredLanguage() == 'fr'
-          ? (node.item = item.desFr)
-          : (node.item = item.desEn);
+          ? (node.item = item.codeTranslate)
+          : (node.item = item.codeTranslate);
 
       node.label = label;
+      //node.label = item.codeTranslate;
       node.id = item.id;
       node.checked = item.checked || false;
+      node.permissions = {
+        add: false,
+        update: false,
+        delete: false,
+        details: false,
+        export: false,
+        import: false,
+      };
       if (item.listSousMenu) {
         node.children = this.buildFileTree(item.listSousMenu, level + 1);
       }
+
+      console.log('node : ', node);
       return node;
     });
   }
@@ -82,6 +96,15 @@ export class SubmenuComponent {
   @Input() data: any;
   @Input() isDisable: boolean = false;
   checkedItemIds: string[] = [];
+
+  permissionList: { key: PermissionKey; label: string; icon: string }[] = [
+    { key: 'add', label: 'menu.perm_add', icon: 'add_circle' },
+    { key: 'update', label: 'menu.perm_update', icon: 'edit' },
+    { key: 'delete', label: 'menu.perm_delete', icon: 'delete' },
+    { key: 'details', label: 'menu.perm_details', icon: 'info' },
+    { key: 'export', label: 'menu.perm_export', icon: 'file_download' },
+    { key: 'import', label: 'menu.perm_import', icon: 'file_upload' },
+  ];
 
   ngOnInit() {
     if (!this.editMode) {
@@ -194,6 +217,22 @@ export class SubmenuComponent {
     });
 
     this.dataChecked.emit(this.checkedItemIds);
+  }
+
+  toggleMenu(node: MenuNode) {
+    node.checked = !node.checked;
+
+    // Si décoché, désactive toutes les permissions
+    if (!node.checked && node.permissions) {
+      Object.keys(node.permissions).forEach((key) => {
+        node.permissions[key as PermissionKey] = false;
+      });
+    }
+  }
+
+  togglePermission(node: MenuNode, key: PermissionKey) {
+    if (!node.checked) return; // ne pas activer si menu décoché
+    node.permissions![key] = !node.permissions![key];
   }
 
   flatNodeMap = new Map<MenuFlatNode, MenuNode>();

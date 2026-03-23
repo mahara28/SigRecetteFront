@@ -29,8 +29,9 @@ export interface Menu {
   isActive?: number;
   idParent?: string;
   desAr?: string;
+  codeTranslate?: string;
   externalLink?: boolean;
-  tooltip: string;
-  idFonc: string;
+  tooltip?: string;
+  idFonc?: string;
   listSousMenu?: Menu[];
 }

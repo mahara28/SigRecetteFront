@@ -9,8 +9,9 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { isSomeInputsChanged } from '../../../../tools/utils/ng-changes';
 import { DIRECTION } from '../../../../constantes/Constantes';
 import { SessionStorageService } from '../../../../services/SessionStorage/session-storage.service';
+import { Menu } from '../../../../models';
 
-interface Menu {
+/* interface Menu {
   id: string;
   code?: string;
   icon?: string;
@@ -22,7 +23,7 @@ interface Menu {
   idParent?: string;
   desAr?: string;
   listSousMenu?: Menu[];
-}
+} */
 
 interface FlatMenu extends Menu {
   id: string;
@@ -65,8 +66,10 @@ export class FlatMenuList implements OnInit {
       id: node.id,
       icon: node.icon,
       path: node.router,
-      tooltip: node.desFr,
-      title: this.appTranslateService.getCurrentLanguage() === 'fr' ? node.desFr : node.desAr,
+      //tooltip: node.desFr,
+      tooltip: node.codeTranslate,
+      title: node.codeTranslate,
+      //title: this.appTranslateService.getCurrentLanguage() === 'fr' ? node.desFr : node.desAr,
       externalLink: !!(node.router && node.router.includes('http')),
       expandable: !isEmptyValue(node.listSousMenu) && node.listSousMenu!.length > 0,
       level,

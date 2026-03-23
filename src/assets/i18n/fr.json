@@ -94,6 +94,53 @@
     "yes": "Oui",
     "from": "Du",
     "to": "Au",
+    "back": "Retour",
+    "message": {
+      "success_save": "L'ajout a été effectué avec succès",
+      "success_update": "La modification a été effectuée avec succès",
+      "success_envoi": "l'envoi a été effectuée avec succès",
+      "success_delete": "La suppression a été effectuée avec succès",
+      "success_send": "L'envoi a été effectué avec succès.",
+      "success_download": "Le téléchargement a été effectué avec succès."
+    },
+    "confirm_dialog": {
+      "description": "Êtes-vous sûr de vouloir enregistrer les données saisies ?",
+      "description2": "Êtes-vous sûr de vouloir confirmer cette opération ?",
+      "title": "Confirmation de l'opération",
+      "delete": "Êtes-vous sûr de vouloir supprimer les données saisies ?",
+      "saveimport": "Êtes-vous sûr d'enregistrer la liste ?",
+      "send": "Êtes-vous sûr de vouloir envoyer les données saisies ?",
+      "rejeter": "Êtes-vous sûr de vouloir rejeter cette plainte ?"
+    },
+    "icons": {
+      "tooltip": {
+        "specific_delete": "Supprimer condition",
+        "specific_edit": "Modifier condition",
+        "descrip_file": "Fiche descriptive",
+        "download_doc": "Télécharger document",
+        "delete_item": "Supprimer élément",
+        "replace_item": "Remplacer élément",
+        "add": "Ajouter",
+        "add_item": "Ajouter élément",
+        "edit_item": "Modifier élément",
+        "open_details": "Détail plainte",
+        "show": "Afficher",
+        "payement": "Payer",
+        "validate": "Valider",
+        "realisation": "Réalisation",
+        "expand": "Détail",
+        "collapse": "Liste",
+        "calendar": "Calendrier ",
+        "block": "Suspendre",
+        "reactivate": "Réactiver",
+        "replace": "Remplacer",
+        "next": "Suivant",
+        "cancel": "Annuler",
+        "notify": "Notifier",
+        "history": "Historiques",
+        "liste_plainte": "Liste des Plaintes"
+      }
+    },
     "notifications_panel": {
       "title": "Notifications",
       "empty_list_notif": "Aucune notification pour le moment."
@@ -162,5 +209,17 @@
         "selectionner_menu": "il faut sélectionner des modules"
       }
     }
+  },
+  "menu": {
+    "Administration": "Administration",
+    "Profils": "Gestion profils",
+    "Utilisateurs": "Gestion des utilisateurs",
+    "Parametrage": "Parametrage",
+    "perm_add": "Ajouter",
+    "perm_update": "Modifier",
+    "perm_delete": "Supprimer",
+    "perm_details": "Détails",
+    "perm_export": "Exporter",
+    "perm_import": "Importer"
   }
 }

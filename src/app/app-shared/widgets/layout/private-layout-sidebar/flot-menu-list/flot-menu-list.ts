@@ -3,23 +3,8 @@ import { isEmptyValue } from '../../../../tools';
 
 import { Router } from '@angular/router';
 import { AppTranslateService } from '../../../../services';
+import { Menu } from '../../../../models';
 
-interface Menu {
-  id: string;
-  code?: string;
-  icon?: string;
-  router?: string;
-  desFr?: string;
-  desEn?: string;
-  checked?: number;
-  isActive?: number;
-  idParent?: string;
-  desAr?: string;
-  externalLink?: boolean;
-  tooltip: string;
-  idFonc: string;
-  listSousMenu?: Menu[];
-}
 @Component({
   selector: 'app-flot-menu-list',
   standalone: false,
@@ -75,11 +60,16 @@ export class FlotMenuList implements OnInit {
         : { height: '56px' };
   }
 
-  getLabel(menu: Menu): string {
+  /* getLabel(menu: Menu): string {
     const lang = this.appTranslateService.getCurrentLanguage();
     if (lang === 'fr') return menu.desFr ?? '';
     if (lang === 'ar') return menu.desAr ?? menu.desFr ?? '';
     if (lang === 'en') return menu.desEn ?? menu.desFr ?? '';
     return menu.desFr ?? '';
+  } */
+
+  getLabel(menu: Menu): string {
+    console.log('float-menus code translate: ', menu.codeTranslate);
+    return menu.codeTranslate ?? '';
   }
 }
