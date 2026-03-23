@@ -3,20 +3,24 @@
   <mat-sidenav
     #sidebar
     [mode]="mode"
-    [opened]="!isSmallScreen"
-    [style.width]="sidebarWidth"
-    [ngClass]="isSmallScreen ? 'bg-color' : 'bg-transparent'"
-    class="no-print"
+    [opened]="true"
+    class="no-print sidebar"
+    [ngClass]="{
+      'sidebar-expanded': isSidebarOpen,
+      'sidebar-collapsed': !isSidebarOpen,
+      'bg-color': isSmallScreen,
+      'bg-transparent': !isSmallScreen
+    }"
   >
     <nav class="nxl-navigation">
       <div class="navbar-wrapper">
         <!-- Logo -->
         <div class="m-header">
           <a class="b-brand" routerLink="/">
-            @if (isSidebarExpanded || isSidebarShowing) {
-              <img src="assets/images/logo.png" height="33px" alt="logo" class="logo logo-lg" />
+            @if (isSidebarOpen) {
+              <img src="assets/images/logo.png" height="33px" class="logo logo-lg" />
             } @else {
-              <img src="assets/images/logo.png" alt="logo" class="logo logo-sm" />
+              <img src="assets/images/logo.png" class="logo logo-sm" />
             }
           </a>
         </div>
@@ -24,12 +28,12 @@
         <!-- Menus -->
         <div class="navbar-content">
           <app-spinner-container [isLoading]="onLoadingMenu" wrapperBackground="transparent">
-            @if (!listMenus.length) {
+           @if (!listMenus || !listMenus.length) {
               <p class="nxl-empty-menu">Liste des menus est actuellement vide !</p>
             } @else {
               <ul class="nxl-navbar">
-                @if (!isSmallScreen) {
-                  @if (CONFIG.PRIVATE_LAYOUT.sidebar.compact_menu || isSidebarExpanded) {
+               @if (!isSmallScreen) {
+                  @if (CONFIG.PRIVATE_LAYOUT.sidebar.compact_menu || isSidebarOpen) {
                     <ng-container *ngTemplateOutlet="menuFixeTemp"></ng-container>
                   } @else {
                     <ng-container *ngTemplateOutlet="menuFlottantTemp"></ng-container>

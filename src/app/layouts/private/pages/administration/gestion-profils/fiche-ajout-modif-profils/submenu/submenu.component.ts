@@ -1,4 +1,11 @@
-import { EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  EventEmitter,
+  inject,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Injectable } from '@angular/core';
@@ -96,6 +103,7 @@ export class SubmenuComponent {
   @Input() data: any;
   @Input() isDisable: boolean = false;
   checkedItemIds: string[] = [];
+  private cdr = inject(ChangeDetectorRef);
 
   permissionList: { key: PermissionKey; label: string; icon: string }[] = [
     { key: 'add', label: 'menu.perm_add', icon: 'add_circle' },
@@ -119,6 +127,9 @@ export class SubmenuComponent {
     }
   }
 
+  isNodeEnabled(node: MenuNode): boolean {
+    return !!node.checked;
+  }
   handleCheckedNodes() {
     this.dataSource.data.forEach((node) => {
       if (!node.checked) {
@@ -222,12 +233,15 @@ export class SubmenuComponent {
   toggleMenu(node: MenuNode) {
     node.checked = !node.checked;
 
-    // Si décoché, désactive toutes les permissions
+    // Si décoché → désactive toutes les permissions
     if (!node.checked && node.permissions) {
       Object.keys(node.permissions).forEach((key) => {
         node.permissions[key as PermissionKey] = false;
       });
     }
+
+    // Force Angular à rafraîchir le template
+    this.cdr.markForCheck();
   }
 
   togglePermission(node: MenuNode, key: PermissionKey) {

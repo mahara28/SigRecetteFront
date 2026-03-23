@@ -1,105 +1,25 @@
-/* Styles de base pour RTL */
-.private-layout[dir="rtl"] .nxl-container {
-  margin-right: 280px; /* Au lieu de margin-left */
+/* ===== BODY WRAPPER ===== */
+.nxl-container.body-wrapper {
+  transition: all 0.3s ease;
+ /*  margin-top: 80px; */ /* hauteur du header */
+}
+
+/* ===== LTR ===== */
+.nxl-container.body-wrapper.sidebar-open {
+  margin-left: 280px; /* largeur sidebar */
+}
+
+.nxl-container.body-wrapper.sidebar-closed {
   margin-left: 0;
 }
 
-.private-layout[dir="rtl"] .sidebar {
-  right: 0;
-  left: auto;
+/* ===== RTL ===== */
+:host([dir="rtl"]) .nxl-container.body-wrapper.sidebar-open {
+  margin-right: 280px;
+  margin-left: 0;
 }
 
-.private-layout[dir="rtl"] .navbar {
-  right: 280px;
-  left: 0;
-}
-
-.private-layout[dir="rtl"] .breadcrumb {
-  text-align: right;
-}
-
-.private-layout[dir="rtl"] .breadcrumb-item + .breadcrumb-item::before {
-  float: right;
-  padding-left: 0.5rem;
-  padding-right: 0;
-  content: "\\"; /* Flèche inversée pour RTL */
-}
-
-/* Ajustements pour les icônes et marges */
-.private-layout[dir="rtl"] .ml-2 {
-  margin-left: 0 !important;
-  margin-right: 0.5rem !important;
-}
-
-.private-layout[dir="rtl"] .mr-2 {
-  margin-right: 0 !important;
-  margin-left: 0.5rem !important;
-}
-
-.private-layout[dir="rtl"] .pl-3 {
-  padding-left: 0 !important;
-  padding-right: 1rem !important;
-}
-
-.private-layout[dir="rtl"] .pr-3 {
-  padding-right: 0 !important;
-  padding-left: 1rem !important;
-}
-
-/* Flexbox adjustments for RTL */
-.private-layout[dir="rtl"] .d-flex {
-  flex-direction: row-reverse;
-}
-
-/* Texte aligné à droite pour l'arabe */
-.private-layout[dir="rtl"] .text-start {
-  text-align: right !important;
-}
-
-.private-layout[dir="rtl"] .text-end {
-  text-align: left !important;
-}
-
-/* Ajustements pour les tables */
-.private-layout[dir="rtl"] table {
-  text-align: right;
-}
-
-.private-layout[dir="rtl"] th {
-  text-align: right;
-}
-
-/* Ajustements pour les formulaires */
-.private-layout[dir="rtl"] .form-group {
-  text-align: right;
-}
-
-.private-layout[dir="rtl"] input,
-.private-layout[dir="rtl"] select,
-.private-layout[dir="rtl"] textarea {
-  text-align: right;
-}
-
-/* Ajustements pour les boutons */
-.private-layout[dir="rtl"] .btn-group {
-  direction: ltr; /* Garder les groupes de boutons en LTR */
-}
-
-/* Animation de la sidebar pour RTL */
-.private-layout[dir="rtl"] .sidebar-collapsed .nxl-container {
-  margin-right: 80px;
-}
-
-@media (max-width: 768px) {
-  .private-layout[dir="rtl"] .nxl-container {
-    margin-right: 0;
-  }
-
-  .private-layout[dir="rtl"] .sidebar {
-    transform: translateX(100%);
-  }
-
-  .private-layout[dir="rtl"] .sidebar.open {
-    transform: translateX(0);
-  }
+:host([dir="rtl"]) .nxl-container.body-wrapper.sidebar-closed {
+  margin-right: 0;
+  margin-left: 0;
 }

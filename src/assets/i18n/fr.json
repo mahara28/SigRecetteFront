@@ -94,6 +94,11 @@
     "yes": "Oui",
     "from": "Du",
     "to": "Au",
+    "downloadPdf": "Télécharger en PDF",
+    "print": "Imprimer",
+    "back": "Retour",
+    "home": "Accueil",
+    "login": "Login",
     "back": "Retour",
     "message": {
       "success_save": "L'ajout a été effectué avec succès",
@@ -146,9 +151,10 @@
       "empty_list_notif": "Aucune notification pour le moment."
     }
   },
+  "noAccount": "Pas encore de compte ? Contactez un administrateur.",
   "LANG": {
-    "ARABIC": "ARABIC",
-    "FRENCH": "FRENCH",
+    "ARABIC": "Arabe",
+    "FRENCH": "Français",
     "ENGLISH": "FRENCH",
     "title": "Selectionner un Language"
   },
@@ -179,6 +185,13 @@
   "administration": {
     "title": "Administration",
     "breadcrumb": "Administration"
+  },
+  "menu": {
+    "Administration": "Administration",
+    "Parametrage": "Paramétrage",
+    "Utilisateurs": "Utilisateurs",
+    "Profils": "Profils",
+    "TableauDeBord": "Tableau de bord"
   },
   "activeStatus": "Actif",
   "inactiveStatus": "Inactif",

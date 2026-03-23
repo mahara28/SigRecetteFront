@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostBinding,
   Input,
   OnChanges,
   OnInit,
@@ -78,7 +79,11 @@ export class TextField implements OnInit, OnChanges {
   @Output() onFocusEvent = new EventEmitter<any>();
   @Output() emitSelectedValueEvent = new EventEmitter<any>();
   @Output() suffixClickedEvent = new EventEmitter<any>();
-  private currentLanguage: SupportedLanguage = 'fr';
+  protected currentLanguage: SupportedLanguage = 'fr';
+  protected currentDirection: 'rtl' | 'ltr' = 'ltr';
+  @HostBinding('attr.dir') get hostDir() {
+    return this.currentDirection;
+  }
   constructor(
     public appTranslateService: AppTranslateService,
     private cdr: ChangeDetectorRef
@@ -92,6 +97,15 @@ export class TextField implements OnInit, OnChanges {
         this.currentLanguage = lang;
         this.cdr.markForCheck();
       });
+      this.appTranslateService.direction
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((dir) => {
+        this.currentDirection = dir;
+        this.cdr.markForCheck();
+      });
+    this.currentLanguage = this.appTranslateService.getCurrentLanguage();
+    this.currentDirection = this.appTranslateService.getCurrentDirection();
+
   }
   ngOnChanges(changes: SimpleChanges): void {
     if (isInputChanged(changes, 'control')) {

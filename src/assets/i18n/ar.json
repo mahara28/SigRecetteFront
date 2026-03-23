@@ -94,11 +94,17 @@
     "yes": "نعم",
     "from": "من",
     "to": "إلى",
+    "downloadPdf": "تحميل PDF",
+    "print": "طباعة",
+    "back": "رجوع",
+    "home": "الرئيسية",
+    "login": "تسجيل الدخول",
     "notifications_panel": {
       "title": "الإشعارات",
       "empty_list_notif": "لا توجد إشعارات في الوقت الحالي."
     }
   },
+  "noAccount": "ليس لديك حساب بعد؟ يرجى الاتصال بالمسؤول.",
   "LANG": {
     "ARABIC": "العربية",
     "FRENCH": "الفرنسية",
@@ -128,5 +134,46 @@
     "PATTERN_INVALID": "صيغة غير صالحة",
     "MIN_VALUE": "الحد الأدنى للقيمة هو {{min}}",
     "MAX_VALUE": "الحد الأقصى للقيمة هو {{max}}"
-  }
+  },
+  "administration": {
+    "title": "الإدارة",
+    "breadcrumb": "الإدارة"
+},
+  "menu":{
+    "Administration":"الإ دارة",
+    "Parametrage": "الإعدادات",
+    "Utilisateurs": "المستخدمين",
+    "Profils": "الملفات الشخصية",
+    "TableauDeBord": "لوحة القيادة"
+  },
+  "activeStatus": "نشط",
+"inactiveStatus": "غير نشط",
+"accountStatus": "حالة الحساب",
+"profil": {
+    "list_menu": "قائمة الوحدات",
+    "menus": "قائمة الوحدات",
+    "title": "إدارة الملفات الشخصية",
+    "breadcrumb": "إدارة الملفات الشخصية",
+    "add_profil": "إضافة ملف شخصي",
+    "update_profil": "تعديل الملف الشخصي",
+    "table": {
+        "title": "قائمة الملفات الشخصية",
+        "columns": {
+            "login": "الكود",
+            "Désignation": "التسمية",
+            "FActif": "نشط"
+        }
+    },
+    "form": {
+        "labels": {
+            "code": "الكود",
+            "desFr": "التسمية",
+            "desEn": "التسمية (إنجليزي)",
+            "isActive": "نشط"
+        },
+        "errors": {
+            "selectionner_menu": "يجب اختيار وحدات"
+        }
+    }
+}
 }

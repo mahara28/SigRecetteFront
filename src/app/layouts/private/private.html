@@ -4,17 +4,29 @@
   <app-private-layout-sidebar
     #privateLayoutSidebar
     [listMenus]="listMenus"
+    [isSidebarOpen]="isSidebarOpen"
+    [ngClass]="{
+    'sidebar-open': isSidebarOpen,
+    'sidebar-collapsed': !isSidebarOpen
+  }"
     [attr.dir]="currentDirection">
   </app-private-layout-sidebar>
 
   <app-private-layout-navbar
     class="no-print"
-    (toggleSidebarEventEmitter)="onToggleSidebar()"
-    
+    [(isSidebarOpen)]="isSidebarOpen"
+    (languageChanged)="onLanguageChanged($event)"
+
     [attr.dir]="currentDirection">
   </app-private-layout-navbar>
 
-  <div class="nxl-container body-wrapper" [attr.dir]="currentDirection">
+  <div class="nxl-container body-wrapper"
+  [ngClass]="{
+       'sidebar-open': isSidebarOpen,
+       'sidebar-closed': !isSidebarOpen
+     }"
+   [attr.dir]="currentDirection"
+   >
     <div class="nxl-content">
 
       <div class="page-header">

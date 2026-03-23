@@ -1580,7 +1580,7 @@ body.full-screen-helper .full-screen-switcher a .minimize {
   border-bottom: 1px solid #e5e7eb;
 }
 .nxl-header .header-wrapper .nxl-h-dropdown .dropdown-item {
-  margin: 0 10px;
+  margin: 10 10px;
   border-radius: 5px;
   width: -webkit-fill-available;
 }
@@ -2189,10 +2189,80 @@ body.full-screen-helper .full-screen-switcher a .minimize {
   max-height: 415px;
 }
 .nxl-header .header-wrapper .nxl-header-language .nxl-language-dropdown {
-  width: 425px;
+  width: 180px;
   padding-top: 0;
   overflow-x: hidden;
   max-height: calc(100vh - 150px);
+}
+.nxl-language-dropdown {
+  min-width: 200px;
+  width: 240px !important; /* Force la largeur à 240px */
+  padding: 0;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Version responsive pour tablettes */
+@media (max-width: 768px) {
+  .nxl-language-dropdown {
+    width: 220px !important;
+    max-width: 90vw; /* Évite de dépasser sur mobile */
+  }
+}
+@media (max-width: 480px) {
+  .nxl-language-dropdown {
+    width: 200px !important;
+    max-width: 95vw;
+
+    /* Position ajustée pour mobile */
+    &.dropdown-menu-end,
+    &.dropdown-menu-start {
+      right: 0;
+      left: auto;
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Version RTL */
+[dir="rtl"] .nxl-language-dropdown {
+  /* Ajustements pour RTL si nécessaire */
+  text-align: right;
+}
+
+/* Style pour les très petits écrans */
+@media (max-width: 360px) {
+  .nxl-language-dropdown {
+    width: 180px !important;
+    max-width: 98vw;
+
+    /* Prend toute la largeur disponible */
+    left: 5px !important;
+    right: 5px !important;
+    width: auto !important;
+  }
+}
+
+/* Amélioration de l'affichage du contenu dans le dropdown */
+.nxl-language-dropdown .language-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Animation d'apparition */
+.nxl-language-dropdown.show {
+  animation: fadeInDown 0.3s ease;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .nxl-header .header-wrapper .nxl-header-language .nxl-language-dropdown .language_select a {
   color: #283c50;

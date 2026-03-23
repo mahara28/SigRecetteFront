@@ -24,12 +24,12 @@ export interface Menu {
   icon?: string;
   router?: string;
   desFr?: string;
+  codeTranslate?: string;
   desEn?: string;
   checked?: number;
   isActive?: number;
   idParent?: string;
   desAr?: string;
-  codeTranslate?: string;
   externalLink?: boolean;
   tooltip?: string;
   idFonc?: string;

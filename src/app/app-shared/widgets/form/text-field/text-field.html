@@ -1,8 +1,13 @@
-<div class="form-floating mb-3 position-relative">
+<div class="form-floating mb-3 position-relative" [attr.dir]="currentDirection">
   <!-- Prefix icon -->
   <span
     *ngIf="prefix && isIconPrefix"
     class="position-absolute top-50 translate-middle-y ms-3 text-secondary"
+    [class.ms-3]="currentDirection === 'ltr'"
+    [class.me-3]="currentDirection === 'rtl'"
+    [style.left]="currentDirection === 'ltr' ? '0' : 'auto'"
+    [style.right]="currentDirection === 'rtl' ? '0' : 'auto'"
+
   >
     <i class="bi bi-{{ prefix }}"></i>
   </span>
@@ -11,19 +16,22 @@
   <input
     class="form-control"
     [class.is-invalid]="control && control.invalid && (control.touched || control.dirty)"
+    [class.text-start]="currentDirection === 'ltr'"
+    [class.text-end]="currentDirection === 'rtl'"
     [maxlength]="max"
     [formControl]="control"
     [type]="type"
     [readonly]="isDisabled"
     [value]="value"
-    [placeholder]="label | translate"
+    [placeholder]="placeholder | translate"
     autocomplete="off"
     (change)="format(control?.value)"
     (keyup)="emitTypedValue($event)"
     (blur)="onChange($event)"
     (focus)="onFocusEvent.emit($event)"
-    [style.padding-left]="prefix ? '2.5rem' : null"
-  />
+    [style.padding-left]="(prefix && isIconPrefix && currentDirection === 'ltr') ? '2.5rem' : null"
+    [style.padding-right]="(prefix && isIconPrefix && currentDirection === 'rtl') ? '2.5rem' : null"
+    />
 
   <!-- Floating label -->
   <label *ngIf="label">
@@ -34,6 +42,10 @@
   <span
     *ngIf="suffix && isIconSuffix"
     class="position-absolute top-50 translate-middle-y end-0 me-3 text-secondary"
+    [class.me-3]="currentDirection === 'ltr'"
+    [class.ms-3]="currentDirection === 'rtl'"
+    [style.right]="currentDirection === 'ltr' ? '0' : 'auto'"
+    [style.left]="currentDirection === 'rtl' ? '0' : 'auto'"
     style="cursor: pointer"
     (click)="isSuffixClicked ? suffixClickedEvent.emit(true) : null"
   >
@@ -44,6 +56,7 @@
 <!-- Error -->
 <div
   class="invalid-feedback d-block"
+  [class.text-end]="currentDirection === 'rtl'"
   *ngIf="control && control.invalid && (control.touched || control.dirty)"
 >
   {{ getErrorMessage() }}
