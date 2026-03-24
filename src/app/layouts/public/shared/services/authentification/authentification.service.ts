@@ -90,7 +90,6 @@ export class AuthentificationService {
       /////// to be continued
       this.sharedService.commonWs(request).subscribe({
         next: (response: ResponseObject) => {
-          console.log('response: ' + response);
           if (!response) {
             this.toast.error('authentification.login.errors.code');
           }
@@ -203,14 +202,12 @@ export class AuthentificationService {
   }
 
   public fetchWhoAmI(): Observable<any> {
-    console.log('token :', this.getAccessToken());
     return new Observable<any>((subscriber) => {
       if (!isEmptyValue(this.getAccessToken())) {
         const request: RequestObject = <RequestObject>{
           uri: AuthentificationUri.LOGIN.WHOIAM,
           method: ConstanteWs._CODE_GET,
         };
-        console.log('request : ' + JSON.stringify(request));
         this.sharedService.commonWs(request).subscribe({
           next: (response: ResponseObject) => {
             if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
@@ -248,7 +245,6 @@ export class AuthentificationService {
         this.fetchWhoAmI().subscribe({
           next: (response: any) => {
             if (response) {
-              console.log('response fetchWhoAmI: ' + response);
               this.userLoggedIn.next(true);
               subscriber.next(true);
             } else {

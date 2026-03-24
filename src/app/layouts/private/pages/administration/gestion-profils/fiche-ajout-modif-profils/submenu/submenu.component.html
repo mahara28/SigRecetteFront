@@ -9,29 +9,59 @@
 </style>
 
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <mat-tree-node
-    *matTreeNodeDef="let node"
-    matTreeNodeToggle
-    matTreeNodePadding
-  >
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
     <button mat-icon-button disabled></button>
-    <mat-checkbox
-      class="checklist-leaf-node"
-      [checked]="checklistSelection.isSelected(node)"
-      (change)="checklistSelection.toggle(node)"
-      [disabled]="isDisable"
-      >{{ node.item }}</mat-checkbox
+
+    <!-- Bouton afficher/masquer permissions -->
+    <div class="menu-row d-flex align-items-center gap-2">
+      <mat-checkbox
+        class="checklist-leaf-node"
+        [checked]="checklistSelection.isSelected(node)"
+        (change)="checklistSelection.toggle(node)"
+        [disabled]="isDisable"
+        >{{ node.item | translate }}
+      </mat-checkbox>
+      <!-- Dropdown permissions -->
+      <div class="dropdown" *ngIf="!node.children || node.children.length === 0">
+        <a href="javascript:void(0)" class="avatar-text avatar-md" (click)="toggleDropdown(node)">
+          <i [class]="openNodeId === node.id ? 'feather-minus' : 'feather-plus'"></i>
+        </a>
+
+        <ul class="dropdown-menu p-2" [class.show]="openNodeId === node.id">
+          <li *ngFor="let perm of permissionList" class="mb-1">
+            <mat-checkbox
+              [checked]="node.permissions?.[perm.key]"
+              (change)="togglePermission(node, perm.key)"
+              [checked]="flatNodeMap.get(node)?.permissions?.[perm.key]"
+            >
+              {{ perm.label | translate }}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Permissions uniquement si node est feuille et menu coché -->
+    <!-- Permissions sous le menu (affichées seulement si showPermissions = true) -->
+    <!-- <div
+      class="permissions-container"
+      *ngIf="node.showPermissions && (!node.children || node.children.length === 0)"
     >
+      <mat-checkbox
+        *ngFor="let perm of permissionList"
+        [checked]="node.permissions?.[perm.key]"
+        (change)="togglePermission(node, perm.key)"
+        [disabled]="!node.checked"
+      >
+        {{ perm.label | translate }}
+      </mat-checkbox>
+    </div> -->
   </mat-tree-node>
 
   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-    <button
-      mat-icon-button
-      matTreeNodeToggle
-      [attr.aria-label]="'toggle ' + node.filename"
-    >
+    <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.filename">
       <mat-icon class="mat-icon-rtl-mirror">
-        {{ treeControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+        {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
       </mat-icon>
     </button>
     <mat-checkbox
@@ -40,7 +70,27 @@
       (change)="todoItemSelectionToggle(node)"
       [disabled]="isDisable"
     >
-      {{ node.item }}
+      {{ node.item | translate }}
     </mat-checkbox>
+
+    <!-- Permissions uniquement pour les feuilles enfants -->
+    <!-- <ng-container *ngIf="node.children && node.children.length > 0">
+      <ng-container *ngFor="let child of node.children">
+        <ng-container *ngIf="child.checked">
+          <ng-container *ngIf="!child.children || child.children.length === 0">
+            <ng-container *ngFor="let perm of permissionList">
+              <mat-icon
+                class="permission-icon"
+                [color]="child.permissions?.[perm.key] ? 'primary' : 'gray'"
+                (click)="child.permissions && togglePermission(child, perm.key)"
+                matTooltip="{{ perm.label | translate }}"
+              >
+                {{ perm.icon }}
+              </mat-icon>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </ng-container> -->
   </mat-tree-node>
 </mat-tree>

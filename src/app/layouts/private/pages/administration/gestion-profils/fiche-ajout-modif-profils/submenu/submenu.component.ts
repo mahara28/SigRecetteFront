@@ -1,4 +1,12 @@
-import { EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  EventEmitter,
+  HostListener,
+  inject,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { Component, Injectable } from '@angular/core';
@@ -11,12 +19,15 @@ import { ConstanteWs } from '../../../../../../../app-shared/constantes/constant
 import { ResponseObject } from '../../../../../../../app-shared/models/ResponseObject';
 import { SharedService } from '../../../../../../../app-shared/services/sharedWs/shared.service';
 
+type PermissionKey = 'add' | 'update' | 'delete' | 'details' | 'export' | 'import';
+
 export class MenuNode {
   children!: MenuNode[];
   item!: string;
   label!: string;
   id!: string;
   checked!: boolean;
+  permissions!: Record<PermissionKey, boolean>; // droits
 }
 
 export class MenuFlatNode {
@@ -52,15 +63,26 @@ export class ChecklistDatabase {
       const node = new MenuNode();
       const label =
         AppTranslateService.getStoredLanguage() == 'fr'
-          ? (node.item = item.desFr)
-          : (node.item = item.desEn);
+          ? (node.item = item.codeTranslate)
+          : (node.item = item.codeTranslate);
 
       node.label = label;
+      //node.label = item.codeTranslate;
       node.id = item.id;
       node.checked = item.checked || false;
+      node.permissions = {
+        add: item.isAdd === 1,
+        update: item.isUpdate === 1,
+        delete: item.isSupp === 1,
+        details: item.isDetails === 1,
+        export: item.isExport === 1,
+        import: item.isImprime === 1,
+      };
       if (item.listSousMenu) {
         node.children = this.buildFileTree(item.listSousMenu, level + 1);
       }
+
+      console.log('node : ', node);
       return node;
     });
   }
@@ -78,10 +100,23 @@ export class ChecklistDatabase {
 })
 export class SubmenuComponent {
   @Output() dataChecked = new EventEmitter<any>();
+
   @Input() editMode: any;
   @Input() data: any;
   @Input() isDisable: boolean = false;
   checkedItemIds: string[] = [];
+  private cdr = inject(ChangeDetectorRef);
+
+  openNodeId: string | null = null;
+
+  permissionList: { key: PermissionKey; label: string; icon: string }[] = [
+    { key: 'add', label: 'menu.perm_add', icon: 'add_circle' },
+    { key: 'update', label: 'menu.perm_update', icon: 'edit' },
+    { key: 'delete', label: 'menu.perm_delete', icon: 'delete' },
+    { key: 'details', label: 'menu.perm_details', icon: 'info' },
+    { key: 'export', label: 'menu.perm_export', icon: 'file_download' },
+    { key: 'import', label: 'menu.perm_import', icon: 'file_upload' },
+  ];
 
   ngOnInit() {
     if (!this.editMode) {
@@ -93,6 +128,43 @@ export class SubmenuComponent {
     if (changes['data'] && changes['data'].currentValue) {
       const data = this.database.buildFileTree(this.data, 0);
       this.database.dataChange.next(data);
+    }
+  }
+  emitData() {
+    const result: any[] = [];
+
+    this.treeControl.dataNodes.forEach((flatNode) => {
+      const node = this.flatNodeMap.get(flatNode);
+
+      if (node && node.checked) {
+        result.push({
+          idFonc: node.id,
+          permissions: node.permissions,
+        });
+        console.log('resultat : ', result);
+      }
+    });
+
+    this.dataChecked.emit(result);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.dropdown')) {
+      this.openNodeId = null;
+    }
+  }
+
+  isNodeEnabled(node: MenuNode): boolean {
+    return !!node.checked;
+  }
+  toggleDropdown(node: MenuNode) {
+    if (this.openNodeId === node.id) {
+      this.openNodeId = null; // fermer si déjà ouvert
+    } else {
+      this.openNodeId = node.id; // ouvrir et fermer les autres
     }
   }
 
@@ -159,7 +231,7 @@ export class SubmenuComponent {
     return null;
   }
 
-  handleCheckboxChange(change: any): void {
+  /* handleCheckboxChange(change: any): void {
     change.added.forEach((node: any) => {
       if (!this.checkedItemIds.includes(node.id)) {
         this.checkedItemIds.push(node.id);
@@ -194,6 +266,52 @@ export class SubmenuComponent {
     });
 
     this.dataChecked.emit(this.checkedItemIds);
+  } */
+
+  handleCheckboxChange(): void {
+    const result: any[] = [];
+
+    this.treeControl.dataNodes.forEach((flatNode) => {
+      if (this.checklistSelection.isSelected(flatNode)) {
+        const node = this.flatNodeMap.get(flatNode);
+
+        if (node) {
+          result.push({
+            idFonc: node.id,
+            permissions: node.permissions,
+          });
+        }
+      }
+    });
+
+    this.checkedItemIds = result.map((r) => r.idFonc);
+
+    this.dataChecked.emit(result);
+
+    console.log('FINAL RESULT:', result);
+  }
+  toggleMenu(node: MenuNode) {
+    node.checked = !node.checked;
+
+    // Si décoché → désactive toutes les permissions
+    if (!node.checked && node.permissions) {
+      Object.keys(node.permissions).forEach((key) => {
+        node.permissions[key as PermissionKey] = false;
+      });
+    }
+
+    // Force Angular à rafraîchir le template
+    //this.cdr.markForCheck();
+  }
+
+  togglePermission(flatNode: MenuFlatNode, key: PermissionKey) {
+    const node = this.flatNodeMap.get(flatNode);
+
+    if (!node || !this.checklistSelection.isSelected(flatNode)) return;
+
+    node.permissions[key] = !node.permissions[key];
+
+    console.log('toggle:', node);
   }
 
   flatNodeMap = new Map<MenuFlatNode, MenuNode>();
@@ -233,7 +351,8 @@ export class SubmenuComponent {
       this.selectAllCheckboxes();
     });
     this.checklistSelection.changed.subscribe((change) => {
-      this.handleCheckboxChange(change);
+      this.handleCheckboxChange();
+      //this.emitData();
     });
   }
   selectAllCheckboxes() {

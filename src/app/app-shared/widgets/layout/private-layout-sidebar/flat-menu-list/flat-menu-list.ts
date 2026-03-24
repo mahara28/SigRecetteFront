@@ -9,8 +9,9 @@ import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree'
 import { isSomeInputsChanged } from '../../../../tools/utils/ng-changes';
 import { DIRECTION } from '../../../../constantes/Constantes';
 import { SessionStorageService } from '../../../../services/SessionStorage/session-storage.service';
+import { Menu } from '../../../../models';
 
-interface Menu {
+/* interface Menu {
   id: string;
   code?: string;
   icon?: string;
@@ -23,7 +24,7 @@ interface Menu {
   idParent?: string;
   desAr?: string;
   listSousMenu?: Menu[];
-}
+} */
 
 interface FlatMenu extends Menu {
   id: string;
@@ -63,7 +64,7 @@ export class FlatMenuList implements OnInit {
   // selectedMenuKey = CONFIG.LOCAL_STORAGE_KEYS.SELECTED_MENU;
 
   private _transformer = (node: Menu, level: number): FlatMenu => {
-    const translationKey = node.codeTranslate|| '';
+    const translationKey = node.codeTranslate || '';
     return {
       id: node.id,
       icon: node.icon,

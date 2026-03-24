@@ -15,7 +15,6 @@ import { MatDrawerMode, MatSidenav, MatSidenavContainer } from '@angular/materia
 import { Subject, Subscription, takeUntil } from 'rxjs';
 //import { ThemeSection, ThemeOption } from './customizer-sidebar.model'; // ton interface ThemeSection/ThemeOption
 //import { getCssVar } from '@appShared/tools/utils/cssVar';
-import { Menu } from '../../../models/Menu';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { isEmptyValue } from '../../../tools';
@@ -23,6 +22,7 @@ import { CONFIG } from '../../../constantes/config';
 import { DIRECTION } from '../../../constantes/Constantes';
 import { AppTranslateService, Loading } from '../../../services';
 import { getCssVar } from '../../../tools/utils/cssVar';
+import { Menu } from '../../../models';
 @Component({
   selector: 'app-private-layout-sidebar',
   standalone: false,
@@ -55,12 +55,10 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
     //private _changeRef: ChangeDetectorRef,
   ) {}
 
-
-
   ngOnInit(): void {
     this.initResponsive();
     this.initMenus();
-   /*  this.breakpointSubscription = this.breakpointObserver
+    /*  this.breakpointSubscription = this.breakpointObserver
       .observe(['(max-width: 767px)'])
       .subscribe((result) => {
         this.isSmallScreen = result.matches;
@@ -78,7 +76,7 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
         this.mode = this.isSmallScreen ? 'over' : 'side';
 
         // fermer sidebar sur mobile
-        
+
         if (this.isSmallScreen) {
           this.sidebar?.close();
         } else {
@@ -87,7 +85,7 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
       });
   }
 
-   // ================= MENUS =================
+  // ================= MENUS =================
   private initMenus(): void {
     this.onLoadingMenu = false;
   }
@@ -102,20 +100,18 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
       //}
     }
     if (changes['isSidebarOpen'] && this.sidebar) {
-    if (this.isSidebarOpen) {
-      this.sidebar.open();
-    } else {
-      this.sidebar.close();
+      if (this.isSidebarOpen) {
+        this.sidebar.open();
+      } else {
+        this.sidebar.close();
+      }
     }
   }
-  }
 
-   // ================= SIDEBAR WIDTH =================
+  // ================= SIDEBAR WIDTH =================
   get sidebarWidth(): string {
     if (isPlatformBrowser(this.platformId)) {
-      return this.isSidebarExpanded
-        ? CONFIG.PRIVATE_LAYOUT.sidebar.width
-        : '64px';
+      return this.isSidebarExpanded ? CONFIG.PRIVATE_LAYOUT.sidebar.width : '64px';
     }
     return CONFIG.PRIVATE_LAYOUT.sidebar.width;
   }
@@ -137,11 +133,11 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
- /*  ngDoCheck() {
+  /*  ngDoCheck() {
     this._changeRef.detectChanges();
   } */
 
- /*  ngOnDestroy() {
+  /*  ngOnDestroy() {
     if (!isEmptyValue(this.breakpointSubscription)) {
       this.breakpointSubscription.unsubscribe();
     }

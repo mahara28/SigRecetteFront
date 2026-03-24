@@ -31,8 +31,7 @@ export interface Menu {
   idParent?: string;
   desAr?: string;
   externalLink?: boolean;
-  tooltip: string;
-  idFonc: string;
-
+  tooltip?: string;
+  idFonc?: string;
   listSousMenu?: Menu[];
 }

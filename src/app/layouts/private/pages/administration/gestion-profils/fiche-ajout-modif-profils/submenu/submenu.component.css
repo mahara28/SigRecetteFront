@@ -21,3 +21,25 @@ mat-tree-node {
 mat-checkbox-label {
   color: brown;
 }
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.permissions-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-left: 30px; /* indentation sous le menu */
+  margin-top: 4px;
+}
+
+.dropdown-menu {
+  display: none;
+}
+
+.dropdown-menu.show {
+  display: block;
+}

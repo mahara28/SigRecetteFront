@@ -3,8 +3,9 @@ import { isEmptyValue } from '../../../../tools';
 
 import { Router } from '@angular/router';
 import { AppTranslateService } from '../../../../services';
+import { Menu } from '../../../../models';
 
-interface Menu {
+/* interface Menu {
   id: string;
   code?: string;
   icon?: string;
@@ -19,7 +20,7 @@ interface Menu {
   tooltip: string;
   idFonc: string;
   listSousMenu?: Menu[];
-}
+} */
 @Component({
   selector: 'app-flot-menu-list',
   standalone: false,

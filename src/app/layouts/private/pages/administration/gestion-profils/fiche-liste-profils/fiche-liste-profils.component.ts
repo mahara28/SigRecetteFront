@@ -61,10 +61,12 @@ export class FicheListeProfilsComponent implements OnInit {
       }),
       searchObjectall: new SearchObject(),
     };
+
     //****** Gestion des droit d'accée ****//
     this.params['listeProfils'] = this.permissionService.getMetadataWithPermissions(
       FicheListeProfilsMetadata.tableListProfilsMetadata,
     );
+    /***************************************/
   }
 
   onPaginate(event: any) {

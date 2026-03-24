@@ -32,6 +32,7 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
   searchObject!: SearchObject;
   listProfilUser: any = [];
   listmenuscheked: any = [];
+
   form!: UntypedFormGroup;
   listAdmFonc = [];
   profildata: any;
@@ -47,7 +48,6 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
 
   ngOnInit() {
     this.initMetadata();
-    // this.getMenu();
     this.initParams();
     this.form = this.initForm();
   }
@@ -84,7 +84,6 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
       next: (response: ResponseObject) => {
         if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
           this.listMenus = response.payload['menus'];
-
           this.profildata = response.payload['admProfil'];
           this.updateFormValues();
         } else {
@@ -116,6 +115,7 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
 
   getdatacheked($event: any) {
     this.listmenuscheked = $event;
+    console.log('listmenuscheked :', this.listmenuscheked);
   }
 
   initMetadata() {
@@ -144,16 +144,17 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
         this.confirmDialogService.confirm().subscribe((flag) => {
           if (flag) {
             let reqData = this.form.value;
-            reqData['listAdmFoncIds'] = this.listmenuscheked.map((id: number) => ({
-              idFonc: id,
+            reqData['listAdmFoncIds'] = this.listmenuscheked.map((menu: any) => ({
+              idFonc: menu.idFonc,
               isList: 1,
-              isUpdate: 0,
-              isSupp: 0,
-              isDetails: 0,
-              isExport: 0,
-              isImprime: 0,
-              isAdd: 0,
+              isUpdate: menu.permissions?.update ? 1 : 0,
+              isSupp: menu.permissions?.delete ? 1 : 0,
+              isDetails: menu.permissions?.details ? 1 : 0,
+              isExport: menu.permissions?.export ? 1 : 0,
+              isImprime: menu.permissions?.import ? 1 : 0,
+              isAdd: menu.permissions?.add ? 1 : 0,
             }));
+
             if (this.editMod) {
               reqData['id'] = this.id;
             }
