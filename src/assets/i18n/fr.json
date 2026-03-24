@@ -191,7 +191,13 @@
     "Parametrage": "Paramétrage",
     "Utilisateurs": "Utilisateurs",
     "Profils": "Profils",
-    "TableauDeBord": "Tableau de bord"
+    "TableauDeBord": "Tableau de bord",
+    "perm_add": "Ajouter",
+    "perm_update": "Modifier",
+    "perm_delete": "Supprimer",
+    "perm_details": "Détails",
+    "perm_export": "Exporter",
+    "perm_import": "Importer"
   },
   "activeStatus": "Actif",
   "inactiveStatus": "Inactif",
@@ -222,17 +228,5 @@
         "selectionner_menu": "il faut sélectionner des modules"
       }
     }
-  },
-  "menu": {
-    "Administration": "Administration",
-    "Profils": "Gestion profils",
-    "Utilisateurs": "Gestion des utilisateurs",
-    "Parametrage": "Parametrage",
-    "perm_add": "Ajouter",
-    "perm_update": "Modifier",
-    "perm_delete": "Supprimer",
-    "perm_details": "Détails",
-    "perm_export": "Exporter",
-    "perm_import": "Importer"
   }
 }

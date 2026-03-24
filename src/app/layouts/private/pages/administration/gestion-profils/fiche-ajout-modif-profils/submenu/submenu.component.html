@@ -27,7 +27,7 @@
           <i [class]="openNodeId === node.id ? 'feather-minus' : 'feather-plus'"></i>
         </a>
 
-        <ul class="dropdown-menu dropdown-menu-end p-2" [class.show]="openNodeId === node.id">
+        <ul class="dropdown-menu p-2" [class.show]="openNodeId === node.id">
           <li *ngFor="let perm of permissionList" class="mb-1">
             <mat-checkbox
               [checked]="node.permissions?.[perm.key]"

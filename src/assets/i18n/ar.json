@@ -138,18 +138,24 @@
   "administration": {
     "title": "الإدارة",
     "breadcrumb": "الإدارة"
-},
-  "menu":{
-    "Administration":"الإ دارة",
+  },
+  "menu": {
+    "Administration": "الإ دارة",
     "Parametrage": "الإعدادات",
     "Utilisateurs": "المستخدمين",
     "Profils": "الملفات الشخصية",
-    "TableauDeBord": "لوحة القيادة"
+    "TableauDeBord": "لوحة القيادة",
+    "perm_add": "إضافة",
+    "perm_update": "تعديل",
+    "perm_delete": "حذف",
+    "perm_details": "تفاصيل",
+    "perm_export": "تصدير",
+    "perm_import": "تحميل"
   },
   "activeStatus": "نشط",
-"inactiveStatus": "غير نشط",
-"accountStatus": "حالة الحساب",
-"profil": {
+  "inactiveStatus": "غير نشط",
+  "accountStatus": "حالة الحساب",
+  "profil": {
     "list_menu": "قائمة الوحدات",
     "menus": "قائمة الوحدات",
     "title": "إدارة الملفات الشخصية",
@@ -157,23 +163,23 @@
     "add_profil": "إضافة ملف شخصي",
     "update_profil": "تعديل الملف الشخصي",
     "table": {
-        "title": "قائمة الملفات الشخصية",
-        "columns": {
-            "login": "الكود",
-            "Désignation": "التسمية",
-            "FActif": "نشط"
-        }
+      "title": "قائمة الملفات الشخصية",
+      "columns": {
+        "login": "الكود",
+        "Désignation": "التسمية",
+        "FActif": "نشط"
+      }
     },
     "form": {
-        "labels": {
-            "code": "الكود",
-            "desFr": "التسمية",
-            "desEn": "التسمية (إنجليزي)",
-            "isActive": "نشط"
-        },
-        "errors": {
-            "selectionner_menu": "يجب اختيار وحدات"
-        }
+      "labels": {
+        "code": "الكود",
+        "desFr": "التسمية",
+        "desEn": "التسمية (إنجليزي)",
+        "isActive": "نشط"
+      },
+      "errors": {
+        "selectionner_menu": "يجب اختيار وحدات"
+      }
     }
-}
+  }
 }
