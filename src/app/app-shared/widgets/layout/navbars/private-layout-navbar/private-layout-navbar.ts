@@ -99,10 +99,15 @@ selectLanguage(lang: SupportedLanguage): void {
     this.cdr.markForCheck();
   }
 
-getHeaderClass(): string {
+/* getHeaderClass(): string {
   return this.isSidebarOpen ? 'nxl-header sidebar-open' : 'nxl-header sidebar-closed';
+} */
+getHeaderClass() {
+  return {
+    'sidebar-open': this.isSidebarOpen,
+    'sidebar-closed': !this.isSidebarOpen
+  };
 }
-
 
   goHome() {
     this.router.navigate(['/app']);
