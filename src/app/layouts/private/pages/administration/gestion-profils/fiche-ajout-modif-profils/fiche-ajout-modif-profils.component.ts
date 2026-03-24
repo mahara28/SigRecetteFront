@@ -146,7 +146,7 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
             let reqData = this.form.value;
             reqData['listAdmFoncIds'] = this.listmenuscheked.map((menu: any) => ({
               idFonc: menu.idFonc,
-              isList: 1,
+              isList: menu.permissions?.list ? 1 : 0,
               isUpdate: menu.permissions?.update ? 1 : 0,
               isSupp: menu.permissions?.delete ? 1 : 0,
               isDetails: menu.permissions?.details ? 1 : 0,

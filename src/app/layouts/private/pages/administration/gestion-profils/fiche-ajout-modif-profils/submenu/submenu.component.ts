@@ -19,7 +19,7 @@ import { ConstanteWs } from '../../../../../../../app-shared/constantes/constant
 import { ResponseObject } from '../../../../../../../app-shared/models/ResponseObject';
 import { SharedService } from '../../../../../../../app-shared/services/sharedWs/shared.service';
 
-type PermissionKey = 'add' | 'update' | 'delete' | 'details' | 'export' | 'import';
+type PermissionKey = 'list' | 'add' | 'update' | 'delete' | 'details' | 'export' | 'import';
 
 export class MenuNode {
   children!: MenuNode[];
@@ -71,6 +71,7 @@ export class ChecklistDatabase {
       node.id = item.id;
       node.checked = item.checked || false;
       node.permissions = {
+        list: item.isList === 1,
         add: item.isAdd === 1,
         update: item.isUpdate === 1,
         delete: item.isSupp === 1,
@@ -110,6 +111,7 @@ export class SubmenuComponent {
   openNodeId: string | null = null;
 
   permissionList: { key: PermissionKey; label: string; icon: string }[] = [
+    { key: 'list', label: 'menu.perm_list', icon: 'add_circle' },
     { key: 'add', label: 'menu.perm_add', icon: 'add_circle' },
     { key: 'update', label: 'menu.perm_update', icon: 'edit' },
     { key: 'delete', label: 'menu.perm_delete', icon: 'delete' },
@@ -166,6 +168,7 @@ export class SubmenuComponent {
     } else {
       this.openNodeId = node.id; // ouvrir et fermer les autres
     }
+    console.log('toggleDropdown:', node);
   }
 
   handleCheckedNodes() {
@@ -310,8 +313,6 @@ export class SubmenuComponent {
     if (!node || !this.checklistSelection.isSelected(flatNode)) return;
 
     node.permissions[key] = !node.permissions[key];
-
-    console.log('toggle:', node);
   }
 
   flatNodeMap = new Map<MenuFlatNode, MenuNode>();

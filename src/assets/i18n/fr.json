@@ -96,7 +96,6 @@
     "to": "Au",
     "downloadPdf": "Télécharger en PDF",
     "print": "Imprimer",
-    "back": "Retour",
     "home": "Accueil",
     "login": "Login",
     "back": "Retour",
@@ -184,14 +183,48 @@
   },
   "administration": {
     "title": "Administration",
-    "breadcrumb": "Administration"
+    "breadcrumb": "Administration",
+    "users": {
+      "title": "Gestion des utilisateurs",
+      "breadcrumb": "Gestion des utilisateurs",
+      "userList": {
+        "filtre": {
+          "labels": {
+            "login": "Login",
+            "username": "Nom et prénom",
+            "mail": "E-mail",
+            "desProfesFr": "Fonction",
+            "etat": "Etat",
+            "cin": "CIN",
+            "typeUtilisateur": "Type Utilisateur"
+          }
+        },
+        "table": {
+          "title": "Liste groupes",
+          "columns": {
+            "login": "Login",
+            "username": "Nom et prénom",
+            "nom": "Nom",
+            "prenom": "Prénom",
+            "mail": "E-mail",
+            "desProfes": "Fonction",
+            "etat": "Etat",
+            "cin": "CIN",
+            "typeUtilisateur": "Type Utilisateur",
+            "nationalite": "Nationalité",
+            "dateCreate": "Date situation"
+          }
+        }
+      }
+    }
   },
   "menu": {
     "Administration": "Administration",
     "Parametrage": "Paramétrage",
-    "Utilisateurs": "Utilisateurs",
-    "Profils": "Profils",
+    "Utilisateurs": "Gestion des utilisateurs",
+    "Profils": "Gestion des profils",
     "TableauDeBord": "Tableau de bord",
+    "perm_list": "List",
     "perm_add": "Ajouter",
     "perm_update": "Modifier",
     "perm_delete": "Supprimer",
