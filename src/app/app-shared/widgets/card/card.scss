@@ -11,6 +11,7 @@ mc-card mat-card {
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.2s ease;
+  overflow: visible !important;
 }
 
 /* =============================================
@@ -19,11 +20,11 @@ mc-card mat-card {
 mc-card .mat-mdc-card,
 mc-card mat-card {
   background: #ffffff !important;
-  border-radius: 12px !important;
+  border-radius: 14px !important;
   border: 1px solid #e9ecef !important;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
   padding: 0 !important;
-  overflow: hidden !important;
+  /* overflow: hidden !important; */
   width: 100% !important;
   display: flex !important;
   flex-direction: column !important;
@@ -40,6 +41,7 @@ mc-card .mat-mdc-card-header {
   border-bottom: 1px solid #e9ecef;
   background: #d5e0ee;
   flex-shrink: 0;
+  border-radius: 12px 12px 0 0 !important;
 }
 
 /* Fix Material qui ajoute un padding interne sur le wrapper */
@@ -56,7 +58,7 @@ mc-card .header-container {
   width: 100%;
   gap: 12px;
   flex-wrap: wrap;
-} 
+}
 
 /* ===== Titre ===== */
 mc-card .title-section {
@@ -216,30 +218,50 @@ mc-card .filter-form input::placeholder {
 }
 
 /* =============================================
-   Card Content — p-0
+   Card Content - CORRECTION IMPORTANTE
    ============================================= */
-mc-card mat-card-content,
-mc-card .mat-mdc-card-content {
+:host mat-card-content,
+:host .mat-mdc-card-content {
   flex: 1 !important;
-  padding: 0 !important;
+  padding: 20px !important; /* Ajout d'un padding par défaut */
   margin: 0 !important;
   overflow-x: auto;
   overflow-y: auto;
-  border-radius: 0 0 12px 12px;
+  background: #ffffff;
+  min-height: 100px; /* Hauteur minimale pour éviter l'affaissement */
 }
 
-mc-card mat-card-content:first-child,
-mc-card .mat-mdc-card-content:first-child {
-  padding-top: 0 !important;
+/* Style pour le contenu sans padding (si nécessaire) */
+:host mat-card-content.no-padding,
+:host .mat-mdc-card-content.no-padding {
+  padding: 0 !important;
 }
 
-/* scrollbar fine */
-mc-card mat-card-content::-webkit-scrollbar {
+/* Scrollbar fine */
+:host mat-card-content::-webkit-scrollbar,
+:host .mat-mdc-card-content::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 
-mc-card mat-card-content::-webkit-scrollbar-thumb {
+:host mat-card-content::-webkit-scrollbar-thumb,
+:host .mat-mdc-card-content::-webkit-scrollbar-thumb {
   background: #dee2e6;
   border-radius: 4px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :host .header-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  :host .actions-section {
+    justify-content: flex-start;
+  }
+
+  :host .filter-form input {
+    width: 100%;
+  }
 }
