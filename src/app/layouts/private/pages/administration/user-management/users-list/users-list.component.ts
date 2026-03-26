@@ -58,7 +58,9 @@ export class UsersListComponent implements OnInit {
 
   initMetadata() {
     this.params['userListData'] = {
-      metadata: UserListMetatdata.userListTableMetadata,
+      metadata: this.permissionService.getMetadataWithPermissions(
+        UserListMetatdata.userListTableMetadata,
+      ),
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({
@@ -66,12 +68,6 @@ export class UsersListComponent implements OnInit {
       }),
       searchObjectAll: new SearchObject(),
     };
-
-    //****** Gestion des droit d'accée ****//
-    this.params['userListData'] = this.permissionService.getMetadataWithPermissions(
-      UserListMetatdata.userListTableMetadata,
-    );
-    /***************************************/
   }
 
   /** Manage user data functions */

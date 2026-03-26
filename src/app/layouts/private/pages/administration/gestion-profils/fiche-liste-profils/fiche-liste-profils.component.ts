@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RequestObject, SearchObject, Sort } from '../../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { initSearchObject, isEmptyValue, onAction } from '../../../../../../app-shared/tools';
@@ -23,7 +23,7 @@ import { PermissionService } from '../../../../shared/gestion-permission/permiss
   templateUrl: './fiche-liste-profils.component.html',
   styleUrls: ['./fiche-liste-profils.component.scss'],
 })
-export class FicheListeProfilsComponent implements OnInit {
+export class FicheListeProfilsComponent implements OnInit, OnDestroy {
   subscriptionsList: Subscription[] = [];
   params: any = {};
   idFonc!: any;
@@ -53,7 +53,9 @@ export class FicheListeProfilsComponent implements OnInit {
 
   initMetadata() {
     this.params['listeProfils'] = {
-      metadata: FicheListeProfilsMetadata.tableListProfilsMetadata,
+      metadata: this.permissionService.getMetadataWithPermissions(
+        FicheListeProfilsMetadata.tableListProfilsMetadata,
+      ),
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({
@@ -63,9 +65,7 @@ export class FicheListeProfilsComponent implements OnInit {
     };
 
     //****** Gestion des droit d'accée ****//
-    this.params['listeProfils'] = this.permissionService.getMetadataWithPermissions(
-      FicheListeProfilsMetadata.tableListProfilsMetadata,
-    );
+    //this.params['listeProfils'].metadata =
     /***************************************/
   }
 
