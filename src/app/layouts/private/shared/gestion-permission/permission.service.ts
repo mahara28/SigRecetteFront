@@ -3,12 +3,14 @@ import { initSearchObject } from '../../../../app-shared/tools';
 import { SearchObject, Sort } from '../../../../app-shared/models';
 import { Icons } from '../../../../app-shared/constantes/Icons';
 import { SessionStorageService } from '../../../../app-shared/services/SessionStorage/session-storage.service';
+import { LocalStorageService } from '../../../../app-shared/services/localStorage/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PermissionService {
   private sessionStorage = inject(SessionStorageService);
+  private localStorage = inject(LocalStorageService);
 
   /**
    * Retourne un objet metadata adapté aux permissions de l'utilisateur
@@ -18,7 +20,7 @@ export class PermissionService {
   getMetadataWithPermissions(metadataDefault: any) {
     const idFonc = Number(this.sessionStorage.getItem('selectedMenu'));
 
-    const userStr = localStorage.getItem('userInfo');
+    const userStr = this.localStorage.getItem('userInfo');
     if (!userStr) return null;
 
     const user = JSON.parse(userStr);
@@ -49,20 +51,12 @@ export class PermissionService {
 
     // Retourner l'objet complet
     return {
-      metadata: {
-        ...metadataDefault,
-        hasAdd: canAdd,
-        hasFilter: canFilter,
-        hasExport: canExport,
-        hasImprime: canImprime,
-        columns: columns,
-      },
-      payload: [],
-      payloadall: [],
-      searchObject: initSearchObject({
-        sort: new Sort(),
-      }),
-      searchObjectall: new SearchObject(),
+      ...metadataDefault,
+      hasAdd: canAdd,
+      hasFilter: canFilter,
+      hasExport: canExport,
+      hasImprime: canImprime,
+      columns,
     };
   }
 }

@@ -146,7 +146,7 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
             let reqData = this.form.value;
             reqData['listAdmFoncIds'] = this.listmenuscheked.map((menu: any) => ({
               idFonc: menu.idFonc,
-              isList: menu.permissions?.list ? 1 : 0,
+              //isList: menu.permissions?.list ? 1 : 0,
               isUpdate: menu.permissions?.update ? 1 : 0,
               isSupp: menu.permissions?.delete ? 1 : 0,
               isDetails: menu.permissions?.details ? 1 : 0,
@@ -175,7 +175,9 @@ export class FicheAjoutModifProfilsComponent implements OnInit {
                   } else {
                     this.toast.success('general.message.success_save');
                   }
-                  this.router.navigate(['/app/adm/profil/userProfil']);
+                  this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+                    this.router.navigate(['/app/adm/profil/userProfil']);
+                  });
                 } else {
                   if (response.code == ConstanteWs._CODE_WS_ERROR_SAVE_OR_UPDATE) {
                     this.toast.error('general.code_exist');
