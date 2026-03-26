@@ -1,0 +1,21 @@
+<div class="cp5" fxLayout="row wrap">
+  <!-- <div fxFlex="100" fxFlex.lt-md="100">
+    <pfs-filter-user-list
+      (searchoptions)="onSearch($event)"
+      #filtre
+      (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch() : null"
+    ></pfs-filter-user-list>
+  </div> -->
+
+  <div fxFlex="100" fxFlex.lt-md="100">
+    <mc-datatable
+      [responsePayload]="params.userListData.payload"
+      [responsePayloadall]="params.userListData.payloadall"
+      [metadata]="params.userListData.metadata"
+      (onAction)="onAction(this, $event)"
+      (paginate)="onPaginate($event)"
+      (sort)="onSort($event)"
+    >
+    </mc-datatable>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
   selector: 'mc-button-loading',
   standalone: false,
   templateUrl: './button-loading.html',
-  styleUrl: './button-loading.css',
+  styleUrl: './button-loading.scss',
 })
 export class ButtonLoading {
   loading = input<boolean>(false);

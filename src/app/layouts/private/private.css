@@ -1,28 +1,28 @@
 /* ===== BODY WRAPPER ===== */
 .nxl-container.body-wrapper {
-  width: 100%;
+  /**width: 100%;**/
   min-height: 100vh;
   transition: all 0.3s ease;
 }
 
 /* ===== LTR ===== */
-[dir="ltr"] .nxl-container.body-wrapper.sidebar-open {
+[dir='ltr'] .nxl-container.body-wrapper.sidebar-open {
   margin-left: 280px;
   margin-right: 0;
 }
 
-[dir="ltr"] .nxl-container.body-wrapper.sidebar-closed {
+[dir='ltr'] .nxl-container.body-wrapper.sidebar-closed {
   margin-left: 0;
   margin-right: 0;
 }
 
 /* ===== RTL (FIX FINAL) ===== */
-[dir="rtl"] .nxl-container.body-wrapper.sidebar-open {
+[dir='rtl'] .nxl-container.body-wrapper.sidebar-open {
   margin-right: 280px;
   margin-left: 0;
 }
 
-[dir="rtl"] .nxl-container.body-wrapper.sidebar-closed {
+[dir='rtl'] .nxl-container.body-wrapper.sidebar-closed {
   margin-right: 0;
   margin-left: 0;
 }

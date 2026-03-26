@@ -137,7 +137,11 @@
   },
   "administration": {
     "title": "الإدارة",
-    "breadcrumb": "الإدارة"
+    "breadcrumb": "الإدارة",
+    "users": {
+      "title": "إدارة المستخدمين",
+      "breadcrumb": "إدارة المستخدمين"
+    }
   },
   "menu": {
     "Administration": "الإ دارة",
@@ -145,6 +149,7 @@
     "Utilisateurs": "المستخدمين",
     "Profils": "الملفات الشخصية",
     "TableauDeBord": "لوحة القيادة",
+    "perm_list": "قائمة",
     "perm_add": "إضافة",
     "perm_update": "تعديل",
     "perm_delete": "حذف",

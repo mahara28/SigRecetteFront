@@ -2,17 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  /* {
-    path: "users",
+  {
+    path: 'users',
     data: {
-      title: "administration.title",
-      breadcrumb: "administration.breadcrumb",
+      title: 'administration.title',
+      breadcrumb: 'administration.breadcrumb',
     },
     loadChildren: () =>
-      import("./user-management/user-management.module").then(
-        (m) => m.UserManagementModule
-      ),
-  }, */
+      import('./user-management/user-management.module').then((m) => m.UserManagementModule),
+  },
   /* {
     path: "access-log",
     data: {

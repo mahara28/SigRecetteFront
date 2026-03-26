@@ -1,35 +1,35 @@
 <mc-card [metadata]="{ title: title }">
-  <div class="card" style="height: 100%; display: flex; flex-direction: column">
-    <div class="card-body" style="flex: 1; overflow: auto">
-      <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
-        <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
-          <div
-            fxFlex="100"
-            fxFlex.lt-md="100"
-            fxLayout="row"
-            fxLayoutAlign=" center"
-            class="subheader-underline"
-          >
-            <h5 class="fw-bold">{{ 'profil.add_profil' | translate }}</h5>
-          </div>
-          <div class="form-grid">
-            <div class="form-field">
-              <mc-text-field
-                [control]="getFormControl('code')"
-                [label]="getLabel('code')"
-                max="40"
-              ></mc-text-field>
-            </div>
+  <!-- <div class="card">
+    <div class="card-body"> -->
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div
+        fxFlex="100"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <h5 class="fw-bold">{{ 'profil.add_profil' | translate }}</h5>
+      </div>
+      <div class="form-grid">
+        <div class="form-field">
+          <mc-text-field
+            [control]="getFormControl('code')"
+            [label]="getLabel('code')"
+            max="40"
+          ></mc-text-field>
+        </div>
 
-            <div class="form-field">
-              <mc-text-field
-                [control]="getFormControl('desFr')"
-                [label]="getLabel('desFr')"
-                max="300"
-              ></mc-text-field>
-            </div>
-          </div>
-          <!-- <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div class="form-field">
+          <mc-text-field
+            [control]="getFormControl('desFr')"
+            [label]="getLabel('desFr')"
+            max="300"
+          ></mc-text-field>
+        </div>
+      </div>
+      <!-- <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
                 
                 <div fxFlex="25" fxFlex.lt-md="100">
                     <mc-text-field [control]="getFormControl('code')"
@@ -47,47 +47,47 @@
                     
                  
             </div> -->
-          <div fxFlex="25" fxFlex.lt-md="100">
-            <label style="margin-right: 20px" id="example-radio-group-label">{{
-              'activeStatus' | translate
-            }}</label>
-            <mat-radio-group formControlName="isActive">
-              <mat-radio-button style="margin-right: 20px" value="1"
-                >{{ 'general.yes' | translate }}
-              </mat-radio-button>
-              <mat-radio-button value="0">{{ 'general.no' | translate }}</mat-radio-button>
-            </mat-radio-group>
-          </div>
-          <div
-            fxFlex="50"
-            fxFlex.lt-md="100"
-            fxLayout="row"
-            fxLayoutAlign=" center"
-            class="subheader-underline"
-          >
-            <h5 class="fw-bold">{{ 'profil.menus' | translate }}</h5>
-          </div>
-
-          <app-submenu
-            [editMode]="editMod"
-            [data]="listMenus"
-            (dataChecked)="getdatacheked($event)"
-          ></app-submenu>
-        </div>
-      </form>
-
-      <!-- Ajoutez une classe spécifique pour le conteneur des boutons -->
-      <div class="action-buttons-container">
-        <mc-button-loading (click)="onSave()" btnClass="save-btn">
-          <mat-icon class="mx-1" style="font-size: 1.4rem">save_outline</mat-icon>
-          <span>{{ 'general.save' | translate }}</span>
-        </mc-button-loading>
-
-        <button (click)="backToList()" mat-raised-button type="button" class="cancel-btn">
-          <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
-          <span>{{ 'general.back' | translate }}</span>
-        </button>
+      <div fxFlex="25" fxFlex.lt-md="100">
+        <label style="margin-right: 20px" id="example-radio-group-label">{{
+          'activeStatus' | translate
+        }}</label>
+        <mat-radio-group formControlName="isActive">
+          <mat-radio-button style="margin-right: 20px" value="1"
+            >{{ 'general.yes' | translate }}
+          </mat-radio-button>
+          <mat-radio-button value="0">{{ 'general.no' | translate }}</mat-radio-button>
+        </mat-radio-group>
       </div>
+      <div
+        fxFlex="50"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <h5 class="fw-bold">{{ 'profil.menus' | translate }}</h5>
+      </div>
+
+      <app-submenu
+        [editMode]="editMod"
+        [data]="listMenus"
+        (dataChecked)="getdatacheked($event)"
+      ></app-submenu>
     </div>
+  </form>
+
+  <!-- Ajoutez une classe spécifique pour le conteneur des boutons -->
+  <div class="action-buttons-container">
+    <mc-button-loading (click)="onSave()" btnClass="save-btn">
+      <mat-icon class="mx-1" style="font-size: 1.4rem">save_outline</mat-icon>
+      <span>{{ 'general.save' | translate }}</span>
+    </mc-button-loading>
+
+    <button (click)="backToList()" mat-raised-button type="button" class="cancel-btn">
+      <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
+      <span>{{ 'general.back' | translate }}</span>
+    </button>
   </div>
+  <!-- </div>
+  </div> -->
 </mc-card>
