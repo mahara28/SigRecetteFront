@@ -147,7 +147,8 @@
     },
     "notifications_panel": {
       "title": "Notifications",
-      "empty_list_notif": "Aucune notification pour le moment."
+      "empty_list_notif": "Aucune notification pour le moment.",
+      "btn_all_notif": "Tous les Notifications"
     }
   },
   "noAccount": "Pas encore de compte ? Contactez un administrateur.",
@@ -224,6 +225,7 @@
     "Utilisateurs": "Gestion des utilisateurs",
     "Profils": "Gestion des profils",
     "TableauDeBord": "Tableau de bord",
+    "NotificationMessage":"Notifications et Messages",
     "perm_list": "List",
     "perm_add": "Ajouter",
     "perm_update": "Modifier",
@@ -260,6 +262,11 @@
       "errors": {
         "selectionner_menu": "il faut sélectionner des modules"
       }
+    }
+  },
+  "notificationsMessage": {
+    "list":{
+      "title":" Liste des notification et des messages"
     }
   }
 }

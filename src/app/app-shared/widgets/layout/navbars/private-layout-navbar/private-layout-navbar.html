@@ -1,15 +1,14 @@
-<header class="nxl-header"
-[attr.dir]="currentDirection"
-[ngClass]="getHeaderClass()"
-
->
+<header class="nxl-header" [attr.dir]="currentDirection" [ngClass]="getHeaderClass()">
   <div class="header-wrapper">
-
     <!-- LEFT SIDE -->
     <div class="header-left d-flex align-items-center gap-4">
-      <a href="javascript:void(0);" class="nxl-head-mobile-toggler" id="mobile-collapse"
-      (click)="onToggleSidebar()"
-      [attr.aria-expanded]="isSidebarOpen">
+      <a
+        href="javascript:void(0);"
+        class="nxl-head-mobile-toggler"
+        id="mobile-collapse"
+        (click)="onToggleSidebar()"
+        [attr.aria-expanded]="isSidebarOpen"
+      >
         <div class="hamburger hamburger--arrowturn">
           <div class="hamburger-box">
             <div class="hamburger-inner"></div>
@@ -18,14 +17,21 @@
       </a>
 
       <div class="nxl-navigation-toggle">
-        <a href="javascript:void(0);" id="menu-mini-button"
-        (click)="onToggleSidebar()"
-     [style.display]="!isSidebarOpen ? 'none' : 'inline-block'">
+        <a
+          href="javascript:void(0);"
+          id="menu-mini-button"
+          (click)="onToggleSidebar()"
+          [style.display]="!isSidebarOpen ? 'none' : 'inline-block'"
+        >
           <i class="feather-align-left"></i>
         </a>
-        <a href="javascript:void(0);" id="menu-expend-button" style="display: none"
-        (click)="onToggleSidebar()"
-     [style.display]="isSidebarOpen ? 'none' : 'inline-block'">
+        <a
+          href="javascript:void(0);"
+          id="menu-expend-button"
+          style="display: none"
+          (click)="onToggleSidebar()"
+          [style.display]="isSidebarOpen ? 'none' : 'inline-block'"
+        >
           <i class="feather-arrow-right"></i>
         </a>
       </div>
@@ -45,74 +51,78 @@
       class="header-right"
       [class.ms-auto]="currentDirection === 'ltr'"
       [class.me-auto]="currentDirection === 'rtl'"
-      
     >
       <div class="d-flex align-items-center">
-
         <!-- LANGUAGE SWITCHER -->
-      <div class="nxl-h-item nxl-header-language d-none d-sm-flex">
-  <button mat-icon-button
-          class="nxl-head-link me-0 nxl-language-link"
-          [matMenuTriggerFor]="languageMenu">
-    <i class="fa fa-language" aria-hidden="true"></i>
-  </button>
+        <div class="nxl-h-item nxl-header-language d-none d-sm-flex">
+          <button
+            mat-icon-button
+            class="nxl-head-link me-0 nxl-language-link"
+            [matMenuTriggerFor]="languageMenu"
+          >
+            <i class="fa fa-language" aria-hidden="true"></i>
+          </button>
 
-  <mat-menu #languageMenu="matMenu"
+          <mat-menu
+            #languageMenu="matMenu"
             class="nxl-language-dropdown"
             [class.rtl-menu]="currentDirection === 'rtl'"
             [overlapTrigger]="false"
-            xPosition="after">
+            xPosition="after"
+          >
+            <div class="language-items-wrapper">
+              <!-- En-tête -->
+              <div class="select-language" mat-menu-item disabled>
+                <h6 class="mb-0">{{ 'LANG.title' | translate }}</h6>
+              </div>
 
-    <div class="language-items-wrapper">
-      <!-- En-tête -->
-      <div class="select-language" mat-menu-item disabled>
-        <h6 class="mb-0">{{ 'LANG.title' | translate }}</h6>
-      </div>
+              <mat-divider></mat-divider>
 
-      <mat-divider></mat-divider>
+              <!-- Liste des langues -->
+              <div class="language-list">
+                <!-- Arabe -->
+                <button
+                  mat-menu-item
+                  class="language-select-item"
+                  [class.active]="currentLang === 'ar'"
+                  (click)="selectLanguage('ar')"
+                >
+                  <div class="language-item-content">
+                    <mat-icon class="language-check-icon" *ngIf="currentLang === 'ar'"
+                      >check_circle</mat-icon
+                    >
+                    <span class="language-check-placeholder" *ngIf="currentLang !== 'ar'"></span>
+                    <span class="language-name">{{ 'LANG.ARABIC' | translate }}</span>
+                  </div>
+                </button>
 
-      <!-- Liste des langues -->
-      <div class="language-list">
-        <!-- Arabe -->
-        <button mat-menu-item
-                class="language-select-item"
-                [class.active]="currentLang === 'ar'"
-                (click)="selectLanguage('ar')">
-          <div class="language-item-content">
-            <mat-icon class="language-check-icon"
-                      *ngIf="currentLang === 'ar'">check_circle</mat-icon>
-            <span class="language-check-placeholder"
-                  *ngIf="currentLang !== 'ar'"></span>
-            <span class="language-name">{{ 'LANG.ARABIC' | translate }}</span>
-          </div>
-        </button>
+                <!-- Français -->
+                <button
+                  mat-menu-item
+                  class="language-select-item"
+                  [class.active]="currentLang === 'fr'"
+                  (click)="selectLanguage('fr')"
+                >
+                  <div class="language-item-content">
+                    <mat-icon class="language-check-icon" *ngIf="currentLang === 'fr'"
+                      >check_circle</mat-icon
+                    >
+                    <span class="language-check-placeholder" *ngIf="currentLang !== 'fr'"></span>
+                    <span class="language-name">{{ 'LANG.FRENCH' | translate }}</span>
+                  </div>
+                </button>
+              </div>
 
-        <!-- Français -->
-        <button mat-menu-item
-                class="language-select-item"
-                [class.active]="currentLang === 'fr'"
-                (click)="selectLanguage('fr')">
-          <div class="language-item-content">
-            <mat-icon class="language-check-icon"
-                      *ngIf="currentLang === 'fr'">check_circle</mat-icon>
-            <span class="language-check-placeholder"
-                  *ngIf="currentLang !== 'fr'"></span>
-            <span class="language-name">{{ 'LANG.FRENCH' | translate }}</span>
-          </div>
-        </button>
-      </div>
-
-      <mat-divider></mat-divider>
-
-    </div>
-  </mat-menu>
-</div>
+              <mat-divider></mat-divider>
+            </div>
+          </mat-menu>
+        </div>
 
         <!-- FULLSCREEN -->
         <div class="nxl-h-item d-none d-sm-flex">
           <div class="full-screen-switcher">
-
-            <a  href="javascript:void(0);"
+            <a
+              href="javascript:void(0);"
               class="nxl-head-link me-0"
               onclick="$('body').fullScreenHelper('toggle')"
             >
@@ -127,15 +137,19 @@
           <a href="javascript:void(0);" class="nxl-head-link me-0 dark-button">
             <i class="feather-moon"></i>
           </a>
-          <a href="javascript:void(0);" class="nxl-head-link me-0 light-button" style="display: none">
+          <a
+            href="javascript:void(0);"
+            class="nxl-head-link me-0 light-button"
+            style="display: none"
+          >
             <i class="feather-sun"></i>
           </a>
         </div>
 
         <!-- CLOCK -->
         <div class="dropdown nxl-h-item">
-
-          <a  href="javascript:void(0);"
+          <a
+            href="javascript:void(0);"
             class="nxl-head-link me-0"
             data-bs-toggle="dropdown"
             role="button"
@@ -148,15 +162,14 @@
 
         <!-- NOTIFICATIONS -->
         <div class="dropdown nxl-h-item">
-
-          <a  class="nxl-head-link me-3"
+          <a
+            class="nxl-head-link me-3"
             data-bs-toggle="dropdown"
-            href="#"
             role="button"
             data-bs-auto-close="outside"
           >
             <i class="feather-bell"></i>
-            <span class="badge bg-danger nxl-h-badge">3</span>
+            <span class="badge bg-danger nxl-h-badge">{{ unread_notif }}</span>
           </a>
           <div
             class="dropdown-menu nxl-h-dropdown nxl-notifications-menu"
@@ -164,9 +177,12 @@
             [class.dropdown-menu-start]="currentDirection === 'rtl'"
           >
             <div class="d-flex justify-content-between align-items-center notifications-head">
-              <h6 class="fw-bold text-dark mb-0">Notifications</h6>
+              <h6 class="fw-bold text-dark mb-0">
+                {{ 'general.notifications_panel.title' | translate }}
+              </h6>
 
-              <a  href="javascript:void(0);"
+              <a
+                (click)="setAsRead('NOTIF')"
                 class="fs-11 text-success ms-auto"
                 data-bs-toggle="tooltip"
                 title="Make as Read"
@@ -176,90 +192,119 @@
               </a>
             </div>
 
-            <div class="notifications-item">
+            <!--<div class="notifications-item">
               <img src="assets/images/avatar/2.png" alt="" class="rounded me-3 border" />
               <div class="notifications-desc">
                 <a href="javascript:void(0);" class="font-body text-truncate-2-line">
                   <span class="fw-semibold text-dark">Malanie Hanvey</span>
                   We should talk about that at lunch!
                 </a>
-                <div class="d-flex justify-content-between align-items-center">
+                 <div class="d-flex justify-content-between align-items-center">
                   <div class="notifications-date text-muted border-bottom border-bottom-dashed">
                     2 minutes ago
                   </div>
                   <div class="d-flex align-items-center gap-2">
-                    <a href="javascript:void(0);"
-                       class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
-                       data-bs-toggle="tooltip" title="Make as Read"></a>
-                    <a href="javascript:void(0);" class="text-danger"
-                       data-bs-toggle="tooltip" title="Remove">
+                    <a
+                      href="javascript:void(0);"
+                      class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
+                      data-bs-toggle="tooltip"
+                      title="Make as Read"
+                    ></a>
+                    <a
+                      href="javascript:void(0);"
+                      class="text-danger"
+                      data-bs-toggle="tooltip"
+                      title="Remove"
+                    >
                       <i class="feather-x fs-12"></i>
                     </a>
                   </div>
-                </div>
+                </div> 
               </div>
-            </div>
-
-            <div class="notifications-item">
-              <img src="assets/images/avatar/3.png" alt="" class="rounded me-3 border" />
-              <div class="notifications-desc">
-                <a href="javascript:void(0);" class="font-body text-truncate-2-line">
-                  <span class="fw-semibold text-dark">Valentine Maton</span>
-                  You can download the latest invoices now.
-                </a>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="notifications-date text-muted border-bottom border-bottom-dashed">
-                    36 minutes ago
-                  </div>
-                  <div class="d-flex align-items-center gap-2">
-                    <a href="javascript:void(0);"
-                       class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
-                       data-bs-toggle="tooltip" title="Make as Read"></a>
-                    <a href="javascript:void(0);" class="text-danger"
-                       data-bs-toggle="tooltip" title="Remove">
-                      <i class="feather-x fs-12"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="notifications-item">
-              <img src="assets/images/avatar/4.png" alt="" class="rounded me-3 border" />
-              <div class="notifications-desc">
-                <a href="javascript:void(0);" class="font-body text-truncate-2-line">
-                  <span class="fw-semibold text-dark">Archie Cantones</span>
-                  Don't forget to pickup Jeremy after school!
-                </a>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="notifications-date text-muted border-bottom border-bottom-dashed">
-                    53 minutes ago
-                  </div>
-                  <div class="d-flex align-items-center gap-2">
-                    <a href="javascript:void(0);"
-                       class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
-                       data-bs-toggle="tooltip" title="Make as Read"></a>
-                    <a href="javascript:void(0);" class="text-danger"
-                       data-bs-toggle="tooltip" title="Remove">
-                      <i class="feather-x fs-12"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </div>-->
 
             <div class="text-center notifications-footer">
-              <a href="javascript:void(0);" class="fs-13 fw-semibold text-dark">
-                Alls Notifications
+              <a (click)="goToListMessage('NOTIF')" class="fs-13 fw-semibold text-dark">
+                {{ 'general.notifications_panel.btn_all_notif' | translate }}
               </a>
             </div>
           </div>
         </div>
+        <!-- Message -->
+        <div class="dropdown nxl-h-item">
+          <a
+            class="nxl-head-link me-3"
+            data-bs-toggle="dropdown"
+            role="button"
+            data-bs-auto-close="outside"
+          >
+            <i class="feather-message-square"></i>
+            <span class="badge bg-warning nxl-h-badge">{{ unread_msg }}</span>
+          </a>
+          <div
+            class="dropdown-menu nxl-h-dropdown nxl-notifications-menu"
+            [class.dropdown-menu-end]="currentDirection === 'ltr'"
+            [class.dropdown-menu-start]="currentDirection === 'rtl'"
+          >
+            <div class="d-flex justify-content-between align-items-center notifications-head">
+              <h6 class="fw-bold text-dark mb-0">
+                {{ 'general.notifications_panel.title' | translate }}
+              </h6>
 
+              <a
+                (click)="setAsRead('MSG')"
+                class="fs-11 text-success ms-auto"
+                role="button"
+                data-bs-toggle="tooltip"
+                title="Make as Read"
+              >
+                <i class="feather-check"></i>
+                <span>Make as Read</span>
+              </a>
+            </div>
+
+            <!--<div class="notifications-item">
+              <img src="assets/images/avatar/2.png" alt="" class="rounded me-3 border" />
+              <div class="notifications-desc">
+                <a href="javascript:void(0);" class="font-body text-truncate-2-line">
+                  <span class="fw-semibold text-dark">Malanie Hanvey</span>
+                  We should talk about that at lunch!
+                </a>
+                 <div class="d-flex justify-content-between align-items-center">
+                  <div class="notifications-date text-muted border-bottom border-bottom-dashed">
+                    2 minutes ago
+                  </div>
+                  <div class="d-flex align-items-center gap-2">
+                    <a
+                      href="javascript:void(0);"
+                      class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
+                      data-bs-toggle="tooltip"
+                      title="Make as Read"
+                    ></a>
+                    <a
+                      href="javascript:void(0);"
+                      class="text-danger"
+                      data-bs-toggle="tooltip"
+                      title="Remove"
+                    >
+                      <i class="feather-x fs-12"></i>
+                    </a>
+                  </div>
+                </div> 
+              </div>
+            </div>-->
+
+            <div class="text-center notifications-footer">
+              <a (click)="goToListMessage('MSG')" class="fs-13 fw-semibold text-dark">
+                {{ 'general.notifications_panel.btn_all_notif' | translate }}
+              </a>
+            </div>
+          </div>
+        </div>
         <!-- USER AVATAR -->
         <div class="dropdown nxl-h-item">
-
-          <a  href="javascript:void(0);"
+          <a
+            href="javascript:void(0);"
             data-bs-toggle="dropdown"
             role="button"
             data-bs-auto-close="outside"
@@ -304,10 +349,8 @@
             </a>
           </div>
         </div>
-
       </div>
     </div>
     <!-- END RIGHT SIDE -->
-
   </div>
 </header>
