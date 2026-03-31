@@ -195,7 +195,6 @@ export class SubmenuComponent {
 
       method: ConstanteWs._CODE_GET,
     };
-    console.log('getMenue:', request);
 
     this.sharedService.commonWs(request).subscribe({
       next: (response: ResponseObject) => {
