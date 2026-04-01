@@ -147,7 +147,7 @@
         </div>
 
         <!-- CLOCK -->
-        <div class="dropdown nxl-h-item">
+        <!-- <div class="dropdown nxl-h-item">
           <a
             href="javascript:void(0);"
             class="nxl-head-link me-0"
@@ -158,12 +158,13 @@
             <i class="feather-clock"></i>
             <span class="badge bg-success nxl-h-badge">2</span>
           </a>
-        </div>
+        </div> -->
 
         <!-- NOTIFICATIONS -->
         <div class="dropdown nxl-h-item">
           <a
-            class="nxl-head-link me-3"
+            (click)="getData('NOTIF')"
+            class="nxl-head-link me-0"
             data-bs-toggle="dropdown"
             role="button"
             data-bs-auto-close="outside"
@@ -182,50 +183,69 @@
               </h6>
 
               <a
-                (click)="setAsRead('NOTIF')"
+                (click)="setAllAsRead('NOTIF')"
+                role="button"
                 class="fs-11 text-success ms-auto"
                 data-bs-toggle="tooltip"
                 title="Make as Read"
               >
                 <i class="feather-check"></i>
-                <span>Make as Read</span>
+                <span>{{ 'notificationsMessage.marquer_lu' | translate }}</span>
               </a>
             </div>
 
-            <!--<div class="notifications-item">
-              <img src="assets/images/avatar/2.png" alt="" class="rounded me-3 border" />
-              <div class="notifications-desc">
-                <a href="javascript:void(0);" class="font-body text-truncate-2-line">
-                  <span class="fw-semibold text-dark">Malanie Hanvey</span>
-                  We should talk about that at lunch!
-                </a>
-                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="notifications-date text-muted border-bottom border-bottom-dashed">
-                    2 minutes ago
-                  </div>
-                  <div class="d-flex align-items-center gap-2">
+            @if (ListNotifUnread.length > 0) {
+              @for (item of ListNotifUnread; track item.id) {
+                <div class="notifications-item">
+                  <div class="notifications-desc">
                     <a
-                      href="javascript:void(0);"
-                      class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
-                      data-bs-toggle="tooltip"
-                      title="Make as Read"
-                    ></a>
-                    <a
-                      href="javascript:void(0);"
-                      class="text-danger"
-                      data-bs-toggle="tooltip"
-                      title="Remove"
+                      (click)="setAsRead(item.id, 'MSG')"
+                      role="button"
+                      class="font-body text-truncate-2-line"
                     >
-                      <i class="feather-x fs-12"></i>
+                      <span class="fw-semibold text-dark">{{ item.usernameEm }}</span>
+                      - {{ item.titre }}
                     </a>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="notifications-date text-muted border-bottom border-bottom-dashed">
+                        {{ item.dateEnvoi | date: 'dd/MM/yyyy HH:mm' }}
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2">
+                        <a
+                          href="javascript:void(0);"
+                          class="d-block wd-8 ht-8 rounded-circle bg-warning"
+                          data-bs-toggle="tooltip"
+                          [title]="'notificationsMessage.non_lu' | translate"
+                        ></a>
+
+                        <!-- <a
+                          href="javascript:void(0);"
+                          class="text-danger"
+                          data-bs-toggle="tooltip"
+                          title="Supprimer"
+                        >
+                          <i class="feather-x fs-12"></i>
+                        </a> -->
+                      </div>
+                    </div>
                   </div>
-                </div> 
+                </div>
+              }
+            } @else {
+              <div class="text-center py-3 text-muted">
+                {{ 'general.messages_panel.empty_list_notif' | translate }}
               </div>
-            </div>-->
+            }
 
             <div class="text-center notifications-footer">
-              <a (click)="goToListMessage('NOTIF')" class="fs-13 fw-semibold text-dark">
-                {{ 'general.notifications_panel.btn_all_notif' | translate }}
+              <a
+                (click)="goToListMessage('NOTIF')"
+                role="button"
+                class="fs-13 fw-semibold text-dark"
+              >
+                {{ 'general.notifications_panel.btn_all' | translate }}
               </a>
             </div>
           </div>
@@ -233,6 +253,7 @@
         <!-- Message -->
         <div class="dropdown nxl-h-item">
           <a
+            (click)="getData('MSG')"
             class="nxl-head-link me-3"
             data-bs-toggle="dropdown"
             role="button"
@@ -248,55 +269,68 @@
           >
             <div class="d-flex justify-content-between align-items-center notifications-head">
               <h6 class="fw-bold text-dark mb-0">
-                {{ 'general.notifications_panel.title' | translate }}
+                {{ 'general.messages_panel.title' | translate }}
               </h6>
 
               <a
-                (click)="setAsRead('MSG')"
+                (click)="setAllAsRead('MSG')"
                 class="fs-11 text-success ms-auto"
                 role="button"
                 data-bs-toggle="tooltip"
                 title="Make as Read"
               >
                 <i class="feather-check"></i>
-                <span>Make as Read</span>
+                <span>{{ 'notificationsMessage.marquer_lu' | translate }}</span>
               </a>
             </div>
 
-            <!--<div class="notifications-item">
-              <img src="assets/images/avatar/2.png" alt="" class="rounded me-3 border" />
-              <div class="notifications-desc">
-                <a href="javascript:void(0);" class="font-body text-truncate-2-line">
-                  <span class="fw-semibold text-dark">Malanie Hanvey</span>
-                  We should talk about that at lunch!
-                </a>
-                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="notifications-date text-muted border-bottom border-bottom-dashed">
-                    2 minutes ago
-                  </div>
-                  <div class="d-flex align-items-center gap-2">
+            @if (ListMsgUnread.length > 0) {
+              @for (item of ListMsgUnread; track item.id) {
+                <div class="notifications-item">
+                  <div class="notifications-desc">
                     <a
-                      href="javascript:void(0);"
-                      class="d-block wd-8 ht-8 rounded-circle bg-gray-300"
-                      data-bs-toggle="tooltip"
-                      title="Make as Read"
-                    ></a>
-                    <a
-                      href="javascript:void(0);"
-                      class="text-danger"
-                      data-bs-toggle="tooltip"
-                      title="Remove"
+                      (click)="setAsRead(item.id, 'MSG')"
+                      role="button"
+                      class="font-body text-truncate-2-line"
                     >
-                      <i class="feather-x fs-12"></i>
+                      <span class="fw-semibold text-dark">{{ item.usernameEm }}</span>
+                      - {{ item.titre }}
                     </a>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="notifications-date text-muted border-bottom border-bottom-dashed">
+                        {{ item.dateEnvoi | date: 'dd/MM/yyyy HH:mm' }}
+                      </div>
+
+                      <div class="d-flex align-items-center gap-2">
+                        <a
+                          href="javascript:void(0);"
+                          class="d-block wd-8 ht-8 rounded-circle bg-warning"
+                          data-bs-toggle="tooltip"
+                          [title]="'notificationsMessage.non_lu' | translate"
+                        ></a>
+                        <!-- <a
+                          href="javascript:void(0);"
+                          class="text-danger"
+                          data-bs-toggle="tooltip"
+                          title="Supprimer"
+                        >
+                          <i class="feather-x fs-12"></i>
+                        </a> -->
+                      </div>
+                    </div>
                   </div>
-                </div> 
+                </div>
+              }
+            } @else {
+              <div class="text-center py-3 text-muted">
+                {{ 'general.messages_panel.empty_list_msg' | translate }}
               </div>
-            </div>-->
+            }
 
             <div class="text-center notifications-footer">
-              <a (click)="goToListMessage('MSG')" class="fs-13 fw-semibold text-dark">
-                {{ 'general.notifications_panel.btn_all_notif' | translate }}
+              <a (click)="goToListMessage('MSG')" role="button" class="fs-13 fw-semibold text-dark">
+                {{ 'general.messages_panel.btn_all' | translate }}
               </a>
             </div>
           </div>

@@ -145,10 +145,17 @@
         "liste_plainte": "Liste des Plaintes"
       }
     },
+
     "notifications_panel": {
       "title": "Notifications",
       "empty_list_notif": "Aucune notification pour le moment.",
-      "btn_all_notif": "Tous les Notifications"
+      "btn_all": "Tous les Notifications",
+      "non_lu": "Non Lu"
+    },
+    "messages_panel": {
+      "title": "Messages",
+      "empty_list_msg": "Aucune message pour le moment.",
+      "btn_all": "Tous les messages"
     }
   },
   "noAccount": "Pas encore de compte ? Contactez un administrateur.",
@@ -225,7 +232,7 @@
     "Utilisateurs": "Gestion des utilisateurs",
     "Profils": "Gestion des profils",
     "TableauDeBord": "Tableau de bord",
-    "NotificationMessage":"Notifications et Messages",
+    "NotificationMessage": "Notifications et Messages",
     "perm_list": "List",
     "perm_add": "Ajouter",
     "perm_update": "Modifier",
@@ -265,8 +272,10 @@
     }
   },
   "notificationsMessage": {
-    "list":{
-      "title":" Liste des notification et des messages"
-    }
+    "list": {
+      "title": " Liste des notification et des messages"
+    },
+    "non_lu": "Non Lu",
+    "marquer_lu": "marquer comme lu"
   }
 }
