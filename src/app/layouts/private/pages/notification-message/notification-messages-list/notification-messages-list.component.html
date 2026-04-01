@@ -1,3 +1,21 @@
-<p>
-  notification-messages-list works!
-</p>
+<div class="cp5" fxLayout="row wrap">
+  <!-- <div fxFlex="100" fxFlex.lt-md="100">
+    <pfs-filter-user-list
+      (searchoptions)="onSearch($event)"
+      #filtre
+      (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch() : null"
+    ></pfs-filter-user-list>
+  </div> -->
+
+  <div fxFlex="100" fxFlex.lt-md="100">
+    <mc-datatable
+      [responsePayload]="params.notificationListData.payload"
+      [responsePayloadall]="params.notificationListData.payloadall"
+      [metadata]="params.notificationListData.metadata"
+      (onAction)="onAction(this, $event)"
+      (paginate)="onPaginate($event)"
+      (sort)="onSort($event)"
+    >
+    </mc-datatable>
+  </div>
+</div>
