@@ -7,12 +7,12 @@
     ></pfs-filter-user-list>
   </div> -->
 
-  <div fxFlex="100" fxFlex.lt-md="100">
+   <div fxFlex="100" fxFlex.lt-md="100">
     <mc-datatable
       [responsePayload]="params.notificationListData.payload"
       [responsePayloadall]="params.notificationListData.payloadall"
       [metadata]="params.notificationListData.metadata"
-      (onAction)="onAction(this, $event)"
+      (onAction)="onTableAction($event)"
       (paginate)="onPaginate($event)"
       (sort)="onSort($event)"
     >

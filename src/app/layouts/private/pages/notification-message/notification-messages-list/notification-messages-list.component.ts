@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { initSearchObject, isEmptyValue, onAction } from '../../../../../app-shared/tools';
 import { RequestObject, SearchObject, Sort } from '../../../../../app-shared/models';
@@ -21,13 +21,13 @@ import { ResponseObject } from '../../../../../app-shared/models/ResponseObject'
   templateUrl: './notification-messages-list.component.html',
   styleUrls: ['./notification-messages-list.component.css']
 })
-export class NotificationMessagesListComponent implements OnInit {
+export class NotificationMessagesListComponent implements OnInit, OnDestroy {
   codeTypeNotif?: any;
 
   subscriptionsList: Subscription[] = [];
     params: any = {};
     protected readonly onAction = onAction;
-    searchObject!: SearchObject;
+    //searchObject!: SearchObject;
 
     private permissionService = inject(PermissionService);
     private sharedService = inject(SharedService);
@@ -37,16 +37,15 @@ export class NotificationMessagesListComponent implements OnInit {
         private router: Router,
         private confirmDialogService: ConfirmDialogService,
 
-  ) { this.initParams();}
+  ) {  }
 
   ngOnInit() {
 
     this.codeTypeNotif = history.state?.code;
     console.log(this.codeTypeNotif)
     this.initMetadata();
-    this.initNotificationListAll().then(() => {
     this.initNotificationList();
-    });
+    this.initNotificationListAll();
   }
 
   ngOnDestroy() {
@@ -57,25 +56,25 @@ export class NotificationMessagesListComponent implements OnInit {
       }
     }
 
-    initParams() {}
+
 
     initMetadata() {
       this.params['notificationListData'] = {
-        metadata: this.permissionService.getMetadataWithPermissions(
-          NotificationListeMetadata.notificationListTableMetadata,
-        ),
-        payload: [],
-        payloadall: [],
-        searchObject: initSearchObject({
-          sort: new Sort('createDate', 'desc nulls last'),
-        }),
-        searchObjectAll: new SearchObject(),
-      };
+      metadata: this.permissionService.getMetadataWithPermissions(
+        NotificationListeMetadata.notificationListTableMetadata,
+      ),
+      payload: [],
+      payloadall: [],
+      searchObject: initSearchObject({
+        sort: new Sort('id', 'desc'),
+      }),
+      searchObjectAll: new SearchObject(),
+    };
     }
 
-    /** Manage user data functions */
+
     initNotificationList() {
-      this.params.userListData.searchObject.sort = new Sort('id', 'desc');
+      //this.params.notificationListData.searchObject.sort = new Sort('id', 'desc');
 
       const request: RequestObject = <RequestObject>{
         uri: NOTIFICATION_MESSAGE.LISTNotif,
@@ -109,41 +108,34 @@ export class NotificationMessagesListComponent implements OnInit {
     }
 
     initNotificationListAll() {
-      this.params.notificationListData.searchObjectAll.sort = new Sort('id', 'desc');
-
+      //this.params.notificationListData.searchObjectAll.sort = new Sort('id', 'desc');
+    const searchAll = new SearchObject();
+    searchAll.sort = new Sort('id', 'desc');
       const request: RequestObject = <RequestObject>{
         uri: NOTIFICATION_MESSAGE.LISTNotif,
         params: {
-          body: this.params.notificationListData.searchObjectAll,
+          body: searchAll,
         },
 
         method: ConstanteWs._CODE_POST,
       };
 
-      return new Promise((resolve) => {
-        this.subscriptionsList.push(
-          this.sharedService.commonWs(request).subscribe({
-            next: (response: ResponseObject) => {
-              if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
-                this.params.notificationListData.payloadall = response.payload;
-
-                resolve(this.params.notificationListData.payloadall);
-              } else {
-                console.error(
-                  `Error in notificationListComponent/initnotificationList, error code :: ${response.code}`,
-                );
-                this.toast.error();
-              }
-            },
-            error: (error) => {
-              console.error(
-                `Error in notificationListComponent/initnotificationList, error :: ${JSON.stringify(error)}`,
-              );
-              this.toast.error();
-            },
-          }),
-        );
-      });
+      this.subscriptionsList.push(
+      this.sharedService.commonWs(request).subscribe({
+        next: (response: ResponseObject) => {
+          if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
+            this.params.notificationListData.payloadall = response.payload;
+          } else {
+            console.error(`Error initNotificationListAll :: ${response.code}`);
+            this.toast.error();
+          }
+        },
+        error: (error) => {
+          console.error(`Error initNotificationListAll :: ${JSON.stringify(error)}`);
+          this.toast.error();
+        },
+      }),
+    );
     }
 
      onPaginate(event: any) {
@@ -163,7 +155,15 @@ export class NotificationMessagesListComponent implements OnInit {
       nameCol: event.active,
       direction: event.direction,
     };
-    this.params.userListData.searchObject.sort = sort;
+    this.params.notificationListData.searchObject.sort = sort;
     this.initNotificationList();
+  }
+   onTableAction(event: any): void {
+    const { action, row } = event;
+
+    if (action?.ref === 'details') {
+      this.router.navigate(['/notifications/detail', row.id]);
+    }
+
   }
 }

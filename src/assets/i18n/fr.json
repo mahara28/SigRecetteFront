@@ -267,6 +267,26 @@
   "notificationsMessage": {
     "list":{
       "title":" Liste des notification et des messages"
+    },
+    "notifications": {
+      "title": "Gestion des utilisateurs",
+      "breadcrumb": "Gestion des utilisateurs",
+      "notificationsList": {
+        "table": {
+          "title": "Liste des notifications",
+          "columns": {
+            "id": "id",
+            "titre": "Titre",
+            "sujet": "Sujet",
+            "usernameEm": "Expediteur",
+            "usernameRec": "Destinataire",
+            "email": "email",
+            "dateEnvoi": "dateEnvoi",
+            "dateReception": "dateReception"
+
+          }
+        }
+      }
     }
   }
 }
