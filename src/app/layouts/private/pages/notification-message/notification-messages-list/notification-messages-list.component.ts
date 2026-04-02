@@ -14,7 +14,6 @@ import { ResponseObject } from '../../../../../app-shared/models/ResponseObject'
 
 
 
-
 @Component({
   selector: 'app-notification-messages-list',
   standalone: false,
@@ -56,9 +55,21 @@ export class NotificationMessagesListComponent implements OnInit, OnDestroy {
       }
     }
 
+initMetadata(): void {
+  this.params['notificationListData'] = {
+    metadata: this.permissionService.getMetadataWithPermissions(
+      NotificationListeMetadata.notificationListTableMetadata,
+    ),
+    payload: { content: [], totalElements: 0 }, // ✅ structure correcte selon ton backend
+    payloadall: { content: [], totalElements: 0 },
+    searchObject: initSearchObject({
+      sort: new Sort('id', 'desc'),
+    }),
+    searchObjectAll: new SearchObject(),
+  };
+}
 
-
-    initMetadata() {
+    /* initMetadata() {
       this.params['notificationListData'] = {
       metadata: this.permissionService.getMetadataWithPermissions(
         NotificationListeMetadata.notificationListTableMetadata,
@@ -70,11 +81,11 @@ export class NotificationMessagesListComponent implements OnInit, OnDestroy {
       }),
       searchObjectAll: new SearchObject(),
     };
-    }
+    } */
 
 
     initNotificationList() {
-      //this.params.notificationListData.searchObject.sort = new Sort('id', 'desc');
+      this.params.notificationListData.searchObject.sort = new Sort('id', 'desc');
 
       const request: RequestObject = <RequestObject>{
         uri: NOTIFICATION_MESSAGE.LISTNotif,
@@ -138,7 +149,7 @@ export class NotificationMessagesListComponent implements OnInit, OnDestroy {
     );
     }
 
-     onPaginate(event: any) {
+  onPaginate(event: any) {
     this.params.notificationListData.searchObject.pagination = event;
     this.initNotificationList();
   }

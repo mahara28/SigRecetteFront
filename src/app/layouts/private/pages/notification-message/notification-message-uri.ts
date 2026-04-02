@@ -3,7 +3,8 @@ export const NOTIFICATION_MESSAGE = {
     LISTNotif: "vNotificationDetail/data",
     DETAIL_Notif: "vNotificationDetail/",
     //SEND:"",
-    SET_AS_READ: "notification-message/",
+    SET_AS_READ: "notification-message/set-as-read",
+    SET_ALL_AS_READ: "notification-message/set-all-as-read",
     COUNT: "notification-message/count",
 }
 

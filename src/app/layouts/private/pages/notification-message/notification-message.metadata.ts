@@ -150,18 +150,7 @@ export const NotificationListeMetadata = {
          },
          sortable: true,
        }, */
-      {
-        label: '',
-        key: 'actions',
-        type: COMMON_TYPES_CODES.ACTIONS,
-        sortable: false,
-        style: {
-          'text-align': 'center',
-          width: '10%',
-          padding: '0 5px',
-        },
-        btns: [Icons.details, Icons.delete],
-      },
+      
     ],
   },
   filtreListNotificationsMetadata: {
