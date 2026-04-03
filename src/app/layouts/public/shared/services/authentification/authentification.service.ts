@@ -121,7 +121,18 @@ export class AuthentificationService {
                 //subscriber.next(false);
               }
             });
-          } else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
+          } else if (response.code == ConstanteWs._CODE_WS_SUCCESS_WAIT_CODE_VERIFICATION) {
+            this.router.navigate(['/login/verify']);
+            this.sessionStorage.setItem('verificationEmail', response.payload.email);
+            this.sessionStorage.setItem('verificationId', response.payload.id);
+            /* this.router.navigate(['/login/verify'], {
+              queryParams: {
+                email: response.payload.email,
+                id: response.payload.id
+              }
+            }); */
+          }
+          else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
             this.toast.error('authentification.login.errors.code');
             subscriber.next(false);
           } else if (response.code == ConstanteWs._CODE_WS_SUCCESS_WAIT_PERMISSION) {

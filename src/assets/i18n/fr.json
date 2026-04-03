@@ -179,6 +179,14 @@
       }
     }
   },
+  "verify_code": {
+    "titre": "Code d'accès",
+    "sousTitre": "Veuillez saisir le code de connexion à usage unique pour vérifier votre compte.",
+    "notification": "Un code vous a été envoyé par e-mail.",
+    "non_recu": "N'ai pas reçu le code",
+    "resend": "Renvoyer",
+    "send": "Envoyer"
+  },
   "VALIDATION": {
     "REQUIRED": "Ce champ est obligatoire",
     "MIN_LENGTH": "La longueur minimale est {{min}} caractères",
@@ -272,8 +280,8 @@
     }
   },
   "notificationsMessage": {
-    "list":{
-      "title":" Liste des notification et des messages"
+    "list": {
+      "title": " Liste des notification et des messages"
     },
     "non_lu": "Non Lu",
     "marquer_lu": "marquer comme lu",
@@ -292,12 +300,9 @@
             "email": "email",
             "dateEnvoi": "dateEnvoi",
             "dateReception": "dateReception"
-
           }
         }
       }
     }
-
-
   }
 }

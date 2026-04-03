@@ -13,13 +13,13 @@ export const ConstanteWs = {
   // ################################################
   // # Microservices
   // ################################################
- /*  _CODE_GATEWAY: '',
-  _CODE_ADMINISTRATION: 'administration',
-  _CODE_NOMENCLATURE: 'nomenclature',
-  _CODE_APPLICATION: 'application',
-  _CODE_GED: 'ged',
-  _CODE_REPORT: 'reporting',
-  _CODE_NOTIFICATION: 'notification', */
+  /*  _CODE_GATEWAY: '',
+   _CODE_ADMINISTRATION: 'administration',
+   _CODE_NOMENCLATURE: 'nomenclature',
+   _CODE_APPLICATION: 'application',
+   _CODE_GED: 'ged',
+   _CODE_REPORT: 'reporting',
+   _CODE_NOTIFICATION: 'notification', */
 
   // ################################################
   // # WebServices Codes
@@ -27,6 +27,7 @@ export const ConstanteWs = {
   _CODE_WS_SUCCESS: '200',
   _CODE_WS_SUCCESS_WAIT_PERMISSION: '201',
   _CODE_WS_ACCOUNT_EXPIRED: '202',
+  _CODE_WS_SUCCESS_WAIT_CODE_VERIFICATION: '203',
   _CODE_WS_BAD_REQUEST: '400',
   _CODE_WS_UNAUTHORIZED: '401',
   _CODE_WS_NO_ACCESS: '403',
