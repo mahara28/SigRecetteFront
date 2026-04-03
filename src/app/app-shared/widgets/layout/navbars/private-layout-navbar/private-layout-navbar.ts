@@ -290,16 +290,16 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     });
   }
 
- /*  goToListMessage(code: any) {
-    this.router.navigate(['/app/notif-msg'], {
-      state: { code }
-    });
-  } */
+  /*  goToListMessage(code: any) {
+     this.router.navigate(['/app/notif-msg'], {
+       state: { code }
+     });
+   } */
   goToListMessage(code: string) {
-  this.router.navigate(['/app/notif-msg'], {
-    queryParams: { code }  // ✅ queryParams au lieu de state
-  });
-}
+    this.router.navigate(['/app/notif-msg'], {
+      queryParams: { code }
+    });
+  }
 
 
   getData(code: any) {
@@ -369,7 +369,8 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     );
 
   }
-  setAsRead(id: any, code: any) {
+
+  setAsRead(event: Event, id: any, code: any) {
     console.log('set as read: ', id)
     const request: RequestObject = <RequestObject>{
       uri: `${NOTIFICATION_MESSAGE.SET_AS_READ}/${id}`,
@@ -381,6 +382,7 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     this.sharedService.commonWs(request).subscribe({
       next: (response: ResponseObject) => {
         if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+          event.stopPropagation();
           this.getData(code)
           // Redirection vers la page details du Messages/Notifications
           //this.toast.success();
