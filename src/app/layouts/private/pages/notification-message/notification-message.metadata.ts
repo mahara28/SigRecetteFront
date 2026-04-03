@@ -24,23 +24,12 @@ export const NotificationListeMetadata = {
     hasExport: false,
     hasImprime: false,
     columns: [
-      /* {
-        label: 'notification.table.columns.id',
-        key: 'id',
-        style: {
-          width: '5%',
-          padding: '0 5px',
-        },
-        export: {
-          width: '5%',
-        },
-        sortable: true,
-      }, */
+
       {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.titre',
         key: 'titre',
         style: {
-          width: '15%',
+          width: '10%',
           padding: '0 5px',
         },
         export: {
@@ -48,6 +37,18 @@ export const NotificationListeMetadata = {
         },
         sortable: true,
       },
+      /* {
+        label: 'notificationsMessage.notifications.notificationsList.table.columns.sujet',
+        key: 'idTypeNotif',
+        style: {
+          width: '20%',
+          padding: '0 5px',
+        },
+        export: {
+          width: '20%',
+        },
+        sortable: true,
+      }, */
       {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.sujet',
         key: 'sujet',
@@ -64,7 +65,7 @@ export const NotificationListeMetadata = {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.usernameEm',
         key: 'usernameEm',
         style: {
-          width: '12%',
+          width: '8%',
           padding: '0 5px',
         },
         export: {
@@ -76,7 +77,7 @@ export const NotificationListeMetadata = {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.usernameRec',
         key: 'usernameRec',
         style: {
-          width: '12%',
+          width: '8%',
           padding: '0 5px',
         },
         export: {
@@ -100,6 +101,7 @@ export const NotificationListeMetadata = {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.dateEnvoi',
         key: 'dateEnvoi',
         type: COMMON_TYPES_CODES.DATE,
+        format: 'yyyy-MM-dd HH:mm:ss',
         style: {
           width: '10%',
           padding: '0 5px',
@@ -113,6 +115,7 @@ export const NotificationListeMetadata = {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.dateReception',
         key: 'dateReception',
         type: COMMON_TYPES_CODES.DATE,
+        format: 'yyyy-MM-dd HH:mm:ss',
         style: {
           width: '10%',
           padding: '0 5px',
@@ -122,35 +125,7 @@ export const NotificationListeMetadata = {
         },
         sortable: true,
       },
-      /*  {
-         label: 'notification.table.columns.statut',
-         key: 'lu',
-         type: COMMON_TYPES_CODES.ICON,
-         style: {
-           width: '6%',
-           padding: '0 5px',
-           'text-align': 'center',
-         },
-         export: {
-           width: '6%',
-         },
-         sortable: true,
-       },
-       {
-         label: 'notification.table.columns.priorite',
-         key: 'priority',
 
-         style: {
-           width: '8%',
-           padding: '0 5px',
-           'text-align': 'center',
-         },
-         export: {
-           width: '8%',
-         },
-         sortable: true,
-       }, */
-      
     ],
   },
   filtreListNotificationsMetadata: {
