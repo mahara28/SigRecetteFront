@@ -199,7 +199,7 @@
                 <div class="notifications-item">
                   <div class="notifications-desc">
                     <a
-                      (click)="setAsRead(item.id, 'MSG')"
+                      (click)="setAsRead($event, item.idNotifUser, 'MSG')"
                       role="button"
                       class="font-body text-truncate-2-line"
                     >
@@ -289,7 +289,7 @@
                 <div class="notifications-item">
                   <div class="notifications-desc">
                     <a
-                      (click)="setAsRead(item.id, 'MSG')"
+                      (click)="setAsRead($event, item.idNotifUser, 'MSG')"
                       role="button"
                       class="font-body text-truncate-2-line"
                     >
