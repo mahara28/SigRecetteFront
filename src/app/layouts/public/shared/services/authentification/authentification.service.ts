@@ -16,6 +16,9 @@ import { RequestObject } from '../../../../../app-shared/models/RequestObject';
   providedIn: 'root',
 })
 export class AuthentificationService {
+  getAuthenticatedUser(): any {
+    throw new Error('Method not implemented.');
+  }
   private _CODE_TOKEN_KEY = 'access_token';
   private userinfo: any;
   userLoggedIn = new Subject<boolean>();

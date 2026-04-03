@@ -58,12 +58,7 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initResponsive();
     this.initMenus();
-    /*  this.breakpointSubscription = this.breakpointObserver
-      .observe(['(max-width: 767px)'])
-      .subscribe((result) => {
-        this.isSmallScreen = result.matches;
-        this.mode = this.isSmallScreen ? 'over' : 'side';
-      }); */
+   
   }
 
   // ================= RESPONSIVE =================
@@ -152,15 +147,4 @@ export class PrivateLayoutSidebar implements OnInit, OnDestroy {
 
   protected readonly AppTranslateService = AppTranslateService;
 
-  /* toggle(menuId: string): void {
-    if (this.expandedMenus.has(menuId)) {
-      this.expandedMenus.delete(menuId);
-    } else {
-      this.expandedMenus.add(menuId);
-    }
-  }
-
-  isExpanded(menuId: string): boolean {
-    return this.expandedMenus.has(menuId);
-  } */
 }

@@ -85,6 +85,9 @@ export class AppTranslateService {
     return this.direction$.getValue();
   }
 
+   instant(key: string): string {
+    return this.translateService.instant(key);
+  }
 
   getCurrentLanguageConfig() {
     return LANGUAGES_CONFIG[this.getCurrentLanguage()];
