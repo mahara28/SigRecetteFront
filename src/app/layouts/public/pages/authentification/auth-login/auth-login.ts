@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
 import { LocalStorageService } from '../../../../../app-shared/services/localStorage/local-storage.service';
 import { RequestObject } from '../../../../../app-shared/models';
+import { CustomValidators } from '../../../../../app-shared/tools/form-validators';
 
 @Component({
   selector: 'app-auth-login',
@@ -31,7 +32,7 @@ export class AuthLogin {
     private authentificationService: AuthentificationService,
     private router: Router,
     //private sharedService: SharedService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authentificationService.logoutUser();
@@ -46,7 +47,7 @@ export class AuthLogin {
   initAuthentificationForm() {
     return this.formBuilder.group({
       email: this.formBuilder.control(null, [
-        //CustomValidators.emailValidator(),
+        CustomValidators.emailValidator(),
         Validators.required,
       ]),
       password: this.formBuilder.control(null, [Validators.required]),
@@ -97,18 +98,4 @@ export class AuthLogin {
     }
   }
 
-  sendcode() {
-    this.form.markAllAsTouched();
-    if (this.form.valid) {
-      const request: RequestObject = <RequestObject>{
-        uri: 'notification/sendCode',
-
-        params: {
-          body: this.form.value,
-        },
-        method: ConstanteWs._CODE_POST,
-      };
-      //// to be continued
-    }
-  }
 }

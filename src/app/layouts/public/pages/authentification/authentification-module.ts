@@ -13,18 +13,18 @@ import { SelectCommon } from '../../../../app-shared/widgets/form/select/select-
 import { SharedModule } from '../../shared/shared-module';
 
 @NgModule({
-  declarations: [CodeVerify, AuthLogin],
+  declarations: [AuthLogin],
   imports: [
     CommonModule,
     AppSharedModule,
     SharedModule,
+    TranslateModule.forChild(),
     AuthentificationRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule,
     Checkbox,
     SelectBoolean,
     SelectCommon,
   ],
 })
-export class AuthentificationModule {}
+export class AuthentificationModule { }
