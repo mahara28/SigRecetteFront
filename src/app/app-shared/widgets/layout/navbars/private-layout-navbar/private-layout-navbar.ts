@@ -342,15 +342,15 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
             if (code == "MSG") {
               this.unread_msg = response.payload.total;
               this.ListMsgUnread = formattedData
-              this.lstIdMsgUnread = this.ListMsgUnread.map((item: any) => item.id);
+              this.lstIdMsgUnread = this.ListMsgUnread.map((item: any) => item.idNotifUser);
             } else if (code == "NOTIF") {
               this.unread_notif = response.payload.total
               this.ListNotifUnread = formattedData
-              this.lstIdNotifUnread = this.ListNotifUnread.map((item: any) => item.id);
+              this.lstIdNotifUnread = this.ListNotifUnread.map((item: any) => item.idNotifUser);
             }
 
             //this.params.userListData.payload = response.payload;
-            console.log(`liste des ${code}: `, formattedData)
+            console.log(`lstIdNotifUnread des ${code}: `, this.lstIdNotifUnread)
             this.cdr.markForCheck();
           } else {
             console.error(
