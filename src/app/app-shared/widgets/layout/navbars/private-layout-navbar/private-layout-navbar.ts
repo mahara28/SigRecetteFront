@@ -40,7 +40,7 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     email: ' ',
   };
 
-  //Notification 
+  //Notification
   unread_notif: number | null = null;
   isNotifLoading = false;
   ListNotifUnread: any = []
@@ -290,11 +290,16 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     });
   }
 
-  goToListMessage(code: any) {
+ /*  goToListMessage(code: any) {
     this.router.navigate(['/app/notif-msg'], {
       state: { code }
     });
-  }
+  } */
+  goToListMessage(code: string) {
+  this.router.navigate(['/app/notif-msg'], {
+    queryParams: { code }  // ✅ queryParams au lieu de state
+  });
+}
 
 
   getData(code: any) {

@@ -187,5 +187,10 @@
         "selectionner_menu": "يجب اختيار وحدات"
       }
     }
+  },
+  "notificationsMessage": {
+    "list":{
+      "title":"قائمة الإشعارات والرسائل"
+    }
   }
 }

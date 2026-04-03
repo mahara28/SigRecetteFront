@@ -1,0 +1,63 @@
+/* ============================================
+   EMAIL LIST ITEMS
+   ============================================ */
+.single-items {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f3f5;
+  background: #fff;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  position: relative;
+}
+
+.single-items:hover {
+  background-color: #f8f9fa;
+}
+
+.single-items:hover .item-action {
+  opacity: 1;
+}
+
+.single-items.unread {
+  background-color: #f0f4ff;
+}
+
+.single-items.unread .item-user div,
+.single-items.unread .item-desc span {
+  font-weight: 700;
+  color: #212529;
+}
+
+/* Item Meta (checkbox + star) */
+.item-meta {
+  display: flex;
+  align-items: center;
+}
+
+.wd-80 { width: 80px; min-width: 80px; }
+
+.item-favorite a {
+  color: #ced4da;
+  transition: color 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.item-favorite a:hover,
+.item-favorite a.active {
+  color: #ffc107;
+}
+
+/* Custom Checkbox */
+.custom-control {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* Action list items (toolbar) */
+.action-list-items {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
