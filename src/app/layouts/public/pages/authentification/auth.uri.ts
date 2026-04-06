@@ -4,5 +4,6 @@ export const AuthentificationUri = {
     AUTHENTIFICATE_CANDIDATE: "authenticate-candidate",
     WHOIAM: "public/whoAmI",
     WHOIAM_CANDIDATE: "whoiam-candidate",
+    VERIFY_CODE: "public/verifyCode"
   },
 };
