@@ -20,6 +20,13 @@
             max="40"
           ></mc-text-field>
         </div>
+ <div class="form-field">
+          <mc-select-date
+            [label]="'date.creation'"
+  [hasTooltip]="true"
+  [isRequired]="true">
+          ></mc-select-date>
+        </div>
 
         <div class="form-field">
           <mc-text-field
@@ -30,22 +37,22 @@
         </div>
       </div>
       <!-- <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
-                
+
                 <div fxFlex="25" fxFlex.lt-md="100">
                     <mc-text-field [control]="getFormControl('code')"
-                                     [label]="getLabel('code')" 
-                                    max="40"     
+                                     [label]="getLabel('code')"
+                                    max="40"
                     ></mc-text-field>
-                   
+
                 </div>
-               
-                <div fxFlex="25" fxFlex.lt-md="100">  
+
+                <div fxFlex="25" fxFlex.lt-md="100">
                      <mc-text-field [control]="getFormControl('desFr')"
                     [label]="getLabel('desFr')"
-                    max="300" 
+                    max="300"
                     ></mc-text-field></div>
-                    
-                 
+
+
             </div> -->
       <div fxFlex="25" fxFlex.lt-md="100">
         <label style="margin-right: 20px" id="example-radio-group-label">{{

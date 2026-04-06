@@ -23,6 +23,7 @@ export const NotificationListeMetadata = {
     hasFilter: true,
     hasExport: false,
     hasImprime: false,
+
     columns: [
 
       {
@@ -30,37 +31,14 @@ export const NotificationListeMetadata = {
         key: 'titre',
         style: {
           width: '10%',
-          padding: '0 5px',
+          padding: '5 5px',
         },
         export: {
           width: '15%',
         },
         sortable: true,
       },
-      /* {
-        label: 'notificationsMessage.notifications.notificationsList.table.columns.sujet',
-        key: 'idTypeNotif',
-        style: {
-          width: '20%',
-          padding: '0 5px',
-        },
-        export: {
-          width: '20%',
-        },
-        sortable: true,
-      }, */
-      {
-        label: 'notificationsMessage.notifications.notificationsList.table.columns.sujet',
-        key: 'sujet',
-        style: {
-          width: '20%',
-          padding: '0 5px',
-        },
-        export: {
-          width: '20%',
-        },
-        sortable: true,
-      },
+
       {
         label: 'notificationsMessage.notifications.notificationsList.table.columns.usernameEm',
         key: 'usernameEm',

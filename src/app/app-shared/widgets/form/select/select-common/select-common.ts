@@ -42,8 +42,8 @@ import { AppTranslateService, SupportedLanguage } from '../../../../services';
 
 @Component({
   selector: 'mc-select',
-  standalone: false,
-  /* imports: [
+  standalone: true,
+  imports: [
     CommonModule,
     ReactiveFormsModule,
     MatSelectModule,
@@ -55,7 +55,7 @@ import { AppTranslateService, SupportedLanguage } from '../../../../services';
     MatIconModule,
     MatButtonModule,
     TranslateModule,
-  ], */
+  ],
   templateUrl: './select-common.html',
   styleUrl: './select-common.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -321,14 +321,14 @@ export class SelectCommon implements OnInit, OnChanges, OnDestroy {
 
 
 
-  private getPropertyForLang(property: any): string {
-    if (!property) return '';
-    if (typeof property === 'string') return property;
-    if (typeof property === 'object' && property !== null) {
-      return property[this.currentLanguage] ?? '';
-    }
-    return '';
+private getPropertyForLang(property: any): string {
+  if (!property) return '';
+  if (typeof property === 'string') return property;
+  if (typeof property === 'object' && property !== null) {
+    return property[this.currentLanguage] ?? '';
   }
+  return '';
+}
 
   private initForm(flotParentChild: boolean): void {
     if (!isEmptyValue(flotParentChild) && flotParentChild) {
@@ -337,12 +337,12 @@ export class SelectCommon implements OnInit, OnChanges, OnDestroy {
           value: isEmptyValue(this.control.value)
             ? null
             : this.getOptionLabel(
-              this.getItem(
-                this.listItems,
-                this.getPropertyForLang(this.metadata.value),
-                this.control.value
-              )
-            ),
+                this.getItem(
+                  this.listItems,
+                  this.getPropertyForLang(this.metadata.value),
+                  this.control.value
+                )
+              ),
           disabled: this.control.disabled,
         }),
       });

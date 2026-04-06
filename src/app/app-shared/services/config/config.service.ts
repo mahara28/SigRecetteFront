@@ -51,7 +51,7 @@ export class ConfigService {
         // ✅ Initialiser avec cette langue
         this.appTranslateService.setLanguage(storedLanguage);
 
-        console.log(`📍 Langue initialisée: ${storedLanguage}`);
+        //console.log(`📍 Langue initialisée: ${storedLanguage}`);
 
     } catch (error) {
         console.error('❌ Erreur lors de l\'initialisation de la langue:', error);

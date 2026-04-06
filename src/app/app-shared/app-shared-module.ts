@@ -76,11 +76,11 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SelectCommon } from './widgets/form/select/select-common/select-common';
-import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { FlexLayoutModule } from 'ng-flex-layout';
 
 @NgModule({
   declarations: [
@@ -106,7 +106,6 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     EmptyList,
     Paginator,
     ButtonLoading,
-    SelectCommon
   ],
   exports: [
     MatMenuContent,
@@ -126,7 +125,6 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     FicheDetails,
     MatFormFieldModule,
     CommonModule,
-    FlexLayoutModule,
     //Composant
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
@@ -147,9 +145,6 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     EmptyList,
     Paginator,
     ButtonLoading,
-    SelectDate,
-    SelectDateTime,
-    SelectCommon
   ],
   imports: [
     CommonModule,
@@ -193,7 +188,6 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
-    FlexLayoutModule,
 
 
 
@@ -229,4 +223,4 @@ import { FlexLayoutModule } from '@ngbracket/ngx-layout';
     MinutesFormatPipe,
   ],
 })
-export class AppSharedModule { }
+export class AppSharedModule {}
