@@ -29,11 +29,7 @@
           ></mc-text-field>
         </div>
         <div fxFlex="25" fxFlex.lt-md="100">
-          <mc-select-date
-            [control]="getFormControl('dateBirth')"
-            [label]="getLabel('dateBirth')"
-            [max]="maxDate"
-          >
+          <mc-select-date [control]="getFormControl('dateBirth')" [label]="getLabel('dateBirth')">
           </mc-select-date>
         </div>
         <div fxFlex="25" fxFlex.lt-md="100" *ngIf="!isEmptyValue(professionListItems)">
