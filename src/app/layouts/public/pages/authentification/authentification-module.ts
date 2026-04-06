@@ -23,8 +23,7 @@ import { SharedModule } from '../../shared/shared-module';
     FormsModule,
     ReactiveFormsModule,
     Checkbox,
-    SelectBoolean,
-    SelectCommon,
+    SelectBoolean
   ],
 })
 export class AuthentificationModule { }

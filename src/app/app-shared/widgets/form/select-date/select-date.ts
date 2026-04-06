@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 
 import { FormControl } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
@@ -20,6 +20,7 @@ import moment from 'moment';
   standalone: false,
   templateUrl: './select-date.html',
   styleUrl: './select-date.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class SelectDate {
   @Input() label!: string;
@@ -37,7 +38,7 @@ export class SelectDate {
   constructor(
     private dateAdapter: DateAdapter<any>,
     private cdRef: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   chooseDate(): void {
     const selectedDate = this.control.value;

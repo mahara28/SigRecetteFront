@@ -206,35 +206,148 @@
     "title": "Administration",
     "breadcrumb": "Administration",
     "users": {
-      "title": "Gestion des utilisateurs",
-      "breadcrumb": "Gestion des utilisateurs",
+      "title": "Gestion utilisateurs",
+      "breadcrumb": "Gestion utilisateurs",
       "userList": {
         "filtre": {
           "labels": {
             "login": "Login",
             "username": "Nom et prénom",
-            "mail": "E-mail",
+            "email": "E-mail",
             "desProfesFr": "Fonction",
-            "etat": "Etat",
-            "cin": "CIN",
-            "typeUtilisateur": "Type Utilisateur"
+            "state": "Etat"
           }
         },
         "table": {
-          "title": "Liste groupes",
+          "title": "Liste utilisateurs",
           "columns": {
             "login": "Login",
             "username": "Nom et prénom",
-            "nom": "Nom",
-            "prenom": "Prénom",
             "mail": "E-mail",
             "desProfes": "Fonction",
-            "etat": "Etat",
-            "cin": "CIN",
-            "typeUtilisateur": "Type Utilisateur",
-            "nationalite": "Nationalité",
-            "dateCreate": "Date situation"
+            "etat": "Etat"
           }
+        }
+      },
+      "userDetails": {
+        "title": "Détail utilisateur",
+        "content": {
+          "details": {
+            "login": "Login",
+            "username": "Nom et prénom",
+            "mail": "E-mail",
+            "dateBirth": "Date de naissance",
+            "dateCreate": "Date de création du compte"
+          }
+        }
+      },
+      "userDetails2": {
+        "title": "Détail utilisateur",
+        "content": {
+          "details": {
+            "username": "Nom et prénom",
+            "mail": "E-mail",
+            "dateCreate": "Date d'affectation d'agent"
+          }
+        }
+      },
+      "userProfil": {
+        "table": {
+          "title": "Profils",
+          "columns": {
+            "desFr": "Désignation",
+            "code": "Code profil"
+          }
+        }
+      },
+      "userAdd": {
+        "add": "Ajouter utilisateur",
+        "form": {
+          "labels": {
+            "login": "Login",
+            "pwd": "Mot de passe",
+            "confirmPwd": "Confirmer le mot de passe",
+            "username": "Nom et prénom",
+            "mail": "E-mail",
+            "cin": "CIN",
+            "dateBirth": "Date de naissance",
+            "dateSuspStart": "Date début",
+            "dateSuspEnd": "Date fin",
+            "sex": "Sexe",
+            "code": "Code",
+            "profession": "Fonction",
+            "structure": "Structure",
+            "region": "Région",
+            "profil": "Profil",
+            "déconnexion": "Déconnexion"
+          },
+          "content": {
+            "userInfo": "Données utilisateur",
+            "authInfo": "Données d'authentification",
+            "accountStatus": "Statut du compte",
+            "activeStatus": "Actif",
+            "inactiveStatus": "Inactif",
+            "suspendedStatus": "Suspendu",
+            "editPwd": "Modifier mot de passe",
+            "exiprePassword": "Le mot de passe n'expire jamais",
+            "profileList": "Liste profils"
+          },
+          "errors": {
+            "pwdError": "Le mot de passe est incorrect. Essayez de nouveau",
+            "pwdMissmatchError": "Les mots de passe introduits sont différents."
+          },
+          "success": {
+            "addSuccess": "L'ajout a été effectué avec succès."
+          }
+        }
+      },
+      "userEdit": {
+        "edit": "Modifier Utilisateur",
+        "form": {
+          "labels": {
+            "login": "Login",
+            "pwd": "Mot de passe",
+            "confirmPwd": "Confirmer le mot de passe",
+            "username": "Nom et prénom",
+            "mail": "E-mail",
+            "cin": "CIN",
+            "dateBirth": "Date de naissance",
+            "sex": "Sexe",
+            "code": "Code",
+            "profession": "Fonction",
+            "region": "Région",
+            "profil": "Profil"
+          },
+          "content": {
+            "userInfo": "Données Utilisateur",
+            "authInfo": "Données d'authentification",
+            "accountStatus": "Account status",
+            "activeStatus": "Actif",
+            "inactiveStatus": "Inactif",
+            "suspendedStatus": "Suspendu",
+            "exiprePassword": "Le mot de passe n'expire jamais"
+          },
+          "errors": {
+            "pwdError": "Le mot de passe est incorrect. Essayez de nouveau",
+            "pwdMissmatchError": "Les mots de passe ne correspondent pas. Essayer à nouveau."
+          },
+          "success": {
+            "editSuccess": "La modification a été effectuée avec succès."
+          }
+        }
+      },
+      "messages": {
+        "success": {
+          "success_save": "L'ajout a été effectué avec succès",
+          "success_update": "La modification a été effectuée avec succès",
+          "success_delete": "La suppression a été effectuée avec succès"
+        },
+        "error": {
+          "uniqueCode": "Code doit être unique",
+          "uniqueLogin": "E-mail existe déjà",
+          "relatedEntity": "Cette entité est liée à un autre composant",
+          "emptyProfils": "Vous devez sélectionner au moins un profil",
+          "Cetteentitéestreliéàunautrecomposant": "Cette entité est liée à un autre composant"
         }
       }
     }

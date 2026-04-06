@@ -1,0 +1,21 @@
+.mat-menu-item {
+  color: rgba(0, 0, 0, 0.87) !important;
+  line-height: 2.5em !important;
+  height: 2.5em !important;
+}
+
+.mat-menu-item:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+.mat-select-filter {
+  height: 56px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: solid 1.5px;
+}
+
+::ng-deep .mat-option.empty-option .mat-pseudo-checkbox {
+  display: none;
+}
