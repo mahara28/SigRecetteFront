@@ -125,34 +125,67 @@ export class NotificationMessagesListComponent implements OnInit, OnDestroy {
         this.toast.error();
         this.cdr.markForCheck(); */
         next: ({ paged, all }) => {
-  this.isLoading = false;
+      this.isLoading = false;
 
-  if (paged.code == ConstanteWs._CODE_WS_SUCCESS) {
-    const cleanData = (paged.payload?.data || [])
-      .filter((i: any) => i)
-      .map((item: any) => ({
-        ...item,
-        // ✅ Transformer les dates au bon format
-        dateEnvoi: item.dateEnvoi
-          ? this.formatDate(item.dateEnvoi)
-          : null,
-        dateReception: item.dateReception
-          ? this.formatDate(item.dateReception)
-          : null,
-      }));
+      if (paged.code == ConstanteWs._CODE_WS_SUCCESS) {
+        const cleanData = (paged.payload?.data || [])
+          .filter((i: any) => i)
+          .map((item: any) => ({
+            ...item,
+            dateEnvoi: item.dateEnvoi ? this.formatDate(item.dateEnvoi) : null,
+            dateReception: item.dateReception ? this.formatDate(item.dateReception) : null,
+            // ✅ AJOUTER CETTE LIGNE : Attribut pour CSS
+            luAttr: item.lu
+          }));
 
-    this.params.notificationListData.payload = {
-      total: paged.payload?.total || cleanData.length,
-      data: cleanData,
-    };
-  }
-  this.cdr.markForCheck();
+        this.params.notificationListData.payload = {
+          total: paged.payload?.total || cleanData.length,
+          data: cleanData,
+        };
 
-      },
+        // ✅ Forcer l'application des styles après le rendu
+        setTimeout(() => {
+          this.applyRowStylesBasedOnLu();
+        }, 100);
+      }
+      this.cdr.markForCheck();
+    },
+    error: (error) => {
+      this.isLoading = false;
+      console.error('Erreur loadDataOnce ::', error);
+      this.toast.error();
+      this.cdr.markForCheck();
+    },
+  });
+
+  this.subscriptionsList.push(sub);
+}
+
+private applyRowStylesBasedOnLu(): void {
+  // Attendre que le tableau soit complètement rendu
+  setTimeout(() => {
+    const table = document.querySelector('mc-table');
+    if (!table) return;
+
+    const rows = table.querySelectorAll('tr.mat-mdc-row');
+
+    // Récupérer les données du composant
+    const dataSource = this.params.notificationListData.payload?.data || [];
+
+    rows.forEach((row, index) => {
+      if (index < dataSource.length) {
+        const rowData = dataSource[index];
+        // Utiliser la valeur 'lu' directement depuis les données
+        if (rowData && rowData.lu === 0) {
+          row.classList.add('row-not-read');
+        } else {
+          row.classList.remove('row-not-read');
+        }
+      }
     });
+  }, 100);
+}
 
-    this.subscriptionsList.push(sub);
-  }
 private formatDate(dateStr: string): string {
   if (!dateStr) return '';
   const date = new Date(dateStr.replace(' ', 'T'));

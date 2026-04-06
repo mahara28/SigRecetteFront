@@ -106,6 +106,7 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     EmptyList,
     Paginator,
     ButtonLoading,
+
   ],
   exports: [
     MatMenuContent,
@@ -145,6 +146,8 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     EmptyList,
     Paginator,
     ButtonLoading,
+    SelectDate,
+    SelectDateTime,
   ],
   imports: [
     CommonModule,

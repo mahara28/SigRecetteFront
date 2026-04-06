@@ -48,6 +48,7 @@
     "feather-icons": "^4.29.2",
     "file-saver": "^2.0.5",
     "flag-icons": "^7.5.0",
+    "install": "^0.13.0",
     "jszip": "^3.10.1",
     "moment": "^2.30.1",
     "ng-apexcharts": "^2.2.0",

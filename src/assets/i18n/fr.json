@@ -287,6 +287,7 @@
             "id": "id",
             "titre": "Titre",
             "sujet": "Sujet",
+            "lu": "Lu",
             "usernameEm": "Expediteur",
             "usernameRec": "Destinataire",
             "email": "email",

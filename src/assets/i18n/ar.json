@@ -191,6 +191,26 @@
   "notificationsMessage": {
     "list":{
       "title":"قائمة الإشعارات والرسائل"
+    },
+    "notifications": {
+    "title": "إدارة الإشعارات",
+    "breadcrumb": "إدارة الإشعارات",
+    "notificationsList": {
+      "table": {
+        "title": "قائمة الإشعارات",
+        "columns": {
+          "id": "المعرّف",
+          "titre": "العنوان",
+          "sujet": "الموضوع",
+          "lu": "قرأ",
+          "usernameEm": "المرسل",
+          "usernameRec": "المستلم",
+          "email": "البريد الإلكتروني",
+          "dateEnvoi": "تاريخ الإرسال",
+          "dateReception": "تاريخ الاستلام"
+        }
+      }
     }
+  }
   }
 }

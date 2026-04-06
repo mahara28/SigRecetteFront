@@ -1,28 +1,115 @@
-<mat-form-field appearance="outline" class="full-width">
-  <mat-label>{{ label | translate }}</mat-label>
+<div class="mc-datetime-wrapper">
+  <!-- Input principal -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>{{ label | translate }}</mat-label>
+    <input
+      matInput
+      readonly
+      [value]="displayValue"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      (click)="open()"
+      style="cursor:pointer"
+    />
+    <mat-icon matSuffix (click)="open()" style="cursor:pointer">calendar_today</mat-icon>
 
-  <input
-    matInput
-    [matDatepicker]="picker"
-    [formControl]="control"
-    [min]="minDate"
-    [max]="maxDate"
-    [matTooltipDisabled]="!hasTooltip"
-    [matTooltip]="
-      hasTooltip && control.value
-        ? getFormattedDateValueForTheTooltip(control.value)
-        : (label | translate)
-    "
-  />
+    <mat-error *ngIf="control.invalid && control.touched">
+      {{ 'form.error' | translate }}
+    </mat-error>
+  </mat-form-field>
 
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <!-- Overlay -->
+  <div class="mc-overlay" *ngIf="isOpen" (click)="close()"></div>
 
-  <mat-datepicker
-    #picker
-    (closed)="chooseDate()"
-  ></mat-datepicker>
+  <!-- Panneau picker -->
+  <div class="mc-picker-panel" *ngIf="isOpen" (click)="$event.stopPropagation()">
 
-  <mat-error *ngIf="control.invalid">
-    {{ "form.error" | translate }}
-  </mat-error>
-</mat-form-field>
+    <!-- ===== CALENDRIER ===== -->
+    <div class="mc-calendar">
+
+      <!-- Header navigation -->
+      <div class="mc-cal-header">
+        <button class="mc-nav-btn" (click)="prevMonth()">&#8249;</button>
+
+        <div class="mc-month-label" (click)="toggleMonthList()">
+          {{ currentMonthLabel }}
+          <mat-icon style="font-size:16px;vertical-align:middle">
+            {{ showMonthList ? 'arrow_drop_up' : 'arrow_drop_down' }}
+          </mat-icon>
+        </div>
+
+        <button class="mc-nav-btn" (click)="nextMonth()">&#8250;</button>
+      </div>
+
+      <!-- Liste des mois (dropdown) -->
+      <div class="mc-month-list" *ngIf="showMonthList">
+        <div
+          *ngFor="let month of monthNames; let i = index"
+          class="mc-month-item"
+          [class.active]="i === currentViewDate.getMonth()"
+          (click)="selectMonth(i)">
+          {{ month }}
+        </div>
+      </div>
+
+      <!-- Jours de la semaine -->
+      <div class="mc-weekdays" *ngIf="!showMonthList">
+        <span *ngFor="let day of weekDays">{{ day }}</span>
+      </div>
+
+      <!-- Grille des jours -->
+      <div class="mc-days-grid" *ngIf="!showMonthList">
+        <div
+          *ngFor="let day of calendarDays"
+          class="mc-day"
+          [class.empty]="!day"
+          [class.today]="isToday(day)"
+          [class.selected]="isSelected(day)"
+          (click)="selectDay(day)">
+          {{ day }}
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <hr class="mc-divider" />
+
+    <!-- ===== TIME SPINNER ===== -->
+    <div class="mc-time-picker">
+
+      <!-- Heures -->
+      <div class="mc-spinner">
+        <button class="mc-spin-btn" (click)="changeHours(1)">&#43;</button>
+        <span class="mc-spin-value">{{ hours | number:'2.0' }}</span>
+        <button class="mc-spin-btn" (click)="changeHours(-1)">&#8722;</button>
+      </div>
+
+      <span class="mc-colon">:</span>
+
+      <!-- Minutes -->
+      <div class="mc-spinner">
+        <button class="mc-spin-btn" (click)="changeMinutes(1)">&#43;</button>
+        <span class="mc-spin-value">{{ minutes | number:'2.0' }}</span>
+        <button class="mc-spin-btn" (click)="changeMinutes(-1)">&#8722;</button>
+      </div>
+
+      <!-- Secondes (optionnel) -->
+      <ng-container *ngIf="showSeconds">
+        <span class="mc-colon">:</span>
+        <div class="mc-spinner">
+          <button class="mc-spin-btn" (click)="changeSeconds(1)">&#43;</button>
+          <span class="mc-spin-value">{{ seconds | number:'2.0' }}</span>
+          <button class="mc-spin-btn" (click)="changeSeconds(-1)">&#8722;</button>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- ===== BOUTON OK ===== -->
+   <!--  <div class="mc-footer">
+      <button class="mc-ok-btn" (click)="confirm()" [disabled]="!selectedDate">
+        OK
+      </button>
+    </div> -->
+
+  </div>
+</div>

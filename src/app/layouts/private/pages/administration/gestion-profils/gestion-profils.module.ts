@@ -14,6 +14,7 @@ import {
   ChecklistDatabase,
   SubmenuComponent,
 } from './fiche-ajout-modif-profils/submenu/submenu.component';
+
 @NgModule({
   declarations: [
     FicheListeProfilsComponent,
@@ -32,6 +33,7 @@ import {
     MatIcon,
     ReactiveFormsModule,
     MatTreeModule,
+
   ],
 })
 export class GestionProfilsModule {}

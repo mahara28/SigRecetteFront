@@ -293,4 +293,17 @@ export class Table {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  getRowClass(row: any): string {
+  if (this.metadata() && this.metadata().rowClass) {
+    // Si rowClass est une fonction, l'appeler avec la ligne
+    if (typeof this.metadata().rowClass === 'function') {
+      return this.metadata().rowClass(row);
+    }
+    // Si c'est une chaîne directe
+    return this.metadata().rowClass;
+  }
+  return '';
+}
+
 }

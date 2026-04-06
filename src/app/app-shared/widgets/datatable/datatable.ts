@@ -87,6 +87,7 @@ export class Datatable {
       row: { item, index },
     });
   }
+  
 
   protected readonly isEmptyValue = isEmptyValue;
 }
