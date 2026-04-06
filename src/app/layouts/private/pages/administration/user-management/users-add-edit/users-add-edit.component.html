@@ -1,0 +1,228 @@
+<mc-card [metadata]="{ title: title }">
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div
+        fxFlex="100"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <span class="font-weight-bold">{{
+          'administration.users.userAdd.form.content.userInfo' | translate
+        }}</span>
+      </div>
+      <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-text-field
+            [number]="true"
+            max="8"
+            [control]="getFormControl('code')"
+            [label]="getLabel('code')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-text-field
+            max="300"
+            [control]="getFormControl('username')"
+            [label]="getLabel('username')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-select-date [control]="getFormControl('dateBirth')" [label]="getLabel('dateBirth')">
+          </mc-select-date>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100" *ngIf="!isEmptyValue(professionListItems)">
+          <mc-select
+            [metadata]="selectProfessionList"
+            [listItems]="professionListItems"
+            [control]="getFormControl('idProfes')"
+          ></mc-select>
+        </div>
+      </div>
+
+      <div
+        fxFlex="100"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <span class="font-weight-bold">{{
+          'administration.users.userAdd.form.content.authInfo' | translate
+        }}</span>
+      </div>
+      <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div fxFlex="50" fxFlex.lt-md="100">
+          <mc-text-field
+            max="60"
+            [control]="getFormControl('email')"
+            [label]="getLabel('mail')"
+          ></mc-text-field>
+        </div>
+
+        <ng-container *ngIf="editMode; else addMode">
+          <div fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center center">
+            <mc-button-loading *ngIf="!editPwdEnabled" btnClass="mx-2" (click)="enablePwdEdit()"
+              ><mat-icon class="mr-2">edit</mat-icon
+              >{{
+                'administration.users.userAdd.form.content.editPwd' | translate
+              }}</mc-button-loading
+            >
+            <ng-container *ngIf="editPwdEnabled">
+              <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+                <div fxFlex="50" fxFlex.lt-md="100">
+                  <mc-text-field
+                    #password
+                    type="password"
+                    max="20"
+                    [control]="getFormControl('pwd')"
+                    [label]="getLabel('pwd')"
+                    [suffix]="password.type == 'password' ? 'visibility' : 'visibility_off'"
+                    [isIconSuffix]="true"
+                    [isSuffixClicked]="true"
+                    (suffixClickedEvent)="
+                      password.type = password.type == 'password' ? 'text' : 'password'
+                    "
+                  ></mc-text-field>
+                </div>
+                <div fxFlex="50" fxFlex.lt-md="100">
+                  <mc-text-field
+                    #confirm
+                    type="password"
+                    max="20"
+                    [control]="getFormControl('confirmPwd')"
+                    [label]="getLabel('confirmPwd')"
+                    [suffix]="confirm.type == 'password' ? 'visibility' : 'visibility_off'"
+                    [isIconSuffix]="true"
+                    [isSuffixClicked]="true"
+                    (suffixClickedEvent)="
+                      confirm.type = confirm.type == 'password' ? 'text' : 'password'
+                    "
+                  ></mc-text-field>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+        <ng-template #addMode>
+          <div fxFlex="25" fxFlex.lt-md="100">
+            <mc-text-field
+              #password
+              max="20"
+              type="password"
+              [control]="getFormControl('pwd')"
+              [label]="getLabel('pwd')"
+              [suffix]="password.type == 'password' ? 'visibility' : 'visibility_off'"
+              [isIconSuffix]="true"
+              [isSuffixClicked]="true"
+              (suffixClickedEvent)="
+                password.type = password.type == 'password' ? 'text' : 'password'
+              "
+            ></mc-text-field>
+          </div>
+          <div fxFlex="25" fxFlex.lt-md="100">
+            <mc-text-field
+              #confirm
+              type="password"
+              max="20"
+              [control]="getFormControl('confirmPwd')"
+              [label]="getLabel('confirmPwd')"
+              [suffix]="confirm.type == 'password' ? 'visibility' : 'visibility_off'"
+              [isIconSuffix]="true"
+              [isSuffixClicked]="true"
+              (suffixClickedEvent)="confirm.type = confirm.type == 'password' ? 'text' : 'password'"
+            ></mc-text-field>
+          </div>
+        </ng-template>
+      </div>
+      <div
+        fxFlex="100"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <span class="font-weight-bold">{{
+          'administration.users.userAdd.form.content.accountStatus' | translate
+        }}</span>
+      </div>
+      <div fxFlex="100" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign=" center">
+        <mat-radio-group (change)="onStatusChange($event)" [value]="selectedStatus">
+          <mat-radio-button class="mx-3" [value]="AccountStatus.CODE_ACTIVE">{{
+            'administration.users.userAdd.form.content.activeStatus' | translate
+          }}</mat-radio-button>
+          <mat-radio-button class="mx-3" [value]="AccountStatus.CODE_INACTIVE"
+            >{{ 'administration.users.userAdd.form.content.inactiveStatus' | translate }}
+          </mat-radio-button>
+          <!-- <mat-radio-button class="mx-3" [value]="AccountStatus.CODE_SUSPENDED"
+            >{{ "administration.users.userAdd.form.content.suspendedStatus" | translate }}
+          </mat-radio-button> -->
+        </mat-radio-group>
+        <!-- <ng-container *ngIf="selectedStatus == AccountStatus.CODE_SUSPENDED">
+          <div fxFlex="50" fxFlex.lt-md="100" fxLayoutAlign="center center">
+            <div class="mr-2" fxFlex="30" fxFlex.lt-md="100">
+              <mc-select-date
+                [control]="getFormControl('dateSuspStart')"
+                [label]="getLabel('dateSuspStart')"
+              >
+              </mc-select-date>
+            </div>
+            <div fxFlex="30" fxFlex.lt-md="100">
+              <mc-select-date
+                [control]="getFormControl('dateSuspEnd')"
+                [label]="getLabel('dateSuspEnd')"
+              >
+              </mc-select-date>
+            </div>
+          </div>
+        </ng-container> -->
+      </div>
+      <!-- <div fxFlex="100" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign=" center">
+        <mat-checkbox
+          class="mx-3"
+          [formControl]="getFormControl('fexpire')"
+          (change)="onKeepPassword($event)"
+          >{{
+            "administration.users.userAdd.form.content.exiprePassword" | translate
+          }}</mat-checkbox
+        >
+      </div> -->
+      <div
+        fxFlex="100"
+        fxFlex.lt-md="100"
+        fxLayout="row"
+        fxLayoutAlign=" center"
+        class="subheader-underline"
+      >
+        <span class="font-weight-bold">{{
+          'administration.users.userAdd.form.content.profileList' | translate
+        }}</span>
+      </div>
+      <div fxFlex="100" fxFlex.lt-md="100">
+        <mc-datatable
+          [responsePayload]="params.userProfils.payload"
+          [responsePayloadall]="params.userProfils.payloadall"
+          [metadata]="params.userProfils.metadata"
+          (onAction)="onAction(this, $event)"
+          (paginate)="onPaginate($event)"
+          (sort)="onSort($event)"
+        >
+        </mc-datatable>
+      </div>
+    </div>
+  </form>
+
+  <div fxLayoutAlign="end center">
+    <mc-button-loading (click)="onSave()" btnClass="save-btn mx-2">
+      <div fxLayoutAlign="center center">
+        <mat-icon class="mx-1" style="font-size: 1.4rem">save_outline</mat-icon>
+        <span>{{ 'general.save' | translate }}</span>
+      </div>
+    </mc-button-loading>
+    <button (click)="backToList()" mat-raised-button type="button" class="cancel-btn">
+      <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
+      <span>{{ 'general.back' | translate }}</span>
+    </button>
+  </div>
+</mc-card>

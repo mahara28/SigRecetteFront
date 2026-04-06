@@ -53,8 +53,8 @@ export class SelectDate implements ControlValueAccessor {
   @Output() onChangeEvent = new EventEmitter<any>();
 
   // Fonctions pour ControlValueAccessor
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  onChange: any = () => { };
+  onTouched: any = () => { };
 
   writeValue(value: any): void {
     if (value) this.control.setValue(value, { emitEvent: false });
@@ -79,32 +79,32 @@ export class SelectDate implements ControlValueAccessor {
 
   // À ajouter dans votre classe SelectDate
 
-onKeydown(event: KeyboardEvent): void {
-  // Liste des touches de contrôle autorisées (BackSpace, Tab, Delete, flèches, etc.)
-  const allowedKeys = [
-    'Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter'
-  ];
+  onKeydown(event: KeyboardEvent): void {
+    // Liste des touches de contrôle autorisées (BackSpace, Tab, Delete, flèches, etc.)
+    const allowedKeys = [
+      'Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete', 'Enter'
+    ];
 
-  // Si c'est une touche de contrôle, on laisse passer
-  if (allowedKeys.indexOf(event.key) !== -1) {
-    return;
+    // Si c'est une touche de contrôle, on laisse passer
+    if (allowedKeys.indexOf(event.key) !== -1) {
+      return;
+    }
+
+    // Autoriser uniquement les chiffres (0-9) et le slash (/)
+    const isNumber = /[0-9]/.test(event.key);
+    //const isSlash = event.key === '/';
+
+    // Si la touche n'est ni un chiffre ni un slash, on bloque l'événement
+    if (!isNumber) {
+      event.preventDefault();
+    }
   }
 
-  // Autoriser uniquement les chiffres (0-9) et le slash (/)
-  const isNumber = /[0-9]/.test(event.key);
-  //const isSlash = event.key === '/';
-
-  // Si la touche n'est ni un chiffre ni un slash, on bloque l'événement
-  if (!isNumber) {
-    event.preventDefault();
+  // Petite correction pour la méthode clearField (plus propre)
+  clearField(event: MouseEvent): void {
+    event.stopPropagation();
+    this.control.setValue(null);
+    this.onChange(null);
+    this.onChangeEvent.emit(null);
   }
-}
-
-// Petite correction pour la méthode clearField (plus propre)
-clearField(event: MouseEvent): void {
-  event.stopPropagation();
-  this.control.setValue(null);
-  this.onChange(null);
-  this.onChangeEvent.emit(null);
-}
 }
