@@ -121,7 +121,18 @@ export class AuthentificationService {
                 //subscriber.next(false);
               }
             });
-          } else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
+          } else if (response.code == ConstanteWs._CODE_WS_SUCCESS_WAIT_CODE_VERIFICATION) {
+            this.router.navigate(['/login/verify']);
+            this.sessionStorage.setItem('verificationEmail', response.payload.email);
+            this.sessionStorage.setItem('verificationId', response.payload.id);
+            /* this.router.navigate(['/login/verify'], {
+              queryParams: {
+                email: response.payload.email,
+                id: response.payload.id
+              }
+            }); */
+          }
+          else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
             this.toast.error('authentification.login.errors.code');
             subscriber.next(false);
           } else if (response.code == ConstanteWs._CODE_WS_SUCCESS_WAIT_PERMISSION) {
@@ -135,6 +146,80 @@ export class AuthentificationService {
             subscriber.next(false);
           } else if (response.code == '445') {
             this.toast.error('عنوان IP خارج النطاق المسموح به');
+            subscriber.next(false);
+          } else {
+            console.error(
+              `Error in AuthentificationService/authentificate, error code :: ${response.code}`,
+            );
+            this.toast.error('authentification.login.errors.userErrorAuth');
+            subscriber.next(false);
+          }
+        },
+        error: (error) => {
+          console.error(`Error in AuthentificationService/authentificate, error :: ${error}`);
+          this.toast.error();
+          subscriber.next(false);
+        },
+      });
+    });
+  }
+
+  public verifyCode(credentials: any): Observable<boolean> {
+    return new Observable<boolean>((subscriber) => {
+      this.removeAccessToken();
+      const request: RequestObject = <RequestObject>{
+        uri: AuthentificationUri.LOGIN.VERIFY_CODE,
+        params: {
+          body: credentials,
+        },
+        method: ConstanteWs._CODE_POST,
+      };
+      /////// to be continued
+      this.sharedService.commonWs(request).subscribe({
+        next: (response: ResponseObject) => {
+          if (!response) {
+            this.toast.error('authentification.login.errors.code');
+          }
+
+          if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
+            //this.saveAccessToken(response.payload['token']);
+
+            const access = response.payload['accessToken'] || response.payload['token'];
+            const refresh = response.payload['refreshToken'];
+
+            this.saveAccessToken(access);
+            if (refresh) {
+              this.localStorage.setItem('refresh_token', refresh);
+            }
+            //subscriber.next(true);
+            this.isUserAuthentificated().subscribe((isAuthentificated) => {
+              if (isAuthentificated) {
+                subscriber.next(true);
+              } else {
+                console.error(
+                  `Error in AuthentificationService/authentificate, error :: isAuthentificated = false`,
+                );
+                this.toast.error('authentification.login.errors.userErrorAuth');
+                subscriber.next(false);
+                //this.toast.error();
+                //subscriber.next(false);
+              }
+            });
+          }
+          else if (response.code == ConstanteWs._CODE_WS_ERROR_EMAIL_CODE) {
+            this.toast.error('authentification.login.errors.code');
+            subscriber.next(false);
+          } else if (response.code == ConstanteWs._CODE_WS_SUCCESS_WAIT_PERMISSION) {
+            this.toast.error('authentification.login.errors.userErrorAuthInvalid');
+            subscriber.next(false);
+          } else if (response.code == ConstanteWs._CODE_WS_ACCOUNT_EXPIRED) {
+            this.toast.error('authentification.login.errors.userErrorAuthExpiré');
+            subscriber.next(false);
+          } else if (response.code == ConstanteWs._CODE_WS_PERMISSION_DENIED) {
+            this.toast.error('verify_code.erreur.code_invalide');
+            subscriber.next(false);
+          } else if (response.code == ConstanteWs._CODE_WS_CODE_EXPIRE) {
+            this.toast.error('verify_code.erreur.code_expire');
             subscriber.next(false);
           } else {
             console.error(

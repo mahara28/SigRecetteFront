@@ -179,6 +179,19 @@
       }
     }
   },
+  "verify_code": {
+    "titre": "Code d'accès",
+    "sousTitre": "Veuillez saisir le code de connexion à usage unique pour vérifier votre compte.",
+    "notification": "Un code vous a été envoyé par e-mail.",
+    "code_invalid": "Code de vérification invalide",
+    "non_recu": "N'ai pas reçu le code",
+    "resend": "Renvoyer",
+    "send": "Envoyer",
+    "erreur": {
+      "code_expire": "Le code d'accès n'est plus valide. Veuillez demander un nouveau code.",
+      "code_invalide": "Le code que vous avez entré n'est pas reconnu. Vérifiez-le"
+    }
+  },
   "VALIDATION": {
     "REQUIRED": "Ce champ est obligatoire",
     "MIN_LENGTH": "La longueur minimale est {{min}} caractères",
@@ -272,8 +285,8 @@
     }
   },
   "notificationsMessage": {
-    "list":{
-      "title":" Liste des notification et des messages"
+    "list": {
+      "title": " Liste des notification et des messages"
     },
     "non_lu": "Non Lu",
     "marquer_lu": "marquer comme lu",
@@ -293,12 +306,9 @@
             "email": "email",
             "dateEnvoi": "dateEnvoi",
             "dateReception": "dateReception"
-
           }
         }
       }
     }
-
-
   }
 }

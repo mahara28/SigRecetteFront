@@ -290,16 +290,16 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     });
   }
 
- /*  goToListMessage(code: any) {
-    this.router.navigate(['/app/notif-msg'], {
-      state: { code }
-    });
-  } */
+  /*  goToListMessage(code: any) {
+     this.router.navigate(['/app/notif-msg'], {
+       state: { code }
+     });
+   } */
   goToListMessage(code: string) {
-  this.router.navigate(['/app/notif-msg'], {
-    queryParams: { code }  // ✅ queryParams au lieu de state
-  });
-}
+    this.router.navigate(['/app/notif-msg'], {
+      queryParams: { code }
+    });
+  }
 
 
   getData(code: any) {
@@ -342,15 +342,15 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
             if (code == "MSG") {
               this.unread_msg = response.payload.total;
               this.ListMsgUnread = formattedData
-              this.lstIdMsgUnread = this.ListMsgUnread.map((item: any) => item.id);
+              this.lstIdMsgUnread = this.ListMsgUnread.map((item: any) => item.idNotifUser);
             } else if (code == "NOTIF") {
               this.unread_notif = response.payload.total
               this.ListNotifUnread = formattedData
-              this.lstIdNotifUnread = this.ListNotifUnread.map((item: any) => item.id);
+              this.lstIdNotifUnread = this.ListNotifUnread.map((item: any) => item.idNotifUser);
             }
 
             //this.params.userListData.payload = response.payload;
-            console.log(`liste des ${code}: `, formattedData)
+            console.log(`lstIdNotifUnread des ${code}: `, this.lstIdNotifUnread)
             this.cdr.markForCheck();
           } else {
             console.error(
@@ -369,7 +369,8 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     );
 
   }
-  setAsRead(id: any, code: any) {
+
+  setAsRead(event: Event, id: any, code: any) {
     console.log('set as read: ', id)
     const request: RequestObject = <RequestObject>{
       uri: `${NOTIFICATION_MESSAGE.SET_AS_READ}/${id}`,
@@ -381,6 +382,7 @@ export class PrivateLayoutNavbar implements OnInit, OnDestroy {
     this.sharedService.commonWs(request).subscribe({
       next: (response: ResponseObject) => {
         if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+          event.stopPropagation();
           this.getData(code)
           // Redirection vers la page details du Messages/Notifications
           //this.toast.success();
