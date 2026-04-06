@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersListComponent } from './users-list/users-list.component';
+import { UsersAddEditComponent } from './users-add-edit/users-add-edit.component';
 
 const routes: Routes = [
   {
@@ -21,15 +22,15 @@ const routes: Routes = [
       },
       /*{
         path: "detail/:id",
-        //component: UsersDetailsComponent,
+        component: UsersDetailsComponent,
         data: {
           title: "administration.users.userDetails.title",
           breadcrumb: "administration.users.userDetails.title",
         },
-      },
+      },*/
       {
         path: "add",
-        //component: UsersAddEditComponent,
+        component: UsersAddEditComponent,
         data: {
           title: "administration.users.userAdd.add",
           breadcrumb: "administration.users.userAdd.add",
@@ -37,12 +38,12 @@ const routes: Routes = [
       },
       {
         path: "edit/:id",
-        //component: UsersAddEditComponent,
+        component: UsersAddEditComponent,
         data: {
           title: "administration.users.userEdit.edit",
           breadcrumb: "administration.users.userEdit.edit",
         },
-      },*/
+      },
     ],
   },
 ];
@@ -51,4 +52,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserManagementRoutingModule {}
+export class UserManagementRoutingModule { }
