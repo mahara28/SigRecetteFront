@@ -149,7 +149,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     Paginator,
     ButtonLoading,
     SelectDate,
-    SelectCommon
+    SelectCommon,
   ],
   imports: [
     CommonModule,

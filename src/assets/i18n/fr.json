@@ -365,7 +365,8 @@
     "perm_delete": "Supprimer",
     "perm_details": "Détails",
     "perm_export": "Exporter",
-    "perm_import": "Importer"
+    "perm_import": "Importer",
+    "ParamNomenc": "Parametgrage nomenclatures"
   },
   "activeStatus": "Actif",
   "inactiveStatus": "Inactif",
@@ -421,6 +422,33 @@
             "dateReception": "dateReception"
           }
         }
+      }
+    }
+  },
+  "gestNomenclature": {
+    "list_menu": "Liste des nomenclatures",
+    "menus": "Liste des nomenclatures",
+    "title": "Gestion des nomenclatures",
+    "breadcrumb": "Gestion des nomenclatures",
+    "add_nom": "Ajouter nomenclatures",
+    "update_nom": "Modifier nomenclatures",
+    "table": {
+      "title": "Liste des nomenclatures",
+      "columns": {
+        "login": "Code",
+        "Désignation": "Désignation",
+        "FActif": "Actif"
+      }
+    },
+    "form": {
+      "labels": {
+        "code": "Code",
+        "desFr": "Désignation",
+        "desEn": "Désignation (EN)",
+        "isActive": "Actif"
+      },
+      "errors": {
+        "selectionner_menu": "il faut sélectionner des modules"
       }
     }
   }
