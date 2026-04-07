@@ -1,0 +1,42 @@
+<mc-card [metadata]="{ title: 'general.search_filter' }">
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-text-field
+            max="300"
+            [control]="getFormControl('username')"
+            [label]="getLabel('username')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-select
+            [metadata]="params.state.metadata"
+            [listItems]="params.state.data"
+            [control]="getFormControl('state')"
+          ></mc-select>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-select
+            [metadata]="params.desProfesFr.metadata"
+            [listItems]="params.desProfesFr.data"
+            [control]="getFormControl('desProfesFr')"
+          ></mc-select>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-select
+            [metadata]="params.desProfilFr.metadata"
+            [listItems]="params.desProfilFr.data"
+            [control]="getFormControl('desProfilFr')"
+          ></mc-select>
+        </div>
+      </div>
+      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center">
+        <mc-filter-actions
+          (onSearchClicked)="onSearch()"
+          (onResetClicked)="onReset()"
+        ></mc-filter-actions>
+      </div>
+    </div>
+  </form>
+</mc-card>
