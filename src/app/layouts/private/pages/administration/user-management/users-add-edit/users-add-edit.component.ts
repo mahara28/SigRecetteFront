@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { ChangeDetectorRef, Component, ElementRef, ViewChild } from "@angular/core";
 import {
   FormGroup,
   UntypedFormBuilder,
@@ -93,13 +93,15 @@ export class UsersAddEditComponent {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toast: ToastService,
-    private confirmDialogService: ConfirmDialogService
+    private confirmDialogService: ConfirmDialogService,
+    private cdr: ChangeDetectorRef
+
   ) { }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.initParams();
     this.initMetadata();
-    await this.initListNm();
+    this.initListNm();
     if (this.editMode) {
       this.initData().then((res: any) => {
         this.form = this.initForm(res);
@@ -183,6 +185,7 @@ export class UsersAddEditComponent {
 
     const response: any = await this.initProfessionList();
     this.professionListItems = response.data;
+    this.cdr.detectChanges();
   }
 
   initForm(formData?: any) {

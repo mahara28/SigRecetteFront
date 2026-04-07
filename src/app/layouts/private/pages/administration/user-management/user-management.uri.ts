@@ -5,6 +5,8 @@ export const USERS_DATA_URI = {
   USER_EDIT: "admUser/",
   USER_DELETE: "admUser/",
   EXPORT: "vAdmUser/export",
+
+  V_USER_DETAIL: "vAdmUser",
 };
 
 export const PROFESSION_DATA_URI = {

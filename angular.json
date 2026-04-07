@@ -18,24 +18,18 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "externalDependencies": [
-              "../fonts/feather.svg",
-              "../images/flags.png"
-            ],
+            "externalDependencies": ["../fonts/feather.svg", "../images/flags.png"],
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/material-theme.scss",
               "src/assets/css/bootstrap.min.css",
               "src/assets/vendors/css/vendors.min.css",
               "src/assets/vendors/css/daterangepicker.min.css",
               "src/assets/css/theme.min.css",
               "src/assets/vendors/css/dataTables.bs5.min.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -48,12 +42,10 @@
               "node_modules/feather-icons/dist/feather.min.js",
               "src/assets/js/theme-customizer-init.min.js"
             ],
-            
-            
+
             "security": {
               "allowedHosts": []
             }
-            
           },
           "configurations": {
             "production": {

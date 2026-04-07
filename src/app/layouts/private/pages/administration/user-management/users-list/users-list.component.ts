@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RequestObject, SearchObject, Sort } from '../../../../../../app-shared/models';
 import { isEmptyValue, onAction, initSearchObject } from '../../../../../../app-shared/tools';
@@ -35,6 +35,7 @@ export class UsersListComponent implements OnInit {
     private toast: ToastService,
     private router: Router,
     private confirmDialogService: ConfirmDialogService,
+    private cdr: ChangeDetectorRef
   ) {
     this.initParams();
   }
@@ -54,7 +55,7 @@ export class UsersListComponent implements OnInit {
     }
   }
 
-  initParams() {}
+  initParams() { }
 
   initMetadata() {
     this.params['userListData'] = {
@@ -88,6 +89,7 @@ export class UsersListComponent implements OnInit {
         next: (response: ResponseObject) => {
           if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
             this.params.userListData.payload = response.payload;
+            this.cdr.detectChanges();
           } else {
             console.error(
               `Error in UsersListComponent/initUsersList, error code :: ${response.code}`,
@@ -171,7 +173,9 @@ export class UsersListComponent implements OnInit {
   onEditTableUserMangement(data: any) {
     this.router.navigate(['app', 'adm', 'users', 'userManag', 'edit', data.item.id]);
   }
-
+  openDetailsTableUserMangement(row: any) {
+    this.router.navigate(["/app/adm/users/userManag/detail", row.item.id]);
+  }
   onDeleteTableUserMangement(data: any) {
     this.subscriptionsList.push(
       this.confirmDialogService.confirm('', 'general.delete_confirmation').subscribe((flag) => {

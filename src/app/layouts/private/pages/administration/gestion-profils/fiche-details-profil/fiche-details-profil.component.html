@@ -1,0 +1,11 @@
+<mc-fiche-details [data]="params.detailsProfil?.data" [metadata]="params.detailsProfil?.metadata">
+</mc-fiche-details>
+<mc-card [metadata]="{ title: 'administration.gp.list_menu' }">
+  <app-submenu [isDisable]="true" [editMode]="true" [data]="listMenus"></app-submenu>
+</mc-card>
+<div fxLayoutAlign="end end">
+  <button (click)="backToList()" mat-raised-button type="button" class="cancel-btn">
+    <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
+    <span>{{ 'general.back' | translate }}</span>
+  </button>
+</div>

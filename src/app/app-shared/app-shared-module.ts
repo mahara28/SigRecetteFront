@@ -127,6 +127,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     FicheDetails,
     MatFormFieldModule,
     CommonModule,
+    ReactiveFormsModule,
     //Composant
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
