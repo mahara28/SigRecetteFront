@@ -212,10 +212,6 @@ export class UsersAddEditComponent {
         formData?.idProfes,
         Validators.required
       ),
-      idCategorie: this.formBuilder.control(
-        formData?.idCategorie,
-        Validators.required
-      ),
     });
 
     return form;
@@ -423,6 +419,7 @@ export class UsersAddEditComponent {
   }
 
   onSave() {
+    console.log(this.form.value)
     this.form.markAllAsTouched();
     if (this.form.valid) {
       let formValue = this.form.value;

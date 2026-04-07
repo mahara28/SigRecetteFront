@@ -81,6 +81,7 @@ import { SelectDate } from './widgets/form/select-date/select-date';
 import { SelectDateTime } from './widgets/form/select-date-time/select-date-time';
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from 'ng-flex-layout';
+import { SelectCommon } from './widgets/form/select/select-common/select-common';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,7 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     DatatableExport,
     SelectDate,
     SelectDateTime,
+    SelectCommon,
     EmptyList,
     Paginator,
     ButtonLoading,
@@ -145,6 +147,8 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     EmptyList,
     Paginator,
     ButtonLoading,
+    SelectDate,
+    SelectCommon
   ],
   imports: [
     CommonModule,
@@ -223,4 +227,4 @@ import { FlexLayoutModule } from 'ng-flex-layout';
     MinutesFormatPipe,
   ],
 })
-export class AppSharedModule {}
+export class AppSharedModule { }
