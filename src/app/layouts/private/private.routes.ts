@@ -23,4 +23,9 @@ export const PrivateRoutes: Routes = [
     loadChildren: () =>
       import('./pages/notification-message/notification-message.module').then((m) => m.NotificationMessageModule),
   },
+  {
+    path: 'paranomenc',
+    loadChildren: () =>
+      import('./pages/parametrage-nomenclature/parametrage-nomenclature.module').then((m) => m.ParametrageNomenclatureModule),
+  },
 ];
