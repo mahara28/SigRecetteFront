@@ -18,6 +18,7 @@ export * from './buttons/button-loading/button-loading';
 export * from './filter-actions/filter-actions';
 export * from './page-not-found/page-not-found';
 export * from './form/select-date-time/select-date-time';
+export * from './form/select/select-common/select-common';
 export * from './spinner-container/spinner-container.component';
 export * from './fiche-details/fiche-details';
 //export * from './layout/navbars/select-app-language/select-app-language';

@@ -1,0 +1,26 @@
+<!--  <div fxFlex="100" fxFlex.lt-md="100">
+   <mc-filter-liste-nomenclature (searchoptions)="onSearch($event)"
+         #filtre (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch(): null">
+        </mc-filter-liste-nomenclature>
+
+</div>
+
+
+
+<div class="cp5" fxLayout="column" fxLayoutGap="20px">
+
+  <mc-filter-liste-nomenclature
+    (selectionChange)="selectedNomenclature = $event">
+  </mc-filter-liste-nomenclature>
+
+  <div *ngIf="selectedNomenclature?.data?.length">
+    <mc-datatable
+      [responsePayload]="selectedNomenclature.data"
+      [metadata]="{
+        columns: Object.keys(selectedNomenclature.data[0] || {})
+      }"
+    >
+    </mc-datatable>
+  </div>
+</div>
+ -->

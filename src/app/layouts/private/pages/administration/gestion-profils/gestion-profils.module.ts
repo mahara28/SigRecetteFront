@@ -14,6 +14,7 @@ import {
   ChecklistDatabase,
   SubmenuComponent,
 } from './fiche-ajout-modif-profils/submenu/submenu.component';
+import { FilterListeNomenclature } from "../../parametrage-nomenclature/gestion-nomenclature/filter-liste-nomenclature/filter-liste-nomenclature";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import {
     MatIcon,
     ReactiveFormsModule,
     MatTreeModule,
-
-  ],
+    FilterListeNomenclature
+],
 })
 export class GestionProfilsModule {}

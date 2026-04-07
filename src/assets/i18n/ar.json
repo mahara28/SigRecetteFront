@@ -169,7 +169,8 @@
     "perm_delete": "حذف",
     "perm_details": "تفاصيل",
     "perm_export": "تصدير",
-    "perm_import": "تحميل"
+    "perm_import": "تحميل",
+    "ParamNomenc": " إعدادات التسميات"
   },
   "activeStatus": "نشط",
   "inactiveStatus": "غير نشط",
@@ -227,5 +228,32 @@
       "title": "قائمة الإشعارات والرسائل"
     }
   }
-  }}
+  }},
+  "gestNomenclature": {
+    "list_menu": "قائمة التسميات",
+    "menus": "قائمة التسميات",
+    "title": "إدارة التسميات",
+    "breadcrumb": "إدارة التسميات",
+    "add_nom": "إضافة تسمية",
+    "update_nom": "تعديل التسمية",
+    "table": {
+      "title": "قائمة التسميات",
+      "columns": {
+        "login": "الرمز",
+        "Désignation": "الوصف",
+        "FActif": "نشط"
+      }
+    },
+    "form": {
+      "labels": {
+        "code": "الرمز",
+        "desFr": "الوصف",
+        "desEn": "الوصف (EN)",
+        "isActive": "نشط"
+      },
+      "errors": {
+        "selectionner_menu": "يجب اختيار الوحدات"
+      }
+    }
+}
 }
