@@ -14,14 +14,16 @@ import {
   ChecklistDatabase,
   SubmenuComponent,
 } from './fiche-ajout-modif-profils/submenu/submenu.component';
+import { FicheDetailsProfilComponent } from './fiche-details-profil/fiche-details-profil.component';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 
 @NgModule({
   declarations: [
     FicheListeProfilsComponent,
     FicheAjoutModifProfilsComponent,
 
-    /*FiltreListeProfilsComponent,
-    FicheDetailsProfilComponent,*/
+    /*FiltreListeProfilsComponent,*/
+    FicheDetailsProfilComponent,
     SubmenuComponent,
     TreeViewMenuComponent,
   ],
@@ -33,7 +35,7 @@ import {
     MatIcon,
     ReactiveFormsModule,
     MatTreeModule,
-
+    FlexLayoutModule
   ],
 })
-export class GestionProfilsModule {}
+export class GestionProfilsModule { }

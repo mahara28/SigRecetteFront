@@ -30,6 +30,7 @@
         <ul class="dropdown-menu p-2" [class.show]="openNodeId === node.id">
           <li *ngFor="let perm of permissionList" class="mb-1">
             <mat-checkbox
+              [disabled]="isDisable"
               [checked]="node.permissions?.[perm.key]"
               (change)="togglePermission(node, perm.key)"
               [checked]="flatNodeMap.get(node)?.permissions?.[perm.key]"
