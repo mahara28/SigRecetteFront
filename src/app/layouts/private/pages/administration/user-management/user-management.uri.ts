@@ -1,8 +1,8 @@
 export const USERS_DATA_URI = {
   V_USER_LIST_DATA: "vAdmUser/data",
-  USER_DETAIL: "admUser/",
+  USER_DETAIL: "admUser",
   USER_ADD: "admUser/",
-  USER_EDIT: "admUser",
+  USER_EDIT: "admUser/",
   USER_DELETE: "admUser/",
   EXPORT: "vAdmUser/export",
 };

@@ -143,9 +143,9 @@
         fxLayoutAlign=" center"
         class="subheader-underline"
       >
-        <span class="font-weight-bold">{{
-          'administration.users.userAdd.form.content.accountStatus' | translate
-        }}</span>
+        <span class="font-weight-bold">
+          {{ 'administration.users.userAdd.form.content.accountStatus' | translate }}
+        </span>
       </div>
       <div fxFlex="100" fxFlex.lt-md="100" fxLayout="row" fxLayoutAlign=" center">
         <mat-radio-group (change)="onStatusChange($event)" [value]="selectedStatus">
