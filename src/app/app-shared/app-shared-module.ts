@@ -125,6 +125,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     SpinnerContainerComponent,
     TextField,
     FicheDetails,
+    Card,
     MatFormFieldModule,
     CommonModule,
     //Composant
@@ -138,7 +139,6 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     DatatableExport,
     BreadcrumbModule,
     Breadcrumb,
-    Card,
     CardTitle,
     MatFormFieldModule,
     MatInputModule,

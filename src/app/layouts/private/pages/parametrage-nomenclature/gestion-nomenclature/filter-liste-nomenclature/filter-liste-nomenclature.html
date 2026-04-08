@@ -1,51 +1,37 @@
-<!-- <mc-card [metadata]="{ title: 'general.search_filter' }">
-  <form>
+<mc-card [metadata]="{ title: 'gestNomenclature.filter.title' | translate }">
+
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+
     <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+
+      <!-- ── Ligne de champs ── -->
       <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
 
-         <div fxFlex="25" fxFlex.lt-md="100">
-                    <mc-text-field [control]="getFormControl('username')"
-                                     [label]="getLabel('username')"
-                    ></mc-text-field>
-                </div>
-
-
-        <div fxFlex="25" fxFlex.lt-md="100">
-          <mc-select [metadata]="params.nomenclature.metadata" [listItems]="params.nomenclature.data"></mc-select>
+        <div fxFlex="33" fxFlex.lt-md="100">
+          <!--
+            [metadata]  : contient label, optionLabel, filter, reset, value, etc.
+            [listItems] : tableau des ParametrageNomenclatures chargé depuis l'API
+            [control]   : FormControl 'nomTable' du formulaire réactif
+          -->
+          <mc-select
+            [metadata]="params.paramNomenclature.metadata"
+            [listItems]="params.paramNomenclature.data"
+            [control]="getFormControl('nomTable')"
+          ></mc-select>
         </div>
 
-
       </div>
+
+      <!-- ── Boutons Rechercher / Réinitialiser ── -->
       <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center">
-        <mc-filter-actions (onSearchClicked)="onSearch()" (onResetClicked)="onReset()"></mc-filter-actions>
+        <mc-filter-actions
+          (onSearchClicked)="onSearch()"
+          (onResetClicked)="onReset()"
+        ></mc-filter-actions>
       </div>
+
     </div>
+
   </form>
+
 </mc-card>
-
-
-<mc-card [metadata]="{title: 'Filtre Nomenclatures'}">
-  <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
-    <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-      <mc-text-field
-        [control]="form.get('nomTable')"
-        label="Nom de la nomenclature"
-      ></mc-text-field>
-
-      <button type="button" (click)="onSearch()">Rechercher</button>
-      <button type="button" (click)="onReset()">Réinitialiser</button>
-    </div>
-
-    <div fxLayout="row" fxLayoutGap="10px">
-      <mc-select
-        *ngIf="nomenclatureList.length > 0"
-        [options]="nomenclatureList"
-
-        (selectionChange)="onSelectNomenclature($event)"
-        optionLabel="nomTable"
-      >
-      </mc-select>
-    </div>
-  </form>
-</mc-card>
- -->
