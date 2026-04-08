@@ -1,3 +1,54 @@
-<p>
-  nomenclature-add-edit works!
-</p>
+<mc-card [metadata]="{ title: title }">
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl('code')"
+            [label]="getLabel('code')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="30" fxFlex.lt-md="100">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl('codeLibe')"
+            [label]="getLabel('codeLibe')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="10" fxFlex.lt-md="100">
+          <mc-text-field
+            [number]="true"
+            max="8"
+            [control]="getFormControl('ordrAffi')"
+            [label]="getLabel('ordrAffi')"
+          ></mc-text-field>
+        </div>
+        <div
+          fxFlex="100"
+          fxFlex.lt-md="100"
+          fxLayout="row"
+          fxLayoutAlign=" center"
+          class="subheader-underline"
+        >
+          <span class="font-weight-bold">
+            {{ 'administration.users.userAdd.form.content.accountStatus' | translate }}
+          </span>
+        </div>
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <!-- <label style="margin-right: 20px" id="example-radio-group-label">{{
+            'مفعل' | translate
+          }}</label> -->
+          <mat-radio-group formControlName="isActive">
+            <mat-radio-button style="margin-right: 20px" value="1"
+              >{{ 'administration.users.userAdd.form.content.activeStatus' | translate }}
+            </mat-radio-button>
+            <mat-radio-button value="0">{{
+              'administration.users.userAdd.form.content.inactiveStatus' | translate
+            }}</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </div>
+  </form>
+</mc-card>

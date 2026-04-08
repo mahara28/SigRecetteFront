@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { hasrequiredField, isEmptyValue, onAction } from '../../../../../app-shared/tools';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { SearchObject } from '../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogService, ToastService } from '../../../../../app-shared/services';
@@ -39,7 +39,13 @@ export class NomenclatureAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.initParams();
-    //this.initMetadata();
+    if (this.editMode) {
+      //this.form = this.initForm(res);
+      //this.title = NomenclatureEditMetadata.title;
+    } else {
+      this.title = NomenclatureAddMetadata.title;
+      this.form = this.initForm();
+    }
   }
 
   ngOnDestroy() {
@@ -52,7 +58,34 @@ export class NomenclatureAddEditComponent implements OnInit {
 
   initParams() {
     this.params["pathParams"] = this.activatedRoute.snapshot.params;
-    this.params["labels"] = NomenclatureAddMetadata.labels
+    this.params["labels"] = NomenclatureAddMetadata.labels;
+
+    this.id = this.params.pathParams.id;
+    this.editMode = !isEmptyValue(this.id);
   }
 
+  initForm(formData?: any) {
+    let form: FormGroup;
+    form = this.formBuilder.group({
+      code: this.formBuilder.control(formData?.code, Validators.required),
+      codeLibe: this.formBuilder.control(formData?.codeLibe, Validators.required),
+      ordrAffi: this.formBuilder.control(formData?.ordrAffi),
+      isActive: this.formBuilder.control(formData?.isActive),
+    });
+    return form;
+  }
+
+  onSave() { }
+
+  getFormControl(key: any) {
+    return this.form.get(key) as UntypedFormControl;
+  }
+
+  getLabel(control: string) {
+    return this.params.labels[control];
+  }
+
+  backToList() {
+    this.router.navigate(["/app/paranomenc/gestNomenclature"]);
+  }
 }
