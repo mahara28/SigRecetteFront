@@ -22,13 +22,20 @@
 
       </div>
 
-      <!-- ── Boutons Rechercher / Réinitialiser ── -->
-      <div fxFlex="100" fxLayout="row wrap" fxLayoutAlign="end center">
-        <mc-filter-actions
-          (onSearchClicked)="onSearch()"
-          (onResetClicked)="onReset()"
-        ></mc-filter-actions>
+      <div fxLayoutAlign="end center">
+    <mc-button-loading (click)="onSearch()" btnClass="save-btn mx-2">
+      <div fxLayoutAlign="center center">
+        <mat-icon class="mx-1" style="font-size: 1.4rem">save_outline</mat-icon>
+        <span>{{ 'general.search' | translate }}</span>
       </div>
+    </mc-button-loading>
+    <button (click)="onReset()" mat-raised-button type="button" class="cancel-btn">
+      <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
+      <span>{{ 'general.back' | translate }}</span>
+    </button>
+  </div>
+
+      
 
     </div>
 

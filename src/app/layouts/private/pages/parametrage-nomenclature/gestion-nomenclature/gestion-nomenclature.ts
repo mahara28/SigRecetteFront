@@ -11,6 +11,7 @@ import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../../../../app-shared/models/ResponseObject';
 import { ListeNomenclatureMetadata, ParamNomenclatureMetadata } from '../parametrage-nomenclature.metadata';
 import { PARAM_NOMENCLATURE_URI } from '../parametrage-nomenclature.uri';
+import { PermissionService } from '../../../shared/gestion-permission/permission.service';
 
 @Component({
   selector: 'app-gestion-nomenclature',
