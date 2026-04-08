@@ -42,7 +42,6 @@
     "export": "Exporter",
     "import": "Importer",
     "save": "Enregistrer",
-    "search": "Rechercher",
     "saveplan": "Enregistrer Plan d'Affaires",
     "Attribution": "Attribuer une note",
     "accepte": "Accepter",
@@ -431,8 +430,8 @@
     "menus": "Liste des nomenclatures",
     "title": "Gestion des nomenclatures",
     "breadcrumb": "Gestion des nomenclatures",
-    "add_nom": "Ajouter nomenclatures",
-    "update_nom": "Modifier nomenclatures",
+    "add_nom": "Ajouter nomenclature",
+    "update_nom": "Modifier nomenclature",
     "table": {
       "title": "Liste des nomenclatures",
       "columns": {
@@ -453,6 +452,13 @@
       },
       "errors": {
         "selectionner_menu": "il faut sélectionner des modules"
+      }
+    },
+    "nomenclature": {
+      "column": {
+        "code": "",
+        "codeLibe": "",
+        "ordrAffi": ""
       }
     }
   }
