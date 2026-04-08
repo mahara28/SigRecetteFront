@@ -83,6 +83,7 @@ import { SelectDateTime } from './widgets/form/select-date-time/select-date-time
 import { MatNativeDateModule } from '@angular/material/core';
 import { FlexLayoutModule } from 'ng-flex-layout';
 import { SelectCommon } from './widgets/form/select/select-common/select-common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,8 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     MatSortModule,
     MatPaginatorModule,
     MatRadioModule,
+    MatSlideToggleModule,
+
     TranslateModule,
     SpinnerContainerComponent,
     TextField,
@@ -196,7 +199,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     MatTooltipModule,
     MatMenuTrigger,
     MatIcon,
-
+    MatSlideToggleModule,
 
 
     //******* Directive ********//
