@@ -1,26 +1,29 @@
-<!--  <div fxFlex="100" fxFlex.lt-md="100">
-   <mc-filter-liste-nomenclature (searchoptions)="onSearch($event)"
-         #filtre (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch(): null">
-        </mc-filter-liste-nomenclature>
-
-</div>
 
 
 
-<div class="cp5" fxLayout="column" fxLayoutGap="20px">
 
-  <mc-filter-liste-nomenclature
-    (selectionChange)="selectedNomenclature = $event">
-  </mc-filter-liste-nomenclature>
+<div class="page-container">
 
-  <div *ngIf="selectedNomenclature?.data?.length">
+
+  <!-- Filtre -->
+   <div fxFlex="100" fxFlex.lt-md="100">
+    <mc-filter-liste-nomenclature (searchoptions)="onSearch($event)"
+                                  #filtre (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch(): null">
+    </mc-filter-liste-nomenclature>
+  </div>
+
+    
     <mc-datatable
-      [responsePayload]="selectedNomenclature.data"
-      [metadata]="{
-        columns: Object.keys(selectedNomenclature.data[0] || {})
-      }"
+      [responsePayload]="params.paramNomenclature.payload"
+      [responsePayloadall]="params.paramNomenclature.payloadall"
+      [metadata]="params.paramNomenclature.metadata"
+      (onAction)="onAction(this, $event)"
+      (paginate)="onPaginateParamNomenclature($event)"
+      (sort)="onSortParamNomenclature($event)"
     >
     </mc-datatable>
   </div>
-</div>
- -->
+
+
+
+

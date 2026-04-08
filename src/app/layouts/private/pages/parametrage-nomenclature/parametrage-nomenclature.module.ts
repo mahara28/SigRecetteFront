@@ -15,6 +15,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppSharedModule,
     ReactiveFormsModule,
     FormsModule,
+    AppSharedModule
+
+
   ]
 })
 export class ParametrageNomenclatureModule { }
