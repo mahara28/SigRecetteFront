@@ -442,9 +442,12 @@
     },
     "form": {
       "labels": {
+        "nomTable": "Nom table",
+        "designation": "Désignation",
         "code": "Code",
-        "desFr": "Désignation",
-        "desEn": "Désignation (EN)",
+        "codeLibe": "Désignation (FR)",
+        "codeLiAr": "Désignation (AR)",
+        "ordrAffi": "Ordre",
         "isActive": "Actif"
       },
       "errors": {
