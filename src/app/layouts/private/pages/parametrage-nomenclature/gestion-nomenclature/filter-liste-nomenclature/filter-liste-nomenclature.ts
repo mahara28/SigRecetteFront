@@ -1,26 +1,19 @@
 import { Component, OnDestroy, EventEmitter, Output, OnInit } from '@angular/core';
 
-import {  ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { initSearchObject, isEmptyValue } from '../../../../../../app-shared/tools';
 import { SharedService } from '../../../../../../app-shared/services/sharedWs/shared.service';
-import {  ToastService } from '../../../../../../app-shared/services';
+import { ToastService } from '../../../../../../app-shared/services';
 import { Subscription, from } from 'rxjs';
 import { ConstanteWs } from '../../../../../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../../../../../app-shared/models/ResponseObject';
 import { Pagination, RequestObject, SelectMetadata, Sort } from '../../../../../../app-shared/models';
 import { PARAM_NOMENCLATURE_URI } from '../../parametrage-nomenclature.uri';
-import { AppSharedModule } from '../../../../../../app-shared/app-shared-module';
 import { SelectNomenclatureMetadata } from '../../parametrage-nomenclature.metadata';
-import { FilterActions } from "../../../../../../app-shared/widgets";
 
 @Component({
   selector: 'mc-filter-liste-nomenclature',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule, // 🔥 OBLIGATOIRE
-    AppSharedModule,
-    FilterActions
-],
+  standalone: false,
   templateUrl: './filter-liste-nomenclature.html',
   styleUrl: './filter-liste-nomenclature.css',
 
@@ -41,7 +34,7 @@ export class FilterListeNomenclature implements OnInit, OnDestroy {
     private fb: UntypedFormBuilder,
     private sharedService: SharedService,
     private toast: ToastService,
-  ) {}
+  ) { }
   ngOnInit() {
     this.form = this.fb.group({
       nomTable: [null],
@@ -58,7 +51,7 @@ export class FilterListeNomenclature implements OnInit, OnDestroy {
     };
   }
   loadNomenclatures() {
- const request: RequestObject = {
+    const request: RequestObject = {
       uri: PARAM_NOMENCLATURE_URI.LIST,
       method: ConstanteWs._CODE_POST,
       params: {
@@ -87,13 +80,13 @@ export class FilterListeNomenclature implements OnInit, OnDestroy {
   getFormControl(key: string): UntypedFormControl {
     return this.form.get(key) as UntypedFormControl;
   }
-    onSearch() {
+  onSearch() {
     const val = this.form.get('nomTable')?.value;
     if (!isEmptyValue(val)) {
       this.selectNomenclature.emit(val);
     }
   }
- onReset() {
+  onReset() {
     this.form.reset();
     this.selectNomenclature.emit('');
   }

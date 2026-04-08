@@ -14,14 +14,13 @@ import { PARAM_NOMENCLATURE_URI } from '../parametrage-nomenclature.uri';
 
 @Component({
   selector: 'app-gestion-nomenclature',
-  //standalone: false,
+  standalone: false,
   templateUrl: './gestion-nomenclature.html',
   styleUrl: './gestion-nomenclature.css',
-  imports: [AppSharedModule, FilterListeNomenclature],
 })
-export class GestionNomenclature implements OnInit, OnDestroy{
+export class GestionNomenclature implements OnInit, OnDestroy {
 
- subscriptionsList: Subscription[] = [];
+  subscriptionsList: Subscription[] = [];
   params: any = {};
   selectedNomTable: string | null = null;
   protected readonly onAction = onAction;
@@ -44,14 +43,14 @@ export class GestionNomenclature implements OnInit, OnDestroy{
     }
   }
 
-   initMetadata() {
+  initMetadata() {
     // Tableau des ParametrageNomenclatures
     this.params['paramNomenclature'] = {
       metadata: ParamNomenclatureMetadata.paramNomenclatureListTableMetadata,
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({
-        sort: new Sort('nomTable', 'asc nulls last'),
+        sort: new Sort('ordrAffi', 'asc nulls last'),
       }),
       searchObjectall: new SearchObject(),
     };
@@ -69,7 +68,7 @@ export class GestionNomenclature implements OnInit, OnDestroy{
   }
   initListParamNomenclatures() {
     const request: RequestObject = <RequestObject>{
-      uri: PARAM_NOMENCLATURE_URI.NOMENCLATURE_LIST_DATA,
+      uri: PARAM_NOMENCLATURE_URI.V_NOMENCLATURE_LIST_DATA,
       params: { body: this.params.paramNomenclature.searchObject },
       method: ConstanteWs._CODE_POST,
     };
@@ -97,7 +96,7 @@ export class GestionNomenclature implements OnInit, OnDestroy{
 
 
 
-    onPaginateParamNomenclature(event: any) {
+  onPaginateParamNomenclature(event: any) {
     this.params.paramNomenclature.searchObject.pagination = event;
     this.initListParamNomenclatures();
   }
@@ -165,6 +164,14 @@ export class GestionNomenclature implements OnInit, OnDestroy{
       direction: event.direction,
     };
     if (this.selectedNomTable) this.loadNomenclatureData(this.selectedNomTable);
+  }
+
+
+  onSearch($event: any) {
+    this.params.paramNomenclature.searchObject.pagination.offSet = 0;
+    this.params.paramNomenclature.searchObject.pagination.limit = 10;
+    this.params.paramNomenclature.searchObject.dataSearch = $event;
+    this.initListParamNomenclatures();
   }
 
   // ─── Actions CRUD sur la nomenclature dynamique ──────────────────────────
