@@ -30,7 +30,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
   private toast = inject(ToastService);
   private confirmDialogService = inject(ConfirmDialogService);
 
-constructor(
+  constructor(
     private permissionService: PermissionService,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -42,7 +42,7 @@ constructor(
   ngOnInit() {
     this.initMetadata();
     this.initListNomenclatures();
-    
+
 
   }
 
@@ -57,8 +57,8 @@ constructor(
   initMetadata() {
     this.params['nomenclature'] = {
       metadata: this.permissionService.getMetadataWithPermissions(
-              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-            ),
+        ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+      ),
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({
@@ -69,31 +69,31 @@ constructor(
 
     // Tableau des données dynamiques de la nomenclature sélectionnée
     this.params['nomenclatureData'] = {
-    metadata: {
-      ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-      hasAdd: false, 
-      hasExport: false, 
-    },
-    payload: { data: [], totalElements: 0 },
-    payloadall: { data: [], totalElements: 0 },
-    searchObject: initSearchObject({
-      sort: new Sort('ordrAffi', 'asc nulls last'),
-    }),
-    searchObjectall: new SearchObject(),
-  };
+      metadata: {
+        ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+        hasAdd: false,
+        hasExport: false,
+      },
+      payload: { data: [], totalElements: 0 },
+      payloadall: { data: [], totalElements: 0 },
+      searchObject: initSearchObject({
+        sort: new Sort('ordrAffi', 'asc nulls last'),
+      }),
+      searchObjectall: new SearchObject(),
+    };
   }
 
-   
+
   initListNomenclatures() {
     const request: RequestObject = <RequestObject>{
       uri: PARAM_NOMENCLATURE_URI.DATA,
       params: {
-       body: this.params.paramNomenclature.searchObject,
-    },
+        body: this.params.paramNomenclature.searchObject,
+      },
       method: ConstanteWs._CODE_POST,
     };
 
-     this.subscriptionsList.push(
+    this.subscriptionsList.push(
       this.sharedService.commonWs(request).subscribe({
         next: (response: ResponseObject) => {
           if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
@@ -120,7 +120,7 @@ constructor(
 
   onPaginateNomenclature(event: any) {
     this.params.nomenclatures.searchObject.pagination = event;
-    this.initListNomenclatures( );
+    this.initListNomenclatures();
   }
 
   onSortNomenclatures(event: any) {
@@ -133,65 +133,65 @@ constructor(
 
   onSelectNomenclature(nomTable: any) {
 
-  this.selectedNomTable = nomTable;
+    this.selectedNomTable = nomTable;
 
-  if (!isEmptyValue(nomTable)) {
-    this.loadNomenclatureData(nomTable);
-  } else {
+    if (!isEmptyValue(nomTable)) {
+      this.loadNomenclatureData(nomTable);
+    } else {
 
-    this.params.nomenclatureData.payload = { data: [], totalElements: 0 };
+      this.params.nomenclatureData.payload = { data: [], totalElements: 0 };
 
-    this.params.nomenclatureData.metadata = {
-      ...this.params.nomenclatureData.metadata,
-      hasAdd: false,
-      hasExport: false,
-    };
+      this.params.nomenclatureData.metadata = {
+        ...this.params.nomenclatureData.metadata,
+        hasAdd: false,
+        hasExport: false,
+      };
+    }
   }
-}
- 
-loadNomenclatureData(nomTable: string) {
-  if (!nomTable) return;
-  const request: RequestObject = {
-    uri: PARAM_NOMENCLATURE_URI.DATA,
-    method: ConstanteWs._CODE_POST,
-    params: {
-      query: { nomTable },
-    },
-  };
 
-  this.subscriptionsList.push(
-    this.sharedService.commonWs(request).subscribe({
-      next: (response: ResponseObject) => {
-        if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
-
-          const data = response.payload || [];
-
-          this.params.nomenclatureData.payload = {
-            data,
-            totalElements: data.length,
-          };
-
-          this.params.nomenclatureData.payloadall = {
-            data,
-            totalElements: data.length,
-          };
-
-          this.params.nomenclatureData.metadata = {
-            ...this.params.nomenclatureData.metadata,
-            hasAdd: true,
-            hasExport: true,
-          };
-
-          this.cdr.detectChanges();
-
-        } else {
-          this.toast.error();
-        }
+  loadNomenclatureData(nomTable: string) {
+    if (!nomTable) return;
+    const request: RequestObject = {
+      uri: PARAM_NOMENCLATURE_URI.DATA,
+      method: ConstanteWs._CODE_POST,
+      params: {
+        query: { nomTable },
       },
-      error: () => this.toast.error(),
-    })
-  );
-}
+    };
+
+    this.subscriptionsList.push(
+      this.sharedService.commonWs(request).subscribe({
+        next: (response: ResponseObject) => {
+          if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+
+            const data = response.payload || [];
+
+            this.params.nomenclatureData.payload = {
+              data,
+              totalElements: data.length,
+            };
+
+            this.params.nomenclatureData.payloadall = {
+              data,
+              totalElements: data.length,
+            };
+
+            this.params.nomenclatureData.metadata = {
+              ...this.params.nomenclatureData.metadata,
+              hasAdd: true,
+              hasExport: true,
+            };
+
+            this.cdr.detectChanges();
+
+          } else {
+            this.toast.error();
+          }
+        },
+        error: () => this.toast.error(),
+      })
+    );
+  }
   onPaginateNomenclatureData(event: any) {
     this.params.nomenclatureData.searchObject.pagination = event;
     if (this.selectedNomTable) this.loadNomenclatureData(this.selectedNomTable);
@@ -215,18 +215,13 @@ loadNomenclatureData(nomTable: string) {
 
   onAddTableNomenclatureData(row: any) {
 
-  this.router.navigate(
-    ['app', 'paranomenc', 'gestNomenclature', 'add', this.selectedNomTable],
-    {
-      state: {
-        selectedItem: row?.item
-      }
-    }
-  );
+    this.router.navigate(
+      ['app', 'paranomenc', 'gestNomenclature', 'add', this.selectedNomTable],
+    );
 
-}
+  }
 
-   
+
 
   onEditNomenclatureData(row: any) {
     // this.router.navigate(['/app/nomenclature/edit', this.selectedNomTable, row.item.id]);

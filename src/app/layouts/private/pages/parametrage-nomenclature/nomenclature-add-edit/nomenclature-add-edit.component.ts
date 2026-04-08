@@ -30,6 +30,7 @@ export class NomenclatureAddEditComponent implements OnInit {
   searchObject!: SearchObject;
   form!: UntypedFormGroup;
   isLoading: boolean = false;
+  selectedNomTable!: string;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -61,8 +62,11 @@ export class NomenclatureAddEditComponent implements OnInit {
 
   initParams() {
     this.params["pathParams"] = this.activatedRoute.snapshot.params;
+
     this.params["labels"] = NomenclatureAddMetadata.labels;
 
+    this.selectedNomTable = this.activatedRoute.snapshot.paramMap.get('nomTable')!;
+    console.log(this.selectedNomTable);
     this.id = this.params.pathParams.id;
     this.editMode = !isEmptyValue(this.id);
   }
@@ -100,10 +104,6 @@ export class NomenclatureAddEditComponent implements OnInit {
                 : PARAM_NOMENCLATURE_URI.ADD_NOMEN,
               params: {
                 body: requestBody
-                /*body: {
-                  ...formValue, // Données principales du formulaire
-                  formations: this.params.listFormation?.payload?.data || [] // Liste des formations
-                }*/
               },
 
               method: this.editMode
