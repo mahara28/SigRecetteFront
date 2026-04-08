@@ -1,17 +1,17 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AppSharedModule } from "../../../../../app-shared/app-shared-module";
 import { FilterListeNomenclature } from "./filter-liste-nomenclature/filter-liste-nomenclature";
 import { Subscription } from 'rxjs';
 import { initSearchObject, isEmptyValue, onAction } from '../../../../../app-shared/tools';
 import { SharedService } from '../../../../../app-shared/services/sharedWs/shared.service';
 import { AppTranslateService, AuthentificationService, ConfirmDialogService, ToastService } from '../../../../../app-shared/services';
-import { Router } from 'express';
 import { RequestObject, SearchObject, Sort } from '../../../../../app-shared/models';
 import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
 import { ResponseObject } from '../../../../../app-shared/models/ResponseObject';
 import { ListeNomenclatureMetadata, ParamNomenclatureMetadata } from '../parametrage-nomenclature.metadata';
 import { PARAM_NOMENCLATURE_URI } from '../parametrage-nomenclature.uri';
 import { PermissionService } from '../../../shared/gestion-permission/permission.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestion-nomenclature',
@@ -25,14 +25,15 @@ export class GestionNomenclature implements OnInit, OnDestroy {
   params: any = {};
   selectedNomTable: string | null = null;
   protected readonly onAction = onAction;
-
+  //protected readonly isEmptyValue = isEmptyValue;
   private sharedService = inject(SharedService);
   private toast = inject(ToastService);
   private confirmDialogService = inject(ConfirmDialogService);
 
 constructor(
     private permissionService: PermissionService,
-
+    private cdr: ChangeDetectorRef,
+    private router: Router,
   ) {
 
   }
@@ -40,7 +41,8 @@ constructor(
 
   ngOnInit() {
     this.initMetadata();
-    this.initListParamNomenclatures();
+    this.initListNomenclatures();
+    
 
   }
 
@@ -53,7 +55,7 @@ constructor(
   }
 
   initMetadata() {
-    this.params['paramNomenclature'] = {
+    this.params['nomenclature'] = {
       metadata: this.permissionService.getMetadataWithPermissions(
               ListeNomenclatureMetadata.nomenclatureListTableMetadata,
             ),
@@ -67,102 +69,129 @@ constructor(
 
     // Tableau des données dynamiques de la nomenclature sélectionnée
     this.params['nomenclatureData'] = {
-      metadata: ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-      payload: [],
-      payloadall: [],
-      searchObject: initSearchObject({
-        sort: new Sort('code', 'asc nulls last'),
-      }),
-      searchObjectall: new SearchObject(),
-    };
+    metadata: {
+      ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+      hasAdd: false, 
+      hasExport: false, 
+    },
+    payload: { data: [], totalElements: 0 },
+    payloadall: { data: [], totalElements: 0 },
+    searchObject: initSearchObject({
+      sort: new Sort('ordrAffi', 'asc nulls last'),
+    }),
+    searchObjectall: new SearchObject(),
+  };
   }
-  initListParamNomenclatures() {
+
+   
+  initListNomenclatures() {
     const request: RequestObject = <RequestObject>{
-      uri: PARAM_NOMENCLATURE_URI.V_NOMENCLATURE_LIST_DATA,
-      params: { body: this.params.paramNomenclature.searchObject },
+      uri: PARAM_NOMENCLATURE_URI.DATA,
+      params: {
+       body: this.params.paramNomenclature.searchObject,
+    },
       method: ConstanteWs._CODE_POST,
     };
 
-    this.subscriptionsList.push(
+     this.subscriptionsList.push(
       this.sharedService.commonWs(request).subscribe({
         next: (response: ResponseObject) => {
           if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+
             this.formatIsActive(response.payload.data);
+
             this.params.paramNomenclature.payload = response.payload;
+            this.params.paramNomenclature.payloadall = response.payload;
+            this.cdr.detectChanges();
           } else {
-            console.error(
-              `Error FicheListeNomenclatureComponent/initListParamNomenclatures :: ${response.code}`,
-            );
+            console.error('Erreur initListNomenclatures', response.code);
             this.toast.error();
           }
         },
         error: (error) => {
-          console.error(`Error :: ${JSON.stringify(error)}`);
+          console.error('Erreur WS', error);
           this.toast.error();
         },
-      }),
+      })
     );
   }
 
 
 
-  onPaginateParamNomenclature(event: any) {
-    this.params.paramNomenclature.searchObject.pagination = event;
-    this.initListParamNomenclatures();
+  onPaginateNomenclature(event: any) {
+    this.params.nomenclatures.searchObject.pagination = event;
+    this.initListNomenclatures( );
   }
 
-  onSortParamNomenclature(event: any) {
-    this.params.paramNomenclature.searchObject.sort = {
+  onSortNomenclatures(event: any) {
+    this.params.nomenclatures.searchObject.sort = {
       nameCol: event.active,
       direction: event.direction,
     };
-    this.initListParamNomenclatures();
+    this.initListNomenclatures();
   }
 
-  // ─── Sélection d'une nomenclature ────────────────────────────────────────
+  onSelectNomenclature(nomTable: any) {
 
-  onViewNomenclatureData(row: any) {
-    this.selectedNomTable = row.item.nomTable;
-    this.loadNomenclatureData(row.item.nomTable);
-  }
+  this.selectedNomTable = nomTable;
 
-  loadNomenclatureData(nomTable: string) {
-    if (!nomTable) return;
+  if (!isEmptyValue(nomTable)) {
+    this.loadNomenclatureData(nomTable);
+  } else {
 
-    const request: RequestObject = <RequestObject>{
-      uri: PARAM_NOMENCLATURE_URI.DATA,
-      params: { query: { nomTable } },
-      method: ConstanteWs._CODE_POST,
+    this.params.nomenclatureData.payload = { data: [], totalElements: 0 };
+
+    this.params.nomenclatureData.metadata = {
+      ...this.params.nomenclatureData.metadata,
+      hasAdd: false,
+      hasExport: false,
     };
-
-    this.subscriptionsList.push(
-      this.sharedService.commonWs(request).subscribe({
-        next: (response: ResponseObject) => {
-          if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
-            // les données dynamiques arrivent en tableau simple (pas paginé)
-            this.params.nomenclatureData.payload = {
-              data: response.payload,
-              totalElements: response.payload?.length ?? 0,
-            };
-            this.params.nomenclatureData.payloadall = {
-              data: response.payload,
-              totalElements: response.payload?.length ?? 0,
-            };
-          } else {
-            console.error(
-              `Error FicheListeNomenclatureComponent/loadNomenclatureData :: ${response.code}`,
-            );
-            this.toast.error();
-          }
-        },
-        error: (error) => {
-          console.error(`Error :: ${JSON.stringify(error)}`);
-          this.toast.error();
-        },
-      }),
-    );
   }
+}
+ 
+loadNomenclatureData(nomTable: string) {
+  if (!nomTable) return;
+  const request: RequestObject = {
+    uri: PARAM_NOMENCLATURE_URI.DATA,
+    method: ConstanteWs._CODE_POST,
+    params: {
+      query: { nomTable },
+    },
+  };
 
+  this.subscriptionsList.push(
+    this.sharedService.commonWs(request).subscribe({
+      next: (response: ResponseObject) => {
+        if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+
+          const data = response.payload || [];
+
+          this.params.nomenclatureData.payload = {
+            data,
+            totalElements: data.length,
+          };
+
+          this.params.nomenclatureData.payloadall = {
+            data,
+            totalElements: data.length,
+          };
+
+          this.params.nomenclatureData.metadata = {
+            ...this.params.nomenclatureData.metadata,
+            hasAdd: true,
+            hasExport: true,
+          };
+
+          this.cdr.detectChanges();
+
+        } else {
+          this.toast.error();
+        }
+      },
+      error: () => this.toast.error(),
+    })
+  );
+}
   onPaginateNomenclatureData(event: any) {
     this.params.nomenclatureData.searchObject.pagination = event;
     if (this.selectedNomTable) this.loadNomenclatureData(this.selectedNomTable);
@@ -178,18 +207,26 @@ constructor(
 
 
   onSearch($event: any) {
-    this.params.paramNomenclature.searchObject.pagination.offSet = 0;
-    this.params.paramNomenclature.searchObject.pagination.limit = 10;
-    this.params.paramNomenclature.searchObject.dataSearch = $event;
-    this.initListParamNomenclatures();
+    this.params.nomenclatures.searchObject.pagination.offSet = 0;
+    this.params.nomenclatures.searchObject.pagination.limit = 10;
+    this.params.nomenclatures.searchObject.dataSearch = $event;
+    this.initListNomenclatures();
   }
 
-  // ─── Actions CRUD sur la nomenclature dynamique ──────────────────────────
+  onAddTableNomenclatureData(row: any) {
 
-  onAddNomenclatureData(row: any) {
-    // Naviguer vers le formulaire d'ajout (adapter la route)
-    // this.router.navigate(['/app/nomenclature/add', this.selectedNomTable]);
-  }
+  this.router.navigate(
+    ['app', 'paranomenc', 'gestNomenclature', 'add', this.selectedNomTable],
+    {
+      state: {
+        selectedItem: row?.item
+      }
+    }
+  );
+
+}
+
+   
 
   onEditNomenclatureData(row: any) {
     // this.router.navigate(['/app/nomenclature/edit', this.selectedNomTable, row.item.id]);

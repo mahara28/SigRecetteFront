@@ -30,7 +30,7 @@ const routes: Routes = [
       },
     },*/
       {
-        path: 'add',
+        path: 'add/:nomTable',
         component: NomenclatureAddEditComponent,
         data: {
           title: 'gestNomenclature.add_nom',

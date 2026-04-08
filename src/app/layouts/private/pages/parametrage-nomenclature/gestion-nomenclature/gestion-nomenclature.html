@@ -1,21 +1,19 @@
 <div class="cp5" fxLayout="row wrap">
   <div fxFlex="100" fxFlex.lt-md="100">
     <mc-filter-liste-nomenclature
-      (searchoptions)="onSearch($event)"
-      #filtre
-      (keyup.enter)="filtre.onSearch()"
-    >
+      (selectNomenclature)="onSelectNomenclature($event)">
     </mc-filter-liste-nomenclature>
+   
   </div>
 
   <div fxFlex="100" fxFlex.lt-md="100">
     <mc-datatable
-      [responsePayload]="params.paramNomenclature.payload"
-      [responsePayloadall]="params.paramNomenclature.payloadall"
-      [metadata]="params.paramNomenclature.metadata"
+      [responsePayload]="params.nomenclatureData.payload"
+      [responsePayloadall]="params.nomenclatureData.payloadall"
+      [metadata]="params.nomenclatureData.metadata"
       (onAction)="onAction(this, $event)"
-      (paginate)="onPaginateParamNomenclature($event)"
-      (sort)="onSortParamNomenclature($event)"
+      (paginate)="onPaginateNomenclature($event)"
+      (sort)="onSortNomenclatures($event)"
     >
     </mc-datatable>
   </div>

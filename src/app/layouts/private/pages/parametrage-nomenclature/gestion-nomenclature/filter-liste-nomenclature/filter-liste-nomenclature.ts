@@ -1,15 +1,15 @@
-import { Component, OnDestroy, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 
-import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { initSearchObject, isEmptyValue } from '../../../../../../app-shared/tools';
-import { SharedService } from '../../../../../../app-shared/services/sharedWs/shared.service';
-import { ToastService } from '../../../../../../app-shared/services';
-import { Subscription, from } from 'rxjs';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ConstanteWs } from '../../../../../../app-shared/constantes/constante-ws';
-import { ResponseObject } from '../../../../../../app-shared/models/ResponseObject';
 import { Pagination, RequestObject, SelectMetadata, Sort } from '../../../../../../app-shared/models';
-import { PARAM_NOMENCLATURE_URI } from '../../parametrage-nomenclature.uri';
+import { ResponseObject } from '../../../../../../app-shared/models/ResponseObject';
+import { ToastService } from '../../../../../../app-shared/services';
+import { SharedService } from '../../../../../../app-shared/services/sharedWs/shared.service';
+import { initSearchObject, isEmptyValue } from '../../../../../../app-shared/tools';
 import { SelectNomenclatureMetadata } from '../../parametrage-nomenclature.metadata';
+import { PARAM_NOMENCLATURE_URI } from '../../parametrage-nomenclature.uri';
 
 @Component({
   selector: 'mc-filter-liste-nomenclature',
@@ -46,7 +46,11 @@ export class FilterListeNomenclature implements OnInit, OnDestroy {
 
   initParams() {
     this.params['paramNomenclature'] = {
-      metadata: <SelectMetadata>SelectNomenclatureMetadata,
+      metadata: <SelectMetadata>{
+        ...SelectNomenclatureMetadata,
+        optionLabel: 'nomTable',
+        value: 'nomTable'
+      },
       data: [],
     };
   }
