@@ -11,16 +11,14 @@ import { Pagination, RequestObject, SelectMetadata, Sort } from '../../../../../
 import { PARAM_NOMENCLATURE_URI } from '../../parametrage-nomenclature.uri';
 import { AppSharedModule } from '../../../../../../app-shared/app-shared-module';
 import { SelectNomenclatureMetadata } from '../../parametrage-nomenclature.metadata';
-import { FilterActions } from "../../../../../../app-shared/widgets";
 
 @Component({
   selector: 'mc-filter-liste-nomenclature',
   standalone: true,
   imports: [
-    ReactiveFormsModule, // 🔥 OBLIGATOIRE
-    AppSharedModule,
-    FilterActions
-],
+    ReactiveFormsModule,  // 🔥 OBLIGATOIRE
+    AppSharedModule
+  ],
   templateUrl: './filter-liste-nomenclature.html',
   styleUrl: './filter-liste-nomenclature.css',
 
