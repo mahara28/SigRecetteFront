@@ -7,6 +7,7 @@ import { GestionNomenclature } from './gestion-nomenclature/gestion-nomenclature
 import { FilterListeNomenclature } from './gestion-nomenclature/filter-liste-nomenclature/filter-liste-nomenclature';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NomenclatureAddEditComponent } from './nomenclature-add-edit/nomenclature-add-edit.component';
+import { MatIcon } from "@angular/material/icon";
 
 
 
@@ -20,9 +21,8 @@ import { NomenclatureAddEditComponent } from './nomenclature-add-edit/nomenclatu
     ReactiveFormsModule,
     FormsModule,
     AppSharedModule,
-    FlexLayoutModule
-
-
-  ]
+    FlexLayoutModule,
+    MatIcon
+]
 })
 export class ParametrageNomenclatureModule { }
