@@ -59,6 +59,7 @@ export class UsersListComponent implements OnInit {
 
   initMetadata() {
     this.params['userListData'] = {
+      //permission
       metadata: this.permissionService.getMetadataWithPermissions(
         UserListMetatdata.userListTableMetadata,
       ),
