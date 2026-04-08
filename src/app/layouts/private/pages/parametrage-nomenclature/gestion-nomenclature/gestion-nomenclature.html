@@ -1,18 +1,14 @@
-
-
-
-
-<div class="page-container">
-
-
-  <!-- Filtre -->
-   <div fxFlex="100" fxFlex.lt-md="100">
-    <mc-filter-liste-nomenclature (searchoptions)="onSearch($event)"
-                                  #filtre (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch(): null">
+<div class="cp5" fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.lt-md="100">
+    <mc-filter-liste-nomenclature
+      (searchoptions)="onSearch($event)"
+      #filtre
+      (keyup.enter)="filtre.onSearch()"
+    >
     </mc-filter-liste-nomenclature>
   </div>
 
-    
+  <div fxFlex="100" fxFlex.lt-md="100">
     <mc-datatable
       [responsePayload]="params.paramNomenclature.payload"
       [responsePayloadall]="params.paramNomenclature.payloadall"
@@ -23,7 +19,4 @@
     >
     </mc-datatable>
   </div>
-
-
-
-
+</div>
