@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { RequestObject, SearchObject, Sort } from '../../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { initSearchObject, isEmptyValue, onAction } from '../../../../../../app-shared/tools';
@@ -36,6 +36,7 @@ export class FicheListeProfilsComponent implements OnInit, OnDestroy {
   private confirmDialogService = inject(ConfirmDialogService);
   private router = inject(Router);
   private permissionService = inject(PermissionService);
+  private cdr = inject(ChangeDetectorRef);
 
   ngOnInit() {
     this.initMetadata();
@@ -107,6 +108,7 @@ export class FicheListeProfilsComponent implements OnInit, OnDestroy {
               }
             }
             this.params.listeProfils.payload = response.payload;
+            this.cdr.detectChanges();
           } else {
             console.error(
               `Error in FicheListeProfilsComponent/initListProfils, error code :: ${response.code}`,

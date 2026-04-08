@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'mc-filter-actions',
-  imports: [CommonModule, MatButtonModule, MatIconModule, TranslateModule],
+  standalone: false,
   templateUrl: './filter-actions.html',
   styleUrl: './filter-actions.css',
   changeDetection: ChangeDetectionStrategy.OnPush

@@ -1,11 +1,11 @@
 <div class="cp5" fxLayout="row wrap">
-  <!-- <div fxFlex="100" fxFlex.lt-md="100">
-    <pfs-filter-user-list
+  <div fxFlex="100" fxFlex.lt-md="100">
+    <app-filter-user-list
       (searchoptions)="onSearch($event)"
       #filtre
-      (keyup.enter)="$event.key === 'Enter' ? filtre.onSearch() : null"
-    ></pfs-filter-user-list>
-  </div> -->
+      (keyup.enter)="filtre.onSearch()"
+    ></app-filter-user-list>
+  </div>
 
   <div fxFlex="100" fxFlex.lt-md="100">
     <mc-datatable

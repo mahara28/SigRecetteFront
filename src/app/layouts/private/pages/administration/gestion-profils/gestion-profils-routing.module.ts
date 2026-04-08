@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FicheListeProfilsComponent } from './fiche-liste-profils/fiche-liste-profils.component';
 import { FicheAjoutModifProfilsComponent } from './fiche-ajout-modif-profils/fiche-ajout-modif-profils.component';
+import { FicheDetailsProfilComponent } from './fiche-details-profil/fiche-details-profil.component';
 
 const routes: Routes = [
   {
@@ -21,14 +22,14 @@ const routes: Routes = [
         path: '',
         component: FicheListeProfilsComponent,
       },
-      /*{
-      path: "detail/:id",
-      component: FicheDetailsProfilComponent,
-      data: {
-             title: 'administration.gp.fichedetailProfil.detail',
-              breadcrumb: 'administration.gp.fichedetailProfil.detail',
+      {
+        path: "detail/:id",
+        component: FicheDetailsProfilComponent,
+        data: {
+          title: 'administration.gp.fichedetailProfil.detail',
+          breadcrumb: 'administration.gp.fichedetailProfil.detail',
+        },
       },
-    },*/
       {
         path: 'add',
         component: FicheAjoutModifProfilsComponent,
@@ -55,4 +56,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class GestionProfilsRoutingModule {}
+export class GestionProfilsRoutingModule { }

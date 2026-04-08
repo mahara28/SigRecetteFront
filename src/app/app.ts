@@ -19,11 +19,11 @@ export class App implements OnInit {
   protected readonly DIRECTION = DIRECTION;
 
   constructor(public configService: ConfigService,
-    private appTranslateService: AppTranslateService,) {}
+    private appTranslateService: AppTranslateService,) { }
 
   ngOnInit(): void {
-this.configService.initialize();
-this.appTranslateService.getCurrentLanguageConfig();
+    this.configService.initialize();
+    this.appTranslateService.getCurrentLanguageConfig();
   }
 
   menus = APP_MENU;

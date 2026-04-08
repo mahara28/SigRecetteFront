@@ -14,15 +14,16 @@ import {
   ChecklistDatabase,
   SubmenuComponent,
 } from './fiche-ajout-modif-profils/submenu/submenu.component';
-import { FilterListeNomenclature } from "../../parametrage-nomenclature/gestion-nomenclature/filter-liste-nomenclature/filter-liste-nomenclature";
+import { FicheDetailsProfilComponent } from './fiche-details-profil/fiche-details-profil.component';
+import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 
 @NgModule({
   declarations: [
     FicheListeProfilsComponent,
     FicheAjoutModifProfilsComponent,
 
-    /*FiltreListeProfilsComponent,
-    FicheDetailsProfilComponent,*/
+    /*FiltreListeProfilsComponent,*/
+    FicheDetailsProfilComponent,
     SubmenuComponent,
     TreeViewMenuComponent,
   ],
@@ -34,7 +35,7 @@ import { FilterListeNomenclature } from "../../parametrage-nomenclature/gestion-
     MatIcon,
     ReactiveFormsModule,
     MatTreeModule,
-    FilterListeNomenclature
-],
+    FlexLayoutModule
+  ],
 })
-export class GestionProfilsModule {}
+export class GestionProfilsModule { }

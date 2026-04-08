@@ -7,9 +7,11 @@ import { UsersAddEditComponent } from './users-add-edit/users-add-edit.component
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { UsersDetailsComponent } from './users-details/users-details.component';
+import { FilterUserListComponent } from './users-list/filter-user-list/filter-user-list.component';
 
 @NgModule({
   imports: [CommonModule, AppSharedModule, UserManagementRoutingModule, MatIconModule, ReactiveFormsModule, FlexLayoutModule],
-  declarations: [UsersListComponent, UsersAddEditComponent],
+  declarations: [UsersListComponent, FilterUserListComponent, UsersAddEditComponent, UsersDetailsComponent],
 })
 export class UserManagementModule { }

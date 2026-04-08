@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" class="full-width">
+<mat-form-field appearance="outline" class="my-custom-form-field">
   <mat-label>{{ label | translate }}</mat-label>
 
   <input
@@ -13,8 +13,6 @@
     [matTooltip]="hasTooltip && control.value ? getFormattedTooltip() : (label | translate)"
     [matTooltipDisabled]="!hasTooltip"
   />
-
-
 
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker></mat-datepicker>

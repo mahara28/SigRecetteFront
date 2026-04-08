@@ -1,0 +1,32 @@
+.search-btn {
+  color: white;
+  background-color: #001e8c !important;
+  line-height: 2.2rem !important;
+}
+
+.reset-btn {
+  text-align: center !important;
+  background-color: #ffffff !important;
+  /*font-size: 0.79rem !important;*/
+  /*font-weight: 600 !important;*/
+  color: #e54d42 !important;
+  border: solid 2px #e54d42 !important;
+  line-height: 2.2rem !important;
+}
+
+.reset-btn:hover {
+  text-align: center !important;
+  background-color: #e54d42 !important;
+  /*font-size: 0.79rem !important;*/
+  /*font-weight: 600 !important;*/
+  color: #ffffff !important;
+  border-color: #e54d42 !important;
+  line-height: 2.2rem !important;
+}
+
+.show-more-icon {
+  font-size: 1.85rem;
+  color: #727272;
+  width: auto;
+  height: auto;
+}

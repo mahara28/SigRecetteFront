@@ -51,6 +51,7 @@ import {
   DatatableExport,
   EmptyList,
   FicheDetails,
+  FilterActions,
   Paginator,
   TextField,
 } from './widgets';
@@ -108,6 +109,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     EmptyList,
     Paginator,
     ButtonLoading,
+    FilterActions
   ],
   exports: [
     MatMenuContent,
@@ -128,6 +130,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     Card,
     MatFormFieldModule,
     CommonModule,
+    ReactiveFormsModule,
     //Composant
     PrivateLayoutNavbar,
     PrivateLayoutSidebar,
@@ -149,6 +152,7 @@ import { SelectCommon } from './widgets/form/select/select-common/select-common'
     ButtonLoading,
     SelectDate,
     SelectCommon,
+    FilterActions
   ],
   imports: [
     CommonModule,

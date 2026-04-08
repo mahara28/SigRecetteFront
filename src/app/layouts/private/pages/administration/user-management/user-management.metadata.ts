@@ -122,6 +122,10 @@ export const UserDetailsMetadata = {
     title: 'administration.users.userDetails.title',
     columns: [
       {
+        label: 'administration.users.userProfil.table.columns.code',
+        key: 'code',
+      },
+      {
         label: 'administration.users.userDetails.content.details.username',
         key: 'username',
       },
@@ -130,17 +134,18 @@ export const UserDetailsMetadata = {
         key: 'mail',
       },
       {
+        label: 'administration.users.userList.filtre.labels.desProfesFr',
+        key: 'desProfesFr',
+      },
+      {
         label: 'administration.users.userDetails.content.details.dateBirth',
         key: 'dateBirth',
       },
       {
-        label: 'administration.users.userDetails.content.details.login',
-        key: 'login',
+        label: 'administration.users.userList.table.columns.etat',
+        key: 'isActive',
       },
-      {
-        label: 'administration.users.userDetails.content.details.dateCreate',
-        key: 'dateCreate',
-      },
+
     ],
   },
 };

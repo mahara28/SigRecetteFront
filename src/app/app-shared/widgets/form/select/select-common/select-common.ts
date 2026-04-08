@@ -11,6 +11,7 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
   FormControl,
@@ -43,22 +44,10 @@ import { AppTranslateService, SupportedLanguage } from '../../../../services';
 @Component({
   selector: 'mc-select',
   standalone: false,
-  /* imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatMenuModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatOptionModule,
-    MatTooltipModule,
-    MatIconModule,
-    MatButtonModule,
-    TranslateModule,
-  ], */
   templateUrl: './select-common.html',
   styleUrl: './select-common.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class SelectCommon implements OnInit, OnChanges, OnDestroy {
 

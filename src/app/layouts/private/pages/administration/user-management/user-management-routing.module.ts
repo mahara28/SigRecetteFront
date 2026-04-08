@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UsersListComponent } from './users-list/users-list.component';
 import { UsersAddEditComponent } from './users-add-edit/users-add-edit.component';
+import { UsersDetailsComponent } from './users-details/users-details.component';
 
 const routes: Routes = [
   {
@@ -20,14 +21,14 @@ const routes: Routes = [
         path: '',
         component: UsersListComponent,
       },
-      /*{
+      {
         path: "detail/:id",
         component: UsersDetailsComponent,
         data: {
           title: "administration.users.userDetails.title",
           breadcrumb: "administration.users.userDetails.title",
         },
-      },*/
+      },
       {
         path: "add",
         component: UsersAddEditComponent,
