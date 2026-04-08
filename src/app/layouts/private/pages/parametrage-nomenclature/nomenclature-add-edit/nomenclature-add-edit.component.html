@@ -1,3 +1,64 @@
-<p>
-  nomenclature-add-edit works!
-</p>
+<mc-card [metadata]="{ title: title }">
+  <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
+      <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
+        <div fxFlex="25" fxFlex.lt-md="100">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl('code')"
+            [label]="getLabel('code')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="30" fxFlex.lt-md="100">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl('codeLibe')"
+            [label]="getLabel('codeLibe')"
+          ></mc-text-field>
+        </div>
+        <div fxFlex="15" fxFlex.lt-md="100">
+          <mc-text-field
+            [number]="true"
+            max="8"
+            [control]="getFormControl('ordrAffi')"
+            [label]="getLabel('ordrAffi')"
+          ></mc-text-field>
+        </div>
+
+        <div fxFlex="25" fxFlex.lt-md="100" class="toggle-container">
+          <div class="label-wrapper">
+            <span class="font-weight-bold">
+              {{ 'gestNomenclature.nomenclature.column.isActive' | translate }}
+            </span>
+          </div>
+
+          <div class="toggle-wrapper">
+            <mat-slide-toggle
+              [checked]="form.get('isActive')?.value === 1"
+              (change)="onToggleChange($event)"
+              class="font-weight-bold"
+            >
+              {{
+                form.get('isActive')?.value === 1
+                  ? ('administration.users.userAdd.form.content.activeStatus' | translate)
+                  : ('administration.users.userAdd.form.content.inactiveStatus' | translate)
+              }}
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div fxLayoutAlign="end center">
+    <mc-button-loading (click)="onSave()" btnClass="save-btn mx-2">
+      <div fxLayoutAlign="center center">
+        <mat-icon class="mx-1" style="font-size: 1.4rem">save_outline</mat-icon>
+        <span>{{ 'general.save' | translate }}</span>
+      </div>
+    </mc-button-loading>
+    <button (click)="backToList()" mat-raised-button type="button" class="cancel-btn">
+      <mat-icon class="mx-1" style="font-size: 1.4rem">arrow_back_outline</mat-icon>
+      <span>{{ 'general.back' | translate }}</span>
+    </button>
+  </div>
+</mc-card>

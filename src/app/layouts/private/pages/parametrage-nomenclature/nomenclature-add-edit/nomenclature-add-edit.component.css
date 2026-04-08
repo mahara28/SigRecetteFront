@@ -1,0 +1,21 @@
+.toggle-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.label-wrapper {
+  flex: 1;
+  margin-bottom: 5px;
+}
+
+.toggle-wrapper {
+  flex: 1;
+}
+
+/* Responsive */
+@media (max-width: 959px) {
+  .toggle-container {
+    margin-top: 12px;
+  }
+}

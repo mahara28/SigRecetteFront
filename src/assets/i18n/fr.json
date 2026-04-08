@@ -432,9 +432,8 @@
     "breadcrumb": "Gestion des nomenclatures",
     "add_nom": "Ajouter nomenclature",
     "update_nom": "Modifier nomenclature",
-    "filter":{
-      "title":"Liste des tables des nomenclatures"
-
+    "filter": {
+      "title": "Liste des tables des nomenclatures"
     },
     "table": {
       "title": "Liste des nomenclatures",
@@ -457,12 +456,12 @@
       }
     },
     "nomenclature": {
-      "title":"Liste des données de nomenclatures",
+      "title": "Liste des données de nomenclatures",
       "column": {
         "code": "Code",
         "codeLibe": "Désignation",
         "ordrAffi": "Ordre",
-        "isActive": "Actif"
+        "isActive": "Statut"
       }
     }
   }
