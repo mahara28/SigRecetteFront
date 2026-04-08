@@ -195,6 +195,16 @@ export class FilterUserListComponent {
 
   onSearch() {
     const searchvalue = [];
+    if (this.form.get("username")!.value) {
+      searchvalue.push(
+        new CriteriaSearch(
+          "username",
+          this.form.get("username")!.value || undefined,
+          "upper_like"
+        )
+      );
+    }
+
     if (this.form.get("desProfesFr")!.value) {
       searchvalue.push(
         new CriteriaSearch(
