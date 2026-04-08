@@ -29,6 +29,14 @@ export class GestionNomenclature implements OnInit, OnDestroy {
   private toast = inject(ToastService);
   private confirmDialogService = inject(ConfirmDialogService);
 
+constructor(
+    private permissionService: PermissionService,
+
+  ) {
+
+  }
+
+
   ngOnInit() {
     this.initMetadata();
     this.initListParamNomenclatures();
@@ -44,10 +52,10 @@ export class GestionNomenclature implements OnInit, OnDestroy {
   }
 
   initMetadata() {
-    // Tableau des ParametrageNomenclatures
-    
     this.params['paramNomenclature'] = {
-      metadata: ParamNomenclatureMetadata.paramNomenclatureListTableMetadata,
+      metadata: this.permissionService.getMetadataWithPermissions(
+              ParamNomenclatureMetadata.paramNomenclatureListTableMetadata,
+            ),
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({

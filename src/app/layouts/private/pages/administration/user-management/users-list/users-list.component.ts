@@ -28,13 +28,12 @@ export class UsersListComponent implements OnInit {
   protected readonly onAction = onAction;
   searchObject!: SearchObject;
 
-  private permissionService = inject(PermissionService);
-  private sharedService = inject(SharedService);
-
   constructor(
+    private permissionService: PermissionService,
     private toast: ToastService,
     private router: Router,
     private confirmDialogService: ConfirmDialogService,
+    private sharedService: SharedService,
     private cdr: ChangeDetectorRef
   ) {
     this.initParams();
