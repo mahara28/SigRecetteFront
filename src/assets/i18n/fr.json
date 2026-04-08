@@ -445,7 +445,7 @@
     },
     "form": {
       "labels": {
-        "nomTable": "Nom table",
+        "nomTable": "Nomenclature",
         "code": "Code",
         "codeLibe": "Désignation",
         "ordrAffi": "Ordre",

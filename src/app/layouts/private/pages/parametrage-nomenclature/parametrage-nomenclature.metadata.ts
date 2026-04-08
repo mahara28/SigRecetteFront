@@ -82,7 +82,7 @@ export const ListeNomenclatureMetadata = {
       },
       {
         label: 'gestNomenclature.nomenclature.column.codeLibe',
-        key: 'codeLibe',
+        key: 'code_libe',
         sortable: true,
         style: { width: '15%', padding: '0 5px' },
         export: { width: '15%' },
@@ -90,14 +90,14 @@ export const ListeNomenclatureMetadata = {
        
       {
         label: 'gestNomenclature.nomenclature.column.ordrAffi',
-        key: 'ordrAffi',
+        key: 'ordr_affi',
         sortable: true,
         style: { width: '10%', padding: '0 5px', 'text-align': 'center' },
         export: { width: '10%', alignment: 'center' },
       },
       {
         label: 'gestNomenclature.nomenclature.column.isActive',
-        key: 'isActive',
+        key: 'is_active',
         style: { width: '8%', padding: '0 5px', 'text-align': 'center' },
         export: { width: '8%', alignment: 'center' },
       },

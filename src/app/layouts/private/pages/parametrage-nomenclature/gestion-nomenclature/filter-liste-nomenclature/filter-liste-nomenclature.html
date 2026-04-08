@@ -4,15 +4,9 @@
 
     <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
 
-      <!-- ── Ligne de champs ── -->
       <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
 
         <div fxFlex="33" fxFlex.lt-md="100">
-          <!--
-            [metadata]  : contient label, optionLabel, filter, reset, value, etc.
-            [listItems] : tableau des ParametrageNomenclatures chargé depuis l'API
-            [control]   : FormControl 'nomTable' du formulaire réactif
-          -->
           <mc-select
             [metadata]="params.paramNomenclature.metadata"
             [listItems]="params.paramNomenclature.data"
