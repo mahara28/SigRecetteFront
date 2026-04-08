@@ -432,6 +432,10 @@
     "breadcrumb": "Gestion des nomenclatures",
     "add_nom": "Ajouter nomenclature",
     "update_nom": "Modifier nomenclature",
+    "filter":{
+      "title":"Liste des tables des nomenclatures"
+
+    },
     "table": {
       "title": "Liste des nomenclatures",
       "columns": {
@@ -443,10 +447,8 @@
     "form": {
       "labels": {
         "nomTable": "Nom table",
-        "designation": "Désignation",
         "code": "Code",
-        "codeLibe": "Désignation (FR)",
-        "codeLiAr": "Désignation (AR)",
+        "codeLibe": "Désignation",
         "ordrAffi": "Ordre",
         "isActive": "Actif"
       },
@@ -455,10 +457,12 @@
       }
     },
     "nomenclature": {
+      "title":"Liste des données de nomenclatures",
       "column": {
-        "code": "",
-        "codeLibe": "",
-        "ordrAffi": ""
+        "code": "Code",
+        "codeLibe": "Désignation",
+        "ordrAffi": "Ordre",
+        "isActive": "Actif"
       }
     }
   }
