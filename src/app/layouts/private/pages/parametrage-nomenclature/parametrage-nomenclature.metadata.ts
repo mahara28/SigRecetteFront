@@ -54,14 +54,14 @@ export const ParamNomenclatureMetadata = {
 };
 
 export const SelectNomenclatureMetadata = {
-    label: "gestNomenclature.form.labels.nomTable",
-    optionLabel: "nomTable",
-    filter: true,
-    tooltip: false,
-    reset: true,
-    value: "nomTable",
-    emitedValue: "—",
-    muliple: false,
+  label: "gestNomenclature.form.labels.nomTable",
+  optionLabel: "nomTable",
+  filter: true,
+  tooltip: false,
+  reset: true,
+  value: "nomTable",
+  emitedValue: "—",
+  muliple: false,
 };
 export const ListeNomenclatureMetadata = {
   nomenclatureListTableMetadata: {
@@ -125,5 +125,15 @@ export const ListeNomenclatureMetadata = {
       ordrAffi: 'gestNomenclature.data.columns.ordrAffi',
       isActive: 'gestNomenclature.data.columns.isActive',
     },
+  },
+};
+
+export const NomenclatureAddMetadata = {
+  title: 'gestNomenclature.add_nom',
+  labels: {
+    code: 'gestNomenclature.nomenclature.column.code',
+    codeLibe: 'gestNomenclature.nomenclature.column.codeLibe',
+    ordrAffi: 'gestNomenclature.nomenclature.column.ordrAffi',
+    isActive: 'gestNomenclature.nomenclature.column.isActive',
   },
 };
