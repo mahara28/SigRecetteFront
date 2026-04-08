@@ -6,11 +6,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GestionNomenclature } from './gestion-nomenclature/gestion-nomenclature';
 import { FilterListeNomenclature } from './gestion-nomenclature/filter-liste-nomenclature/filter-liste-nomenclature';
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
+import { NomenclatureAddEditComponent } from './nomenclature-add-edit/nomenclature-add-edit.component';
 
 
 
 @NgModule({
-  declarations: [GestionNomenclature, FilterListeNomenclature],
+  declarations: [GestionNomenclature, FilterListeNomenclature, NomenclatureAddEditComponent],
   imports: [
     CommonModule,
     ParametrageNomenclatureRoutingModule,
