@@ -66,7 +66,7 @@ export const SelectNomenclatureMetadata = {
 export const ListeNomenclatureMetadata = {
   nomenclatureListTableMetadata: {
     ref: 'TableNomenclatureData',
-    title: 'gestNomenclature.data.table.title',
+    title: 'gestNomenclature.nomenclature.title',
     hasPagination: true,
     hasAdd: true,
     hasFilter: true,
@@ -74,47 +74,34 @@ export const ListeNomenclatureMetadata = {
     hasImprime: false,
     columns: [
       {
-        label: 'gestNomenclature.data.columns.code',
+        label: 'gestNomenclature.nomenclature.column.code',
         key: 'code',
         sortable: true,
-        style: { width: '12%', padding: '0 5px' },
+        style: { width: '10%', padding: '0 5px' },
         export: { width: '12%' },
       },
       {
-        label: 'gestNomenclature.data.columns.codeLibe',
+        label: 'gestNomenclature.nomenclature.column.codeLibe',
         key: 'codeLibe',
         sortable: true,
-        style: { width: '35%', padding: '0 5px' },
-        export: { width: '35%' },
+        style: { width: '15%', padding: '0 5px' },
+        export: { width: '15%' },
       },
+       
       {
-        label: 'gestNomenclature.data.columns.codeLiAr',
-        key: 'codeLiAr',
-        sortable: true,
-        style: { width: '30%', padding: '0 5px' },
-        export: { width: '30%' },
-      },
-      {
-        label: 'gestNomenclature.data.columns.ordrAffi',
+        label: 'gestNomenclature.nomenclature.column.ordrAffi',
         key: 'ordrAffi',
         sortable: true,
         style: { width: '10%', padding: '0 5px', 'text-align': 'center' },
         export: { width: '10%', alignment: 'center' },
       },
       {
-        label: 'gestNomenclature.data.columns.isActive',
+        label: 'gestNomenclature.nomenclature.column.isActive',
         key: 'isActive',
         style: { width: '8%', padding: '0 5px', 'text-align': 'center' },
         export: { width: '8%', alignment: 'center' },
       },
-      {
-        label: '',
-        key: 'actions',
-        type: COMMON_TYPES_CODES.ACTIONS,
-        sortable: false,
-        style: { width: '5%', 'text-align': 'center', padding: '0 5px' },
-        btns: [Icons.edit, Icons.delete],
-      },
+      
     ],
   },
 

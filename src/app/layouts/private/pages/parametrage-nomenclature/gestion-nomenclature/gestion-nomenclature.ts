@@ -55,7 +55,7 @@ constructor(
   initMetadata() {
     this.params['paramNomenclature'] = {
       metadata: this.permissionService.getMetadataWithPermissions(
-              ParamNomenclatureMetadata.paramNomenclatureListTableMetadata,
+              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
             ),
       payload: [],
       payloadall: [],
