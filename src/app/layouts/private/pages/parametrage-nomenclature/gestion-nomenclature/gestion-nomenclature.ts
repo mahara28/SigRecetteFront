@@ -75,6 +75,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
         hasAdd: false,
         hasExport: false,
+        hasFilter: true,
       },
 
       payload: { data: [], totalElements: 0 },
@@ -153,46 +154,48 @@ export class GestionNomenclature implements OnInit, OnDestroy {
     }
   }
 
- loadNomenclatureData(nomTable: string) {
-  if (!nomTable) return;
+  loadNomenclatureData(nomTable: string) {
+    if (!nomTable) return;
 
-  const request: RequestObject = {
-    uri: PARAM_NOMENCLATURE_URI.DATA,
-    method: ConstanteWs._CODE_POST,
-    params: { query: { nomTable } },
-  };
+    const request: RequestObject = {
+      uri: PARAM_NOMENCLATURE_URI.DATA,
+      method: ConstanteWs._CODE_POST,
+      params: { query: { nomTable } },
+    };
 
-  this.subscriptionsList.push(
-    this.sharedService.commonWs(request).subscribe({
-      next: (response: ResponseObject) => {
-        if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+    this.subscriptionsList.push(
+      this.sharedService.commonWs(request).subscribe({
+        next: (response: ResponseObject) => {
+          if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
 
-          const data = (response.payload || []).map((item: any) => ({
-  ...item,
-  is_active:
-    item.is_active == 1
-      ? this.translate.instant('general.active')
-      : this.translate.instant('general.inactive'),
-}));
+            const data = (response.payload || []).map((item: any) => ({
+              ...item,
+              is_active:
+                item.is_active == 1
+                  ? this.translate.instant('general.active')
+                  : this.translate.instant('general.inactive'),
+            }));
 
 
-          this.params.nomenclatureData.payload = { data, totalElements: data.length };
-          this.params.nomenclatureData.payloadall = { data, totalElements: data.length };
+            this.params.nomenclatureData.payload = { data, totalElements: data.length };
+            this.params.nomenclatureData.payloadall = { data, totalElements: data.length };
 
-          this.params.nomenclatureData.metadata = this.permissionService.getMetadataWithPermissions(
-              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-            ),
+            this.params.nomenclatureData.metadata = {
+              ...this.permissionService.getMetadataWithPermissions(
+                ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+              ),
+              hasFilter: true,
+            }
+            this.cdr.detectChanges();
 
-          this.cdr.detectChanges();
-
-        } else {
-          this.toast.error();
-        }
-      },
-      error: () => this.toast.error(),
-    })
-  );
-}
+          } else {
+            this.toast.error();
+          }
+        },
+        error: () => this.toast.error(),
+      })
+    );
+  }
   onPaginateNomenclatureData(event: any) {
     this.params.nomenclatureData.searchObject.pagination = event;
     if (this.selectedNomTable) this.loadNomenclatureData(this.selectedNomTable);
@@ -225,7 +228,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
 
   onEditTableNomenclatureData(row: any) {
-    // this.router.navigate(['/app/nomenclature/edit', this.selectedNomTable, row.item.id]);
+    this.router.navigate(['/app/paranomenc/gestNomenclature/edit', this.selectedNomTable, row.item.id]);
   }
 
   onDeleteTableNomenclatureData(row: any) {
@@ -241,24 +244,24 @@ export class GestionNomenclature implements OnInit, OnDestroy {
   }
 
   onExportTableNomenclatureData(typeExport: any) {
-     const searcho: SearchObject = new SearchObject();
-        searcho.sort = new Sort('orderAffi', 'asc');
+    const searcho: SearchObject = new SearchObject();
+    searcho.sort = new Sort('orderAffi', 'asc');
 
-        searcho.language = AppTranslateService.getStoredLanguage();
-        searcho.typeExport = typeExport.item;
+    searcho.language = AppTranslateService.getStoredLanguage();
+    searcho.typeExport = typeExport.item;
 
-        searcho.metadata = this.params['listeProfils'].metadata;
+    searcho.metadata = this.params['listeProfils'].metadata;
 
-        const request: RequestObject = <RequestObject>{
-          uri:PARAM_NOMENCLATURE_URI.EXPORT,
-          params: {
-            body: searcho,
-          },
+    const request: RequestObject = <RequestObject>{
+      uri: PARAM_NOMENCLATURE_URI.EXPORT,
+      params: {
+        body: searcho,
+      },
 
-          method: ConstanteWs._CODE_POST,
-        };
-        this.sharedService.exportWs(request,           ' FicheListeNomenclatureComponent/onExportListeNomenclatureData');
-      }
+      method: ConstanteWs._CODE_POST,
+    };
+    this.sharedService.exportWs(request, ' FicheListeNomenclatureComponent/onExportListeNomenclatureData');
+  }
 
 
 
