@@ -107,7 +107,6 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
             this.params.paramNomenclature.payload = response.payload;
             this.params.paramNomenclature.payloadall = response.payload;
-            //this.cdr.detectChanges();
           } else {
             console.error('Erreur initListNomenclatures', response.code);
             this.toast.error();
@@ -124,12 +123,12 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
 
   onPaginateNomenclature(event: any) {
-    this.params.nomenclatures.searchObject.pagination = event;
+    this.params.nomenclature.searchObject.pagination = event;
     this.initListNomenclatures();
   }
 
   onSortNomenclatures(event: any) {
-    this.params.nomenclatures.searchObject.sort = {
+    this.params.nomenclature.searchObject.sort = {
       nameCol: event.active,
       direction: event.direction,
     };
