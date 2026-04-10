@@ -23,6 +23,8 @@
       "invalidIp": "Adresse IP non valide",
       "champ_vide": "Veuillez remplir tous les champs obligatoires."
     },
+    "active": "Active",
+    "inactive": "Inactive",
     "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ?",
     "validate_confirmation": "Êtes-vous sûr de vouloir valider l'inscription ?",
     "cancel_confirmation": "Êtes-vous sûr de vouloir rejeter l'inscription ?",
