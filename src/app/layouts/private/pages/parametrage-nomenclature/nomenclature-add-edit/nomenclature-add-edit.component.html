@@ -24,7 +24,25 @@
             [label]="getLabel('ordrAffi')"
           ></mc-text-field>
         </div>
+        <div *ngIf="hasExtColumns()">
+          <!-- Champ EXT 1 -->
+          <div fxFlex="25" fxFlex.lt-md="100" *ngIf="extratData.coluExtFst">
+            <mc-text-field
+              max="50"
+              [control]="getFormControl(extratData.coluExtFst)"
+              [label]="extratData?.codeLibeColuFst"
+            ></mc-text-field>
+          </div>
 
+          <!-- Champ EXT 2 -->
+          <div fxFlex="25" fxFlex.lt-md="100" *ngIf="extratData?.coluExtSec">
+            <mc-text-field
+              max="50"
+              [control]="getFormControl(extratData.coluExtSec)"
+              [label]="extratData?.codeLibeColuSec"
+            ></mc-text-field>
+          </div>
+        </div>
         <div fxFlex="25" fxFlex.lt-md="100" class="toggle-container">
           <div class="label-wrapper">
             <span class="font-weight-bold">
