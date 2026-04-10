@@ -69,9 +69,10 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
     // Tableau des données dynamiques de la nomenclature sélectionnée
     this.params['nomenclatureData'] = {
-      metadata: this.permissionService.getMetadataWithPermissions(
-        ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-      ),
+      metadata: ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+      /*this.permissionService.getMetadataWithPermissions(
+      ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+    ),*/
       payload: { data: [], totalElements: 0 },
       payloadall: { data: [], totalElements: 0 },
       searchObject: initSearchObject({
@@ -175,13 +176,11 @@ export class GestionNomenclature implements OnInit, OnDestroy {
               totalElements: data.length,
             };
 
-            /* this.params.nomenclatureData.metadata = {
-              ...this.params.nomenclatureData.metadata,
-              hasAdd: true,
-              hasExport: true,
-            }; */
+            this.params.nomenclatureData.metadata = this.permissionService.getMetadataWithPermissions(
+              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+            ),
 
-            this.cdr.detectChanges();
+              this.cdr.detectChanges();
 
           } else {
             this.toast.error();
