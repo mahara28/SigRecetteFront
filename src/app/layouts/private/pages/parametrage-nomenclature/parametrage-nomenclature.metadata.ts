@@ -88,13 +88,13 @@ export const ListeNomenclatureMetadata = {
         export: { width: '15%' },
       },
 
-      {
+      /* {
         label: 'gestNomenclature.nomenclature.column.ordrAffi',
         key: 'ordr_affi',
         sortable: true,
         style: { width: '25%', padding: '0 5px'  },
         export: { width: '10%', alignment: 'center' },
-      },
+      }, */
       {
         label: 'gestNomenclature.nomenclature.column.isActive',
         key: 'is_active',

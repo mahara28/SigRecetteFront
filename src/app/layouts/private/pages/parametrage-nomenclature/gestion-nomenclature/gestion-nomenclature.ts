@@ -178,11 +178,9 @@ export class GestionNomenclature implements OnInit, OnDestroy {
           this.params.nomenclatureData.payload = { data, totalElements: data.length };
           this.params.nomenclatureData.payloadall = { data, totalElements: data.length };
 
-          this.params.nomenclatureData.metadata = {
-            ...this.params.nomenclatureData.metadata,
-            hasAdd: true,
-            hasExport: true,
-          };
+          this.params.nomenclatureData.metadata = this.permissionService.getMetadataWithPermissions(
+              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+            ),
 
           this.cdr.detectChanges();
 
@@ -248,7 +246,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         searcho.language = AppTranslateService.getStoredLanguage();
         searcho.typeExport = typeExport.item;
 
-        searcho.metadata = this.params['nomenclatureData'].metadata;
+        searcho.metadata = this.params['listeProfils'].metadata;
 
         const request: RequestObject = <RequestObject>{
           uri:PARAM_NOMENCLATURE_URI.EXPORT,
@@ -260,6 +258,9 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         };
         this.sharedService.exportWs(request,           ' FicheListeNomenclatureComponent/onExportListeNomenclatureData');
       }
+
+
+
 
 
   // ─── Utilitaires ─────────────────────────────────────────────────────────
