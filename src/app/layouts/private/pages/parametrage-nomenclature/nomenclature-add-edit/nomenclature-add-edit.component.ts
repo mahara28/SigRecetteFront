@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { hasrequiredField, isEmptyValue, onAction } from '../../../../../app-shared/tools';
+import { hasrequiredField, initSearchObject, isEmptyValue, onAction } from '../../../../../app-shared/tools';
 import { FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { RequestObject, SearchObject } from '../../../../../app-shared/models';
+import { Pagination, RequestObject, SearchObject, Sort } from '../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogService, ToastService } from '../../../../../app-shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +22,8 @@ export class NomenclatureAddEditComponent implements OnInit {
   protected readonly onAction = onAction;
   protected readonly required = hasrequiredField;
 
+  subscriptions: Subscription[] = [];
+
   editMode!: boolean;
   id!: string;
   title!: string;
@@ -31,6 +33,8 @@ export class NomenclatureAddEditComponent implements OnInit {
   form!: UntypedFormGroup;
   isLoading: boolean = false;
   selectedNomTable!: string;
+
+  extratData: any = null;
 
   constructor(
     private formBuilder: UntypedFormBuilder,
@@ -43,13 +47,14 @@ export class NomenclatureAddEditComponent implements OnInit {
 
   ngOnInit() {
     this.initParams();
-    if (this.editMode) {
+    this.loadExtratColu()
+    /* if (this.editMode) {
       //this.form = this.initForm(res);
       //this.title = NomenclatureEditMetadata.title;
     } else {
       this.title = NomenclatureAddMetadata.title;
       this.form = this.initForm();
-    }
+    } */
   }
 
   ngOnDestroy() {
@@ -66,7 +71,6 @@ export class NomenclatureAddEditComponent implements OnInit {
     this.params["labels"] = NomenclatureAddMetadata.labels;
 
     this.selectedNomTable = this.activatedRoute.snapshot.paramMap.get('nomTable')!;
-    console.log(this.selectedNomTable);
     this.id = this.params.pathParams.id;
     this.editMode = !isEmptyValue(this.id);
   }
@@ -79,8 +83,67 @@ export class NomenclatureAddEditComponent implements OnInit {
       codeLibe: this.formBuilder.control(formData?.codeLibe, Validators.required),
       ordrAffi: this.formBuilder.control(formData?.ordrAffi),
       isActive: this.formBuilder.control(formData?.isActive || 0),
+
     });
+
+    // Ajout dynamique des champs EXT
+    if (this.extratData) {
+      // EXT 1
+      if (this.extratData.coluExtFst) {
+        form.addControl(
+          this.extratData.coluExtFst,
+          this.formBuilder.control(formData?.[this.extratData.coluExtFst] || null)
+        );
+      }
+      // EXT 2
+      if (this.extratData.coluExtSec) {
+        form.addControl(
+          this.extratData.coluExtSec,
+          this.formBuilder.control(formData?.[this.extratData.coluExtSec] || null)
+        );
+      }
+    }
     return form;
+  }
+
+  loadExtratColu() {
+    const request: RequestObject = {
+      uri: PARAM_NOMENCLATURE_URI.V_NOMENCLATURE_LIST_DATA,
+      method: ConstanteWs._CODE_POST,
+      params: {
+        body: initSearchObject({
+          pagination: new Pagination(0, 1000),
+          sort: new Sort('ordrAffi', 'asc'),
+          dataSearch: [
+            {
+              key: "nomTable",
+              value: this.selectedNomTable,
+              specificSearch: "=",
+            },
+          ],
+        }),
+      },
+    };
+
+    this.subscriptions.push(
+      this.sharedService.commonWs(request).subscribe({
+        next: (res: ResponseObject) => {
+          if (res.code === ConstanteWs._CODE_WS_SUCCESS) {
+            console.log(res.payload.data)
+            this.extratData = res.payload.data?.[0];
+            this.form = this.initForm();
+          } else {
+            this.toast.error();
+          }
+        },
+        error: () => this.toast.error(),
+      }),
+    );
+
+  }
+
+  hasExtColumns(): boolean {
+    return !!(this.extratData?.coluExtFst || this.extratData?.coluExtSec);
   }
 
   onSave() {
