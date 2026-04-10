@@ -39,7 +39,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'update/:id',
+        path: 'edit/:nomTable/:id',
         component: NomenclatureAddEditComponent,
         data: {
           title: 'gestNomenclature.update_nom',

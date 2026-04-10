@@ -69,11 +69,9 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
     // Tableau des données dynamiques de la nomenclature sélectionnée
     this.params['nomenclatureData'] = {
-      metadata: {
-        ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-        hasAdd: false,
-        hasExport: false,
-      },
+      metadata: this.permissionService.getMetadataWithPermissions(
+        ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+      ),
       payload: { data: [], totalElements: 0 },
       payloadall: { data: [], totalElements: 0 },
       searchObject: initSearchObject({
@@ -81,6 +79,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
       }),
       searchObjectall: new SearchObject(),
     };
+
   }
 
 
@@ -141,11 +140,11 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
       this.params.nomenclatureData.payload = { data: [], totalElements: 0 };
 
-      this.params.nomenclatureData.metadata = {
+      /* this.params.nomenclatureData.metadata = {
         ...this.params.nomenclatureData.metadata,
         hasAdd: false,
         hasExport: false,
-      };
+      }; */
     }
   }
 
@@ -176,11 +175,11 @@ export class GestionNomenclature implements OnInit, OnDestroy {
               totalElements: data.length,
             };
 
-            this.params.nomenclatureData.metadata = {
+            /* this.params.nomenclatureData.metadata = {
               ...this.params.nomenclatureData.metadata,
               hasAdd: true,
               hasExport: true,
-            };
+            }; */
 
             this.cdr.detectChanges();
 
@@ -223,11 +222,11 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
 
 
-  onEditNomenclatureData(row: any) {
-    // this.router.navigate(['/app/nomenclature/edit', this.selectedNomTable, row.item.id]);
+  onEditTableNomenclatureData(row: any) {
+    this.router.navigate(['/app/paranomenc/gestNomenclature/edit', this.selectedNomTable, row.item.id]);
   }
 
-  onDeleteNomenclatureData(row: any) {
+  onDeleteTableNomenclatureData(row: any) {
     this.subscriptionsList.push(
       this.confirmDialogService.confirm('', 'general.delete_confirmation').subscribe((flag) => {
         if (flag && this.selectedNomTable) {
@@ -239,7 +238,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
     );
   }
 
-  onExportNomenclatureData(typeExport: any) {
+  onExportTableNomenclatureData(typeExport: any) {
     if (!this.selectedNomTable) return;
 
     const request: RequestObject = <RequestObject>{
