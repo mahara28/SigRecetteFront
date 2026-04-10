@@ -12,6 +12,7 @@ import { ListeNomenclatureMetadata, ParamNomenclatureMetadata } from '../paramet
 import { PARAM_NOMENCLATURE_URI } from '../parametrage-nomenclature.uri';
 import { PermissionService } from '../../../shared/gestion-permission/permission.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-gestion-nomenclature',
@@ -34,6 +35,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
     private permissionService: PermissionService,
     private cdr: ChangeDetectorRef,
     private router: Router,
+    private translate: TranslateService,
   ) {
 
   }
@@ -62,7 +64,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
       payload: [],
       payloadall: [],
       searchObject: initSearchObject({
-        sort: new Sort('ordrAffi', 'asc nulls last'),
+        sort: new Sort('ordrAffi', 'desc nulls last'),
       }),
       searchObjectall: new SearchObject(),
     };
@@ -74,6 +76,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         hasAdd: false,
         hasExport: false,
       },
+
       payload: { data: [], totalElements: 0 },
       payloadall: { data: [], totalElements: 0 },
       searchObject: initSearchObject({
@@ -98,7 +101,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         next: (response: ResponseObject) => {
           if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
 
-            this.formatIsActive(response.payload.data);
+            this.params(response.payload.data);
 
             this.params.paramNomenclature.payload = response.payload;
             this.params.paramNomenclature.payloadall = response.payload;
@@ -149,49 +152,48 @@ export class GestionNomenclature implements OnInit, OnDestroy {
     }
   }
 
-  loadNomenclatureData(nomTable: string) {
-    if (!nomTable) return;
-    const request: RequestObject = {
-      uri: PARAM_NOMENCLATURE_URI.DATA,
-      method: ConstanteWs._CODE_POST,
-      params: {
-        query: { nomTable },
+ loadNomenclatureData(nomTable: string) {
+  if (!nomTable) return;
+
+  const request: RequestObject = {
+    uri: PARAM_NOMENCLATURE_URI.DATA,
+    method: ConstanteWs._CODE_POST,
+    params: { query: { nomTable } },
+  };
+
+  this.subscriptionsList.push(
+    this.sharedService.commonWs(request).subscribe({
+      next: (response: ResponseObject) => {
+        if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
+
+          const data = (response.payload || []).map((item: any) => ({
+  ...item,
+  is_active:
+    item.is_active == 1
+      ? this.translate.instant('general.active')
+      : this.translate.instant('general.inactive'),
+}));
+
+
+          this.params.nomenclatureData.payload = { data, totalElements: data.length };
+          this.params.nomenclatureData.payloadall = { data, totalElements: data.length };
+
+          this.params.nomenclatureData.metadata = {
+            ...this.params.nomenclatureData.metadata,
+            hasAdd: true,
+            hasExport: true,
+          };
+
+          this.cdr.detectChanges();
+
+        } else {
+          this.toast.error();
+        }
       },
-    };
-
-    this.subscriptionsList.push(
-      this.sharedService.commonWs(request).subscribe({
-        next: (response: ResponseObject) => {
-          if (response.code === ConstanteWs._CODE_WS_SUCCESS) {
-
-            const data = response.payload || [];
-
-            this.params.nomenclatureData.payload = {
-              data,
-              totalElements: data.length,
-            };
-
-            this.params.nomenclatureData.payloadall = {
-              data,
-              totalElements: data.length,
-            };
-
-            this.params.nomenclatureData.metadata = {
-              ...this.params.nomenclatureData.metadata,
-              hasAdd: true,
-              hasExport: true,
-            };
-
-            this.cdr.detectChanges();
-
-          } else {
-            this.toast.error();
-          }
-        },
-        error: () => this.toast.error(),
-      })
-    );
-  }
+      error: () => this.toast.error(),
+    })
+  );
+}
   onPaginateNomenclatureData(event: any) {
     this.params.nomenclatureData.searchObject.pagination = event;
     if (this.selectedNomTable) this.loadNomenclatureData(this.selectedNomTable);
@@ -223,11 +225,11 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
 
 
-  onEditNomenclatureData(row: any) {
+  onEditTableNomenclatureData(row: any) {
     // this.router.navigate(['/app/nomenclature/edit', this.selectedNomTable, row.item.id]);
   }
 
-  onDeleteNomenclatureData(row: any) {
+  onDeleteTableNomenclatureData(row: any) {
     this.subscriptionsList.push(
       this.confirmDialogService.confirm('', 'general.delete_confirmation').subscribe((flag) => {
         if (flag && this.selectedNomTable) {
@@ -239,32 +241,27 @@ export class GestionNomenclature implements OnInit, OnDestroy {
     );
   }
 
-  onExportNomenclatureData(typeExport: any) {
-    if (!this.selectedNomTable) return;
+  onExportTableNomenclatureData(typeExport: any) {
+     const searcho: SearchObject = new SearchObject();
+        searcho.sort = new Sort('orderAffi', 'asc');
 
-    const request: RequestObject = <RequestObject>{
-      uri: PARAM_NOMENCLATURE_URI.DATA,
-      params: { query: { nomTable: this.selectedNomTable } },
-      method: ConstanteWs._CODE_POST,
-    };
+        searcho.language = AppTranslateService.getStoredLanguage();
+        searcho.typeExport = typeExport.item;
 
-    this.sharedService.exportWs(
-      request,
-      'FicheListeNomenclatureComponent/onExportNomenclatureData',
-    );
-  }
+        searcho.metadata = this.params['nomenclatureData'].metadata;
+
+        const request: RequestObject = <RequestObject>{
+          uri:PARAM_NOMENCLATURE_URI.EXPORT,
+          params: {
+            body: searcho,
+          },
+
+          method: ConstanteWs._CODE_POST,
+        };
+        this.sharedService.exportWs(request,           ' FicheListeNomenclatureComponent/onExportListeNomenclatureData');
+      }
+
 
   // ─── Utilitaires ─────────────────────────────────────────────────────────
-
-  private formatIsActive(data: any[]) {
-    const lang = AppTranslateService.getStoredLanguage();
-    for (const item of data) {
-      if (item['isActive'] == 1) {
-        item['isActive'] = lang === 'fr' ? 'Oui' : 'نعم';
-      } else {
-        item['isActive'] = lang === 'fr' ? 'Non' : 'لا';
-      }
-    }
-  }
 
 }

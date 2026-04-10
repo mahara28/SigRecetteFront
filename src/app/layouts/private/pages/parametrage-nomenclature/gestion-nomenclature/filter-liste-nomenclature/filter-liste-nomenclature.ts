@@ -60,8 +60,8 @@ export class FilterListeNomenclature implements OnInit, OnDestroy {
       method: ConstanteWs._CODE_POST,
       params: {
         body: initSearchObject({
-          pagination: new Pagination(0, 1000),
-          sort: new Sort('nomTable', 'asc'),
+           pagination: new Pagination(0, 1000),
+           sort: new Sort('ordrAffi', 'asc'),
           dataSearch: [],
         }),
       },
