@@ -55,8 +55,8 @@ export class Datatable {
         import: m.cardTooltips?.import ?? 'general.import',
         imprime: m.cardTooltips?.imprime ?? 'general.imprime',
       },
-      hasAdd: m.hasAdd ?? true,
-      hasExport: m.hasExport ?? true,
+      hasAdd: m.hasAdd ?? false,
+      hasExport: m.hasExport ?? false,
       hasFilter: m.hasFilter ?? true,
       hasImport: m.hasImport ?? false,
       hasShow: m.hasShow ?? false,
@@ -87,7 +87,7 @@ export class Datatable {
       row: { item, index },
     });
   }
-  
+
 
   protected readonly isEmptyValue = isEmptyValue;
 }

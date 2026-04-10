@@ -1,9 +1,7 @@
 <div class="cp5" fxLayout="row wrap">
   <div fxFlex="100" fxFlex.lt-md="100">
-    <mc-filter-liste-nomenclature
-      (selectNomenclature)="onSelectNomenclature($event)">
+    <mc-filter-liste-nomenclature (selectNomenclature)="onSelectNomenclature($event)">
     </mc-filter-liste-nomenclature>
-   
   </div>
 
   <div fxFlex="100" fxFlex.lt-md="100">
@@ -12,8 +10,8 @@
       [responsePayloadall]="params.nomenclatureData.payloadall"
       [metadata]="params.nomenclatureData.metadata"
       (onAction)="onAction(this, $event)"
-      (paginate)="onPaginateNomenclature($event)"
-      (sort)="onSortNomenclatures($event)"
+      (paginate)="onPaginateNomenclatureData($event)"
+      (sort)="onSortNomenclatureData($event)"
     >
     </mc-datatable>
   </div>

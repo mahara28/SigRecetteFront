@@ -2,20 +2,39 @@
   <form [formGroup]="form" *ngIf="!isEmptyValue(form)">
     <div fxFlex="100" fxLayout="column" fxLayoutAlign="space-between stretch">
       <div fxFlex="100" class="cp5" fxLayout="row wrap" fxLayoutAlign="start center">
-        <div fxFlex="25" fxFlex.lt-md="100">
+        <div fxFlex="20" fxFlex.lt-md="100">
           <mc-text-field
             max="50"
             [control]="getFormControl('code')"
             [label]="getLabel('code')"
           ></mc-text-field>
         </div>
-        <div fxFlex="30" fxFlex.lt-md="100">
+        <div fxFlex="20" fxFlex.lt-md="100">
           <mc-text-field
             max="50"
             [control]="getFormControl('codeLibe')"
             [label]="getLabel('codeLibe')"
           ></mc-text-field>
         </div>
+
+        <!-- Champ EXT 1 -->
+        <div fxFlex="20" fxFlex.lt-md="100" *ngIf="hasExtColumns() && extratData.coluExtFst">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl(extratData.coluExtFst)"
+            [label]="extratData?.codeLibeColuFst"
+          ></mc-text-field>
+        </div>
+
+        <!-- Champ EXT 2 -->
+        <div fxFlex="20" fxFlex.lt-md="100" *ngIf="hasExtColumns() && extratData?.coluExtSec">
+          <mc-text-field
+            max="50"
+            [control]="getFormControl(extratData.coluExtSec)"
+            [label]="extratData?.codeLibeColuSec"
+          ></mc-text-field>
+        </div>
+
         <div fxFlex="15" fxFlex.lt-md="100">
           <mc-text-field
             [number]="true"
@@ -25,7 +44,7 @@
           ></mc-text-field>
         </div>
 
-        <div fxFlex="25" fxFlex.lt-md="100" class="toggle-container">
+        <div fxFlex="15" fxFlex.lt-md="100" class="toggle-container">
           <div class="label-wrapper">
             <span class="font-weight-bold">
               {{ 'gestNomenclature.nomenclature.column.isActive' | translate }}

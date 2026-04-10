@@ -465,6 +465,12 @@
         "ordrAffi": "Ordre",
         "isActive": "Statut"
       }
+    },
+    "gouvernorat": {
+      "libe": "Gouvernorat"
+    },
+    "delegation": {
+      "codePost": "Code postal"
     }
   }
 }

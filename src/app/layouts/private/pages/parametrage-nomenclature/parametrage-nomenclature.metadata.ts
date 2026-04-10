@@ -68,9 +68,9 @@ export const ListeNomenclatureMetadata = {
     ref: 'TableNomenclatureData',
     title: 'gestNomenclature.nomenclature.title',
     hasPagination: true,
-    hasAdd: true,
+    hasAdd: false,
     hasFilter: true,
-    hasExport: true,
+    hasExport: false,
     hasImprime: false,
     columns: [
       {
@@ -106,10 +106,13 @@ export const ListeNomenclatureMetadata = {
         key: 'actions',
         type: COMMON_TYPES_CODES.ACTIONS,
         sortable: false,
-        style: { width: '13%', 'text-align': 'center', padding: '0 5px' },
-        btns: [Icons.details],
+        style: {
+          'text-align': 'center',
+          width: '8%',
+          padding: '0 5px',
+        },
+        btns: [Icons.edit, Icons.delete],
       },
-
     ],
   },
 
@@ -125,6 +128,16 @@ export const ListeNomenclatureMetadata = {
 
 export const NomenclatureAddMetadata = {
   title: 'gestNomenclature.add_nom',
+  labels: {
+    code: 'gestNomenclature.nomenclature.column.code',
+    codeLibe: 'gestNomenclature.nomenclature.column.codeLibe',
+    ordrAffi: 'gestNomenclature.nomenclature.column.ordrAffi',
+    isActive: 'gestNomenclature.nomenclature.column.isActive',
+  },
+};
+
+export const NomenclatureEditMetadata = {
+  title: 'gestNomenclature.update_nom',
   labels: {
     code: 'gestNomenclature.nomenclature.column.code',
     codeLibe: 'gestNomenclature.nomenclature.column.codeLibe',
