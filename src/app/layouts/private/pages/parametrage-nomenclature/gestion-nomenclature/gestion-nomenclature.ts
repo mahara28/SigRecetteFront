@@ -88,6 +88,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
 
   initListNomenclatures() {
+    this.cdr.detectChanges();
     const request: RequestObject = <RequestObject>{
       uri: PARAM_NOMENCLATURE_URI.DATA,
       params: {
@@ -105,7 +106,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
             this.params.paramNomenclature.payload = response.payload;
             this.params.paramNomenclature.payloadall = response.payload;
-            this.cdr.detectChanges();
+            //this.cdr.detectChanges();
           } else {
             console.error('Erreur initListNomenclatures', response.code);
             this.toast.error();
