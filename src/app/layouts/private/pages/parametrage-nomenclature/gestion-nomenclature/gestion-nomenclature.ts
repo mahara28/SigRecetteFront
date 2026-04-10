@@ -75,6 +75,7 @@ export class GestionNomenclature implements OnInit, OnDestroy {
         ...ListeNomenclatureMetadata.nomenclatureListTableMetadata,
         hasAdd: false,
         hasExport: false,
+        hasFilter: true,
       },
 
       payload: { data: [], totalElements: 0 },
@@ -178,11 +179,13 @@ export class GestionNomenclature implements OnInit, OnDestroy {
             this.params.nomenclatureData.payload = { data, totalElements: data.length };
             this.params.nomenclatureData.payloadall = { data, totalElements: data.length };
 
-            this.params.nomenclatureData.metadata = this.permissionService.getMetadataWithPermissions(
-              ListeNomenclatureMetadata.nomenclatureListTableMetadata,
-            ),
-
-              this.cdr.detectChanges();
+            this.params.nomenclatureData.metadata = {
+              ...this.permissionService.getMetadataWithPermissions(
+                ListeNomenclatureMetadata.nomenclatureListTableMetadata,
+              ),
+              hasFilter: true,
+            }
+            this.cdr.detectChanges();
 
           } else {
             this.toast.error();
