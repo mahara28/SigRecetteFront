@@ -3,5 +3,6 @@ export const PARAM_NOMENCLATURE_URI = {
   V_NOMENCLATURE_LIST_DATA: "parametrageNomenclatures/vdata",
   LIST: 'parametrageNomenclatures/data',
   DATA: 'dynamic-nomenclature/data',
+  DETAILS: "dynamic-nomenclature",
   ADD_NOMEN: 'dynamic-nomenclature/insert'
 };

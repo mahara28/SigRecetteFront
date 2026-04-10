@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { hasrequiredField, initSearchObject, isEmptyValue, onAction } from '../../../../../app-shared/tools';
-import { FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Pagination, RequestObject, SearchObject, Sort } from '../../../../../app-shared/models';
 import { Subscription } from 'rxjs';
 import { ConfirmDialogService, ToastService } from '../../../../../app-shared/services';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from '../../../../../app-shared/services/sharedWs/shared.service';
-import { NomenclatureAddMetadata } from '../parametrage-nomenclature.metadata';
+import { NomenclatureAddMetadata, NomenclatureEditMetadata } from '../parametrage-nomenclature.metadata';
 import { ConstanteWs } from '../../../../../app-shared/constantes/constante-ws';
 import { PARAM_NOMENCLATURE_URI } from '../parametrage-nomenclature.uri';
 import { ResponseObject } from '../../../../../app-shared/models/ResponseObject';
@@ -43,18 +43,12 @@ export class NomenclatureAddEditComponent implements OnInit {
     private router: Router,
     private toast: ToastService,
     private confirmDialogService: ConfirmDialogService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.initParams();
     this.loadExtratColu()
-    /* if (this.editMode) {
-      //this.form = this.initForm(res);
-      //this.title = NomenclatureEditMetadata.title;
-    } else {
-      this.title = NomenclatureAddMetadata.title;
-      this.form = this.initForm();
-    } */
   }
 
   ngOnDestroy() {
@@ -78,32 +72,88 @@ export class NomenclatureAddEditComponent implements OnInit {
   initForm(formData?: any) {
     let form: FormGroup;
     form = this.formBuilder.group({
-      id: this.formBuilder.control(formData?.id),
+      //id: this.formBuilder.control(formData?.id),
       code: this.formBuilder.control(formData?.code, Validators.required),
-      codeLibe: this.formBuilder.control(formData?.codeLibe, Validators.required),
-      ordrAffi: this.formBuilder.control(formData?.ordrAffi),
-      isActive: this.formBuilder.control(formData?.isActive || 0),
-
+      codeLibe: this.formBuilder.control(formData?.code_libe, Validators.required),
+      ordrAffi: this.formBuilder.control(formData?.ordr_affi),
+      isActive: this.formBuilder.control(formData?.is_active || 0),
     });
+    if (this.editMode) {
+      form.addControl(
+        "id",
+        this.formBuilder.control(formData?.id || null)
+      );
+    }
 
-    // Ajout dynamique des champs EXT
     if (this.extratData) {
       // EXT 1
       if (this.extratData.coluExtFst) {
         form.addControl(
           this.extratData.coluExtFst,
-          this.formBuilder.control(formData?.[this.extratData.coluExtFst] || null)
+          this.formBuilder.control(
+            formData?.[this.extratData.coluExtFst] ?? null,
+            this.getValidators(this.extratData.typeDonneeFst)
+          )
         );
       }
       // EXT 2
       if (this.extratData.coluExtSec) {
         form.addControl(
           this.extratData.coluExtSec,
-          this.formBuilder.control(formData?.[this.extratData.coluExtSec] || null)
+          this.formBuilder.control(
+            formData?.[this.extratData.coluExtSec] ?? null,
+            this.getValidators(this.extratData.typeDonneeSec)
+          )
         );
       }
     }
+
     return form;
+  }
+  getValidators(type: string): ValidatorFn[] {
+    switch (type) {
+      case 'int2':
+        return [
+          Validators.pattern(/^-?\d+$/),
+          Validators.min(-32768),
+          Validators.max(32767),
+        ];
+      case 'int4':
+      case 'integer':
+        return [
+          Validators.pattern(/^-?\d+$/),
+          Validators.min(-2147483648),
+          Validators.max(2147483647),
+        ];
+      case 'int8':
+      case 'bigint':
+        return [
+          Validators.pattern(/^-?\d+$/),
+        ];
+      case 'numeric':
+      case 'float4':
+      case 'float8':
+        return [
+          Validators.pattern(/^-?\d+(\.\d+)?$/),
+        ];
+      case 'boolean':
+        return [
+          Validators.pattern(/^(true|false|1|0)$/i),
+        ];
+      case 'date':
+        return [
+          Validators.pattern(/^\d{4}-\d{2}-\d{2}$/),
+        ];
+      case 'timestamp':
+      case 'timestamptz':
+        return [
+          Validators.pattern(/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?)?$/),
+        ];
+      default: // text, varchar
+        return [
+          Validators.maxLength(255),
+        ];
+    }
   }
 
   loadExtratColu() {
@@ -131,7 +181,18 @@ export class NomenclatureAddEditComponent implements OnInit {
           if (res.code === ConstanteWs._CODE_WS_SUCCESS) {
             console.log(res.payload.data)
             this.extratData = res.payload.data?.[0];
-            this.form = this.initForm();
+
+            if (this.editMode) {
+              this.initData().then((res: any) => {
+                this.form = this.initForm(res);
+                this.title = NomenclatureEditMetadata.title;
+              })
+            } else {
+              this.title = NomenclatureAddMetadata.title;
+              this.form = this.initForm();
+              this.cdr.markForCheck();
+            }
+
           } else {
             this.toast.error();
           }
@@ -146,6 +207,46 @@ export class NomenclatureAddEditComponent implements OnInit {
     return !!(this.extratData?.coluExtFst || this.extratData?.coluExtSec);
   }
 
+  initData() {
+    const request: RequestObject = <RequestObject>{
+      uri: PARAM_NOMENCLATURE_URI.DETAILS,
+      params: {
+        path: [this.id],
+        query: {
+          nomTable: this.selectedNomTable
+        }
+      },
+      method: ConstanteWs._CODE_GET,
+    };
+
+    return new Promise((resolve) => {
+      this.subscriptionsList.push(
+        this.sharedService.commonWs(request).subscribe({
+          next: (response: ResponseObject) => {
+            if (response.code == ConstanteWs._CODE_WS_SUCCESS) {
+              //this.userInfo = response.payload;
+              resolve(response.payload);
+            } else {
+              console.error(
+                `Error in UsersAddEditComponent/initUserDetails, error code :: ${response.code}`
+              );
+              this.toast.error();
+            }
+            this.cdr.markForCheck();
+          },
+          error: (error) => {
+            console.error(
+              `Error in UsersAddEditComponent/initUserDetails, error :: ${JSON.stringify(
+                error
+              )}`
+            );
+            this.toast.error();
+          },
+        })
+      );
+    });
+  }
+
   onSave() {
     console.log(this.form.value)
     this.form.markAllAsTouched();
@@ -157,21 +258,17 @@ export class NomenclatureAddEditComponent implements OnInit {
         this.confirmDialogService.confirm().subscribe((flag) => {
           if (flag) {
             const requestBody = {
-              nomTable: "gouvernorat",
+              nomTable: this.selectedNomTable,
               data: formValue,
             };
 
             const request: RequestObject = <RequestObject>{
-              uri: this.editMode
-                ? PARAM_NOMENCLATURE_URI.ADD_NOMEN
-                : PARAM_NOMENCLATURE_URI.ADD_NOMEN,
+              uri: PARAM_NOMENCLATURE_URI.ADD_NOMEN,
               params: {
                 body: requestBody
               },
 
-              method: this.editMode
-                ? ConstanteWs._CODE_PUT
-                : ConstanteWs._CODE_POST,
+              method: ConstanteWs._CODE_POST,
             };
 
             this.subscriptionsList.push(
