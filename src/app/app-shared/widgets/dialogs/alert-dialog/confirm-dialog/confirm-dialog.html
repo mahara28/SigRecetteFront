@@ -1,18 +1,19 @@
+<!-- Version sans checkbox -->
 <div *ngIf="!withcheckbox">
   <h1 mat-dialog-title>{{ title | translate }}</h1>
+
   <div mat-dialog-content>
-    <div style="color: red">{{ descriptionObjection }}</div>
+    <div>{{ descriptionObjection }}</div>
     {{ description | translate }}
   </div>
 
   <div mat-dialog-actions>
-    <button mat-raised-button [mat-dialog-close] (click)="respond(false)" class="annuler">
+    <button mat-raised-button [mat-dialog-close] (click)="respond(false)">
       {{ btn2Label | translate }}
     </button>
     <button
       *ngIf="showApprove == true"
       mat-raised-button
-      class="approuve"
       [mat-dialog-close]
       (click)="respond(true)"
     >
@@ -20,34 +21,38 @@
     </button>
   </div>
 </div>
+
+<!-- Version avec checkbox -->
 <div *ngIf="withcheckbox">
-  <h1 mat-dialog-title class="text-center" style="font-size: 80% !important">
+  <h1 mat-dialog-title class="text-center">
     {{ title | translate }}
   </h1>
+
   <div mat-dialog-content>
-    <div style="color: red">{{ descriptionObjection }}</div>
+    <div>{{ descriptionObjection }}</div>
     {{ description | translate }}
   </div>
-  <div style="color: red">
+
+  <div>
     <mat-checkbox #d>
       {{ labelchexbox | translate }}
     </mat-checkbox>
   </div>
+
   <div mat-dialog-actions>
-    <button mat-raised-button [mat-dialog-close] (click)="respond(false)">
+    <button mat-raised-button
+            class="annuler" [mat-dialog-close] (click)="respond(false)">
       {{ 'cancel' | translate }}
     </button>
-    <button
-      style="background-color: #0a4d6c !important"
-      color="primary"
-      mat-raised-button
+    <button mat-raised-button
+    class="approuve"
       [disabled]="!d.checked"
       [mat-dialog-close]
       (click)="respond(true)"
     >
       {{ 'general.approve' | translate }}
     </button>
-    <button color="primary" mat-flat-button>
+    <button class="reset-btn mx-2" mat-flat-button>
       <span>{{ 'general.save' | translate }}</span>
     </button>
   </div>

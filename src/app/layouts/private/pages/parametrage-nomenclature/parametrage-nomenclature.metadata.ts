@@ -145,3 +145,29 @@ export const NomenclatureEditMetadata = {
     isActive: 'gestNomenclature.nomenclature.column.isActive',
   },
 };
+
+export const NomenclatureDetailsMetadata = {
+  NomenclatureDetailMetadata: {
+    ref: 'NomenclatureDetails',
+    title: 'gestNomenclature.details',
+    columns: [
+      {
+        label: 'gestNomenclature.nomenclature.column.code',
+        key: 'code',
+      },
+      {
+        label: 'gestNomenclature.nomenclature.column.codeLibe',
+        key: 'code_libe',
+      },
+      {
+        label: 'gestNomenclature.nomenclature.column.ordrAffi',
+        key: 'ordr_affi',
+      },
+      {
+        label: 'gestNomenclature.nomenclature.column.isActive',
+        key: 'is_active',
+      }
+
+    ],
+  },
+};

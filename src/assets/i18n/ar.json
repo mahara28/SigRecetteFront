@@ -23,6 +23,8 @@
       "invalidIp": "عنوان IP غير صالح",
       "champ_vide": "الرجاء ملء جميع الحقول الإجبارية."
     },
+    "active": "نشط",
+    "inactive": "غير نشط",
     "delete_confirmation": "هل أنت متأكد من رغبتك في الحذف؟",
     "validate_confirmation": "هل أنت متأكد من رغبتك في المصادقة على التسجيل؟",
     "cancel_confirmation": "هل أنت متأكد من رغبتك في رفض التسجيل؟",
@@ -236,6 +238,10 @@
     "breadcrumb": "إدارة التسميات",
     "add_nom": "إضافة تسمية",
     "update_nom": "تعديل التسمية",
+    "details": "تفاصيل",
+    "filter": {
+      "title": "قائمة التسميات"
+    },
     "table": {
       "title": "قائمة التسميات",
       "columns": {
@@ -246,6 +252,7 @@
     },
     "form": {
       "labels": {
+        "nomTable": "التسمية",
         "code": "الرمز",
         "desFr": "الوصف",
         "desEn": "الوصف (EN)",
@@ -253,6 +260,15 @@
       },
       "errors": {
         "selectionner_menu": "يجب اختيار الوحدات"
+      }
+    },
+    "nomenclature": {
+      "title": "قائمة بيانات التسميات",
+      "column": {
+        "code": "الرمز",
+        "codeLibe": "الوصف",
+        "ordrAffi": "الترتيب",
+        "isActive": "الحالة"
       }
     }
 }

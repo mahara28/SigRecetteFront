@@ -1,0 +1,74 @@
+.custom-dialog-container mat-dialog-container {
+    display: block !important;
+    padding: 4px !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+    overflow: auto !important;
+    outline: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    min-height: inherit !important;
+    max-height: inherit !important;
+    border: 3px solid #00145f9c !important;
+}
+
+/* Styles des boutons */
+.custom-dialog-container .annuler {
+    background-color: #6c757d !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-dialog-container .annuler:hover {
+    background-color: #5a6268 !important;
+    transform: translateY(-1px) !important;
+}
+
+.custom-dialog-container .annuler:active {
+    transform: translateY(0) !important;
+}
+
+.custom-dialog-container .approuve {
+    background-color: #28a745 !important;
+    color: white !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-dialog-container .approuve:hover {
+    background-color: #218838 !important;
+    transform: translateY(-1px) !important;
+}
+
+.custom-dialog-container .approuve:active {
+    transform: translateY(0) !important;
+}
+
+.custom-dialog-container .reset-btn {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    border-radius: 4px !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.custom-dialog-container .reset-btn:hover {
+    background-color: #e0a800 !important;
+    transform: translateY(-1px) !important;
+}
+
+.custom-dialog-container .reset-btn:active {
+    transform: translateY(0) !important;
+}

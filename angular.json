@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "sigFront": {
+    "GestMaiisFront": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -76,10 +76,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "sigFront:build:production"
+              "buildTarget": "GestMaiisFront:build:production"
             },
             "development": {
-              "buildTarget": "sigFront:build:development"
+              "buildTarget": "GestMaiisFront:build:development"
             }
           },
           "defaultConfiguration": "development"

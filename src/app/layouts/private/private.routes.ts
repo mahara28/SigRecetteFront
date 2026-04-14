@@ -28,4 +28,10 @@ export const PrivateRoutes: Routes = [
     loadChildren: () =>
       import('./pages/parametrage-nomenclature/parametrage-nomenclature.module').then((m) => m.ParametrageNomenclatureModule),
   },
+  {
+    path: 'paramstat',
+    loadChildren: () =>
+      import('./pages/parametrage-statistique/parametrage-statistique-module').then((m) => m.ParametrageStatistiqueModule),
+  },
+
 ];

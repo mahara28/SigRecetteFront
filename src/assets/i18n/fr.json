@@ -23,6 +23,35 @@
       "invalidIp": "Adresse IP non valide",
       "champ_vide": "Veuillez remplir tous les champs obligatoires."
     },
+    "icons": {
+      "tooltip": {
+        "specific_delete": "Supprimer condition",
+        "specific_edit": "Modifier condition",
+        "descrip_file": "Fiche descriptive",
+        "download_doc": "Télécharger document",
+        "delete_item": "Supprimer élément",
+        "replace_item": "Remplacer élément",
+        "add": "Ajouter",
+        "add_item": "Ajouter élément",
+        "edit_item": "Modifier élément",
+        "open_details": "Détail plainte",
+        "show": "Afficher",
+        "payement": "Payer",
+        "validate": "Valider",
+        "realisation": "Réalisation",
+        "expand": "Détail",
+        "collapse": "Liste",
+        "calendar": "Calendrier ",
+        "block": "Suspendre",
+        "reactivate": "Réactiver",
+        "replace": "Remplacer",
+        "next": "Suivant",
+        "cancel": "Annuler",
+        "notify": "Notifier",
+        "history": "Historiques",
+        "liste_plainte": "Liste des Plaintes"
+      }
+    },
     "active": "Active",
     "inactive": "Inactive",
     "delete_confirmation": "Êtes-vous sûr de vouloir supprimer ?",
@@ -118,35 +147,7 @@
       "send": "Êtes-vous sûr de vouloir envoyer les données saisies ?",
       "rejeter": "Êtes-vous sûr de vouloir rejeter cette plainte ?"
     },
-    "icons": {
-      "tooltip": {
-        "specific_delete": "Supprimer condition",
-        "specific_edit": "Modifier condition",
-        "descrip_file": "Fiche descriptive",
-        "download_doc": "Télécharger document",
-        "delete_item": "Supprimer élément",
-        "replace_item": "Remplacer élément",
-        "add": "Ajouter",
-        "add_item": "Ajouter élément",
-        "edit_item": "Modifier élément",
-        "open_details": "Détail plainte",
-        "show": "Afficher",
-        "payement": "Payer",
-        "validate": "Valider",
-        "realisation": "Réalisation",
-        "expand": "Détail",
-        "collapse": "Liste",
-        "calendar": "Calendrier ",
-        "block": "Suspendre",
-        "reactivate": "Réactiver",
-        "replace": "Remplacer",
-        "next": "Suivant",
-        "cancel": "Annuler",
-        "notify": "Notifier",
-        "history": "Historiques",
-        "liste_plainte": "Liste des Plaintes"
-      }
-    },
+
 
     "notifications_panel": {
       "title": "Notifications",
@@ -368,7 +369,8 @@
     "perm_details": "Détails",
     "perm_export": "Exporter",
     "perm_import": "Importer",
-    "ParamNomenc": "Parametgrage nomenclatures"
+    "ParamNomenc": "Parametgrage nomenclatures",
+    "statistique": "Statistiques"
   },
   "activeStatus": "Actif",
   "inactiveStatus": "Inactif",
@@ -434,6 +436,7 @@
     "breadcrumb": "Gestion des nomenclatures",
     "add_nom": "Ajouter nomenclature",
     "update_nom": "Modifier nomenclature",
+    "details": "Details",
     "filter": {
       "title": "Liste des tables des nomenclatures"
     },

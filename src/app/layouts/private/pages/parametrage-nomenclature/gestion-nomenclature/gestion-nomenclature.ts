@@ -224,6 +224,10 @@ export class GestionNomenclature implements OnInit, OnDestroy {
 
   }
 
+  openDetailsTableNomenclatureData(row: any) {
+    this.router.navigate([
+  '/app/paranomenc/gestNomenclature/detail', this.selectedNomTable, row.item.id]);
+  }
 
 
   onEditTableNomenclatureData(row: any) {

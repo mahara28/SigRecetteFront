@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GestionNomenclature } from './gestion-nomenclature/gestion-nomenclature';
 import { NomenclatureAddEditComponent } from './nomenclature-add-edit/nomenclature-add-edit.component';
+import { NomenclatureDetails } from './nomenclature-details/nomenclature-details';
 
 const routes: Routes = [
   {
@@ -45,6 +46,14 @@ const routes: Routes = [
           title: 'gestNomenclature.update_nom',
           breadcrumb: 'gestNomenclature.update_nom',
           type: 'e',
+        },
+      },
+      {
+        path: 'detail/:nomTable/:id',
+        component: NomenclatureDetails,
+        data: {
+          title: "gestNomenclature.details",
+          breadcrumb: "gestNomenclature.details",
         },
       },
     ],

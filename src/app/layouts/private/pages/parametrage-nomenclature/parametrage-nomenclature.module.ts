@@ -8,11 +8,12 @@ import { FilterListeNomenclature } from './gestion-nomenclature/filter-liste-nom
 import { FlexLayoutModule } from '@ngbracket/ngx-layout';
 import { NomenclatureAddEditComponent } from './nomenclature-add-edit/nomenclature-add-edit.component';
 import { MatIcon } from "@angular/material/icon";
+import { NomenclatureDetails } from './nomenclature-details/nomenclature-details';
 
 
 
 @NgModule({
-  declarations: [GestionNomenclature, FilterListeNomenclature, NomenclatureAddEditComponent],
+  declarations: [GestionNomenclature, FilterListeNomenclature, NomenclatureAddEditComponent, NomenclatureDetails],
   imports: [
     CommonModule,
     ParametrageNomenclatureRoutingModule,
